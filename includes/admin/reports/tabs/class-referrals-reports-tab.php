@@ -97,6 +97,12 @@ class Tab extends Reports\Tab {
 				'order'        => 'ASC',
 			) );
 
+			$affiliate_name = affwp_get_affiliate_name( $this->affiliate_id );
+
+			if ( empty( $affiliate_name ) ) {
+				$affiliate_name = affwp_get_affiliate_username( $this->affiliate_id );
+			}
+
 			$this->register_tile( 'affiliate_total_earnings', array(
 				'label'           => __( 'Total Earnings (All Time)', 'affiliate-wp' ),
 				'type'            => 'amount',
@@ -104,7 +110,7 @@ class Tab extends Reports\Tab {
 				'data'            => affwp_get_affiliate_earnings( $this->affiliate_id ),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a>', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id )
+					$affiliate_name
 				),
 			) );
 
@@ -117,7 +123,7 @@ class Tab extends Reports\Tab {
 				'data'            => $total_unpaid_earnings ? $total_unpaid_earnings : __( 'None', 'affiliate-wp' ),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a>', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id )
+					$affiliate_name
 				),
 			) );
 
@@ -130,7 +136,7 @@ class Tab extends Reports\Tab {
 				) ),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a> | <a href="%3$s">%4$s</a>', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id ),
+					$affiliate_name,
 					esc_url( affwp_admin_url( 'payouts', array( 'affiliate_id' => $this->affiliate_id ) ) ),
 					__( 'View All', 'affiliate-wp' )
 				),
@@ -153,7 +159,7 @@ class Tab extends Reports\Tab {
 				'data'            => array_sum( $affiliate_referrals ) / count( $affiliate_referrals ),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a>', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id )
+					$affiliate_name
 				),
 			) );
 
@@ -168,7 +174,7 @@ class Tab extends Reports\Tab {
 				),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a> | %3$s', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id ),
+					$affiliate_name,
 					$this->get_date_comparison_label()
 				),
 			) );
@@ -183,7 +189,7 @@ class Tab extends Reports\Tab {
 				),
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a> | %3$s', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
-					affwp_get_affiliate_name( $this->affiliate_id ),
+					$affiliate_name,
 					$this->get_date_comparison_label()
 				),
 			) );
