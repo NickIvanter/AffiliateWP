@@ -75,6 +75,15 @@ abstract class Tab {
 	public $date_query = array();
 
 	/**
+	 * Affiliate to filter for (if set).
+	 *
+	 * @access public
+	 * @since  2.1
+	 * @var    int
+	 */
+	public $affiliate_id = 0;
+
+	/**
 	 * Sets up Reports tabs.
 	 *
 	 * @access private
@@ -406,4 +415,48 @@ abstract class Tab {
 		}
 		return $label;
 	}
+
+	/**
+	 * Sets up additional graph filters for the Affiliates tab in Reports.
+	 *
+	 * @access public
+	 * @since  2.1
+	 */
+	public function set_up_additional_filters() {
+
+		// Retrieve the affiliate ID if the filter is set.
+		if ( ! empty( $_GET['affiliate_login'] ) ) {
+			$username = sanitize_text_field( $_GET['affiliate_login'] );
+
+			if ( $affiliate = affwp_get_affiliate( $username ) ) {
+				$this->affiliate_id = $affiliate->ID;
+			}
+		}
+
+		// Allow extra filters to be added by letting the Tab class render the form wrapper itself.
+		$this->graph->set( 'form_wrapper', false );
+
+		// Register the single affiliate filter.
+		add_action( "affwp_reports_{$this->tab_id}_nav", array( $this, 'affiliate_filter' ), 10 );
+	}
+
+	/**
+	 * Adds a single affiliate filter field to the Affiliates tab in Reports.
+	 *
+	 * @since 2.1
+	 */
+	public function affiliate_filter() {
+		$affiliate_login = ! empty( $_GET['affiliate_login'] ) ? sanitize_text_field( $_GET['affiliate_login'] ) : '';
+
+		// Only keep the currently-filtered affiliate if it's valid.
+		if ( false === affwp_get_affiliate( $affiliate_login ) ) {
+			$affiliate_login = '';
+		}
+		?>
+		<span class="affwp-ajax-search-wrap">
+			<input type="text" name="affiliate_login" id="user_name" class="affwp-user-search" value="<?php echo esc_attr( $affiliate_login ); ?>" data-affwp-status="any" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
+		</span>
+		<?php
+	}
+
 }

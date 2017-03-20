@@ -25,6 +25,8 @@ class Tab extends Reports\Tab {
 		$this->graph    = new \Affiliate_WP_Registrations_Graph;
 
 		parent::__construct();
+
+		$this->graph->set( 'form_wrapper', false );
 	}
 
 	/**

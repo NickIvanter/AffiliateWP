@@ -24,6 +24,8 @@ class Tab extends Reports\Tab {
 		$this->priority = 0;
 		$this->graph    = new \Affiliate_WP_Visits_Graph;
 
+		$this->set_up_additional_filters();
+
 		parent::__construct();
 	}
 
