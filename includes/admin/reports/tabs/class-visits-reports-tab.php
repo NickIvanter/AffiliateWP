@@ -168,7 +168,21 @@ class Tab extends Reports\Tab {
 	 */
 	public function top_referrer_tile() {
 
-		$affiliate_id = $this->affiliate_id ? $this->affiliate_id : 0;
+		$affiliate_id = 0;
+
+		if ( $this->affiliate_id ) {
+			$affiliate_link = affwp_admin_url( 'visits', array(
+				'affiliate' => $this->affiliate_id,
+			) );
+
+			$affiliate_name = affwp_get_affiliate_name( $this->affiliate_id );
+
+			if ( empty( $affiliate_name ) ) {
+				$affiliate_name = affwp_get_affiliate_username( $this->affiliate_id );
+			}
+
+			$affiliate_id = $this->affiliate_id;
+		}
 
 		// Top Referrer.
 		$referrers = affiliate_wp()->visits->get_visits( array(
