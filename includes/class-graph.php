@@ -404,7 +404,7 @@ class Affiliate_WP_Graph {
 		<input type="hidden" name="action" value="view_affiliate"/>
 		<?php endif; ?>
 
-		<select id="affwp-graphs-date-options" name="range">
+		<select id="affwp-graphs-date-options" class="affwp-graphs-date-options" name="range">
 		<?php
 			foreach ( $date_options as $key => $option ) {
 				echo '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $dates['range'] ) . '>' . esc_html( $option ) . '</option>';
