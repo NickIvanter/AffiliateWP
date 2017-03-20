@@ -44,6 +44,13 @@ class Tests extends UnitTestCase {
 	}
 
 	/**
+	 * @covers \Affiliate_WP_Utilities::$logs
+	 */
+	public function test_logs_should_be_an_Affiliate_WP_Logging_instance() {
+		$this->assertInstanceOf( 'Affiliate_WP_Logging', self::$utils->logs );
+	}
+
+	/**
 	 * @covers \Affiliate_WP_Utilities::$batch
 	 */
 	public function test_batch_should_be_an_AffWP_Utils_Batch_Process_Registry_instance() {

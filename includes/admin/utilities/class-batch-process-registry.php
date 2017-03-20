@@ -151,8 +151,13 @@ class Registry {
 			return new \WP_Error( 'invalid_batch_class', __( 'A batch process class must be specified.', 'affiliate-wp' ) );
 		}
 
-		if ( empty( $process_args['file'] ) || 0 !== validate_file( $process_args['file'] ) ) {
-			return new \WP_Error( 'invalid_batch_class_file', __( 'An invalid class handler file has been supplied.', 'affiliate-wp' ) );
+		if ( empty( $process_args['file'] ) ) {
+			return new \WP_Error( 'missing_batch_class_file', __( 'No batch class handler file has been supplied.', 'affiliate-wp' ) );
+		}
+
+		// 2 if Windows path.
+		if ( ! in_array( validate_file( $process_args['file'] ), array( 0, 2 ), true ) ) {
+			return new \WP_Error( 'invalid_batch_class_file', __( 'An invalid batch class handler file has been supplied.', 'affiliate-wp' ) );
 		}
 
 		return $this->add_process( $batch_id, $process_args );

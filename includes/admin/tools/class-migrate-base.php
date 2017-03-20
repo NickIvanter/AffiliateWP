@@ -17,36 +17,23 @@ class Affiliate_WP_Migrate_Base {
 	 * @access  public
 	 * @since   1.8.8
 	 * @var     Affiliate_WP_Logging
+	 * @deprecated 2.0.2
 	 */
 	public $logs;
-
-	/**
-	 * Instantiates the migration script.
-	 *
-	 * @access public
-	 * @since  2.0
-	 */
-	public function __construct() {
-		$this->debug = (bool) affiliate_wp()->settings->get( 'debug_mode', false );
-
-		if( $this->debug ) {
-			$this->logs = new Affiliate_WP_Logging;
-		}
-	}
 
 	/**
 	 * Writes a log message.
 	 *
 	 * @access public
 	 * @since  1.8.8
+	 * @deprecated 2.0.2 Use affiliate_wp()->utils->log() instead.
 	 *
-	 * @param string $message Optional. Message to log. Default empty.
+	 * @see affiliate_wp()->utils->log()
 	 */
 	public function log( $message = '' ) {
+		_deprecated_function( __METHOD__, '2.0.2', 'affiliate_wp()->utils->log()' );
 
-		if ( $this->debug ) {
-			$this->logs->log( $message );
-		}
+		affiliate_wp()->utils->log( $message );
 	}
 
 	public function process( $step = 1, $part = '' ) {

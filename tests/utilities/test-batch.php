@@ -130,14 +130,14 @@ class Tests extends UnitTestCase {
 	/**
 	 * @covers \AffWP\Utils\Batch_Process\Registry::register_process()
 	 */
-	public function test_register_process_with_empty_file_process_arg_should_return_WP_Error_with_invalid_batch_class_file_error_code() {
+	public function test_register_process_with_empty_file_process_arg_should_return_WP_Error_with_missing_batch_class_file_error_code() {
 		$result = self::$utils->batch->register_process( self::$batch_id, array(
 			'class' => 'Affiliate_WP',
 		) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'An invalid class handler file has been supplied.', $result->get_error_message() );
-		$this->assertSame( 'invalid_batch_class_file', $result->get_error_code() );
+		$this->assertSame( 'No batch class handler file has been supplied.', $result->get_error_message() );
+		$this->assertSame( 'missing_batch_class_file', $result->get_error_code() );
 	}
 
 	/**
@@ -157,11 +157,24 @@ class Tests extends UnitTestCase {
 	public function test_register_process_with_invalid_file_process_arg_should_return_WP_Error_with_invalid_batch_class_file_error_code() {
 		$result = self::$utils->batch->register_process( self::$batch_id, array(
 			'class' => 'Affiliate_WP',
+			'file' => AFFILIATEWP_PLUGIN_DIR . '../affiliate-wp.php',
 		) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'An invalid class handler file has been supplied.', $result->get_error_message() );
+		$this->assertSame( 'An invalid batch class handler file has been supplied.', $result->get_error_message() );
 		$this->assertSame( 'invalid_batch_class_file', $result->get_error_code() );
+	}
+
+	/**
+	 * @covers \AffWP\Utils\Batch_Process\Registry::register_process()
+	 */
+	public function test_register_process_with_valid_file_process_arg_containing_colon_should_return_true() {
+		$result = self::$utils->batch->register_process( self::$batch_id, array(
+			'class' => 'Affiliate_WP',
+			'file'  => 'C:\\affiliate-wp.php',
+		) );
+
+		$this->assertTrue( $result );
 	}
 
 	/**

@@ -351,7 +351,7 @@ jQuery(document).ready(function($) {
 
 	$.extend({
 		isArray: function (arr){
-			if (typeof arr == 'object'){
+			if (arr && typeof arr == 'object'){
 				if (arr.constructor == Array){
 					return true;
 				}

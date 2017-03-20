@@ -1,13 +1,10 @@
 <?php
-$referral = affwp_get_referral( absint( $_GET['referral_id'] ) );
+$referral  = affwp_get_referral( absint( $_GET['referral_id'] ) );
+$payout    = affwp_get_payout( $referral->payout_id );
+$visit     = affwp_get_visit( $referral->visit_id );
+$affiliate = affwp_get_affiliate( $referral->affiliate_id );
 
-$payout = affwp_get_payout( $referral->payout_id );
-
-$disabled    = disabled( (bool) $payout, true, false );
-$payout_link = affwp_admin_url( 'payouts', array(
-	'action'    => 'view_payout',
-	'payout_id' => $payout ? $payout->ID : 0
-) );
+$disabled = disabled( (bool) $payout, true, false );
 
 ?>
 <div class="wrap">
@@ -31,39 +28,101 @@ $payout_link = affwp_admin_url( 'payouts', array(
 			<tr class="form-row form-required">
 
 				<th scope="row">
-					<label for="affiliate_id"><?php _e( 'Affiliate ID', 'affiliate-wp' ); ?></label>
+					<label for="referral_id"><?php _e( 'Referral ID', 'affiliate-wp' ); ?></label>
 				</th>
 
 				<td>
-					<input class="small-text" type="text" name="affiliate_id" id="affiliate_id" value="<?php echo esc_attr( $referral->affiliate_id ); ?>" disabled="disabled"/>
-					<p class="description"><?php _e( 'The ID of the affiliate who generated this referral. This value cannot be changed.', 'affiliate-wp' ); ?></p>
+					<input class="small-text" type="text" name="referral_id" id="referral_id" value="<?php echo esc_attr( $referral->ID ); ?>" disabled="disabled"/>
+					<p class="description"><?php _e( 'The referral ID. This cannot be changed.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
 
-			<?php if ( $payout ) : ?>
-				<tr class="form-row form-required">
+			<tr class="form-row form-required">
 
-					<th scope="row">
-						<label for="payout_id"><?php _e( 'Payout ID', 'affiliate-wp' ); ?></label>
-					</th>
+				<th scope="row">
+					<label for="affiliate"><?php _e( 'Affiliate', 'affiliate-wp' ); ?></label>
+				</th>
 
-					<td>
-						<input class="small-text" type="text" name="payout_id" id="affiliate_id" value="<?php echo esc_attr( $payout->ID ); ?>" disabled="disabled"/>
+				<td>
+					<p>
 						<?php
-						/* translators: 1: View payout link, 2: payout amount */
-						printf( __( '%1$s | Total: %2$s', 'affiliate-wp'),
-							sprintf( '<a href="%1$s">%2$s</a>',
-								esc_url( $payout_link ),
-								esc_html_x( 'View', 'payout', 'affiliate-wp' )
-							),
-							affwp_currency_filter( affwp_format_amount( $payout->amount ) )
-						)
-						?>
-					</td>
+						$affiliate_name = affiliate_wp()->affiliates->get_affiliate_name( $affiliate->ID );
 
-				</tr>
-			<?php endif; ?>
+						if ( $affiliate && $affiliate_name ) {
+							/* translators: 1: Affiliate link, 2: Affiliate ID */
+							printf( __( '%1$s (ID: #%2$s)', 'affiliate-wp' ),
+								affwp_admin_link( 'affiliates', $affiliate_name, array(
+									'action'       => 'view_affiliate',
+									'affiliate_id' => $affiliate->ID
+								) ),
+								esc_html( $affiliate->ID )
+							);
+						} else {
+							esc_html_e( '(user deleted)', 'affiliate-wp' );
+						}
+
+						?>
+					</p>
+					<p class="description"><?php _e( 'The name and ID of the affiliate who generated this referral. This association cannot be changed.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row form-required">
+
+				<th scope="row">
+					<label for="payout"><?php _e( 'Payout', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<?php if ( $payout ) : ?>
+
+						<p>
+							<?php
+							/* translators: 1: Payout total amount with view link */
+							$payout_total_link = sprintf( __( 'Total: %1$s', 'affiliate-wp' ),
+								affwp_admin_link( 'payouts', affwp_currency_filter( affwp_format_amount( $payout->amount ) ), array(
+									'action'    => 'view_payout',
+									'payout_id' => $payout->ID
+								) )
+							);
+
+							/* translators: 1: Payout link with total, 2: Payout ID */
+							printf( __( '%1$s (ID: #%2$s)', 'affiliate-wp' ),
+								$payout_total_link,
+								esc_html( $payout->ID )
+							);
+							?>
+						</p>
+
+					<?php else : ?>
+
+						<p>
+							<?php
+							if ( in_array( $referral->status, array( 'pending', 'unpaid' ), true ) ) {
+
+								/* translators: 1: Pay Out action link */
+								printf( __( 'None | %1$s', 'affiliate-wp' ),
+									affwp_admin_link( 'referrals', __( 'Pay Out', 'affiliate-wp' ), array(
+										'referral_id'  => $referral->ID,
+										'action'       => 'mark_as_paid',
+										'_wpnonce'     => wp_create_nonce( 'referral-nonce' ),
+										'affwp_notice' => 'payout_created',
+									) )
+								);
+
+							} else {
+								esc_html_e( 'None', 'affiliate-wp' );
+							}
+							?>
+						</p>
+
+					<?php endif; ?>
+
+				</td>
+
+			</tr>
 
 			<tr class="form-row form-required">
 
@@ -90,6 +149,50 @@ $payout_link = affwp_admin_url( 'payouts', array(
 
 				<td>
 					<input type="text" name="date" id="date" value="<?php echo esc_attr( date_i18n( get_option( 'date_format' ), strtotime( $referral->date ) ) ); ?>" disabled="disabled" />
+				</td>
+
+			</tr>
+
+			<tr class="form-row form-required">
+
+				<th scope="row">
+					<label for="visit"><?php _e( 'Visit', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<?php if ( $visit ) : ?>
+
+						<p>
+							<?php
+							if ( empty( $visit->url ) ) {
+								$visit_link = __( 'None', 'affiliate-wp' );
+							} else {
+								$visit_link = make_clickable( esc_url( $visit->url ) );
+							}
+
+							/* translators: 1: Visit link, 2: Visit ID */
+							printf( __( 'URL: %1$s (ID: #%2$s)', 'affiliate-wp' ),
+								$visit_link,
+								esc_html( $visit->ID )
+							);
+							?>
+						</p>
+
+						<p>
+							<?php
+							/* translators: 1: Visit date */
+							printf( _x( 'Date: %1$s (%2$s)', 'visit', 'affiliate-wp' ),
+								date_i18n( get_option( 'date_format' ), strtotime( $visit->date ) ),
+								date_i18n( get_option( 'time_format' ), strtotime( $visit->date ) )
+							);
+							?>
+						</p>
+
+					<?php else : ?>
+
+						<?php _ex( 'None', 'visit', 'affiliate-wp' ); ?>
+
+					<?php endif; ?>
 				</td>
 
 			</tr>

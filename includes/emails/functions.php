@@ -112,13 +112,13 @@ function affwp_email_tag_promo_method( $affiliate_id = 0 ) {
  * Email template tag: affwp_email_tag_rejection_reason
  * The affiliate rejection reason
  *
- * @param int $affiliate_id
+ * @param int $affiliate_id Affiliate ID.
  * @return string rejection_reason
  */
-function affwp_email_tag_rejection_reason( $affiliate_id = 0 ) {
+function affwp_email_tag_rejection_reason( $affiliate_id ) {
 	$reason = affwp_get_affiliate_meta( $affiliate_id, '_rejection_reason', true );
 	if( empty( $reason ) ) {
-		$reason = __( 'No reason provided', 'affiliate-wp' );
+		$reason = '';
 	}
 	return $reason;
 }

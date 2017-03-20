@@ -41,6 +41,7 @@ function affwp_visits_contextual_help() {
 			'<p>' . __( "<strong>Referring URL</strong>: this is the source URL of the affiliate link. It is the web page that the visitor found a link to your site on.", 'affiliate-wp' ) . '</p>' .
 			'<p>' . __( "<strong>Affiliate</strong>: this the affiliate that the visit was attributed to.", 'affiliate-wp' ) . '</p>' .
 			'<p>' . __( "<strong>Referral ID</strong>: this is the ID of the referral that was created from this visit, if any.", 'affiliate-wp' ) . '</p>' .
+			'<p>' . __( "<strong>Context</strong>: this is the context of how the visit was generated, if set.", 'affiliate-wp' ) . '</p>' .
 			'<p>' . __( "<strong>IP</strong>: this is the IP address of the visitor.", 'affiliate-wp' ) . '</p>' .
 			'<p>' . __( "<strong>Converted</strong>: this is a Yes / No status for whether the visit turned into a successful converstion.", 'affiliate-wp' ) . '</p>'
 	) );
@@ -55,6 +56,7 @@ function affwp_visits_contextual_help() {
 				<li>' . __( 'You can enter a complete URL to find all visits that landed on or came from a specific URL', 'affiliate-wp' ) . '</li>
 				<li>' . __( 'You can enter a partial URL to find all visits that landed on or came from a specific site', 'affiliate-wp' ) . '</li>
 				<li>' . __( 'You can enter the referral&#8217;s ID number prefixed by &#8220;referral:&#8221;', 'affiliate-wp' ) . '</li>
+				<li>' . __( 'You can enter a visit context prefixed by &#8220;context:&#8221;', 'affiliate-wp' ) . '</li>
 				<li>' . __( 'You can enter the affiliate&#8217;s ID number prefixed by &#8220;affiliate:&#8221;', 'affiliate-wp' ) . '</li>
 				<li>' . __( 'You can enter a URL campaign prefixed by &#8220;campaign:&#8221;', 'affiliate-wp' ) . '</li>
 			</ul>'

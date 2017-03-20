@@ -29,6 +29,26 @@ class Tests extends UnitTestCase {
 	}
 
 	/**
+	 * @covers Affiliate_WP_Creatives_DB::__construct()
+	 */
+	public function test_creatives_network_wide_table_name_should_be_affiliate_wp_creatives() {
+		if ( defined( 'AFFILIATE_WP_NETWORK_WIDE' ) && AFFILIATE_WP_NETWORK_WIDE ) {
+			$this->assertEquals( 'affiliate_wp_creatives', affiliate_wp()->creatives->table_name );
+		}
+	}
+
+	/**
+	 * @covers Affiliate_WP_Creatives_DB::__construct()
+	 */
+	public function test_creatives_not_network_wide_table_name_should_be_prefix_affiliate_wp_creatives() {
+		if ( ! defined( 'AFFILIATE_WP_NETWORK_WIDE' ) ) {
+			global $wpdb;
+
+			$this->assertEquals( $wpdb->prefix . 'affiliate_wp_creatives', affiliate_wp()->creatives->table_name );
+		}
+	}
+
+	/**
 	 * @covers \Affiliate_WP_Creatives_DB::$cache_group
 	 */
 	public function test_cache_group_should_be_creatives() {
@@ -253,4 +273,48 @@ class Tests extends UnitTestCase {
 
 		$this->assertEqualSets( self::$creatives, $results );
 	}
+
+	/**
+	 * @covers \Affiliate_WP_Creatives_DB::count()
+	 */
+	public function test_count_should_count_creatives() {
+		$this->assertSame( 4, affiliate_wp()->creatives->count() );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Creatives_DB::count()
+	 */
+	public function test_count_with_args_should_count_those_creatives() {
+		$original_creative = affwp_get_creative( self::$creatives[0] );
+
+		affwp_update_creative( array(
+			'creative_id' => self::$creatives[0],
+			'status'      => 'foo'
+		) );
+
+		$this->assertSame( 1, affiliate_wp()->creatives->count( array( 'status' => 'foo' ) ) );
+
+		// Clean up.
+		affwp_update_creative( array(
+			'creative_id' => self::$creatives[0],
+			'status'      => $original_creative->status
+		) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Creatives_DB::add()
+	 */
+	public function test_add_should_always_return_the_creative_id() {
+		$result = affiliate_wp()->creatives->add( array(
+			'these' => 'args',
+			'are'   => 'absurd',
+		) );
+
+		$this->assertNotFalse( $result );
+		$this->assertTrue( is_numeric( $result ) );
+
+		// Clean up.
+		affwp_delete_creative( $result );
+	}
+
 }

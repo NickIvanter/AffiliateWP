@@ -204,11 +204,18 @@ class Generate_Payouts extends Batch\Export\CSV implements Batch\With_PreFetch {
 	 * @return array The list of CSV columns.
 	 */
 	public function csv_cols() {
-		return array(
+		/**
+		 * Filters the list of CSV columns used when generating payout logs.
+		 *
+		 * @since 2.0.2
+		 *
+		 * @param array $columns CSV columns. Default 'email', 'amount', and 'currency'.
+		 */
+		return apply_filters( 'affwp_batch_generate_payouts_csv_cols', array(
 			'email'    => __( 'Email', 'affiliate-wp' ),
 			'amount'   => __( 'Amount', 'affiliate-wp' ),
 			'currency' => __( 'Currency', 'affiliate-wp' ),
-		);
+		) );
 	}
 
 	/**
@@ -250,7 +257,23 @@ class Generate_Payouts extends Batch\Export\CSV implements Batch\With_PreFetch {
 			) );
 		}
 
-		return $data;
+		/**
+		 * Filters the data retrieved for a single generated payout during batch processing.
+		 *
+		 * @since 2.0.2
+		 *
+		 * @param array $data {
+		 *     Payout data.
+		 *
+		 *     @type string $email    Affiliate payment email.
+		 *     @type float  $amount   Payout amount.
+		 *     @type string $currency Payout currency.
+		 * }
+		 * @param int   $affiliate_id Current affiliate ID.
+		 * @param array $payouts      Compiled payouts and referrals data where the keys are affiliate
+		 *                            IDs and values arrays of referral data.
+		 */
+		return apply_filters( 'affwp_batch_generate_payouts_get_data', $data, $affiliate_id, $payouts );
 	}
 
 	/**

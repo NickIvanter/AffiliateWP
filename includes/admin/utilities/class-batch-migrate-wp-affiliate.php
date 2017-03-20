@@ -152,7 +152,7 @@ class Migrate_WP_Affiliate extends Utils\Batch_Process implements Batch\With_Pre
 						'first_name' => $affiliate->firstname,
 						'last_name'  => $affiliate->lastname,
 						'user_url'   => $affiliate->website,
-						'user_pass'  => generate_random_password( 20 ),
+						'user_pass'  => wp_generate_password( 20 ),
 						'user_login' => $affiliate->email,
 					) );
 

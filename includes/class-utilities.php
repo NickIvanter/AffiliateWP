@@ -36,6 +36,24 @@ class Affiliate_WP_Utilities {
 	public $upgrades;
 
 	/**
+	 * Logger class instance.
+	 *
+	 * @access public
+	 * @since  2.0.2
+	 * @var    \Affiliate_WP_Logging
+	 */
+	public $logs;
+
+	/**
+	 * Signifies whether debug mode is enabled.
+	 *
+	 * @access protected
+	 * @since  2.0.2
+	 * @var    bool
+	 */
+	public $debug_enabled;
+
+	/**
 	 * Instantiates the utilities class.
 	 *
 	 * @access public
@@ -53,6 +71,7 @@ class Affiliate_WP_Utilities {
 	 * @since  2.0
 	 */
 	public function includes() {
+		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/class-logging.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-batch-process-registry.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-data-storage.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/class-upgrades.php';
@@ -65,12 +84,30 @@ class Affiliate_WP_Utilities {
 	 * @since  2.0
 	 */
 	public function setup_objects() {
+		// Set the debug flag.
+		$this->debug_enabled = affiliate_wp()->settings->get( 'debug_mode', false );
+
+		$this->logs     = new Affiliate_WP_Logging;
 		$this->batch    = new Utils\Batch_Process\Registry;
 		$this->upgrades = new Affiliate_WP_Upgrades( $this );
 		$this->data     = new Utils\Data_Storage;
 
 		// Initialize batch registry after loading the upgrades class.
 		$this->batch->init();
+	}
+
+	/**
+	 * Writes a debug log entry.
+	 *
+	 * @access public
+	 * @since  2.0.2
+	 *
+	 * @param string $message Message to write to the debug log.
+	 */
+	public function log( $message = '' ) {
+		if ( $this->debug_enabled ) {
+			$this->logs->log( $message );
+		}
 	}
 
 	/**

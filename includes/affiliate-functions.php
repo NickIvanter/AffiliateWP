@@ -993,7 +993,7 @@ function affwp_decrease_affiliate_visit_count( $affiliate = 0 ) {
  * @since 1.0
  *
  * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
- * @return float|false The affiliate's conversion rate, otherwise false.
+ * @return string|false The affiliate's conversion rate, otherwise false.
  */
 function affwp_get_affiliate_conversion_rate( $affiliate = 0 ) {
 
@@ -1011,18 +1011,20 @@ function affwp_get_affiliate_conversion_rate( $affiliate = 0 ) {
 	$visits = affwp_get_affiliate_visit_count( $affiliate->ID );
 
 	if ( $visits > 0 ) {
-		$rate = round( ( $referrals / $visits ) * 100, 2 );
+		$rate = $referrals / $visits;
 	}
+
+	$rate = affwp_format_rate( $rate );
 
 	/**
 	 * Filters the conversion rate.
 	 *
 	 * @since 1.0
 	 *
-	 * @param float $rate         Formatted conversion rate.
-	 * @param int   $affiliate_id Affiliate ID.
+	 * @param string $rate         Formatted conversion rate.
+	 * @param int    $affiliate_id Affiliate ID.
 	 */
-	return apply_filters( 'affwp_get_affiliate_conversion_rate', $rate . '%', $affiliate->ID );
+	return apply_filters( 'affwp_get_affiliate_conversion_rate', $rate, $affiliate->ID );
 
 }
 
@@ -1040,7 +1042,10 @@ function affwp_get_affiliate_campaigns( $affiliate = 0 ) {
 		return false;
 	}
 
-	$campaigns = affiliate_wp()->campaigns->get_campaigns( $affiliate->ID );
+	$campaigns = affiliate_wp()->campaigns->get_campaigns( array(
+		'affiliate_id' => $affiliate->ID,
+		'number'       => 100,
+	) );
 
 	/**
 	 * Filters the list of campaigns associated with an affiliate.
@@ -1327,7 +1332,8 @@ function affwp_get_affiliate_referral_url( $args = array() ) {
 
 	$url_scheme      = isset( $url_parts['scheme'] ) ? $url_parts['scheme'] : 'http';
 	$url_host        = isset( $url_parts['host'] ) ? $url_parts['host'] : '';
-	$constructed_url = $url_scheme . '://' . $url_host . $url_parts['path'];
+	$url_path        = isset( $url_parts['path'] ) ? $url_parts['path'] : '';
+	$constructed_url = $url_scheme . '://' . $url_host . $url_path;
 	$base_url        = $constructed_url;
 
 	// set up URLs

@@ -31,6 +31,7 @@ abstract class Affiliate_WP_Base {
 	 *
 	 * @access  public
 	 * @since   1.8
+	 * @deprecated 2.0.2
 	 */
 	public $logs;
 
@@ -41,13 +42,6 @@ abstract class Affiliate_WP_Base {
 	 * @since   1.0
 	 */
 	public function __construct() {
-
-		$this->debug = (bool) affiliate_wp()->settings->get( 'debug_mode', false );
-
-		if( $this->debug ) {
-			$this->logs = new Affiliate_WP_Logging;
-		}
-
 		$this->affiliate_id = affiliate_wp()->tracking->get_affiliate_id();
 
 		$this->init();
@@ -95,27 +89,21 @@ abstract class Affiliate_WP_Base {
 
 		if ( ! (bool) apply_filters( 'affwp_integration_create_referral', true, array( 'affiliate_id' => $this->affiliate_id, 'amount' => $amount, 'reference' => $reference, 'description' => $description, 'products' => $products, 'data' => $data ) ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Referral not created because integration is disabled via filter' );
-			}
+			affiliate_wp()->utils->log( 'Referral not created because integration is disabled via filter' );
 
 			return false; // Allow extensions to prevent referrals from being created
 		}
 
 		if ( affiliate_wp()->referrals->get_by( 'reference', $reference, $this->context ) ) {
 
-			if( $this->debug ) {
-				$this->log( sprintf( 'Referral for Reference %s already created', $reference ) );
-			}
+			affiliate_wp()->utils->log( sprintf( 'Referral for Reference %s already created', $reference ) );
 
 			return false; // Referral already created for this reference
 		}
 
 		if ( empty( $amount ) && affiliate_wp()->settings->get( 'ignore_zero_referrals' ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Referral not created due to 0.00 amount.' );
-			}
+			affiliate_wp()->utils->log( 'Referral not created due to 0.00 amount.' );
 
 			return false; // Ignore a zero amount referral
 		}
@@ -136,9 +124,7 @@ abstract class Affiliate_WP_Base {
 
 		$referral_id = affiliate_wp()->referrals->add( $args );
 
-		if( $this->debug ) {
-			$this->log( sprintf( 'Pending Referral #%d created successfully', $referral_id ) );
-		}
+		affiliate_wp()->utils->log( sprintf( 'Pending Referral #%d created successfully', $referral_id ) );
 
 		return $referral_id;
 
@@ -156,9 +142,7 @@ abstract class Affiliate_WP_Base {
 
 		if ( empty( $reference_or_referral ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Empty $reference_or_referral parameter given during complete_referral()' );
-			}
+			affiliate_wp()->utils->log( 'Empty $reference_or_referral parameter given during complete_referral()' );
 
 			return false;
 		}
@@ -175,16 +159,12 @@ abstract class Affiliate_WP_Base {
 
 		if ( empty( $referral ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Referral could not be retrieved during complete_referral(). Value given: ' . print_r( $reference_or_referral, true ) );
-			}
+			affiliate_wp()->utils->log( 'Referral could not be retrieved during complete_referral(). Value given: ' . print_r( $reference_or_referral, true ) );
 
 			return false;
 		}
 
-		if( $this->debug ) {
-			$this->log( 'Referral retrieved successfully during complete_referral()' );
-		}
+		affiliate_wp()->utils->log( 'Referral retrieved successfully during complete_referral()' );
 
 		if ( is_object( $referral ) && $referral->status != 'pending' ) {
 			// This referral has already been completed, rejected, or paid
@@ -193,9 +173,7 @@ abstract class Affiliate_WP_Base {
 
 		if ( ! apply_filters( 'affwp_auto_complete_referral', true ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Referral not marked as complete because of affwp_auto_complete_referral filter' );
-			}
+			affiliate_wp()->utils->log( 'Referral not marked as complete because of affwp_auto_complete_referral filter' );
 
 			return false;
 		}
@@ -211,16 +189,12 @@ abstract class Affiliate_WP_Base {
 			 */
 			do_action( 'affwp_complete_referral', $referral->referral_id, $referral, $referral->reference );
 
-			if( $this->debug ) {
-				$this->log( sprintf( 'Referral #%d set to Unpaid successfully', $referral->referral_id ) );
-			}
+			affiliate_wp()->utils->log( sprintf( 'Referral #%d set to Unpaid successfully', $referral->referral_id ) );
 
 			return true;
 		}
 
-		if( $this->debug ) {
-			$this->log( sprintf( 'Referral #%d failed to be set to Unpaid', $referral->referral_id ) );
-		}
+		affiliate_wp()->utils->log( sprintf( 'Referral #%d failed to be set to Unpaid', $referral->referral_id ) );
 
 		return false;
 
@@ -240,9 +214,7 @@ abstract class Affiliate_WP_Base {
 
 		if ( empty( $reference_or_referral ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Empty $reference_or_referral parameter given during complete_referral()' );
-			}
+			affiliate_wp()->utils->log( 'Empty $reference_or_referral parameter given during complete_referral()' );
 
 			return false;
 		}
@@ -259,16 +231,12 @@ abstract class Affiliate_WP_Base {
 
 		if ( empty( $referral ) ) {
 
-			if( $this->debug ) {
-				$this->log( 'Referral could not be retrieved during reject_referral(). Value given: ' . print_r( $reference_or_referral, true ) );
-			}
+			affiliate_wp()->utils->log( 'Referral could not be retrieved during reject_referral(). Value given: ' . print_r( $reference_or_referral, true ) );
 
 			return false;
 		}
 
-		if( $this->debug ) {
-			$this->log( 'Referral retrieved successfully during reject_referral()' );
-		}
+		affiliate_wp()->utils->log( 'Referral retrieved successfully during reject_referral()' );
 
 		if ( is_object( $referral ) && 'paid' == $referral->status ) {
 			// This referral has already been paid so it cannot be rejected
@@ -277,17 +245,13 @@ abstract class Affiliate_WP_Base {
 
 		if ( affwp_set_referral_status( $referral->referral_id, 'rejected' ) ) {
 
-			if( $this->debug ) {
-				$this->log( sprintf( 'Referral #%d set to Rejected successfully', $referral->referral_id ) );
-			}
+			affiliate_wp()->utils->log( sprintf( 'Referral #%d set to Rejected successfully', $referral->referral_id ) );
 
 			return true;
 
 		}
 
-		if( $this->debug ) {
-			$this->log( sprintf( 'Referral #%d failed to be set to Rejected', $referral->referral_id ) );
-		}
+		affiliate_wp()->utils->log( sprintf( 'Referral #%d failed to be set to Rejected', $referral->referral_id ) );
 
 		return false;
 

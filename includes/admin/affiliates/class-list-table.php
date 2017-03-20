@@ -599,11 +599,11 @@ class AffWP_Affiliates_Table extends List_Table {
 	 */
 	public function process_bulk_action() {
 
-		if( empty( $_REQUEST['_wpnonce'] ) ) {
+		if ( empty( $_REQUEST['_wpnonce'] ) ) {
 			return;
 		}
 
-		if( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-affiliates' ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'affiliate-nonce' ) ) {
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-affiliates' ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'affiliate-nonce' ) ) {
 			return;
 		}
 
@@ -636,6 +636,18 @@ class AffWP_Affiliates_Table extends List_Table {
 			if ( 'deactivate' === $this->current_action() ) {
 				affwp_set_affiliate_status( $id, 'inactive' );
 			}
+
+			/**
+			 * Fires after an affiliate bulk action is performed.
+			 *
+			 * The dynamic portion of the hook name, `$this->current_action()` refers
+			 * to the current bulk action being performed.
+			 *
+			 * @since 2.0.2
+			 *
+			 * @param int $id The ID of the object.
+			 */
+			do_action( 'affwp_affiliates_do_bulk_action_' . $this->current_action(), $id );
 
 		}
 

@@ -40,7 +40,7 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 	 */
 	public function init() {
 
-		$this->doc_url = 'http://docs.affiliatewp.com/article/TODO';
+		$this->doc_url = 'http://docs.affiliatewp.com/article/657-contact-form-7';
 
 		$this->context = 'contactform7';
 
@@ -107,7 +107,6 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 	 */
 	public function register_settings( $settings = array() ) {
 
-		// TODO - add updated docs url for CF7 integration
 		$doc_url = $this->doc_url;
 
 		$settings[ 'contactform7' ] = array(

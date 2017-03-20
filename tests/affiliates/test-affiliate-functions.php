@@ -1442,6 +1442,29 @@ class Tests extends UnitTestCase {
 	}
 
 	/**
+	 * @covers ::affwp_get_affiliate_campaigns()
+	 */
+	public function test_get_affiliate_campaigns_should_return_up_to_100_by_default() {
+		// Create 100 campaigns.
+		for ( $i = 0; $i <= 99; $i++ ) {
+			$campaign = rand_str( 20 );
+
+			$visits[] = $this->factory->visit->create( array(
+				'affiliate_id' => self::$affiliates[0],
+				'campaign'     => $campaign,
+				'url'          => WP_TESTS_DOMAIN . '/' . $campaign
+			) );
+		}
+
+		$this->assertSame( 100, count( affwp_get_affiliate_campaigns( self::$affiliates[0] ) ) );
+
+		// Clean up.
+		foreach ( $visits as $visit_id ) {
+			affwp_delete_visit( $visit_id );
+		}
+	}
+
+	/**
 	 * @covers ::affwp_add_affiliate()
 	 */
 	public function test_add_affiliate_with_empty_status_should_inherit_active_status() {

@@ -14,6 +14,9 @@ jQuery(document).ready( function($) {
 		    prettyAffiliateUrls = affwp_vars.pretty_affiliate_urls,
 		    add                 = '';
 
+		// Strip any whitespace from the beginning or end of the URL.
+		url = url.trim();
+
 		// URL has fragment
 		if ( url.indexOf( '#' ) > 0 ) {
 			var fragment = url.split('#');

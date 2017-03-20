@@ -163,7 +163,7 @@ class Affiliate_WP_Caldera_Forms extends Affiliate_WP_Base {
 		$referral_id = $this->insert_pending_referral( $referral_total, $entry_id, $description );
 
 		// Mark referral complete (set to "unpaid" status)
-		if ( ! empty( $args['mark_referral_complete'] && true === $args['mark_referral_complete'] ) ) {
+		if ( ! empty( $args['mark_referral_complete'] ) && true === $args['mark_referral_complete'] ) {
 			$this->mark_referral_complete( $entry_id );
 		}
 

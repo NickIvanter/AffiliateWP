@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
-"POT-Creation-Date: 2017-01-24 16:56:12+00:00\n"
-"PO-Revision-Date: 2017-01-26 11:01+0100\n"
+"POT-Creation-Date: 2017-02-17 03:04:25+00:00\n"
+"PO-Revision-Date: 2017-02-17 12:50+0100\n"
 "Last-Translator: Fernando Tellado <fernando@tellado.es>\n"
 "Language-Team: Fernando Tellado <admin@ayudawordpress.com>\n"
 "Language: es_ES\n"
@@ -36,13 +36,13 @@ msgstr ""
 "AffiliateWP. Por favor, contacta con tu servidor y pide que te actuailcen la "
 "vesión a la 5.3 o superior."
 
-#: includes/REST/class-rest.php:62 includes/admin/tools/tools.php:520
+#: includes/REST/class-rest.php:62 includes/admin/tools/tools.php:523
 msgid "Nonce verification failed"
 msgstr "Falló la verificación nonce"
 
 #: includes/REST/class-rest.php:62 includes/REST/class-rest.php:68
 #: includes/REST/class-rest.php:81 includes/REST/class-rest.php:84
-#: includes/admin/AFFWP_Plugin_Updater.php:375
+#: includes/admin/AFFWP_Plugin_Updater.php:402
 #: includes/admin/affiliates/actions.php:20
 #: includes/admin/affiliates/actions.php:69
 #: includes/admin/affiliates/actions.php:73
@@ -51,7 +51,7 @@ msgstr "Falló la verificación nonce"
 #: includes/admin/affiliates/actions.php:155
 #: includes/admin/affiliates/actions.php:159
 #: includes/admin/class-addon-updater.php:283
-#: includes/admin/class-notices.php:457 includes/admin/creatives/actions.php:16
+#: includes/admin/class-notices.php:463 includes/admin/creatives/actions.php:16
 #: includes/admin/creatives/actions.php:44
 #: includes/admin/creatives/actions.php:48
 #: includes/admin/creatives/actions.php:52
@@ -61,8 +61,8 @@ msgstr "Falló la verificación nonce"
 #: includes/admin/tools/export/class-export-settings.php:90
 #: includes/admin/tools/export/class-export.php:226
 #: includes/admin/tools/import/import.php:24
-#: includes/admin/tools/import/import.php:30 includes/admin/tools/tools.php:521
-#: includes/admin/tools/tools.php:529 includes/admin/tools/tools.php:539
+#: includes/admin/tools/import/import.php:30 includes/admin/tools/tools.php:524
+#: includes/admin/tools/tools.php:532 includes/admin/tools/tools.php:542
 msgid "Error"
 msgstr "Error"
 
@@ -182,18 +182,22 @@ msgid "The affiliate status."
 msgstr "Estado del afiliado."
 
 #: includes/REST/v1/class-affiliates-endpoints.php:356
+msgid "Unpaid affiliate earnings."
+msgstr "Ganancias del afiliado sin pagar."
+
+#: includes/REST/v1/class-affiliates-endpoints.php:360
 msgid "Affiliate earnings."
 msgstr "Ganancias del afiliado."
 
-#: includes/REST/v1/class-affiliates-endpoints.php:360
+#: includes/REST/v1/class-affiliates-endpoints.php:364
 msgid "The number of paid referrals associated with the affiliate."
 msgstr "El número de referidos pagadas asociados al afiliado."
 
-#: includes/REST/v1/class-affiliates-endpoints.php:364
+#: includes/REST/v1/class-affiliates-endpoints.php:368
 msgid "The number of visits associated with the affiliate."
 msgstr "El número de visitas asociadas al afiliado."
 
-#: includes/REST/v1/class-affiliates-endpoints.php:368
+#: includes/REST/v1/class-affiliates-endpoints.php:372
 msgid "The date the affiliate was registered."
 msgstr "La fecha en que se registró el afiliado."
 
@@ -340,7 +344,7 @@ msgid "The context under which the referral was created (integration)."
 msgstr "El contexto en el que se creó el referido (integración)."
 
 #: includes/REST/v1/class-referrals-endpoints.php:206
-#: includes/REST/v1/class-visits-endpoints.php:205
+#: includes/REST/v1/class-visits-endpoints.php:217
 msgid "The associated campaign."
 msgstr "La campaña asociada."
 
@@ -450,60 +454,68 @@ msgstr ""
 "Enfoque en el que se hace la petición; determina los campos presentes en la "
 "respuesta."
 
-#: includes/REST/v1/class-visits-endpoints.php:174
+#: includes/REST/v1/class-visits-endpoints.php:175
 msgid "The visit ID or array of IDs to query visits for."
 msgstr "El ID de la visita o array de IDs por el que buscar visitas."
 
-#: includes/REST/v1/class-visits-endpoints.php:182
+#: includes/REST/v1/class-visits-endpoints.php:183
 msgid "The affiliate ID or array of IDs to query visits for."
 msgstr "El ID de afiliado o el array de IDs por el que buscar visitas."
 
-#: includes/REST/v1/class-visits-endpoints.php:190
+#: includes/REST/v1/class-visits-endpoints.php:191
 msgid "The referral ID or array of IDs to query visits for."
 msgstr "El ID de referido o array de IDs por el que buscar visitas."
 
-#: includes/REST/v1/class-visits-endpoints.php:198
+#: includes/REST/v1/class-visits-endpoints.php:199
 msgid "The referral status or array of statuses to retrieve visits for."
 msgstr "El estado de referido o array de estados por el que mostrar visitas."
 
-#: includes/REST/v1/class-visits-endpoints.php:213
+#: includes/REST/v1/class-visits-endpoints.php:207
+msgid "The context under which the visit was created."
+msgstr "El contexto en el que se creó la visita."
+
+#: includes/REST/v1/class-visits-endpoints.php:225
 msgid "Visits table column to order by."
 msgstr "Columna de la tabla de visitas por la que ordenar."
 
-#: includes/REST/v1/class-visits-endpoints.php:224
+#: includes/REST/v1/class-visits-endpoints.php:236
 msgid "Use any get_visits() arguments to modify the response."
 msgstr ""
 "Utilza cualquier argumento de get_visits() para modificar la respuesta."
 
-#: includes/REST/v1/class-visits-endpoints.php:247
+#: includes/REST/v1/class-visits-endpoints.php:259
 msgid "The unique visit ID."
 msgstr "El ID único de la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:251
+#: includes/REST/v1/class-visits-endpoints.php:263
 msgid "ID for the affiliate account associated with the visit."
 msgstr "ID de la cuenta de afiliado asociada a la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:255
+#: includes/REST/v1/class-visits-endpoints.php:267
 msgid "ID for the referral associated with the visit."
 msgstr "ID del referido asociado a la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:259
+#: includes/REST/v1/class-visits-endpoints.php:271
 msgid "The visit URL."
 msgstr "URL de la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:263
+#: includes/REST/v1/class-visits-endpoints.php:275
 msgid "Visit referrer."
 msgstr "Referido de la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:267
+#: includes/REST/v1/class-visits-endpoints.php:279
 msgid "Campaign associated with the visit."
 msgstr "Campaña asociada a la visita."
 
-#: includes/REST/v1/class-visits-endpoints.php:271
+#: includes/REST/v1/class-visits-endpoints.php:283
+msgid "Context under which the visit was generated."
+msgstr "El contexto ven el que se generó la visita."
+
+#: includes/REST/v1/class-visits-endpoints.php:287
 msgid "Visitor IP address."
 msgstr "Dirección IP del visitante."
 
-#: includes/REST/v1/class-visits-endpoints.php:275
+#: includes/REST/v1/class-visits-endpoints.php:291
 msgid "The date the visit was generated."
 msgstr "La fecha en que se generó la visita."
 
@@ -593,7 +605,7 @@ msgstr ""
 "Hay una nueva version de %1$s disponible. %2$sVer detalles %3$s de la versión"
 "%4$s o %5$sactualiza ahora%6$s."
 
-#: includes/admin/AFFWP_Plugin_Updater.php:375
+#: includes/admin/AFFWP_Plugin_Updater.php:402
 #: includes/admin/class-addon-updater.php:283
 msgid "You do not have permission to install plugin updates"
 msgstr "No tienes permisos para instalar actualizaciones del plugin"
@@ -659,7 +671,7 @@ msgstr "No tienes permisos para borrar cuentas de afiliados"
 
 #: includes/admin/affiliates/actions.php:73
 #: includes/admin/affiliates/actions.php:159
-#: includes/admin/class-notices.php:457 includes/admin/creatives/actions.php:48
+#: includes/admin/class-notices.php:463 includes/admin/creatives/actions.php:48
 #: includes/admin/referrals/actions.php:20
 #: includes/admin/referrals/actions.php:51
 #: includes/admin/referrals/actions.php:82
@@ -700,7 +712,7 @@ msgstr "Todos"
 #: includes/admin/affiliates/edit.php:127 includes/admin/affiliates/new.php:45
 #: includes/admin/creatives/class-list-table.php:99
 #: includes/admin/creatives/edit.php:105 includes/admin/creatives/new.php:94
-#: includes/admin/tools/tools.php:284 includes/affiliate-functions.php:279
+#: includes/admin/tools/tools.php:287 includes/affiliate-functions.php:279
 msgid "Active"
 msgstr "Activo"
 
@@ -715,8 +727,8 @@ msgstr "Inactivo"
 #: includes/admin/affiliates/class-list-table.php:149
 #: includes/admin/affiliates/edit.php:129 includes/admin/affiliates/new.php:47
 #: includes/admin/referrals/class-list-table.php:151
-#: includes/admin/referrals/edit.php:146 includes/admin/referrals/new.php:107
-#: includes/admin/tools/tools.php:285 includes/admin/tools/tools.php:311
+#: includes/admin/referrals/edit.php:249 includes/admin/referrals/new.php:107
+#: includes/admin/tools/tools.php:288 includes/admin/tools/tools.php:314
 #: includes/affiliate-functions.php:285 includes/referral-functions.php:65
 msgid "Pending"
 msgstr "Pendiente"
@@ -724,8 +736,8 @@ msgstr "Pendiente"
 #: includes/admin/affiliates/class-list-table.php:150
 #: includes/admin/affiliates/edit.php:124
 #: includes/admin/referrals/class-list-table.php:152
-#: includes/admin/referrals/edit.php:147 includes/admin/referrals/new.php:108
-#: includes/admin/tools/tools.php:286 includes/admin/tools/tools.php:312
+#: includes/admin/referrals/edit.php:250 includes/admin/referrals/new.php:108
+#: includes/admin/tools/tools.php:289 includes/admin/tools/tools.php:315
 #: includes/affiliate-functions.php:288 includes/referral-functions.php:64
 msgid "Rejected"
 msgstr "Rechazado"
@@ -742,7 +754,7 @@ msgid "Name"
 msgstr "Nombre"
 
 #: includes/admin/affiliates/class-list-table.php:167
-#: includes/admin/affiliates/edit.php:52 includes/admin/referrals/edit.php:34
+#: includes/admin/affiliates/edit.php:52
 #: includes/admin/tools/export/class-batch-export-affiliates.php:92
 #: includes/admin/tools/export/class-batch-export-referrals.php:143
 #: includes/admin/tools/export/class-export-affiliates.php:49
@@ -767,7 +779,7 @@ msgstr "Nombre de usuario"
 #: includes/admin/affiliates/class-list-table.php:169
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:38
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:49
-#: includes/admin/tools/tools.php:150 templates/dashboard-tab-stats.php:44
+#: includes/admin/tools/tools.php:153 templates/dashboard-tab-stats.php:44
 msgid "Paid Earnings"
 msgstr "Ganancias pagadas"
 
@@ -800,7 +812,7 @@ msgstr "Referidos pagados"
 #: includes/admin/reports/tabs/class-visits-reports-tab.php:23
 #: includes/admin/tools/export/class-batch-export-affiliates.php:102
 #: includes/admin/tools/export/class-export-affiliates.php:58
-#: includes/admin/tools/tools.php:152 includes/admin/visits/visits.php:41
+#: includes/admin/tools/tools.php:155 includes/admin/visits/visits.php:41
 #: templates/dashboard-tab-stats.php:13 templates/dashboard-tab-stats.php:74
 #: templates/dashboard.php:86
 msgid "Visits"
@@ -811,7 +823,7 @@ msgstr "Visitas"
 #: includes/admin/creatives/edit.php:100 includes/admin/creatives/new.php:89
 #: includes/admin/payouts/view.php:115
 #: includes/admin/referrals/class-list-table.php:174
-#: includes/admin/referrals/edit.php:139 includes/admin/referrals/new.php:100
+#: includes/admin/referrals/edit.php:242 includes/admin/referrals/new.php:100
 #: includes/admin/tools/export/class-batch-export-affiliates.php:104
 #: includes/admin/tools/export/class-batch-export-referrals.php:154
 #: includes/admin/tools/export/class-export-affiliates.php:60
@@ -825,7 +837,7 @@ msgstr "Estado"
 #: includes/admin/affiliates/class-list-table.php:396
 #: includes/admin/payouts/class-list-table.php:272
 #: includes/admin/payouts/class-list-table.php:341
-#: includes/admin/payouts/view.php:92
+#: includes/admin/payouts/view.php:92 includes/admin/referrals/edit.php:62
 msgid "(user deleted)"
 msgstr "(usuario eliminado)"
 
@@ -1139,7 +1151,7 @@ msgid "Email Address"
 msgstr "Correo Electrónico"
 
 #: includes/admin/affiliates/review.php:66
-#: includes/admin/class-upgrades.php:505
+#: includes/admin/class-upgrades.php:508
 #: includes/admin/settings/class-settings.php:800 includes/install.php:46
 #: templates/register.php:84 templates/register.php:85
 msgid "Website URL"
@@ -1266,7 +1278,7 @@ msgstr "Resumen"
 #: includes/admin/tools/export/class-batch-export-affiliates.php:101
 #: includes/admin/tools/export/class-batch-export-payouts.php:146
 #: includes/admin/tools/export/class-export-affiliates.php:57
-#: includes/admin/tools/tools.php:151 templates/dashboard-tab-referrals.php:7
+#: includes/admin/tools/tools.php:154 templates/dashboard-tab-referrals.php:7
 #: templates/dashboard.php:74
 msgid "Referrals"
 msgstr "Referidos"
@@ -1394,35 +1406,39 @@ msgstr "Referido eliminado correctamente"
 msgid "Referral deletion failed, please try again"
 msgstr "La eliminación del referido fallo, por favor inténtalo de nuevo"
 
-#: includes/admin/class-notices.php:235
+#: includes/admin/class-notices.php:234
+msgid "A payout has been created."
+msgstr "Se ha generado un pago."
+
+#: includes/admin/class-notices.php:241
 msgid "Creative updated successfully"
 msgstr "Creatividad actualizada correctamente"
 
-#: includes/admin/class-notices.php:237
+#: includes/admin/class-notices.php:243
 msgid "<a href=\"%s\">Back to Creatives</a>"
 msgstr "<a href=\"%s\">Regresar a las creatividades</a>"
 
-#: includes/admin/class-notices.php:243
+#: includes/admin/class-notices.php:249
 msgid "Creative added successfully"
 msgstr "Creatividad añadida correctamente"
 
-#: includes/admin/class-notices.php:249
+#: includes/admin/class-notices.php:255
 msgid "Creative deleted successfully"
 msgstr "Creatividad eliminado correctamente"
 
-#: includes/admin/class-notices.php:255
+#: includes/admin/class-notices.php:261
 msgid "Creative activated"
 msgstr "Creatividad activada"
 
-#: includes/admin/class-notices.php:261
+#: includes/admin/class-notices.php:267
 msgid "Creative deactivated"
 msgstr "Creatividad desactivada"
 
-#: includes/admin/class-notices.php:268
+#: includes/admin/class-notices.php:274
 msgid "Settings successfully imported"
 msgstr "Los ajustes se importaron correctamente"
 
-#: includes/admin/class-notices.php:276
+#: includes/admin/class-notices.php:282
 msgid ""
 "Your license key expired on %s. Please <a href=\"%s\" target=\"_blank"
 "\">renew your license key</a>."
@@ -1430,7 +1446,7 @@ msgstr ""
 "Tu clave de licencia ha caducado en %s. Por favor, <a href=\"%s\" target="
 "\"_blank\">renueva tu clave de licencia</a>."
 
-#: includes/admin/class-notices.php:288
+#: includes/admin/class-notices.php:294
 msgid ""
 "Your license key has been disabled. Please <a href=\"%s\" target=\"_blank"
 "\">contact support</a> for more information."
@@ -1438,7 +1454,7 @@ msgstr ""
 "Tu clave de licencia se ha desactivado. Por favor <a href=\"%s\" target="
 "\"_blank\">contacta con soporte</a> para más información."
 
-#: includes/admin/class-notices.php:299
+#: includes/admin/class-notices.php:305
 msgid ""
 "Invalid license. Please <a href=\"%s\" target=\"_blank\">visit your account "
 "page</a> and verify it."
@@ -1446,7 +1462,7 @@ msgstr ""
 "Licencia no válida. Por favor, <a href=\"%s\" target=\"_blank\">visita la "
 "página de tu cuenta</a> y verifícala."
 
-#: includes/admin/class-notices.php:311
+#: includes/admin/class-notices.php:317
 msgid ""
 "Your %s is not active for this URL. Please <a href=\"%s\" target=\"_blank"
 "\">visit your account page</a> to manage your license key URLs."
@@ -1455,11 +1471,11 @@ msgstr ""
 "target=“_blank”>visita la página de tu cuenta</a> para gestionar las URLs de "
 "tu clave de licencia."
 
-#: includes/admin/class-notices.php:322
+#: includes/admin/class-notices.php:328
 msgid "This appears to be an invalid license key for %s."
 msgstr "Parece que es una clave de licencia no válida para %s."
 
-#: includes/admin/class-notices.php:331
+#: includes/admin/class-notices.php:337
 msgid ""
 "Your license key has reached its activation limit. <a href=\"%s\">View "
 "possible upgrades</a> now."
@@ -1467,23 +1483,23 @@ msgstr ""
 "Tu clave de licencia ha alcanzado su límite de activaciones. <a "
 "href=“%s”>Ver posibles actualizaciones</a> ahora."
 
-#: includes/admin/class-notices.php:340
+#: includes/admin/class-notices.php:346
 msgid "The API keys were successfully generated."
 msgstr "Se generaron correctamente las claves API."
 
-#: includes/admin/class-notices.php:346
+#: includes/admin/class-notices.php:352
 msgid "The API keys could not be generated."
 msgstr "No se pudieron generar las claves API."
 
-#: includes/admin/class-notices.php:353
+#: includes/admin/class-notices.php:359
 msgid "The API keys were successfully regenerated."
 msgstr "Claves API generadas correctamente."
 
-#: includes/admin/class-notices.php:359
+#: includes/admin/class-notices.php:365
 msgid "The API keys were successfully revoked."
 msgstr "Claves API revocadas correctamente."
 
-#: includes/admin/class-notices.php:405
+#: includes/admin/class-notices.php:411
 msgid ""
 "Your license key for AffiliateWP has expired. Please renew your license to "
 "re-enable automatic updates."
@@ -1491,7 +1507,7 @@ msgstr ""
 "Tu clave de licencia de AffiliateWP ha caducado. Por favor, renueva tu "
 "licencia para volver a activar las actualizaciones automáticas."
 
-#: includes/admin/class-notices.php:414
+#: includes/admin/class-notices.php:420
 msgid ""
 "Please <a href=\"%s\">enter and activate</a> your license key for "
 "AffiliateWP to enable automatic updates."
@@ -1499,17 +1515,17 @@ msgstr ""
 "Por favor <a href=“%s”>introduce y activa</a> tu clave de licencia de "
 "AffiliateWP para activar las actualizaciones automáticas."
 
-#: includes/admin/class-notices.php:438
+#: includes/admin/class-notices.php:444
 msgid ""
 "Your database needs to be upgraded following the latest AffiliateWP update."
 msgstr ""
 "Tu base de datos tienes que actualizarse a la última versión de AffiliateWP."
 
-#: includes/admin/class-notices.php:441
+#: includes/admin/class-notices.php:447
 msgid "Upgrade Database"
 msgstr "Actualizar base de datos"
 
-#: includes/admin/class-upgrades.php:504
+#: includes/admin/class-upgrades.php:507
 #: includes/admin/settings/class-settings.php:799 includes/install.php:45
 #: templates/register.php:64 templates/register.php:65
 msgid "Your Name"
@@ -1577,7 +1593,7 @@ msgstr "Nombre de creatividad. Solamente para su identificación."
 
 #: includes/admin/creatives/edit.php:36 includes/admin/creatives/new.php:34
 #: includes/admin/referrals/class-list-table.php:171
-#: includes/admin/referrals/edit.php:100 includes/admin/referrals/new.php:61
+#: includes/admin/referrals/edit.php:203 includes/admin/referrals/new.php:61
 #: includes/admin/tools/export/class-batch-export-referrals.php:150
 #: includes/admin/tools/export/class-export-referrals.php:70
 #: includes/integrations/extras/class-ninja-forms-action-add-referral.php:77
@@ -1658,8 +1674,8 @@ msgid "Number of creatives per page:"
 msgstr "Número de creatividades por página:"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php:39
-msgid "Most rentables Affiliates"
-msgstr "Afiliados mas importantes"
+msgid "Most Valuable Affiliates"
+msgstr "Afiliados mas rentables"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php:94
 msgid "No registered affiliates"
@@ -1704,19 +1720,18 @@ msgstr "Totales"
 
 #: includes/admin/payouts/class-list-table.php:130
 #: includes/admin/referrals/class-list-table.php:149
-#: includes/admin/referrals/edit.php:145 includes/admin/referrals/new.php:106
-#: includes/admin/tools/tools.php:309 includes/admin/tools/tools.php:335
+#: includes/admin/referrals/edit.php:248 includes/admin/referrals/new.php:106
+#: includes/admin/tools/tools.php:312 includes/admin/tools/tools.php:338
 #: includes/referral-functions.php:62
 msgid "Paid"
 msgstr "Pagado"
 
 #: includes/admin/payouts/class-list-table.php:131
-#: includes/admin/tools/tools.php:336 includes/payout-functions.php:134
+#: includes/admin/tools/tools.php:339 includes/payout-functions.php:134
 msgid "Failed"
 msgstr "Falló"
 
 #: includes/admin/payouts/class-list-table.php:148
-#: includes/admin/referrals/edit.php:48
 #: includes/admin/tools/export/class-batch-export-payouts.php:144
 msgid "Payout ID"
 msgstr "ID de pago"
@@ -1724,7 +1739,7 @@ msgstr "ID de pago"
 #: includes/admin/payouts/class-list-table.php:150
 #: includes/admin/payouts/view.php:34
 #: includes/admin/referrals/class-list-table.php:169
-#: includes/admin/referrals/new.php:21
+#: includes/admin/referrals/edit.php:44 includes/admin/referrals/new.php:21
 #: includes/admin/tools/export/class-batch-export-payouts.php:145
 #: includes/admin/visits/class-list-table.php:105
 #: includes/integrations/class-lifterlms.php:672
@@ -1779,9 +1794,9 @@ msgstr "Pago: #%d"
 
 #: includes/admin/payouts/view.php:60
 #: includes/admin/referrals/class-list-table.php:168
-#: includes/admin/referrals/edit.php:71 includes/admin/referrals/new.php:36
+#: includes/admin/referrals/edit.php:130 includes/admin/referrals/new.php:36
 #: includes/admin/tools/export/class-batch-export-referrals.php:148
-#: includes/admin/tools/export/class-batch-generate-payouts.php:209
+#: includes/admin/tools/export/class-batch-generate-payouts.php:216
 #: includes/admin/tools/export/class-export-referrals-payout.php:73
 #: includes/admin/tools/export/class-export-referrals.php:68
 #: includes/integrations/class-lifterlms.php:667
@@ -1814,13 +1829,13 @@ msgid "You do not have permission to manage referrals"
 msgstr "No tienes permisos para gestionar referidos"
 
 #: includes/admin/referrals/class-list-table.php:150
-#: includes/admin/referrals/edit.php:144 includes/admin/referrals/new.php:105
-#: includes/admin/tools/tools.php:310 includes/referral-functions.php:63
+#: includes/admin/referrals/edit.php:247 includes/admin/referrals/new.php:105
+#: includes/admin/tools/tools.php:313 includes/referral-functions.php:63
 msgid "Unpaid"
 msgstr "Sin pagar"
 
 #: includes/admin/referrals/class-list-table.php:170
-#: includes/admin/referrals/edit.php:113 includes/admin/referrals/new.php:74
+#: includes/admin/referrals/edit.php:216 includes/admin/referrals/new.php:74
 #: includes/admin/tools/export/class-batch-export-referrals.php:152
 #: includes/admin/tools/export/class-export-referrals.php:72
 #: includes/integrations/class-lifterlms.php:677
@@ -1829,11 +1844,11 @@ msgid "Reference"
 msgstr "Referencia"
 
 #: includes/admin/referrals/class-list-table.php:172
-#: includes/admin/referrals/edit.php:88 includes/admin/referrals/new.php:49
+#: includes/admin/referrals/edit.php:147 includes/admin/referrals/new.php:49
 #: includes/admin/tools/export/class-batch-export-referrals.php:155
 #: includes/admin/tools/export/class-export-referrals.php:75
 #: includes/admin/tools/export/class-export.php:84
-#: includes/admin/visits/class-list-table.php:109
+#: includes/admin/visits/class-list-table.php:110
 #: templates/dashboard-tab-payouts.php:34
 #: templates/dashboard-tab-referrals.php:38
 #: templates/dashboard-tab-visits.php:32
@@ -1863,22 +1878,22 @@ msgid "Apply"
 msgstr "Solicitar"
 
 #: includes/admin/referrals/class-list-table.php:568
-#: includes/admin/referrals/referrals.php:64 includes/admin/tools/tools.php:147
-#: includes/admin/tools/tools.php:303 includes/admin/tools/tools.php:330
+#: includes/admin/referrals/referrals.php:64 includes/admin/tools/tools.php:150
+#: includes/admin/tools/tools.php:306 includes/admin/tools/tools.php:333
 #: includes/admin/visits/visits.php:55
 msgid "Affiliate name"
 msgstr "Nombre de afiliado"
 
 #: includes/admin/referrals/class-list-table.php:574
-#: includes/admin/referrals/referrals.php:67 includes/admin/tools/tools.php:305
-#: includes/admin/tools/tools.php:332 includes/admin/visits/visits.php:58
+#: includes/admin/referrals/referrals.php:67 includes/admin/tools/tools.php:308
+#: includes/admin/tools/tools.php:335 includes/admin/visits/visits.php:58
 #: includes/class-graph.php:420
 msgid "From - mm/dd/yyyy"
 msgstr "Desde - mm/dd/yyyy"
 
 #: includes/admin/referrals/class-list-table.php:575
-#: includes/admin/referrals/referrals.php:68 includes/admin/tools/tools.php:306
-#: includes/admin/tools/tools.php:333 includes/admin/visits/visits.php:59
+#: includes/admin/referrals/referrals.php:68 includes/admin/tools/tools.php:309
+#: includes/admin/tools/tools.php:336 includes/admin/visits/visits.php:59
 #: includes/class-graph.php:422
 msgid "To - mm/dd/yyyy"
 msgstr "Hasta - mm/dd/yyyy"
@@ -1970,7 +1985,7 @@ msgid "You can enter the referral context prefixed by &#8220;context:&#8221;"
 msgstr "Puedes introducir el contexto del referido con prefijo 'context:'"
 
 #: includes/admin/referrals/contextual-help.php:59
-#: includes/admin/visits/contextual-help.php:58
+#: includes/admin/visits/contextual-help.php:60
 msgid ""
 "You can enter the affiliate&#8217;s ID number prefixed by &#8220;affiliate:"
 "&#8221;"
@@ -1978,7 +1993,7 @@ msgstr ""
 "Puedes introducir el numero de ID del afiliado con prefijo 'affiliate:'"
 
 #: includes/admin/referrals/contextual-help.php:60
-#: includes/admin/visits/contextual-help.php:59
+#: includes/admin/visits/contextual-help.php:61
 msgid "You can enter a URL campaign prefixed by &#8220;campaign:&#8221;"
 msgstr "Puedes introducir la URL de la campaña con un prefijo por campaña:"
 
@@ -2006,38 +2021,81 @@ msgstr ""
 "pagos masivos de PayPal (PayPal's Mass Payments) de esta forma puedes "
 "liquidar los pagos de todos tus afiliados usando PayPal una sola vez."
 
-#: includes/admin/referrals/edit.php:15
+#: includes/admin/referrals/edit.php:12
 msgid "Edit Referral"
 msgstr "Modificar referido"
 
-#: includes/admin/referrals/edit.php:39
+#: includes/admin/referrals/edit.php:31
+#: includes/admin/visits/class-list-table.php:106
+msgid "Referral ID"
+msgstr "ID del referido"
+
+#: includes/admin/referrals/edit.php:36
+msgid "The referral ID. This cannot be changed."
+msgstr "El ID del referido. Esto no puede cambiarse."
+
+#. translators: 1: Affiliate link, 2: Affiliate ID
+#. translators: 1: Payout link with total, 2: Payout ID
+#: includes/admin/referrals/edit.php:54 includes/admin/referrals/edit.php:92
+msgid "%1$s (ID: #%2$s)"
+msgstr "%1$s (ID: #%2$s)"
+
+#: includes/admin/referrals/edit.php:67
 msgid ""
-"The ID of the affiliate who generated this referral. This value cannot be "
-"changed."
+"The name and ID of the affiliate who generated this referral. This "
+"association cannot be changed."
 msgstr ""
-"El ID de afiliado que generó este referido. Este valor no puede cambiarse."
+"El nombre e ID del afiliado que generó este referido. Esta asociación no "
+"puede cambiarse."
 
-#. translators: 1: View payout link, 2: payout amount
-#: includes/admin/referrals/edit.php:55
-msgid "%1$s | Total: %2$s"
-msgstr "%1$s | Total: %2$s"
+#: includes/admin/referrals/edit.php:75
+msgid "Payout"
+msgstr "Pago"
 
-#: includes/admin/referrals/edit.php:77
+#. translators: 1: Payout total amount with view link
+#: includes/admin/referrals/edit.php:84
+msgid "Total: %1$s"
+msgstr "Total: %1$s"
+
+#. translators: 1: Pay Out action link
+#: includes/admin/referrals/edit.php:106
+msgid "None | %1$s"
+msgstr "Ninguno | %1$s"
+
+#: includes/admin/referrals/edit.php:107
+msgid "Pay Out"
+msgstr "Pago"
+
+#: includes/admin/referrals/edit.php:116 includes/admin/referrals/edit.php:168
+#: includes/admin/settings/class-settings.php:580
+msgid "None"
+msgstr "Ninguno"
+
+#: includes/admin/referrals/edit.php:136
 msgid ""
 "The referral amount cannot be changed once it has been included in a payout."
 msgstr ""
 "La cantidad de referidos no puede cambiarse una vez se haya incluido en un "
 "pago."
 
-#: includes/admin/referrals/edit.php:79 includes/admin/referrals/new.php:41
+#: includes/admin/referrals/edit.php:138 includes/admin/referrals/new.php:41
 msgid "The amount of the referral, such as 15."
 msgstr "El cantidad del referido, por ejemplo 15."
 
-#: includes/admin/referrals/edit.php:105 includes/admin/referrals/new.php:66
+#: includes/admin/referrals/edit.php:159
+msgid "Visit"
+msgstr "Visita"
+
+#. translators: 1: Visit link, 2: Visit ID
+#: includes/admin/referrals/edit.php:174
+msgid "URL: %1$s (ID: #%2$s)"
+msgstr "URL: %1$s (ID: #%2$s)"
+
+#: includes/admin/referrals/edit.php:208 includes/admin/referrals/new.php:66
 msgid "Enter a description for this referral."
 msgstr "Introduce una descripción para este referido."
 
-#: includes/admin/referrals/edit.php:118 includes/admin/referrals/new.php:79
+#: includes/admin/referrals/edit.php:221 includes/admin/referrals/new.php:79
 msgid ""
 "Enter a reference for this referral (optional). Usually this would be the "
 "transaction ID of the associated purchase."
@@ -2045,13 +2103,14 @@ msgstr ""
 "Introduce una referencia para este referido (opcional). Normalmente esto "
 "sería el ID de la transacción de la compra asociada."
 
-#: includes/admin/referrals/edit.php:126 includes/admin/referrals/new.php:87
+#: includes/admin/referrals/edit.php:229 includes/admin/referrals/new.php:87
 #: includes/admin/tools/export/class-batch-export-referrals.php:153
 #: includes/admin/tools/export/class-export-referrals.php:73
+#: includes/admin/visits/class-list-table.php:107
 msgid "Context"
 msgstr "Contexto"
 
-#: includes/admin/referrals/edit.php:131
+#: includes/admin/referrals/edit.php:234
 msgid ""
 "Context for this referral (optional). Usually this is used to identify the "
 "payment system or integration that was used for the transaction."
@@ -2059,17 +2118,17 @@ msgstr ""
 "Contexto para este referido (opcional). Normalmente esto se usa para ayudar "
 "a identificar el sistema de pago utilizado para esta transacción."
 
-#: includes/admin/referrals/edit.php:150
+#: includes/admin/referrals/edit.php:253
 msgid ""
 "The referral status cannot be changed once it has been included in a payout."
 msgstr ""
 "El estado de referido no puede cambiarse una vez se haya incluido en un pago."
 
-#: includes/admin/referrals/edit.php:152 includes/admin/referrals/new.php:110
+#: includes/admin/referrals/edit.php:255 includes/admin/referrals/new.php:110
 msgid "Select the status of the referral."
 msgstr "Elige el estado del referido."
 
-#: includes/admin/referrals/edit.php:173
+#: includes/admin/referrals/edit.php:276
 msgid "Update Referral"
 msgstr "Actualizar referido"
 
@@ -2304,7 +2363,8 @@ msgstr "Area de afiliados"
 
 #: includes/admin/settings/class-settings.php:453
 msgid "This is the page where affiliates will manage their affiliate account."
-msgstr "Esta es la página donde los afiliados gestionarán su cuenta de afiliado."
+msgstr ""
+"Esta es la página donde los afiliados gestionarán su cuenta de afiliado."
 
 #: includes/admin/settings/class-settings.php:459
 msgid "Terms of Use"
@@ -2422,7 +2482,7 @@ msgstr "Configura las opciones de moneda"
 
 #: includes/admin/settings/class-settings.php:540
 #: includes/admin/tools/export/class-batch-export-referrals.php:149
-#: includes/admin/tools/export/class-batch-generate-payouts.php:210
+#: includes/admin/tools/export/class-batch-generate-payouts.php:217
 #: includes/admin/tools/export/class-export-referrals-payout.php:74
 #: includes/admin/tools/export/class-export-referrals.php:69
 msgid "Currency"
@@ -2497,10 +2557,6 @@ msgstr "Solo el formulario de registro de afiliado"
 #: includes/admin/settings/class-settings.php:579
 msgid "Affiliate Login Form Only"
 msgstr "Solo el formulario de acceso de afiliado"
-
-#: includes/admin/settings/class-settings.php:580
-msgid "None"
-msgstr "Ninguno"
 
 #: includes/admin/settings/class-settings.php:596
 #: includes/admin/settings/display-settings.php:61
@@ -2745,8 +2801,8 @@ msgid ""
 "shown in the Referral URL Generator and the {referral_url} email tag."
 msgstr ""
 "La URL de referido por defecto mostrada en el área de afiliado. También "
-"cambia la URL mostrada en el generador de URL de referido y en la etiqueta de "
-"correo electrónico {referral_url}."
+"cambia la URL mostrada en el generador de URL de referido y en la etiqueta "
+"de correo electrónico {referral_url}."
 
 #: includes/admin/settings/class-settings.php:718
 msgid "Enable reCAPTCHA"
@@ -3009,8 +3065,8 @@ msgstr "Activar licencia"
 msgid ""
 "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
-"La función de \"callback\" usada para el ajuste <strong>%s</strong> "
-"no se encuentra."
+"La función de \"callback\" usada para el ajuste <strong>%s</strong> no se "
+"encuentra."
 
 #: includes/admin/settings/class-settings.php:1215
 msgid "Upload File"
@@ -3061,7 +3117,7 @@ msgid "API Key"
 msgstr "Clave API"
 
 #: includes/admin/tools/class-rest-consumers-table.php:43
-#: includes/admin/tools/tools.php:82
+#: includes/admin/tools/tools.php:85
 msgid "API Keys"
 msgstr "Claves API"
 
@@ -3099,7 +3155,7 @@ msgstr "Generar nuevas claves API"
 
 #: includes/admin/tools/export/class-batch-export-affiliates.php:93
 #: includes/admin/tools/export/class-batch-export-referrals.php:144
-#: includes/admin/tools/export/class-batch-generate-payouts.php:208
+#: includes/admin/tools/export/class-batch-generate-payouts.php:215
 #: includes/admin/tools/export/class-export-affiliates.php:50
 #: includes/admin/tools/export/class-export-referrals-payout.php:72
 #: includes/admin/tools/export/class-export-referrals.php:64
@@ -3158,13 +3214,13 @@ msgstr[1] "%s referidos exportados correctamente."
 msgid "You do not have permission to export data."
 msgstr "No tienes permisos para exportar información."
 
-#: includes/admin/tools/export/class-batch-generate-payouts.php:273
+#: includes/admin/tools/export/class-batch-generate-payouts.php:296
 msgid "No unpaid referrals were found matching your criteria."
 msgstr ""
 "No se encontraron referidos sin pagar que se ajusten a tus criterios de "
 "búsqueda."
 
-#: includes/admin/tools/export/class-batch-generate-payouts.php:276
+#: includes/admin/tools/export/class-batch-generate-payouts.php:299
 msgid "A payout log for %s affiliate was successfully generated."
 msgid_plural "A payout log for %s affiliates was successfully generated."
 msgstr[0] "Registro de pago de %s afiliado creado correctamente."
@@ -3183,43 +3239,43 @@ msgid ""
 "The upgrade process is running, please be patient. This could take several "
 "minutes to complete while affiliate records are upgraded in batches of 100."
 msgstr ""
-"El proceso de actualización esta en curso, por favor se paciente. Esto "
-"puede tardar varios minutos para completarse ya que los registros de los "
-"afiliados se actualizan en lotes de 100."
+"El proceso de actualización esta en curso, por favor se paciente. Esto puede "
+"tardar varios minutos para completarse ya que los registros de los afiliados "
+"se actualizan en lotes de 100."
 
 #: includes/admin/tools/migration.php:20
 msgid "Step %d running"
 msgstr "Paso %d en progreso"
 
-#: includes/admin/tools/tools.php:79
+#: includes/admin/tools/tools.php:82
 msgid "Export / Import"
 msgstr "Exportar / Importar"
 
-#: includes/admin/tools/tools.php:85
+#: includes/admin/tools/tools.php:88
 msgid "Recount Stats"
 msgstr "Recalcular estadisticas"
 
-#: includes/admin/tools/tools.php:86
+#: includes/admin/tools/tools.php:89
 msgid "Migration Assistant"
 msgstr "Asistente de migración"
 
-#: includes/admin/tools/tools.php:89
+#: includes/admin/tools/tools.php:92
 msgid "System Info"
 msgstr "Información del sistema"
 
-#: includes/admin/tools/tools.php:93
+#: includes/admin/tools/tools.php:96
 msgid "Debug Assistant"
 msgstr "Asistente de migración"
 
-#: includes/admin/tools/tools.php:141
+#: includes/admin/tools/tools.php:144
 msgid "Recount Affiliate Stats"
 msgstr "Recalcular estatísticas de afiliados"
 
-#: includes/admin/tools/tools.php:143
+#: includes/admin/tools/tools.php:146
 msgid "Use this tool to recount affiliate statistics."
 msgstr "Usa esta herramienta para recalcular las estadísticas de afiliados."
 
-#: includes/admin/tools/tools.php:154
+#: includes/admin/tools/tools.php:157
 msgid ""
 "Enter the name of the affiliate or begin typing to perform a search based on "
 "the affiliate&#8217;s name."
@@ -3227,11 +3283,11 @@ msgstr ""
 "Introduce el nombre del afiliado o empieza a escribir para realizar una "
 "búsqueda basada en el nombre del afiliado."
 
-#: includes/admin/tools/tools.php:159
+#: includes/admin/tools/tools.php:162
 msgid "Recount"
 msgstr "Recalcular"
 
-#: includes/admin/tools/tools.php:197
+#: includes/admin/tools/tools.php:200
 msgid ""
 "These tools assist in migrating affiliate and referral data from existing "
 "platforms."
@@ -3239,11 +3295,11 @@ msgstr ""
 "Estas herramientas le ayudan a migrar información de afiliados y referidos "
 "de otras plataformas."
 
-#: includes/admin/tools/tools.php:202
+#: includes/admin/tools/tools.php:205
 msgid "User Accounts"
 msgstr "Cuentas de usuario"
 
-#: includes/admin/tools/tools.php:205
+#: includes/admin/tools/tools.php:208
 msgid ""
 "Use this tool to create affiliate accounts for each of your existing "
 "WordPress user accounts that belong to the selected roles below."
@@ -3252,7 +3308,7 @@ msgstr ""
 "usuario de WordPress que pertenezcan a los perfiles seleccionados a "
 "continuación."
 
-#: includes/admin/tools/tools.php:206
+#: includes/admin/tools/tools.php:209
 msgid ""
 "<strong>NOTE:</strong> Users that already have affiliate accounts will be "
 "skipped. Duplicate accounts will not be created."
@@ -3260,15 +3316,15 @@ msgstr ""
 "<strong>NOTA:</strong> Los usaurios que ta tengan cuentas de afiliado se "
 "saltarán. No se crearán cuentas duplicadas."
 
-#: includes/admin/tools/tools.php:208
+#: includes/admin/tools/tools.php:211
 msgid "Select User Roles"
 msgstr "Elegir perfiles de usuario"
 
-#: includes/admin/tools/tools.php:218
+#: includes/admin/tools/tools.php:221
 msgid "Create Affiliate Accounts for Users"
 msgstr "Registra una nueva cuenta de afiliado"
 
-#: includes/admin/tools/tools.php:223
+#: includes/admin/tools/tools.php:226
 msgid ""
 "<strong>NOTE:</strong> WordPress 4.4 or newer is required to use the User "
 "Accounts migration tool. <a href=\"%s\" aria-label=\"Update WordPress now"
@@ -3278,7 +3334,7 @@ msgstr ""
 "herramienta de migración de cuentas de usuario. <a href=“%s” aria-"
 "label=“Actualiza WordPress ahora”>Actualiza WordPress ahora</a>."
 
-#: includes/admin/tools/tools.php:225
+#: includes/admin/tools/tools.php:228
 msgid ""
 "<strong>NOTE:</strong> WordPress 4.4 or newer is required to use the User "
 "Accounts migration tool."
@@ -3286,7 +3342,7 @@ msgstr ""
 "<strong>NOTA:</strong> Se requiere WordPress 4.4 o superior para utilizar la "
 "herramienta de migración de cuentas de usuario."
 
-#: includes/admin/tools/tools.php:234
+#: includes/admin/tools/tools.php:237
 msgid ""
 "Use this tool to migrate existing affiliate / referral data from Affiliates "
 "Pro to AffiliateWP."
@@ -3294,7 +3350,7 @@ msgstr ""
 "Usa esta herramienta para migrar información existente de afiliados / "
 "referidos desde Affiliates Pro a AffiliateWP."
 
-#: includes/admin/tools/tools.php:235
+#: includes/admin/tools/tools.php:238
 msgid ""
 "<strong>NOTE:</strong> This tool should only ever be used on a fresh "
 "install. If you have already collected affiliate or referral data, do not "
@@ -3304,11 +3360,11 @@ msgstr ""
 "instalación limpia. Si ya has recopilado información de afiliados o "
 "referidos no uses esta herramienta."
 
-#: includes/admin/tools/tools.php:241
+#: includes/admin/tools/tools.php:244
 msgid "Migrate Data from Affiliates Pro"
 msgstr "Migrar información desde Affiliates Pro"
 
-#: includes/admin/tools/tools.php:250
+#: includes/admin/tools/tools.php:253
 msgid ""
 "Use this tool to migrate existing affiliate accounts from WP Affiliate to "
 "AffiliateWP."
@@ -3316,36 +3372,36 @@ msgstr ""
 "Usa esta herramienta para migrar información existente de afiliados / "
 "referidos desde WP Affiliate a AffiliateWP."
 
-#: includes/admin/tools/tools.php:253
+#: includes/admin/tools/tools.php:256
 msgid "Migrate Data from WP Affiliate"
 msgstr "Migrar datos desde WP Affiliate"
 
-#: includes/admin/tools/tools.php:277
+#: includes/admin/tools/tools.php:280
 msgid "Export Affiliates"
 msgstr "Exportar afiliados"
 
-#: includes/admin/tools/tools.php:279
+#: includes/admin/tools/tools.php:282
 msgid "Export affiliates to a CSV file."
 msgstr "Exportar afiliados a un archivo CSV."
 
-#: includes/admin/tools/tools.php:283 includes/admin/tools/tools.php:308
+#: includes/admin/tools/tools.php:286 includes/admin/tools/tools.php:311
 msgid "All Statuses"
 msgstr "Todos los estados"
 
-#: includes/admin/tools/tools.php:290 includes/admin/tools/tools.php:317
-#: includes/admin/tools/tools.php:341 includes/admin/tools/tools.php:355
+#: includes/admin/tools/tools.php:293 includes/admin/tools/tools.php:320
+#: includes/admin/tools/tools.php:344 includes/admin/tools/tools.php:358
 msgid "Export"
 msgstr "Exportar"
 
-#: includes/admin/tools/tools.php:297
+#: includes/admin/tools/tools.php:300
 msgid "Export Referrals"
 msgstr "Exportar referidos"
 
-#: includes/admin/tools/tools.php:299
+#: includes/admin/tools/tools.php:302
 msgid "Export referrals to a CSV file."
 msgstr "Exportar referidos a un archivo CSV."
 
-#: includes/admin/tools/tools.php:314 includes/admin/tools/tools.php:338
+#: includes/admin/tools/tools.php:317 includes/admin/tools/tools.php:341
 msgid ""
 "To search for an affiliate, enter the affiliate&#8217;s login name, first "
 "name, or last name. Leave blank to export referrals for all affiliates."
@@ -3354,44 +3410,44 @@ msgstr ""
 "afiliado. Déjalo en blanco para exportar los referidos de todos los "
 "afiliados."
 
-#: includes/admin/tools/tools.php:324
+#: includes/admin/tools/tools.php:327
 msgid "Export Payouts"
 msgstr "Exportar pagos"
 
-#: includes/admin/tools/tools.php:326
+#: includes/admin/tools/tools.php:329
 msgid "Export payouts to a CSV file."
 msgstr "Exportar afiliados a un archivo CSV."
 
-#: includes/admin/tools/tools.php:348
+#: includes/admin/tools/tools.php:351
 msgid "Export Settings"
 msgstr "Ajustes de exportación"
 
-#: includes/admin/tools/tools.php:350
+#: includes/admin/tools/tools.php:353
 msgid ""
 "Export the AffiliateWP settings for this site as a .json file. This allows "
 "you to easily import the configuration into another site."
 msgstr ""
-"Exportar los ajustes de AffiliateWP de este sitio a un archivo .json. "
-"Esto te permite importar los ajustes a otro sitio de una forma sencilla."
+"Exportar los ajustes de AffiliateWP de este sitio a un archivo .json. Esto "
+"te permite importar los ajustes a otro sitio de una forma sencilla."
 
-#: includes/admin/tools/tools.php:362
+#: includes/admin/tools/tools.php:365
 msgid "Import Settings"
 msgstr "Importar ajustes."
 
-#: includes/admin/tools/tools.php:364
+#: includes/admin/tools/tools.php:367
 msgid ""
 "Import the AffiliateWP settings from a .json file. This file can be obtained "
 "by exporting the settings on another site using the form above."
 msgstr ""
-"Importa los ajustes de AffiliateWP desde un archivo .json. Este archivo "
-"se puede obtener exportando los ajustes desde otro sitio usando el "
-"formulario de arriba."
+"Importa los ajustes de AffiliateWP desde un archivo .json. Este archivo se "
+"puede obtener exportando los ajustes desde otro sitio usando el formulario "
+"de arriba."
 
-#: includes/admin/tools/tools.php:372
+#: includes/admin/tools/tools.php:375
 msgid "Import"
 msgstr "Importar"
 
-#: includes/admin/tools/tools.php:396
+#: includes/admin/tools/tools.php:399
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
@@ -3399,25 +3455,25 @@ msgstr ""
 "Para copiar la información del sistema haz clic abajo y a continuación pulsa "
 "Ctrl + C (PC) o Cmd + C (Mac)."
 
-#: includes/admin/tools/tools.php:451
+#: includes/admin/tools/tools.php:454
 msgid "Debug Log"
 msgstr "Registro de depuración"
 
-#: includes/admin/tools/tools.php:454
-msgid "Use this tool to help debug referral tracking."
+#: includes/admin/tools/tools.php:457
+msgid "Use this tool to help debug various operations in AffiliateWP."
 msgstr ""
-"Utiliza esta herramienta para ayudarte al seguimiento de depuración de "
-"referidos."
+"Utiliza esta herramienta para ayudarte en la depuración de diversas "
+"operaciones de AffiliateWP."
 
-#: includes/admin/tools/tools.php:456
+#: includes/admin/tools/tools.php:459
 msgid "Clear Debug Log"
 msgstr "Limpiar el registro de depuración"
 
-#: includes/admin/tools/tools.php:528
+#: includes/admin/tools/tools.php:531
 msgid "Invalid batch ID."
 msgstr "ID de proceso por lotes no válido."
 
-#: includes/admin/tools/tools.php:538
+#: includes/admin/tools/tools.php:541
 msgid "Invalid batch export class."
 msgstr "Clase de exportación por lotes no válida."
 
@@ -3445,11 +3501,11 @@ msgstr "Acciones de afiliado"
 msgid "Register"
 msgstr "Registrar"
 
-#: includes/admin/user-profile.php:80 includes/class-register.php:505
+#: includes/admin/user-profile.php:80 includes/class-register.php:506
 msgid "Disable Affiliate Email"
 msgstr "Desactivar correo electrónico de afiliado"
 
-#: includes/admin/user-profile.php:82 includes/class-register.php:507
+#: includes/admin/user-profile.php:82 includes/class-register.php:508
 msgid "Disable the application accepted email sent to the affiliate."
 msgstr ""
 "Desactiva el correo electrónico de registro aceptado que se envía al "
@@ -3476,8 +3532,12 @@ msgid "A batch process class must be specified."
 msgstr "Debe especificarse una clase de proceso por lotes."
 
 #: includes/admin/utilities/class-batch-process-registry.php:155
-msgid "An invalid class handler file has been supplied."
-msgstr "Se ha facilitado un archivo gestor de clases no válido."
+msgid "No batch class handler file has been supplied."
+msgstr "No se ha facilitado ningún archivo que gestione las clases en lotes."
+
+#: includes/admin/utilities/class-batch-process-registry.php:160
+msgid "An invalid batch class handler file has been supplied."
+msgstr "Se ha facilitado un archivo gestor de clases en lote no válido."
 
 #: includes/admin/utilities/class-batch-process.php:143
 msgid "%s item was successfully processed."
@@ -3494,26 +3554,22 @@ msgstr "Página de llegada"
 msgid "Referring URL"
 msgstr "URL de referencia"
 
-#: includes/admin/visits/class-list-table.php:106
-msgid "Referral ID"
-msgstr "ID del referido"
-
-#: includes/admin/visits/class-list-table.php:107
+#: includes/admin/visits/class-list-table.php:108
 msgid "IP"
 msgstr "IP"
 
-#: includes/admin/visits/class-list-table.php:108
+#: includes/admin/visits/class-list-table.php:109
 #: includes/admin/visits/visits.php:64 templates/dashboard-tab-stats.php:76
 #: templates/dashboard-tab-visits.php:31
 msgid "Converted"
 msgstr "Convertido"
 
-#: includes/admin/visits/class-list-table.php:195
+#: includes/admin/visits/class-list-table.php:258
 #: templates/dashboard-tab-visits.php:46
 msgid "Direct traffic"
 msgstr "Trafico directo"
 
-#: includes/admin/visits/class-list-table.php:235
+#: includes/admin/visits/class-list-table.php:298
 msgid "No visits found."
 msgstr "No se encontraron visitas."
 
@@ -3554,10 +3610,18 @@ msgstr ""
 "esta visita, si lo hubiese."
 
 #: includes/admin/visits/contextual-help.php:44
+msgid ""
+"<strong>Context</strong>: this is the context of how the visit was "
+"generated, if set."
+msgstr ""
+"<strong>Contexto</strong>: este es el contexto en el que se generó la "
+"visita, si la hubiese."
+
+#: includes/admin/visits/contextual-help.php:45
 msgid "<strong>IP</strong>: this is the IP address of the visitor."
 msgstr "<strong>IP</strong> - esta es la dirección IP del visitante."
 
-#: includes/admin/visits/contextual-help.php:45
+#: includes/admin/visits/contextual-help.php:46
 msgid ""
 "<strong>Converted</strong>: this is a Yes / No status for whether the visit "
 "turned into a successful converstion."
@@ -3565,21 +3629,21 @@ msgstr ""
 "<strong>Convertido</strong>: Es un estado Si / No que indica si la visita "
 "tuvo un conversión exitosa."
 
-#: includes/admin/visits/contextual-help.php:50
+#: includes/admin/visits/contextual-help.php:51
 msgid "Searching Visits"
 msgstr "Buscando visitas"
 
-#: includes/admin/visits/contextual-help.php:52
+#: includes/admin/visits/contextual-help.php:53
 msgid "Visit records can be searched in several different ways:"
 msgstr "El registro de visitas se puede buscar de distintas maneras:"
 
-#: includes/admin/visits/contextual-help.php:54
+#: includes/admin/visits/contextual-help.php:55
 msgid "You can enter an IP address to find all visits from a specific IP"
 msgstr ""
 "Puedes introducir una dirección IP para encontrar todas las visitas de un IP "
 "especifico."
 
-#: includes/admin/visits/contextual-help.php:55
+#: includes/admin/visits/contextual-help.php:56
 msgid ""
 "You can enter a complete URL to find all visits that landed on or came from "
 "a specific URL"
@@ -3587,7 +3651,7 @@ msgstr ""
 "Puedes introducir un enlace completo para encontrar todas las visitas que "
 "visitaron o vinieron de un enlace especifico."
 
-#: includes/admin/visits/contextual-help.php:56
+#: includes/admin/visits/contextual-help.php:57
 msgid ""
 "You can enter a partial URL to find all visits that landed on or came from a "
 "specific site"
@@ -3595,11 +3659,17 @@ msgstr ""
 "Puedes introducir un enlace parcial para encontrar todas las visitas que "
 "visitaron o vinieron de un enlace especifico."
 
-#: includes/admin/visits/contextual-help.php:57
+#: includes/admin/visits/contextual-help.php:58
 msgid ""
 "You can enter the referral&#8217;s ID number prefixed by &#8220;referral:"
 "&#8221;"
 msgstr "Puedes introducir el número ID del referido con el prefijo 'referido:’"
+
+#: includes/admin/visits/contextual-help.php:59
+msgid "You can enter a visit context prefixed by &#8220;context:&#8221;"
+msgstr ""
+"Puedes introducir un contexto de la visita con el prefijo &#8220;context:"
+"&#8221;"
 
 #: includes/admin/visits/screen-options.php:24
 msgid "Number of visits per page:"
@@ -3715,19 +3785,19 @@ msgstr "Por favor, introduce tu nombre"
 msgid "Please enter a website URL"
 msgstr "Por favor, introduce la URL de una web"
 
-#: includes/class-register.php:271
+#: includes/class-register.php:272
 msgid "Please enter your payment email"
 msgstr "Por favor, introduce tu correo electrónico para los pagos"
 
-#: includes/class-register.php:278
+#: includes/class-register.php:279
 msgid "Please tell us how you will promote us"
 msgstr "Por favor, dinos cómo nos promocionarás"
 
-#: includes/class-register.php:498
+#: includes/class-register.php:499
 msgid "Add as Affiliate"
 msgstr "Añadir afiliado"
 
-#: includes/class-register.php:500
+#: includes/class-register.php:501
 msgid "Add the user as an affiliate."
 msgstr "Añade al usuario como afiliado."
 
@@ -3769,7 +3839,7 @@ msgstr "No se pudo añadir la cuenta de afiliado."
 #: includes/cli/class-affiliate-sub-commands.php:275
 #: includes/cli/class-affiliate-sub-commands.php:279
 #: includes/cli/class-referral-sub-commands.php:205
-#: includes/cli/class-visit-sub-commands.php:234
+#: includes/cli/class-visit-sub-commands.php:248
 msgid "A valid affiliate username or ID is required to proceed."
 msgstr "Se requiere un ID o usuario de afiliado válido para continuar."
 
@@ -4040,14 +4110,14 @@ msgid "Number of payouts: %d"
 msgstr "Número de pagos: %d"
 
 #: includes/cli/class-referral-sub-commands.php:120
-#: includes/cli/class-visit-sub-commands.php:120
+#: includes/cli/class-visit-sub-commands.php:124
 msgid ""
 "A valid affiliate username or ID must be specified as the first argument."
 msgstr ""
 "Debe especificarse como primer argumento un ID o usuario válido de usuario."
 
 #: includes/cli/class-referral-sub-commands.php:124
-#: includes/cli/class-visit-sub-commands.php:124
+#: includes/cli/class-visit-sub-commands.php:128
 msgid ""
 "An affiliate with the ID or username \"%s\" does not exist. See wp affwp "
 "affiliate create for adding affiliates."
@@ -4094,61 +4164,61 @@ msgstr "No pudo borrarse el referido."
 msgid "Number of referrals: %d"
 msgstr "Número de referidos: %d"
 
-#: includes/cli/class-visit-sub-commands.php:131
+#: includes/cli/class-visit-sub-commands.php:135
 msgid "A URL must be specified as the second argument to proceed."
 msgstr "Debe especificarse una URL como segundo argumento para continuar."
 
-#: includes/cli/class-visit-sub-commands.php:141
+#: includes/cli/class-visit-sub-commands.php:145
 msgid "An invalid referral ID was specified. Using 0 (none) instead."
 msgstr ""
 "Se especificó un ID de referido no válido. Usando 0 (ninguno) en su lugar."
 
-#: includes/cli/class-visit-sub-commands.php:154
+#: includes/cli/class-visit-sub-commands.php:165
 msgid "A valid date string must be supplied. Using the current time."
 msgstr "Debe facilitarse una cadena de fecha válida. Usando la fecha actual."
 
-#: includes/cli/class-visit-sub-commands.php:168
+#: includes/cli/class-visit-sub-commands.php:179
 msgid "The visit was successfully created."
 msgstr "Visita creada correctamente."
 
-#: includes/cli/class-visit-sub-commands.php:170
+#: includes/cli/class-visit-sub-commands.php:181
 msgid "The visit could not be created."
 msgstr "No se pudo crear la visita."
 
-#: includes/cli/class-visit-sub-commands.php:222
-#: includes/cli/class-visit-sub-commands.php:225
-#: includes/cli/class-visit-sub-commands.php:289
-#: includes/cli/class-visit-sub-commands.php:292
+#: includes/cli/class-visit-sub-commands.php:236
+#: includes/cli/class-visit-sub-commands.php:239
+#: includes/cli/class-visit-sub-commands.php:304
+#: includes/cli/class-visit-sub-commands.php:307
 msgid "A valid visit ID is required to proceed."
 msgstr "Se requiere un ID de visita válido para continuar."
 
-#: includes/cli/class-visit-sub-commands.php:245
+#: includes/cli/class-visit-sub-commands.php:259
 msgid "A valid new date string must be supplied. Using the original date."
 msgstr ""
 "Se debe suministrar una nueva cadena de fecha válida. Usando la fecha "
 "original."
 
-#: includes/cli/class-visit-sub-commands.php:262
+#: includes/cli/class-visit-sub-commands.php:277
 msgid "The visit was updated successfully."
 msgstr "La visita se actualizó correctamente."
 
-#: includes/cli/class-visit-sub-commands.php:264
+#: includes/cli/class-visit-sub-commands.php:279
 msgid "The visit could not be updated."
 msgstr "No se pudo actualizar la visita."
 
-#: includes/cli/class-visit-sub-commands.php:296
+#: includes/cli/class-visit-sub-commands.php:311
 msgid "Are you sure you want to delete this visit?"
 msgstr "¿Estás seguro de que quieres borrar esta visita?"
 
-#: includes/cli/class-visit-sub-commands.php:301
+#: includes/cli/class-visit-sub-commands.php:316
 msgid "The visit has been successfully deleted."
 msgstr "La visita se borró correctamente."
 
-#: includes/cli/class-visit-sub-commands.php:303
+#: includes/cli/class-visit-sub-commands.php:318
 msgid "The visit could not be deleted."
 msgstr "No pudo borrarse la visita."
 
-#: includes/cli/class-visit-sub-commands.php:380
+#: includes/cli/class-visit-sub-commands.php:396
 msgid "Number of visits: %d"
 msgstr "Número de visitas: %d"
 
@@ -4318,11 +4388,11 @@ msgstr "Activar la creación de referido de afiliado en este formulario"
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
 
-#: includes/integrations/class-contactform7.php:115
+#: includes/integrations/class-contactform7.php:114
 msgid "Enable referrals on all Contact Form 7 forms"
 msgstr "Activar los referidos en todos los formularios de Contact Form 7"
 
-#: includes/integrations/class-contactform7.php:116
+#: includes/integrations/class-contactform7.php:115
 msgid ""
 "Check this box to enable referrals on all Contact Form 7 forms.<ul><li>%3$s "
 "Once enabled, referrals will be generated for all valid Contact Form 7 forms."
@@ -4334,11 +4404,11 @@ msgstr ""
 "todos los formularios válidos de Contact Form 7.</li><li>%2$s <a href=“%1$s” "
 "target=“_blank”>Documentación sobre esta integración</a></li></ul>"
 
-#: includes/integrations/class-contactform7.php:131
+#: includes/integrations/class-contactform7.php:130
 msgid "Enable referrals for specific Contact Form 7 forms"
 msgstr "Activar la creación de referido de afiliado en este formulario"
 
-#: includes/integrations/class-contactform7.php:188
+#: includes/integrations/class-contactform7.php:187
 msgid "Form ID: "
 msgstr "ID del formulario: "
 
@@ -4764,7 +4834,7 @@ msgstr "Real Brasileño (R&#36;)"
 #: includes/misc-functions.php:32
 msgid "Bulgarian Lev"
 msgstr ""
-" Lev de \n"
+" Lev de \n"
 "Bulgaria"
 
 #: includes/misc-functions.php:33
@@ -5170,7 +5240,7 @@ msgctxt "Integrations"
 msgid "Dismiss Notice"
 msgstr "Descartar aviso"
 
-#: includes/admin/class-notices.php:406 includes/admin/class-notices.php:415
+#: includes/admin/class-notices.php:412 includes/admin/class-notices.php:421
 msgctxt "License"
 msgid "Dismiss Notice"
 msgstr "Descartar aviso"
@@ -5303,11 +5373,6 @@ msgctxt "payout"
 msgid "Date"
 msgstr "Fecha"
 
-#: includes/admin/referrals/edit.php:58
-msgctxt "payout"
-msgid "View"
-msgstr "Ver"
-
 #: includes/payout-functions.php:133 includes/payout-functions.php:137
 msgctxt "payout"
 msgid "Paid"
@@ -5325,10 +5390,27 @@ msgctxt "payout owner ID"
 msgid "(User ID: %d)"
 msgstr "(ID de usuario: %d)"
 
+#. translators: 1: Visit date
+#: includes/admin/referrals/edit.php:184
+msgctxt "visit"
+msgid "Date: %1$s (%2$s)"
+msgstr "Fecha: %1$s (%2$s)"
+
+#: includes/admin/referrals/edit.php:193
+msgctxt "visit"
+msgid "None"
+msgstr "Ninguno"
+
 #: includes/admin/referrals/referrals.php:39
 msgctxt "referrals"
 msgid "Reports"
 msgstr "Informes"
+
+#: includes/admin/visits/class-list-table.php:234
+#, fuzzy
+msgctxt "visit context"
+msgid "None"
+msgstr "Ninguno"
 
 #: includes/admin/visits/visits.php:42
 msgctxt "visits"
@@ -5400,10 +5482,17 @@ msgctxt "show pretty referral URLs"
 msgid "Disabled"
 msgstr "Inactivo"
 
-#: includes/cli/class-visit-sub-commands.php:421
+#: includes/cli/class-visit-sub-commands.php:437
 msgctxt "direct traffic"
 msgid "Direct"
 msgstr "Directo"
+
+#~ msgid "%1$s | Total: %2$s"
+#~ msgstr "%1$s | Total: %2$s"
+
+#~ msgctxt "payout"
+#~ msgid "View"
+#~ msgstr "Ver"
 
 #~ msgid "Should all email notifications be disabled?"
 #~ msgstr "¿Deberían desactivarse todos los avisos por correo electrónico?"
@@ -5415,8 +5504,8 @@ msgstr "Directo"
 #~ "Check this box if you would like AffiliateWP to completely remove all of "
 #~ "its data when the plugin is deleted."
 #~ msgstr ""
-#~ "Selecciona esta casilla si deseas que AffiliateWP elimine completamente la "
-#~ "información recopiada cuando el plugin sea eliminado."
+#~ "Selecciona esta casilla si deseas que AffiliateWP elimine completamente "
+#~ "la información recopiada cuando el plugin sea eliminado."
 
 #~ msgid "Login"
 #~ msgstr "Acceder"
@@ -5481,8 +5570,8 @@ msgstr "Directo"
 #~ "with three new integrations:"
 #~ msgstr ""
 #~ "Para hacer \n"
-#~ "Hemos hecho que AffiliateWP sea mas accesible y valioso para mas usuarios, "
-#~ "con estas tres nuevas integraciones:"
+#~ "Hemos hecho que AffiliateWP sea mas accesible y valioso para mas "
+#~ "usuarios, con estas tres nuevas integraciones:"
 
 #, fuzzy
 #~ msgid "Improved Integrations"
@@ -5552,9 +5641,8 @@ msgstr "Directo"
 #~ "If you allow affiliate registrations, you can also easily accept or "
 #~ "reject affiliate&#8217;s applications directly from the Overview page"
 #~ msgstr ""
-#~ "Si tienes habilitado el registro de afiliados puedes aceptar o "
-#~ "rechazar de manera sencilla las solicitudes directamente desde la página "
-#~ "de resumen"
+#~ "Si tienes habilitado el registro de afiliados puedes aceptar o rechazar "
+#~ "de manera sencilla las solicitudes directamente desde la página de resumen"
 
 #~ msgid "Affiliates &rarr; Add New"
 #~ msgstr "Afiliados &rarr; Añadir nuevo"
@@ -5666,10 +5754,9 @@ msgstr "Directo"
 #~ "problem or have a question, visit our <a href=\"https://affiliatewp.com/"
 #~ "support\">support</a> page to open a ticket."
 #~ msgstr ""
-#~ "Hacemos lo mejor para proveer el mejor soporte que podemos. Si "
-#~ "encuentras un problema o tienes alguna pregunta, visita nuestra página de "
-#~ "<a href=\"http://affiliatewp.com/support\">soporte</a> para abrir un "
-#~ "ticket."
+#~ "Hacemos lo mejor para proveer el mejor soporte que podemos. Si encuentras "
+#~ "un problema o tienes alguna pregunta, visita nuestra página de <a href="
+#~ "\"http://affiliatewp.com/support\">soporte</a> para abrir un ticket."
 
 #~ msgid "Thank you for updating to the latest version!"
 #~ msgstr "Gracias por actualizar a la ultima versión!"
@@ -5698,8 +5785,8 @@ msgstr "Directo"
 #~ "Enter the subject line for rejected application emails sent to affiliates "
 #~ "when their account is rejected."
 #~ msgstr ""
-#~ "Introduce el asunto para los correos electrónicos enviados a los afiliados "
-#~ "cuando su cuenta es aprobada."
+#~ "Introduce el asunto para los correos electrónicos enviados a los "
+#~ "afiliados cuando su cuenta es aprobada."
 
 #, fuzzy
 #~ msgid "Affiliate Application Rejected"
@@ -5738,9 +5825,8 @@ msgstr "Directo"
 #~ "they register for an account or earn a new referral."
 #~ msgstr ""
 #~ "Hemos incluido una nueva pestaña en la version 1.6, en la pagina de "
-#~ "ajustes la cual te permitira configurar todos los correos "
-#~ "electronicos enviados a los afiliados al abrir una cuenta u obtener un "
-#~ "nuevo referido."
+#~ "ajustes la cual te permitira configurar todos los correos electronicos "
+#~ "enviados a los afiliados al abrir una cuenta u obtener un nuevo referido."
 
 #~ msgid ""
 #~ "All emails are sent in beautiful HTML templates that can be easily edited "
@@ -5810,8 +5896,8 @@ msgstr "Directo"
 #~ "affiliates to copy the necessary code."
 #~ msgstr ""
 #~ "Hemos mejorado su apariencia. La descripción se ha colocado sobre la "
-#~ "creatividad y copiar el código necesario es ahora mucho mas fácil para los "
-#~ "afiliados. "
+#~ "creatividad y copiar el código necesario es ahora mucho mas fácil para "
+#~ "los afiliados. "
 
 #~ msgid "Affiliate Dashboard Improvements"
 #~ msgstr "Mejoras en el panel de afiliados"

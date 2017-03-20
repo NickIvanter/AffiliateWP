@@ -25,7 +25,7 @@ class Affiliate_WP_Integrations {
 			'memberpress'    => 'MemberPress',
 			'ninja-forms'    => 'Ninja Forms',
 			'optimizemember' => 'OptimizeMember',
-			'paypal'         => 'PayPal',
+			'paypal'         => 'PayPal Buttons',
 			'pmp'            => 'Paid Memberships Pro',
 			'pms'            => 'Paid Member Subscriptions',
 			'rcp'            => 'Restrict Content Pro',
