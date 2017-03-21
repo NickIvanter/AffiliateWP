@@ -86,7 +86,7 @@ class Tab extends Reports\Tab {
 					esc_url( $affiliate_link ),
 					$affiliate_name,
 					esc_url( affwp_admin_url( 'payouts', array( 'affiliate_id' => $this->affiliate_id ) ) ),
-					__( 'View All', 'affiliate-wp' )
+					__( 'View Payouts', 'affiliate-wp' )
 				),
 			) );
 
