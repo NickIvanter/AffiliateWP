@@ -141,6 +141,19 @@ abstract class Tab {
 			</div>
 		<?php endif; ?>
 
+		<?php
+		/**
+		 * Fires at the top of the given reports tab page.
+		 *
+		 * The dynamic portion of the hook name, `$this->tab_id`, refers to the tab ID.
+		 * Fires after the Filters section at the top of the reports tab has already
+		 * been rendered.
+		 *
+		 * @since 2.1
+		 */
+		do_action( "affwp_reports_{$this->tab_id}_top" );
+		?>
+
 		<h3><?php _e( 'Quick Stats', 'affiliate-wp' ); ?></h3>
 
 		<?php
@@ -189,6 +202,14 @@ abstract class Tab {
 			?>
 		</div>
 		<?php
+		/**
+		 * Fires at the bottom of the given reports tab.
+		 *
+		 * The dynamic portion of the hook name, `$this->tab_id`, refers to the tab ID.
+		 *
+		 * @since 2.1
+		 */
+		do_action( "affwp_reports_tab_{$this->tab_id}_bottom" );
 	}
 
 	/**
