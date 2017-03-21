@@ -132,8 +132,10 @@ abstract class Tab {
 						 * The dynamic portion of the hook name, `$this->tab_id`, refers to the ID of the current tab.
 						 *
 						 * @since 1.9
+						 *
+						 * @param \AffWP\Admin\Reports\Tab $this Tab instance.
 						 */
-						do_action( "affwp_reports_{$this->tab_id}_nav" );
+						do_action( "affwp_reports_{$this->tab_id}_nav", $this );
 						?>
 						<?php submit_button( __( 'Filter', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 					</div>
@@ -150,8 +152,10 @@ abstract class Tab {
 		 * been rendered.
 		 *
 		 * @since 2.1
+		 *
+		 * @param \AffWP\Admin\Reports\Tab $this Tab instance.
 		 */
-		do_action( "affwp_reports_{$this->tab_id}_top" );
+		do_action( "affwp_reports_{$this->tab_id}_top", $this );
 		?>
 
 		<h3><?php _e( 'Quick Stats', 'affiliate-wp' ); ?></h3>
@@ -163,8 +167,10 @@ abstract class Tab {
 		 * Use this hook to register standalone meta boxes against. See set_up_tiles() for core usage.
 		 *
 		 * @since 1.9
+		 *
+		 * @param \AffWP\Admin\Reports\Tab $this Tab instance.
 		 */
-		do_action( "affwp_reports_{$this->tab_id}_meta_boxes" );
+		do_action( "affwp_reports_{$this->tab_id}_meta_boxes", $this );
 		?>
 
 		<div id="affwp-reports-widgets-wrap">
@@ -197,8 +203,10 @@ abstract class Tab {
 			 * The dynamic portion of the hook name, `$this->tab_id`, refers to the tab ID.
 			 *
 			 * @since 1.9
+			 *
+			 * @param \AffWP\Admin\Reports\Tab $this Tab instance.
 			 */
-			do_action( "affwp_reports_tab_{$this->tab_id}_trends" );
+			do_action( "affwp_reports_tab_{$this->tab_id}_trends", $this );
 			?>
 		</div>
 		<?php
@@ -208,8 +216,10 @@ abstract class Tab {
 		 * The dynamic portion of the hook name, `$this->tab_id`, refers to the tab ID.
 		 *
 		 * @since 2.1
+		 *
+		 * @param \AffWP\Admin\Reports\Tab $this Tab instance.
 		 */
-		do_action( "affwp_reports_tab_{$this->tab_id}_bottom" );
+		do_action( "affwp_reports_tab_{$this->tab_id}_bottom", $this );
 	}
 
 	/**
