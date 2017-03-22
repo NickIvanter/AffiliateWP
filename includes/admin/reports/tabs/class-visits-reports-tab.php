@@ -74,18 +74,24 @@ class Tab extends Reports\Tab {
 				),
 			) );
 
-			$converted = affiliate_wp()->visits->count( array(
+			$converted_date = affiliate_wp()->visits->count( array(
 				'affiliate_id'    => $this->affiliate_id,
 				'referral_status' => 'converted',
 				'number'          => -1,
 				'date'            => $this->date_query,
 			) );
 
+			$converted = affiliate_wp()->visits->count( array(
+				'affiliate_id'    => $this->affiliate_id,
+				'referral_status' => 'converted',
+				'number'          => -1,
+			) );
+
 			$this->register_tile( 'affiliate_converted_visits', array(
 				'label'           => __( 'Successful Conversions', 'affiliate-wp' ),
 				'type'            => 'number',
 				'context'         => 'tertiary',
-				'data'            => $converted,
+				'data'            => $converted_date,
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a> | %3$s', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
 					$affiliate_name,
@@ -93,15 +99,31 @@ class Tab extends Reports\Tab {
 				),
 			) );
 
-			$total_visits = affiliate_wp()->visits->count( array(
+			$total_visits_date = affiliate_wp()->visits->count( array(
 				'affiliate_id' => $this->affiliate_id,
 				'date'         => $this->date_query,
 			) );
 
+			$total_visits = affiliate_wp()->visits->count( array(
+				'affiliate_id' => $this->affiliate_id
+			) );
+
 			$this->register_tile( 'conversion_rate', array(
+				'label'           => __( 'Conversion Rate (All Time)', 'affiliate-wp' ),
+				'type'            => 'rate',
+				'context'         => 'primary',
+				'data'            => $total_visits > 0 ? round( ( $converted / $total_visits ), 2 ) : 0,
+				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a>', 'affiliate-wp' ),
+					esc_url( $affiliate_link ),
+					$affiliate_name
+				),
+			) );
+
+			$this->register_tile( 'conversion_rate_date', array(
 				'label'           => __( 'Conversion Rate', 'affiliate-wp' ),
 				'type'            => 'rate',
-				'data'            => $total_visits > 0 ? round( ( $converted / $total_visits ), 2 ) : 0,
+				'context'         => 'secondary',
+				'data'            => $total_visits_date > 0 ? round( ( $converted_date / $total_visits_date ), 2 ) : 0,
 				'comparison_data' => sprintf( __( 'Affiliate: <a href="%1$s">%2$s</a> | %3$s', 'affiliate-wp' ),
 					esc_url( $affiliate_link ),
 					$affiliate_name,
@@ -219,7 +241,7 @@ class Tab extends Reports\Tab {
 
 			}
 
-			$this->register_tile( 'top_referrer', array(
+			$this->register_tile( 'top_referrer_variable', array(
 				'label'           => __( 'Top Referrer', 'affiliate-wp' ),
 				'context'         => 'secondary',
 				'type'            => 'url',
@@ -243,9 +265,9 @@ class Tab extends Reports\Tab {
 
 			}
 
-			$this->register_tile( 'top_referrer', array(
+			$this->register_tile( 'top_referrer_variable', array(
 				'label'           => __( 'Top Referrer', 'affiliate-wp' ),
-				'context'         => 'secondary',
+				'context'         => 'tertiary',
 				'data'            => '',
 				'comparison_data' => $comparison_data,
 			) );
