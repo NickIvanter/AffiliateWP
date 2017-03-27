@@ -1,5 +1,10 @@
 jQuery(document).ready( function($) {
 
+	// datepicker
+	if( $('.affwp-datepicker').length ) {
+		$('.affwp-datepicker').datepicker({dateFormat: 'mm/dd/yy'});
+	}
+
 	// Remove whitespace from the campaign name.
 	$( '#affwp-campaign' ).on( 'focusout', function( event ) {
 		$( this ).val( $( this ).val().replace( /\s/g, '' ) );

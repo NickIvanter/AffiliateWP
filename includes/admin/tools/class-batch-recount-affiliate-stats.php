@@ -190,6 +190,8 @@ class Recount_Affiliate_Stats extends Utils\Batch_Process implements Batch\With_
 	public function compile_totals() {
 		$count = 0;
 
+		$affiliate_totals = array();
+
 		if ( 'referrals' === $this->type ) {
 
 			$referrals = affiliate_wp()->referrals->get_referrals( array(

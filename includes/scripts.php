@@ -1,25 +1,28 @@
 <?php
 
 /**
- *  Determines whether the current admin page is an AffiliateWP admin page.
+ * Determines whether the current admin page is an AffiliateWP admin page.
  *
- *  Only works after the `wp_loaded` hook, & most effective
- *  starting on `admin_menu` hook.
+ * Only works after the `wp_loaded` hook, & most effective
+ * starting on `admin_menu` hook.
  *
- *  @since 1.0
- *  @return bool True if AffiliateWP admin page.
+ * @since 1.0
+ *
+ * @param string $page Optional. Specific admin page to check for. Default empty (any).
+ * @return bool True if AffiliateWP admin page.
  */
-function affwp_is_admin_page() {
+function affwp_is_admin_page( $page = '' ) {
 
 	if ( ! is_admin() || ! did_action( 'wp_loaded' ) ) {
 		$ret = false;
 	}
 
-	if( ! isset( $_GET['page'] ) ) {
+	if ( empty( $page ) && isset( $_GET['page'] ) ) {
+		$page = sanitize_text_field( $_GET['page'] );
+	} else {
 		$ret = false;
 	}
 
-	$page  = isset( $_GET['page'] ) ? $_GET['page'] : '';
 	$pages = array(
 		'affiliate-wp',
 		'affiliate-wp-affiliates',
@@ -35,8 +38,20 @@ function affwp_is_admin_page() {
 		'affwp-credits'
 	);
 
-	$ret = in_array( $page, $pages );
+	if ( ! empty( $page ) && in_array( $page, $pages ) ) {
+		$ret = true;
+	} else {
+		$ret = in_array( $page, $pages );
+	}
 
+	/**
+	 * Filters whether the current page is an AffiliateWP admin page.
+	 *
+	 * @since 1.0
+	 *
+	 * @param bool $ret Whether the current page is either a given admin page
+	 *                  or any whitelisted admin page.
+	 */
 	return apply_filters( 'affwp_is_admin_page', $ret );
 }
 
@@ -124,11 +139,22 @@ function affwp_frontend_scripts_and_styles() {
 		return;
 	}
 
+	$script_deps = array( 'jquery' );
+	$style_deps  = array();
+
+	if ( isset( $_REQUEST['tab'] ) && 'graphs' === sanitize_key( $_REQUEST['tab'] ) ) {
+		$script_deps[] = 'jquery-ui-datepicker';
+		$style_deps[]  = 'jquery-ui-css';
+	}
+
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	wp_register_style( 'affwp-forms', AFFILIATEWP_PLUGIN_URL . 'assets/css/forms' . $suffix . '.css', array(), AFFILIATEWP_VERSION );
+	wp_register_style( 'affwp-forms', AFFILIATEWP_PLUGIN_URL . 'assets/css/forms' . $suffix . '.css', $style_deps, AFFILIATEWP_VERSION );
+
+	wp_register_style( 'jquery-ui-css', AFFILIATEWP_PLUGIN_URL . 'assets/css/jquery-ui-fresh.min.css' );
 
 	wp_register_script( 'affwp-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), AFFILIATEWP_VERSION );
-	wp_register_script( 'affwp-frontend', AFFILIATEWP_PLUGIN_URL . 'assets/js/frontend' . $suffix . '.js', array( 'jquery' ), AFFILIATEWP_VERSION );
+
+	wp_register_script( 'affwp-frontend', AFFILIATEWP_PLUGIN_URL . 'assets/js/frontend' . $suffix . '.js', $script_deps, AFFILIATEWP_VERSION );
 
 	wp_localize_script( 'affwp-frontend', 'affwp_vars', array(
 		'affwp_version'         => AFFILIATEWP_VERSION,

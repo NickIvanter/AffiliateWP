@@ -20,6 +20,12 @@ class Affiliate_WP_Upgrades {
 	 */
 	private $logs;
 
+	/**
+	 * Signals whether the upgrade was successful.
+	 *
+	 * @access public
+	 * @var    bool
+	 */
 	private $upgraded = false;
 
 	/**
@@ -41,6 +47,15 @@ class Affiliate_WP_Upgrades {
 	private $utils;
 
 	/**
+	 * Upgrade routine registry.
+	 *
+	 * @access private
+	 * @since  2.0.5
+	 * @var    \AffWP\Utils\Upgrades\Registry
+	 */
+	private $registry;
+
+	/**
 	 * Sets up the Upgrades class instance.
 	 *
 	 * @access public
@@ -49,17 +64,23 @@ class Affiliate_WP_Upgrades {
 	 */
 	public function __construct( $utils ) {
 
-		$this->utils   = $utils;
-		$this->version = get_option( 'affwp_version' );
+		$this->utils    = $utils;
+		$this->version  = get_option( 'affwp_version' );
+		$this->registry = new \AffWP\Utils\Upgrades\Registry;
 
 		add_action( 'admin_init', array( $this, 'init' ), -9999 );
 
 		$settings = new Affiliate_WP_Settings;
 		$this->debug = (bool) $settings->get( 'debug_mode', false );
 
-		add_action( 'affwp_batch_process_init', array( $this, 'register_batch_upgrades' ) );
+		$this->register_core_upgrades();
 	}
 
+	/**
+	 * Initializes upgrade routines for the current version of AffiliateWP.
+	 *
+	 * @access public
+	 */
 	public function init() {
 
 		if ( empty( $this->version ) ) {
@@ -128,16 +149,94 @@ class Affiliate_WP_Upgrades {
 	}
 
 	/**
-	 * Registers batch upgrade routines.
+	 * Registers core upgrade routines.
+	 *
+	 * @access private
+	 * @since  2.0.5
+	 *
+	 * @see \Affiliate_WP_Upgrades::add_routine()
+	 */
+	private function register_core_upgrades() {
+		$this->add_routine( 'upgrade_v20_recount_unpaid_earnings', array(
+			'version' => '2.0',
+			'compare' => '<',
+			'batch_process' => array(
+				'id'    => 'recount-affiliate-stats-upgrade',
+				'class' => 'AffWP\Utils\Batch_Process\Upgrade_Recount_Stats',
+				'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/upgrades/class-batch-upgrade-recount-affiliate-stats.php'
+			)
+		) );
+
+	}
+
+	/**
+	 * Registers a new upgrade routine.
 	 *
 	 * @access public
-	 * @since  2.0
+	 * @since  2.0.5
+	 *
+	 * @param string $upgrade_id Upgrade ID.
+	 * @param array  $args {
+	 *     Arguments for registering a new upgrade routine.
+	 *
+	 *     @type string $version       Version the upgrade routine should be run against.
+	 *     @type string $compare       Comparison operator to use when determining if the routine
+	 *                                 should be executed.
+	 *     @type array  $batch_process {
+	 *         Optional. Arguments for registering a batch process.
+	 *
+	 *         @type string $id    Batch process ID.
+	 *         @type string $class Batch processor class to use.
+	 *         @type string $file  File containing the batch processor class.
+	 *     }
+	 * }
+	 * @return bool True if the upgrade routine was added, otherwise false.
 	 */
-	public function register_batch_upgrades() {
-		$this->utils->batch->register_process( 'recount-affiliate-stats-upgrade', array(
-			'class' => 'AffWP\Utils\Batch_Process\Upgrade_Recount_Stats',
-			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/upgrades/class-batch-upgrade-recount-affiliate-stats.php',
-		) );
+	public function add_routine( $upgrade_id, $args ) {
+		// Register the batch process if one has been defined.
+		if ( ! empty( $args['batch_process'] ) ) {
+
+			$utils = $this->utils;
+			$batch = $args['batch_process'];
+
+			// Log an error if it's too late to register the batch process.
+			if ( did_action( 'affwp_batch_process_init' ) ) {
+
+				$utils->log( sprintf( 'The %s batch process was registered too late. Registrations must occur while/before <code>affwp_batch_process_init</code> fires.',
+					esc_html( $args['batch_process']['id'] )
+				) );
+
+				return false;
+
+			} else {
+
+				add_action( 'affwp_batch_process_init', function() use ( $utils, $batch ) {
+					$utils->batch->register_process( $batch['id'], array(
+						'class' => $batch['class'],
+						'file'  => $batch['file'],
+					) );
+				} );
+
+			}
+
+			unset( $args['batch_process'] );
+		}
+
+		// Add the routine to the registry.
+		return $this->registry->add_upgrade( $upgrade_id, $args );
+	}
+
+	/**
+	 * Retrieves an upgrade routine from the registry.
+	 *
+	 * @access public
+	 * @since  2.0.5
+	 *
+	 * @param string $upgrade_id Upgrade ID.
+	 * @return array|false Upgrade entry from the registry, otherwise false.
+	 */
+	public function get_routine( $upgrade_id ) {
+		return $this->registry->get( $upgrade_id );
 	}
 
 	/**
@@ -149,7 +248,7 @@ class Affiliate_WP_Upgrades {
 	 * @param string $message Optional. Message to log.
 	 */
 	private function log( $message = '' ) {
-		affiliate_wp()->utils->log( $message );
+		$this->utils->log( $message );
 	}
 
 	/**

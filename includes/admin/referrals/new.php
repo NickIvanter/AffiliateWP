@@ -97,6 +97,19 @@
 			<tr class="form-row form-required">
 
 				<th scope="row">
+					<label for="context"><?php _e( 'Custom', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<input type="text" name="custom" id="custom" />
+					<p class="description"><?php _e( 'Any custom data that should be stored with the referral (optional).', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row form-required">
+
+				<th scope="row">
 					<label for="status"><?php _e( 'Status', 'affiliate-wp' ); ?></label>
 				</th>
 

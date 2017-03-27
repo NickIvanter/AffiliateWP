@@ -237,6 +237,19 @@ $disabled = disabled( (bool) $payout, true, false );
 			</tr>
 
 			<tr class="form-row form-required">
+				<?php $readonly = __checked_selected_helper( true, ! empty( $referral->custom ), false, 'readonly' ); ?>
+				<th scope="row">
+					<label for="context"><?php _e( 'Custom', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<input type="text" name="custom" id="custom" value="<?php echo esc_attr( $referral->custom ); ?>" <?php echo $readonly; ?> />
+					<p class="description"><?php _e( 'Custom data stored for this referral (optional).', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row form-required">
 
 				<th scope="row">
 					<label for="status"><?php _e( 'Status', 'affiliate-wp' ); ?></label>

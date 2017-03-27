@@ -23,6 +23,18 @@ class Upgrade_Recount_Stats extends Recount_Affiliate_Stats {
 	public $batch_id = 'recount-affiliate-stats-upgrade';
 
 	/**
+	 * Initializes the batch process.
+	 *
+	 * @access public
+	 * @since  2.0.5
+	 */
+	public function init( $data = null ) {
+		$data['recount_type'] = 'unpaid-earnings';
+
+		parent::init( $data );
+	}
+
+	/**
 	 * Retrieves a message based on the given message code.
 	 *
 	 * @access public

@@ -144,6 +144,10 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 			$args['products'] = maybe_serialize( $args['products'] );
 		}
 
+		if ( ! empty( $args['custom'] ) ) {
+			$args['custom']	 = maybe_serialize( $args['custom'] );
+		}
+
 		$add  = $this->insert( $args, 'referral' );
 
 		if ( $add ) {
@@ -249,10 +253,14 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 *
 	 * @param string $column  Column name. See get_columns().
 	 * @param string $context Optional. Context for which to retrieve a referral. Default empty.
-	 * @return object|null Database query result object or null on failure.
+	 * @return object|false Database query result object or false on failure.
 	*/
 	public function get_by( $column, $row_id, $context = '' ) {
 		global $wpdb;
+
+		if( empty( $column ) || empty( $row_id ) ) {
+			return false;
+		}
 
 		$and = '';
 		if( ! empty( $context ) ) {
@@ -576,7 +584,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 
 		$last_changed = wp_cache_get( 'last_changed', $this->cache_group );
 		if ( ! $last_changed ) {
-			wp_cache_set( 'last_changed', microtime(), $this->cache_group );
+			$last_changed = microtime();
+			wp_cache_set( 'last_changed', $last_changed, $this->cache_group );
 		}
 
 		$cache_key = "{$key}:{$last_changed}";

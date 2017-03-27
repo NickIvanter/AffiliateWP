@@ -989,6 +989,11 @@ function affwp_admin_link( $type, $label, $query_args = array(), $attributes = a
  */
 function affwp_set_upgrade_complete( $upgrade_action ) {
 
+	// Check for a valid upgrade action.
+	if ( false === affiliate_wp()->utils->upgrades->get_routine( $upgrade_action ) ) {
+		return false;
+	}
+
 	$completed_upgrades = affwp_get_completed_upgrades();
 
 	$completed_upgrades[] = $upgrade_action;

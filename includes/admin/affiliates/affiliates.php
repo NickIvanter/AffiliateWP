@@ -26,7 +26,10 @@ function affwp_affiliates_admin() {
 		$action = $_GET['action'];
 	}
 
-	if ( 'view_affiliate' === $action ) {
+	$affiliate_id = isset( $_REQUEST['affiliate_id'] ) ? absint( $_REQUEST['affiliate_id'] ) : 0;
+	$affiliate    = affwp_get_affiliate( $affiliate_id );
+
+	if ( 'view_affiliate' === $action && $affiliate ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/view.php';
 
@@ -34,15 +37,15 @@ function affwp_affiliates_admin() {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/new.php';
 
-	} elseif ( 'edit_affiliate' === $action ) {
+	} elseif ( 'edit_affiliate' === $action && $affiliate  ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/edit.php';
 
-	} elseif ( 'review_affiliate' === $action ) {
+	} elseif ( 'review_affiliate' === $action && $affiliate  ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/review.php';
 
-	} elseif ( 'delete' === $action ) {
+	} elseif ( 'delete' === $action && $affiliate  ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/delete.php';
 

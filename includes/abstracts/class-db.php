@@ -92,14 +92,18 @@ abstract class Affiliate_WP_DB {
 	 *
 	 * @access public
 	 *
-	 * @param  string      $column Column name. See get_columns().
-	 * @param  int|string  $row_id Row ID.
-	 * @return object|null         Database query result object or null on failure.
+	 * @param  string       $column Column name. See get_columns().
+	 * @param  int|string   $row_id Row ID.
+	 * @return object|false Database query result object or false on failure.
 	 */
 	public function get_by( $column, $row_id ) {
 		global $wpdb;
 
 		if ( ! array_key_exists( $column, $this->get_columns() ) || empty( $row_id ) ) {
+			return false;
+		}
+
+		if( empty( $column ) || empty( $row_id ) ) {
 			return false;
 		}
 

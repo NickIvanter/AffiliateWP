@@ -112,6 +112,15 @@ table.affiliates #unpaid {
     max-width: 100%;
 }
 
+.affiliates_page_affiliate-wp-creatives td {
+	vertical-align: middle;
+}
+
+.affiliates_page_affiliate-wp-creatives .column-image img {
+	max-width: 100%;
+	height: auto;
+}
+
 /* Review page */
 #affwp_review_affiliate .button + .button {
 	margin-left: 8px;

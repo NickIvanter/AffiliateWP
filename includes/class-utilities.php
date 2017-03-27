@@ -72,6 +72,7 @@ class Affiliate_WP_Utilities {
 	 */
 	public function includes() {
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/class-logging.php';
+		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-upgrade-registry.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-batch-process-registry.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-data-storage.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/class-upgrades.php';

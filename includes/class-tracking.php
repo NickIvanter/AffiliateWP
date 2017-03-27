@@ -300,6 +300,8 @@ class Affiliate_WP_Tracking {
 
 		if( $is_valid ) {
 
+			$visit_id = $this->get_visit_id();
+
 			affiliate_wp()->utils->log( sprintf( 'Valid affiliate ID, %d, in track_conversion()', $affiliate_id ) );
 
 			$md5 = md5( $_POST['amount'] . $_POST['description'] . $_POST['reference'] . $_POST['context'] . $_POST['status'] . $_POST['campaign'] );
@@ -311,11 +313,11 @@ class Affiliate_WP_Tracking {
 				die( '-3' ); // The args were modified
 			}
 
-			$referral = affiliate_wp()->referrals->get_by( 'visit_id', $this->get_visit_id() );
+			$referral = affiliate_wp()->referrals->get_by( 'visit_id', $visit_id );
 
 			if( $referral ) {
 
-				affiliate_wp()->utils->log( sprintf( 'Referral already generated for visit #%d.', $this->get_visit_id() ) );
+				affiliate_wp()->utils->log( sprintf( 'Referral already generated for visit #%d.', $visit_id ) );
 
 				die( '-4' ); // This visit has already generated a referral
 			}
@@ -330,31 +332,35 @@ class Affiliate_WP_Tracking {
 				die( '-5' ); // Ignore a zero amount referral
 			}
 
-			$amount = $amount > 0 ? affwp_calc_referral_amount( $amount, $affiliate_id ) : 0;
+			$amount 	 = $amount > 0 ? affwp_calc_referral_amount( $amount, $affiliate_id ) : 0;
+			$description = sanitize_text_field( $_POST['description'] );
+			$context     = sanitize_text_field( $_POST['context'] );
+			$campaign    = sanitize_text_field( $_POST['campaign'] );
+			$reference   = sanitize_text_field( $_POST['reference'] );
 
-			// Store the visit in the DB
-			$referral_id = affiliate_wp()->referrals->add( array(
-				'affiliate_id' => $affiliate_id,
-				'amount'       => $amount,
-				'status'       => 'pending',
-				'description'  => sanitize_text_field( $_POST['description'] ),
-				'context'      => sanitize_text_field( $_POST['context'] ),
-				'campaign'     => sanitize_text_field( $_POST['campaign'] ),
-				'reference'    => sanitize_text_field( $_POST['reference'] ),
-				'visit_id'     => $this->get_visit_id()
-			) );
+			// Create a new referral
+			$referral_id = affiliate_wp()->referrals->add( apply_filters( 'affwp_insert_pending_referral', array(
+					'affiliate_id' => $affiliate_id,
+					'amount'       => $amount,
+					'status'       => 'pending',
+					'description'  => $description,
+					'context'      => $context,
+					'campaign'     => $campaign,
+					'reference'    => $reference,
+					'visit_id'     => $visit_id,
+			), $amount, $reference, $description, $affiliate_id, $visit_id, array(), $context ) );
 
-			affiliate_wp()->utils->log( sprintf( 'Referral created for visit #%d.', $this->get_visit_id() ) );
+			affiliate_wp()->utils->log( sprintf( 'Referral created for visit #%d.', $visit_id ) );
 
 			// Update the referral status.
 			affwp_set_referral_status( $referral_id, $status );
 
-			affiliate_wp()->utils->log( sprintf( 'Referral #%d set to %s for visit #%d.', $referral_id, $status, $this->get_visit_id() ) );
+			affiliate_wp()->utils->log( sprintf( 'Referral #%d set to %s for visit #%d.', $referral_id, $status, $visit_id ) );
 
 			// Update the visit.
 			affiliate_wp()->visits->update( $this->get_visit_id(), array( 'referral_id' => $referral_id ), '', 'visit' );
 
-			affiliate_wp()->utils->log( sprintf( 'Visit #%d marked as converted.', $this->get_visit_id() ) );
+			affiliate_wp()->utils->log( sprintf( 'Visit #%d marked as converted.', $visit_id ) );
 
 			echo $referral_id; exit;
 

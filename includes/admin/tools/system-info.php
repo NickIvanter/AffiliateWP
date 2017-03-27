@@ -79,6 +79,7 @@ function affwp_tools_system_info_report() {
 	$return .= 'Allow Affiliate Registrations:    ' . ( $settings->get( 'allow_affiliate_registration' ) ? "True\n" : "False\n" );
 	$return .= 'Require Approval:                 ' . ( $settings->get( 'require_approval' )  ? "True\n" : "False\n" );
 	$return .= 'Auto Register New Users:          ' . ( $settings->get( 'auto_register' ) ? "True\n" : "False\n" );
+	$return .= 'Affiliate Area Forms              ' . ( $settings->get( 'affiliate_area_forms' ) ? $settings->get( 'affiliate_area_forms' ) . "\n" : "Default\n" );
 	$return .= 'Required Registration Fields:     ' . ( $settings->get( 'required_registration_fields' ) ? implode( ', ', array_values( $settings->get( 'required_registration_fields', array() ) ) ) . "\n" : "None\n" );
 
 	// Object counts.
@@ -182,7 +183,6 @@ function affwp_tools_system_info_report() {
 
 	// PHP configuration
 	$return .= "\n" . '-- PHP Configuration' . "\n\n";
-	$return .= 'Safe Mode:                ' . ( ini_get( 'safe_mode' ) ? 'Enabled' : 'Disabled' . "\n" );
 	$return .= 'Memory Limit:             ' . ini_get( 'memory_limit' ) . "\n";
 	$return .= 'Upload Max Size:          ' . ini_get( 'upload_max_filesize' ) . "\n";
 	$return .= 'Post Max Size:            ' . ini_get( 'post_max_size' ) . "\n";

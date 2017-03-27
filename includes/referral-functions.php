@@ -22,6 +22,10 @@ function affwp_get_referral( $referral = null ) {
 		$referral->products = maybe_unserialize( maybe_unserialize( $referral->products ) );
 	}
 
+	if ( ! empty( $referral->custom ) ) {
+		$referral->custom = maybe_unserialize( maybe_unserialize( $referral->custom ) );
+	}
+
 	return $referral;
 }
 
@@ -174,15 +178,17 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
  * @param array $data {
  *     Optional. Arguments for adding a new referral. Default empty array.
  *
- *     @type int    $user_id      User ID. Used to retrieve the affiliate ID if `affiliate_id` not given.
- *     @type int    $affiliate_id Affiliate ID.
- *     @type string $user_name    User login. Used to retrieve the affiliate ID if `affiliate_id` not given.
- *     @type float  $amount       Referral amount. Default empty.
- *     @type string $description  Description. Default empty.
- *     @type string $reference    Referral reference (usually product information). Default empty.
- *     @type string $context      Referral context (usually the integration it was generated from).
- *                                Default empty.
- *     @type string $status       Status to update the referral too. Default 'pending'.
+ *     @type int          $user_id      User ID. Used to retrieve the affiliate ID if `affiliate_id` not given.
+ *     @type int          $affiliate_id Affiliate ID.
+ *     @type string       $user_name    User login. Used to retrieve the affiliate ID if `affiliate_id` not given.
+ *     @type float        $amount       Referral amount. Default empty.
+ *     @type string       $description  Description. Default empty.
+ *     @type string       $reference    Referral reference (usually product information). Default empty.
+ *     @type string       $context      Referral context (usually the integration it was generated from).
+ *                                      Default empty.
+ *     @type string|array $custom       Any custom data that can be passed to and stored with the referral. Accepts
+ *                                      an array or string, and will be serialized when stored. Default empty.
+ *     @type string       $status       Status to update the referral too. Default 'pending'.
  * }
  * @return int|bool 0|false if no referral was added, referral ID if it was successfully added.
  */
@@ -211,12 +217,21 @@ function affwp_add_referral( $data = array() ) {
 
 	}
 
+	if ( ! empty( $data['custom'] ) ) {
+		if ( is_array( $data['custom'] ) ) {
+			$data['custom'] = array_map( 'sanitize_text_field', $data['custom'] );
+		} else {
+			$data['custom'] = sanitize_text_field( $data['custom'] );
+		}
+	}
+
 	$args = array(
 		'affiliate_id' => absint( $data['affiliate_id'] ),
 		'amount'       => ! empty( $data['amount'] )      ? sanitize_text_field( $data['amount'] )      : '',
 		'description'  => ! empty( $data['description'] ) ? sanitize_text_field( $data['description'] ) : '',
 		'reference'    => ! empty( $data['reference'] )   ? sanitize_text_field( $data['reference'] )   : '',
 		'context'      => ! empty( $data['context'] )     ? sanitize_text_field( $data['context'] )     : '',
+		'custom'       => ! empty( $data['custom'] )      ? $data['custom']                             : '',
 		'status'       => 'pending',
 	);
 

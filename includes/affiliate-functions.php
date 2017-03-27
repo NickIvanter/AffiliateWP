@@ -17,18 +17,22 @@ function affwp_is_affiliate( $user_id = 0 ) {
  * If no user ID is given, it will check the currently logged in user
  *
  * @since 1.0
+ * @since 2.0.3 The current user is no longer taken into consideration in the admin
+ *              or if doing Ajax when `$user_id` is empty.
  *
  * @param int $user_id Optional. User ID. Default is the ID of the current user.
  * @return int|false Affiliate ID, or false if the current user isn't logged-in or `$user_id` is empty.
  */
 function affwp_get_affiliate_id( $user_id = 0 ) {
 
-	if ( ! is_user_logged_in() && empty( $user_id ) ) {
-		return false;
-	}
-
 	if ( empty( $user_id ) ) {
-		$user_id = get_current_user_id();
+		$is_admin_doing_ajax = is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+
+		if ( ! $is_admin_doing_ajax && ! is_user_logged_in() ) {
+			return false;
+		} elseif ( ! $is_admin_doing_ajax && is_user_logged_in() ) {
+			$user_id = get_current_user_id();
+		}
 	}
 
 	$cache_key    = md5( 'affwp_get_affiliate_id' . $user_id );
@@ -1218,13 +1222,12 @@ function affwp_update_profile_settings( $data = array() ) {
 		return false;
 	}
 
-	if ( affwp_get_affiliate_id() != $data['affiliate_id'] && ! current_user_can( 'manage_affiliates' ) ) {
-
-		return false;
-	}
-
 	$affiliate_id = absint( $data['affiliate_id'] );
 	$user_id      = affwp_get_affiliate_user_id( $affiliate_id );
+
+	if ( $user_id !== get_current_user_id() && ! current_user_can( 'manage_affiliate' ) ) {
+		return false;
+	}
 
 	if ( ! empty( $data['referral_notifications'] ) ) {
 
