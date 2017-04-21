@@ -651,7 +651,6 @@ class AffWP_Referrals_Table extends List_Table {
 			return;
 		}
 
-        file_put_contents('/tmp/refund.log', "proc_bulk {$this->current_action()}\n", FILE_APPEND);
 		foreach ( $ids as $id ) {
 
 			if ( 'delete' === $this->current_action() ) {
@@ -675,11 +674,9 @@ class AffWP_Referrals_Table extends List_Table {
 					) );
 				}
 			}
-            file_put_contents('/tmp/refund.log', "proc {$id}\n", FILE_APPEND);
 
 			if ( 'refund' === $this->current_action() ) {
 				if ( $referral = affwp_get_referral( $id ) ) {
-                    file_put_contents('/tmp/refund.log', "proc {$id}\n", FILE_APPEND);
                     $refund_id = affwp_add_referral([
 						'affiliate_id' => $referral->affiliate_id,
 						'reference'    => $referral->reference,
@@ -688,7 +685,7 @@ class AffWP_Referrals_Table extends List_Table {
                         'amount'       => - $referral->amount,
                         'description'  => "Refunded \"{$referral->description}\"",
 					]);
-                    file_put_contents('/tmp/refund.log', "proc res {$refund_id}\n", FILE_APPEND);
+
 					if ( $refund_id )
                     {
                         affwp_set_referral_status( $id, 'refunded' );

@@ -253,7 +253,7 @@ abstract class Affiliate_WP_Base {
                 'amount'       => - $referral->amount,
                 'description'  => "Refunded \"{$referral->description}\"",
             ]);
-            file_put_contents('/tmp/refund.log', "auto ref {$refund_id}\n", FILE_APPEND);
+
             if ( $refund_id )
             {
                 affwp_set_referral_status( $referral->referral_id, 'refunded' );
