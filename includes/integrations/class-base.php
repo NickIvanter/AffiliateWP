@@ -244,6 +244,7 @@ abstract class Affiliate_WP_Base {
 
 		if ( is_object( $referral ) && 'paid' == $referral->status ) {
 			// This referral has already been paid so it cannot be rejected
+            // @todo Inset REFUND referal with negative amount
 			return false;
 		}
 

@@ -399,10 +399,21 @@ class AffWP_Referrals_Table extends List_Table {
 					'class' => 'mark-as-unpaid'
 				)
 			);
+			// Refund
+			$row_actions['refund'] = $this->get_row_action_link(
+				__( 'Refund', 'affiliate-wp' ),
+				array_merge( $base_query_args, array(
+					'action' => 'refund'
+				) ),
+				array(
+					'nonce' => 'referral-nonce',
+					'class' => 'refund'
+				)
+            );
 
 		} else {
 
-			if( 'unpaid' == $referral->status ) {
+			if( 'unpaid' == $referral->status || 'refunded' == $referral->status ) {
 
 				// Mark as Paid.
 				$row_actions['mark-as-paid'] = $this->get_row_action_link(
@@ -434,7 +445,7 @@ class AffWP_Referrals_Table extends List_Table {
 
 			}
 
-			if( 'rejected' != $referral->status ) {
+			if( 'rejected' != $referral->status && 'refunded' != $referral->status ) {
 
 				// Reject.
 				$row_actions['reject'] = $this->get_row_action_link(
