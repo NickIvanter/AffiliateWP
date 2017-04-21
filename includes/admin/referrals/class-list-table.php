@@ -399,16 +399,17 @@ class AffWP_Referrals_Table extends List_Table {
 					'class' => 'mark-as-unpaid'
 				)
 			);
-			// Refund
-			$row_actions['refund'] = $this->get_row_action_link(
-				__( 'Refund', 'affiliate-wp' ),
-				array_merge( $base_query_args, array(
-					'action' => 'refund'
-				) ),
-				array(
-					'nonce' => 'referral-nonce',
-					'class' => 'refund'
-				)
+
+            // Refund link
+            $row_actions['refund'] = $this->get_row_action_link(
+                __( 'Refund', 'affiliate-wp' ),
+                array_merge( $base_query_args, array(
+                    'action' => 'refund'
+                ) ),
+                array(
+                    'nonce' => 'referral-nonce',
+                    'class' => 'refund'
+                )
             );
 
 		} else {
@@ -733,8 +734,12 @@ class AffWP_Referrals_Table extends List_Table {
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
 				'status'       => 'paid'
-			) )
-		);
+			) ) ) +
+            affiliate_wp()->referrals->count(
+			array_merge( $this->query_args, array(
+				'affiliate_id' => $affiliate_id,
+				'status'       => 'refunded'
+			) ) );
 
 		$this->unpaid_count = affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
@@ -780,6 +785,11 @@ class AffWP_Referrals_Table extends List_Table {
 		$orderby   = isset( $_GET['orderby'] )      ? $_GET['orderby']         : 'referral_id';
 		$referral  = '';
 		$is_search = false;
+
+        if ( 'paid' === $status )
+        {
+            $status = [ $status, 'refunded' ];
+        }
 
 		if ( $affiliate && $affiliate = affwp_get_affiliate( $affiliate ) ) {
 			$affiliate = $affiliate->ID;
