@@ -244,6 +244,21 @@ abstract class Affiliate_WP_Base {
 
 		if ( is_object( $referral ) && 'paid' == $referral->status ) {
             // REFUND referal with negative amount
+
+            $refund_id = affwp_add_referral([
+                'affiliate_id' => $referral->affiliate_id,
+                'reference'    => $referral->reference,
+                'context'      => $referral->context,
+                'status'       => 'unpaid',
+                'amount'       => - $referral->amount,
+                'description'  => "Refunded \"{$referral->description}\"",
+            ]);
+            file_put_contents('/tmp/refund.log', "auto ref {$refund_id}\n", FILE_APPEND);
+            if ( $refund_id )
+            {
+                affwp_set_referral_status( $referral->referral_id, 'refunded' );
+            }
+
             if ( affwp_set_referral_status( $referral->referral_id, 'refunded' ) ) {
 
                 affiliate_wp()->utils->log( sprintf( 'Referral #%d set to Refunded successfully', $referral->referral_id ) );
