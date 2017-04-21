@@ -40,7 +40,7 @@ class Tab extends Reports\Tab {
 			'data'            => array_sum( affiliate_wp()->referrals->get_referrals( array(
 				'number' => -1,
 				'fields' => 'amount',
-				'status' => 'paid'
+				'status' => [ 'paid', 'refunded' ],
 			) ) ),
 			'comparison_data' => __( 'All Time', 'affiliate-wp' )
 		) );
@@ -73,15 +73,22 @@ class Tab extends Reports\Tab {
 			'fields' => 'amount',
 		) );
 
+        $all_referrals_count = affiliate_wp()->referrals->get_referrals( array(
+			'number' => -1,
+			'fields' => 'amount',
+            'status' => ['paid', 'unpaid', 'pending'],
+		) );
+
 		if ( ! $all_referrals ) {
 			$all_referrals = array( 0 );
+			$all_referrals_count = array( 0 );
 		}
 
 		$this->register_tile( 'average_referral', array(
 			'label'           => __( 'Average Referral Amount', 'affiliate-wp' ),
 			'type'            => 'amount',
 			'context'         => 'secondary',
-			'data'            => array_sum( $all_referrals ) / count( $all_referrals ),
+			'data'            => array_sum( $all_referrals ) / count( $all_referrals_count ),
 			'comparison_data' => $this->get_date_comparison_label(),
 		) );
 	}

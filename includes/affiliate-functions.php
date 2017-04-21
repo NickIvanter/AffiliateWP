@@ -730,9 +730,7 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 
 		$alltime = get_option( 'affwp_alltime_earnings' );
 		$alltime -= $amount;
-		if ( $alltime < 0 ) {
-			$alltime = 0;
-		}
+
 		update_option( 'affwp_alltime_earnings', $alltime );
 
 		return $earnings;

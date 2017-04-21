@@ -72,14 +72,23 @@ class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 		$pending[] = array( strtotime( $start ) * 1000 );
 		$pending[] = array( strtotime( $end ) * 1000 );
 
+        file_put_contents('/tmp/rep.log', var_export($referrals, true), FILE_APPEND);
 		if( $referrals ) {
 
 			$referrals_by_status = array(
-				'paid'     => wp_list_filter( $referrals, array( 'status' => 'paid' ) ),
 				'unpaid'   => wp_list_filter( $referrals, array( 'status' => 'unpaid' ) ),
 				'rejected' => wp_list_filter( $referrals, array( 'status' => 'rejected' ) ),
 				'pending'  => wp_list_filter( $referrals, array( 'status' => 'pending' ) ),
 			);
+            foreach( $referrals as $referral )
+            {
+                if ( $referral->status == 'paid' || $referral->status == 'refunded' )
+                {
+                    $referrals_by_status[ 'paid' ][] = $referral;
+                }
+            }
+
+            file_put_contents('/tmp/rep1.log', var_export($referrals_by_status, true), FILE_APPEND);
 
 			$totals = array();
 
@@ -143,6 +152,8 @@ class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 			__( 'Rejected Referral Earnings', 'affiliate-wp' ) => $rejected,
 			__( 'Paid Referral Earnings', 'affiliate-wp' )     => $paid,
 		);
+
+        file_put_contents('/tmp/rep2.log', var_export($data, true), FILE_APPEND);
 
 		return $data;
 

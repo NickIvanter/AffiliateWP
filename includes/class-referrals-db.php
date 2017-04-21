@@ -624,7 +624,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	public function paid_earnings( $date = '', $affiliate_id = 0, $format = true ) {
 
 		$args                 = array();
-		$args['status']       = 'paid';
+		$args['status']       = [ 'paid', 'refunded' ];
 		$args['affiliate_id'] = $affiliate_id;
 		$args['number']       = '-1';
 
