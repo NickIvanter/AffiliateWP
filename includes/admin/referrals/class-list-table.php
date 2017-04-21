@@ -414,7 +414,7 @@ class AffWP_Referrals_Table extends List_Table {
 
 		} else {
 
-			if( 'unpaid' == $referral->status || 'refunded' == $referral->status ) {
+			if( 'unpaid' == $referral->status ) {
 
 				// Mark as Paid.
 				$row_actions['mark-as-paid'] = $this->get_row_action_link(
