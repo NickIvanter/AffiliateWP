@@ -261,6 +261,7 @@ $disabled = disabled( (bool) $payout, true, false );
 						<option value="paid"<?php selected( 'paid', $referral->status ); ?>><?php _e( 'Paid', 'affiliate-wp' ); ?></option>
 						<option value="pending"<?php selected( 'pending', $referral->status ); ?>><?php _e( 'Pending', 'affiliate-wp' ); ?></option>
 						<option value="rejected"<?php selected( 'rejected', $referral->status ); ?>><?php _e( 'Rejected', 'affiliate-wp' ); ?></option>
+						<option disabled value="refunded"<?php selected( 'refunded', $referral->status ); ?>><?php _e( 'Refunded', 'affiliate-wp' ); ?></option>
 					</select>
 					<?php if ( $payout ) : ?>
 						<p class="description"><?php esc_html_e( 'The referral status cannot be changed once it has been included in a payout.', 'affiliate-wp' ); ?></p>

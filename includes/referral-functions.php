@@ -67,6 +67,7 @@ function affwp_get_referral_status_label( $referral ) {
 		'unpaid'   => __( 'Unpaid', 'affiliate-wp' ),
 		'rejected' => __( 'Rejected', 'affiliate-wp' ),
 		'pending'  => __( 'Pending', 'affiliate-wp' ),
+		'refunded' => __( 'Refunded', 'affiliate-wp' ),
 	);
 
 	$label = array_key_exists( $referral->status, $statuses ) ? $statuses[ $referral->status ] : 'pending';
@@ -98,7 +99,7 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
 	if ( ! $referral = affwp_get_referral( $referral ) ) {
 		return false;
 	}
-
+    file_put_contents( '/tmp/refund.log', "$new_status\n", FILE_APPEND );
 	$old_status = $referral->status;
 
 	if( $old_status == $new_status ) {
@@ -115,7 +116,10 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
 		if ( 'paid' === $old_status ) {
 
 			// Reverse the effect of a paid referral.
-			affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+			if ( 'refunded' !== $new_status ) {
+                affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+            }
+
 			affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
 
 		} elseif ( 'unpaid' === $old_status ) {
@@ -194,6 +198,8 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
  */
 function affwp_add_referral( $data = array() ) {
 
+    file_put_contents('/tmp/refund.log', 'proc predata ' . var_export($data, true) . "\n", FILE_APPEND);
+
 	if ( empty( $data['user_id'] ) && empty( $data['affiliate_id'] ) && empty( $data['user_name'] ) ) {
 		return 0;
 	}
@@ -242,6 +248,8 @@ function affwp_add_referral( $data = array() ) {
 	if ( ! empty( $data['date'] ) ) {
 		$args['date'] = date_i18n( 'Y-m-d H:i:s', strtotime( $data['date'] ) );
 	}
+
+    file_put_contents('/tmp/refund.log', "proc add {var_export($args, true)}\n", FILE_APPEND);
 
 	$referral_id = affiliate_wp()->referrals->add( $args );
 

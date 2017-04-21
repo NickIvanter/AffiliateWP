@@ -1,8 +1,8 @@
 /* General */
 @font-face {
-  font-family: "affwp-dashicons";
-  src:url("../fonts/dashicons.eot");
-  src:url("../fonts/dashicons.eot?#iefix") format("embedded-opentype"),
+    font-family: "affwp-dashicons";
+    src:url("../fonts/dashicons.eot");
+    src:url("../fonts/dashicons.eot?#iefix") format("embedded-opentype"),
     url("../fonts/dashicons.woff") format("woff"),
     url("../fonts/dashicons.ttf") format("truetype"),
     url("../fonts/dashicons.svg#dashicons") format("svg");
@@ -148,6 +148,7 @@ table.affiliates #unpaid {
 	margin-top: 0em;
 }
 
+.affwp-status.refunded i,
 .affwp-status.pending i,
 .affwp-status.unpaid i,
 .affwp-status.paid i,
@@ -159,6 +160,7 @@ table.affiliates #unpaid {
 	top:2px;
 	left: -2px;
 }
+.affwp-status.refunded i:before,
 .affwp-status.pending i:before,
 .affwp-status.unpaid i:before,
 .affwp-status.paid i:before,
@@ -183,6 +185,10 @@ table.affiliates #unpaid {
 	color: green;
 }
 .affwp-status.rejected i:before {
+	content: "\f159";
+	color: #ef6c5e;
+}
+.affwp-status.refunded i:before {
 	content: "\f159";
 	color: #ef6c5e;
 }
@@ -317,40 +323,40 @@ table.affiliates #unpaid {
 /* Add-ons */
 
 #affwp-add-ons h2 {
-  margin: 0 0 15px;
+    margin: 0 0 15px;
 }
 
 #affwp-add-ons .affwp-add-on {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 11px 14px 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  width: 320px;
-  padding: 14px;
-  min-height: 290px;
-  position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 11px 14px 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    width: 320px;
+    padding: 14px;
+    min-height: 290px;
+    position: relative;
 }
 
 #affwp-add-ons .affwp-add-on h3 {
-  margin: 0 0 8px;
-  font-size: 13px;
+    margin: 0 0 8px;
+    font-size: 13px;
 }
 
 #affwp-add-ons .affwp-add-on .button-secondary {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
 }
 
 #affwp-add-ons .affwp-add-on .wp-post-image {
-  width: 100%;
-  height: auto;
-  display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .affwp-add-ons-footer {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 #affwp-system-info-textarea {
