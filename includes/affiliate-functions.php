@@ -676,7 +676,7 @@ function affwp_increase_affiliate_earnings( $affiliate, $amount = '' ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -714,7 +714,7 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -761,7 +761,7 @@ function affwp_increase_affiliate_unpaid_earnings( $affiliate, $amount, $replace
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -799,7 +799,7 @@ function affwp_decrease_affiliate_unpaid_earnings( $affiliate, $amount ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
