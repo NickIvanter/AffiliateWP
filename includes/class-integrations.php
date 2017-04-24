@@ -39,6 +39,7 @@ class Affiliate_WP_Integrations {
 			'wpforms'        => 'WPForms',
 			'wp-invoice'     => 'WP-Invoice',
 			'zippycourses'   => 'Zippy Courses',
+			'thriveleads'    => 'Thrive Leads',
 		) );
 
 	}

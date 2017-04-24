@@ -69,14 +69,14 @@ class Affiliate_WP_Thrive_Leads extends Affiliate_WP_Base {
 
         // Price, it's supposed to be zero, but what if...
 		$total = 0;
-        $desc = 'Thrive Leads contact'; // @todo More specific?
+        $desc = "Thrive Leads contact {$data['email']}"; // @todo More specific?
 
 		$referral_total = $this->calculate_referral_amount( $total, $contact_id );
 
-		$referral_id = $this->insert_pending_referral( $referral_total, $contact_id, $desc );
+		$referral_insert = $this->insert_pending_referral( $referral_total, $contact_id, $desc );
 
-		if( empty( $total ) ) {
-			$this->mark_referral_complete( $referral_id );
+		if( empty( $total ) && $referral_insert ) {
+			$this->mark_referral_complete( $contact_id );
 		}
 
 	}
@@ -86,16 +86,9 @@ class Affiliate_WP_Thrive_Leads extends Affiliate_WP_Base {
 	 *
 	 * @access public
 	 */
-	public function mark_referral_complete( $referral_id ) {
-
+	public function mark_referral_complete( $referral_id )
+    {
 		$this->complete_referral( $referral_id );
-
-        /*
-		   $referral = affiliate_wp()->referrals->get_by( 'reference', $referral_id, $this->context );
-		   $amount   = affwp_currency_filter( affwp_format_amount( $referral->amount ) );
-		   $name     = affiliate_wp()->affiliates->get_affiliate_name( $referral->affiliate_id );
-		   $note     = sprintf( __( 'Referral #%d for %s recorded for %s', 'affiliate-wp' ), $referral->referral_id, $amount, $name );
-         */
 	}
 
 
@@ -110,7 +103,7 @@ class Affiliate_WP_Thrive_Leads extends Affiliate_WP_Base {
 	 */
 	public function reference_link( $reference = 0, $referral ) {
 
-		if ( empty( $referral->context ) || 'thriveleads' != $referral->context ) {
+		if ( empty( $referral->context ) || $referral->context != 'thriveleads' ) {
 			return $reference;
 		}
 
