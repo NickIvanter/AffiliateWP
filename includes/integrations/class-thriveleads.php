@@ -39,10 +39,14 @@ class Affiliate_WP_Thrive_Leads extends Affiliate_WP_Base {
 		// Get affiliate ID
 		$affiliate_id = $this->affiliate_id;
 
-		// Block referral if form does not allow them
-		// if ( ! rgar( $form, 'affwp_allow_referrals' ) ) {
-		// 	return;
-		// }
+        if ( !isset( $data['custom_fields'] ) ) {
+			return;
+		}
+
+        $custom = json_decode( $data['custom_fields'] );
+        if ( !(isset($custom->affiliatewp) && $custom->affiliatewp) ) {
+            return;
+        }
 
 		// Block referral if not referred or affiliate ID is empty
 		if ( ! $this->was_referred() && empty( $affiliate_id ) ) {
@@ -75,7 +79,7 @@ class Affiliate_WP_Thrive_Leads extends Affiliate_WP_Base {
 
 		$referral_insert = $this->insert_pending_referral( $referral_total, $contact_id, $desc );
 
-		if( empty( $total ) && $referral_insert ) {
+		if( $referral_insert ) {
 			$this->mark_referral_complete( $contact_id );
 		}
 
