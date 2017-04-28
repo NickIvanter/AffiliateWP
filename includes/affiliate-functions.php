@@ -373,6 +373,72 @@ function affwp_get_affiliate_rate( $affiliate = 0, $formatted = false, $product_
 }
 
 /**
+ * Retrieves the referral sell rate for an affiliate.
+ *
+ * @since 2.0.6.1-custom
+ *
+ * @param int|AffWP\Affiliate $affiliate    Optional. Affiliate ID or object. Default is the current affiliate.
+ * @param bool                $formatted    Optional. Whether to return a formatted rate with %/currency.
+ *                                          Default false.
+ * @param string              $product_rate Optional. A custom product rate that overrides site/affiliate settings.
+ *                                          Default empty.
+ * @param string              $reference    Optional. Reference. Default empty.
+ * @return string Affiliate rate, empty string otherwise.
+ */
+function affwp_get_affiliate_sell_rate( $affiliate = 0, $formatted = false, $product_rate = '', $reference = '' ) {
+	// Forward-compat with affiliate objects.
+	if ( is_object( $affiliate ) ) {
+		if ( isset( $affiliate->affiliate_id ) ) {
+			$affiliate_id = $affiliate->affiliate_id;
+		} else {
+			$affiliate_id = 0;
+		}
+	} else {
+		$affiliate_id = $affiliate;
+	}
+
+	// Global referral rate setting, fallback to 20
+	$default_rate = affiliate_wp()->settings->get( 'sell_rate', 20 );
+	$default_rate = affwp_abs_number_round( $default_rate );
+
+	// Get product-specific referral rate, fallback to global rate
+	$product_rate = affwp_abs_number_round( $product_rate );
+	$product_rate = ( null !== $product_rate ) ? $product_rate : $default_rate;
+
+	// Get affiliate-specific referral rate
+	$affiliate_rate = affiliate_wp()->affiliates->get_column( 'sell_rate', $affiliate_id );
+
+	// Get rate in order of priority: Affiliate -> Product -> Global
+	$rate = affwp_abs_number_round( $affiliate_rate );
+	$rate = ( null !== $rate ) ? $rate : $product_rate;
+
+	// Get the referral rate type
+	$type = affwp_get_affiliate_sell_rate_type( $affiliate_id );
+
+	// Format percentage rates
+	$rate = ( 'percentage' === $type ) ? $rate / 100 : $rate;
+
+	/**
+	 * Filter the affiliate rate
+	 *
+	 * @param  string  $rate
+	 * @param  int     $affiliate_id
+	 * @param  string  $type
+	 */
+	$rate = (string) apply_filters( 'affwp_get_affiliate_rate', $rate, $affiliate_id, $type, $reference );
+
+	// Return rate now if formatting is not required
+	if ( ! $formatted ) {
+		return $rate;
+	}
+
+	// Format the rate based on the type
+	$rate = affwp_format_rate( $rate, $type );
+
+	return $rate;
+}
+
+/**
  * Determines if an affiliate has a custom rate.
  *
  * @since 1.5
@@ -385,6 +451,35 @@ function affwp_affiliate_has_custom_rate( $affiliate = 0 ) {
 
 	if ( $affiliate = affwp_get_affiliate( $affiliate ) ) {
 		$custom_rate = $affiliate->has_custom_rate();
+		$affiliate_id = $affiliate->ID;
+	} else {
+		$custom_rate = false;
+		$affiliate_id = 0;
+	}
+
+	/**
+	 * Filters whether the affiliate has a custom rate.
+	 *
+	 * @since 1.5
+	 *
+	 * @param bool $custom_rate  Whether the affiliate has a custom rate.
+	 * @param int  $affiliate_id Affiliate ID.
+	 */
+	return apply_filters( 'affwp_affiliate_has_custom_rate', $custom_rate, $affiliate_id );
+}
+
+/**
+ * Determines if an affiliate has a custom sell rate.
+ *
+ * @since 2.0.6.1-custom
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return bool Whether the affiliate has a custom rate, false if the affiliate doesn't exist.
+ */
+function affwp_affiliate_has_custom_sell_rate( $affiliate = 0 ) {
+
+	if ( $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		$custom_rate = $affiliate->has_custom_sell_rate();
 		$affiliate_id = $affiliate->ID;
 	} else {
 		$custom_rate = false;
@@ -427,6 +522,52 @@ function affwp_get_affiliate_rate_type( $affiliate = 0 ) {
 		$types = affwp_get_affiliate_rate_types();
 
 		$affiliate_rate_type = $affiliate->rate_type();
+
+		if ( $affiliate_rate_type !== $type ) {
+			$type = $affiliate_rate_type;
+		}
+
+		if ( ! array_key_exists( $type, $types ) ) {
+			$type = 'percentage';
+		}
+	}
+
+	/**
+	 * Filters the affiliate rate type.
+	 *
+	 * @since 1.1
+	 *
+	 * @param string $type         Affiliate rate type. Default values will be 'percentage' or 'flat'.
+	 * @param int    $affiliate_id Affiliate ID.
+	 */
+	return apply_filters( 'affwp_get_affiliate_rate_type', $type, $affiliate_id );
+
+}
+
+/**
+ * Retrieves the referral sell rate type for an affiliate.
+ *
+ * Either "flat" or "percentage"
+ *
+ * @since 2.0.6.1-custom
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return string Affiliate rate type.
+ */
+function affwp_get_affiliate_sell_rate_type( $affiliate = 0 ) {
+
+	// Default rate type.
+	$type = affiliate_wp()->settings->get( 'sell_rate_type', 'percentage' );
+
+	$affiliate_id = 0;
+
+	if ( $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		$affiliate_id = $affiliate->ID;
+
+		// Allowed types
+		$types = affwp_get_affiliate_rate_types();
+
+		$affiliate_rate_type = $affiliate->sell_rate_type();
 
 		if ( $affiliate_rate_type !== $type ) {
 			$type = $affiliate_rate_type;

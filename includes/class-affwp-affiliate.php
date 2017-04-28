@@ -128,6 +128,82 @@ final class Affiliate extends Base_Object {
 	public $date_registered;
 
 	/**
+	 * Affiliate is for referrals
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var string
+	 */
+	public $is_ref;
+
+	/**
+	 * Affiliate is seller
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var string
+	 */
+	public $is_seller;
+
+	/**
+	 * Affiliate sell rate.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var string
+	 *
+	 * @see Affiliate::rate()
+	 */
+	public $sell_rate;
+
+	/**
+	 * Affiliate sell rate type.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var string
+	 *
+	 * @see Affiliate::rate_type()
+	 */
+	public $sell_rate_type;
+
+	/**
+	 * Affiliate sell earnings.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var float
+	 */
+	public $sell_earnings;
+
+	/**
+	 * Affiliate unpaid earnings.
+	 *
+	 * @access public
+	 * @since 2.0.6.1-custom
+	 * @var    float
+	 */
+	public $sell_unpaid_earnings;
+
+	/**
+	 * Affiliate referrals
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var int
+	 */
+	public $sell_referrals;
+
+	/**
+	 * Affiliate referral visits.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 * @var int
+	 */
+	public $sell_visits;
+
+	/**
 	 * Token to use for generating cache keys.
 	 *
 	 * @since 1.9
@@ -227,11 +303,11 @@ final class Affiliate extends Base_Object {
 	 * @return mixed Sanitized field value.
 	 */
 	public static function sanitize_field( $field, $value ) {
-		if ( in_array( $field, array( 'affiliate_id', 'user_id', 'referrals', 'visits', 'ID' ) ) ) {
+		if ( in_array( $field, array( 'affiliate_id', 'user_id', 'referrals', 'visits', 'ID', 'sell_visits', 'sell_referrals' ) ) ) {
 			$value = (int) $value;
 		}
 
-		if ( in_array( $field, array( 'earnings', 'unpaid_earnings' ) ) ) {
+		if ( in_array( $field, array( 'earnings', 'unpaid_earnings', 'sell_earnings', 'sell_referrals' ) ) ) {
 			$value = floatval( $value );
 		}
 
@@ -255,6 +331,22 @@ final class Affiliate extends Base_Object {
 	}
 
 	/**
+	 * Retrieves the affiliate sell rate type.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 *
+	 * @return string Rate type. If empty, defaults to the global referral rate type.
+	 */
+	public function sell_rate_type() {
+		if ( empty( $this->sell_rate_type ) ) {
+			return affiliate_wp()->settings->get( 'sell_rate_type', 'percentage' );
+		}
+
+		return $this->sell_rate_type;
+	}
+
+	/**
 	 * Retrieves the affiliate rate.
 	 *
 	 * @since 1.9
@@ -264,6 +356,18 @@ final class Affiliate extends Base_Object {
 	 */
 	public function rate() {
 		return affwp_get_affiliate_rate( $this->ID );
+	}
+
+	/**
+	 * Retrieves the affiliate sell rate.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 *
+	 * @return int Rate. If empty, defaults to the global referral rate.
+	 */
+	public function sell_rate() {
+		return affwp_get_affiliate_sell_ate( $this->ID );
 	}
 
 	/**
@@ -296,5 +400,17 @@ final class Affiliate extends Base_Object {
 	 */
 	public function has_custom_rate() {
 		return empty( $this->rate ) ? false : true;
+	}
+
+	/**
+	 * Determines if the current affiliate has a custom sell rate value.
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access public
+	 *
+	 * @return bool True if the affiliate has a custom sell rate, otherwise false.
+	 */
+	public function has_custom_sell_rate() {
+		return empty( $this->sell_rate ) ? false : true;
 	}
 }
