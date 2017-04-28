@@ -217,6 +217,13 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 			}
 		}
 
+		// affiliates for sellers
+		if ( ! empty( $args['sellers'] ) ) {
+            $where .= !empty( $where ) ? 'AND `is_seller` = 1' : 'WHERE `is_seller` = 1';
+		} else {
+            $where .= !empty( $where ) ? 'AND `is_ref` = 1' : 'WHERE `is_ref` = 1';
+        }
+
 		if ( ! empty( $args['search'] ) ) {
 			$search_value = $args['search'];
 
@@ -320,14 +327,29 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 				$orderby = 'earnings+0';
 				break;
 
+			case 'sell_earnings':
+				// Earnings.
+				$orderby = 'sell_earnings+0';
+				break;
+
 			case 'unpaid_earnings':
 				// Unpaid earnings.
 				$orderby = 'unpaid_earnings+0';
 				break;
 
+			case 'sell_unpaid_earnings':
+				// Unpaid earnings.
+				$orderby = 'sell_unpaid_earnings+0';
+				break;
+
 			case 'referrals':
 				// Referrals.
 				$orderby = 'referrals+0';
+				break;
+
+			case 'sell_referrals':
+				// Referrals.
+				$orderby = 'sell_referrals+0';
 				break;
 
 			case 'paid':

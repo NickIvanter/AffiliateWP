@@ -664,6 +664,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->active_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'active',
+                'seller' => true,
 				'search' => $search
 			) )
 		);
@@ -671,6 +672,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->inactive_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'inactive',
+                'seller' => true,
 				'search' => $search
 			) )
 		);
@@ -678,6 +680,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->pending_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'pending',
+                'seller' => true,
 				'search' => $search
 			) )
 		);
@@ -685,6 +688,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->rejected_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'rejected',
+                'seller' => true,
 				'search' => $search
 			) )
 		);
@@ -715,7 +719,8 @@ class AffWP_Sellers_Table extends List_Table {
 			'status'  => $status,
 			'search'  => $search,
 			'orderby' => sanitize_text_field( $orderby ),
-			'order'   => sanitize_text_field( $order )
+			'order'   => sanitize_text_field( $order ),
+            'seller'  => true,
 		) );
 
 		$affiliates   = affiliate_wp()->affiliates->get_affiliates( $args );
