@@ -135,6 +135,11 @@ class Affiliate_WP_Upgrades {
 			$this->v202_upgrade();
 		}
 
+        // Upgrade for https://bestbabyclub.plan.io/issues/95
+        if ( version_compare( $this->version, '2.0.6.2-custom', '<' ) ) {
+			$this->task95_upgrade();
+		}
+
 		// Inconsistency between current and saved version.
 		if ( version_compare( $this->version, AFFILIATEWP_VERSION, '<>' ) ) {
 			$this->upgraded = true;
@@ -624,6 +629,22 @@ class Affiliate_WP_Upgrades {
 
 		wp_cache_set( 'last_changed', microtime(), 'visits' );
 		$this->log( 'Upgrade: The Visits cache has been invalidated following the 2.0.2 upgrade.' );
+
+		$this->upgraded = true;
+	}
+
+	/**
+	 * Performs database upgrades for https://bestbabyclub.plan.io/issues/95
+	 *
+	 * @since 2.0.6.1-custom
+	 * @access private
+	 */
+	private function task95_upgrade() {
+		@affiliate_wp()->affiliates->create_table();
+		$this->log( 'Upgrade: The is_ref, is_seller columns has been added to the Affiliates table.' );
+
+		wp_cache_set( 'last_changed', microtime(), 'affiliates' );
+		$this->log( 'Upgrade: The Affiliates cache has been invalidated following the 2.0.6.1-custom upgrade.' );
 
 		$this->upgraded = true;
 	}

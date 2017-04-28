@@ -527,6 +527,14 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 			referrals bigint(20) NOT NULL,
 			visits bigint(20) NOT NULL,
 			date_registered datetime NOT NULL,
+            is_ref tinyint NOT NULL DEFAULT 1,
+            is_seller tinyint NOT NULL DEFAULT 0,
+			sell_earnings mediumtext NOT NULL,
+			sell_unpaid_earnings mediumtext NOT NULL,
+			sell_referrals bigint(20) NOT NULL,
+			sell_visits bigint(20) NOT NULL,
+			sell_rate tinytext NOT NULL,
+			sell_rate_type tinytext NOT NULL,
 			PRIMARY KEY  (affiliate_id),
 			KEY user_id (user_id)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci;";
