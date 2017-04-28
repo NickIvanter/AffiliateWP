@@ -13,10 +13,10 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/screen-options.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/class-list-table.php';
+include_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/screen-options.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sellers/class-list-table.php';
 
-function affwp_affiliates_admin() {
+function affwp_sellers_admin() {
 
 	$action = null;
 
@@ -51,7 +51,7 @@ function affwp_affiliates_admin() {
 
 	} else {
 
-		$affiliates_table = new AffWP_Affiliates_Table();
+		$affiliates_table = new AffWP_Sellers_Table();
 		$affiliates_table->prepare_items();
 ?>
 		<div class="wrap">

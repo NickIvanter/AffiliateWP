@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @see \AffWP\Admin\List_Table
  */
-class AffWP_Affiliates_Table extends List_Table {
+class AffWP_Sellers_Table extends List_Table {
 
 	/**
 	 * Default number of items to show per page
