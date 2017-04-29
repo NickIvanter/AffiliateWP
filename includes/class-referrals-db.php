@@ -554,7 +554,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 		}
 
         // Sells referrals
-        $where .= empty( $where ) ? 'AND ' : 'WHERE ';
+        $where .= empty( $where ) ? 'WHERE ' : 'AND ';
         if ( isset($args['sell']) && $args['sell'] ) {
             $where .= 'sell = 1';
         } else {
