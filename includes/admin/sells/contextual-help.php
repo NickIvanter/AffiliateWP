@@ -19,11 +19,11 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * @since       1.4
  * @return      void
  */
-function affwp_referrals_contextual_help() {
+function affwp_sells_contextual_help() {
 
 	$screen = get_current_screen();
 
-	if ( $screen->id != 'affiliates_page_affiliate-wp-referrals' )
+	if ( $screen->id != 'affiliates_page_affiliate-wp-sells' )
 		return;
 
 	$sidebar_text = '<p><strong>' . __( 'For more information:', 'affiliate-wp' ) . '</strong></p>';
@@ -74,6 +74,6 @@ function affwp_referrals_contextual_help() {
 	 *
 	 * @param string $screen The current screen.
 	 */
-	do_action( 'affwp_referrals_contextual_help', $screen );
+	do_action( 'affwp_sells_contextual_help', $screen );
 }
-add_action( 'load-affiliates_page_affiliate-wp-referrals', 'affwp_referrals_contextual_help' );
+add_action( 'load-affiliates_page_affiliate-wp-sells', 'affwp_sells_contextual_help' );

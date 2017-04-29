@@ -13,11 +13,11 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/screen-options.php';
-include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/contextual-help.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/class-list-table.php';
+include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/screen-options.php';
+include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/contextual-help.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/class-list-table.php';
 
-function affwp_referrals_admin() {
+function affwp_sells_admin() {
 
 	if( isset( $_GET['action'] ) && 'add_referral' == $_GET['action'] ) {
 
@@ -29,12 +29,12 @@ function affwp_referrals_admin() {
 
 	} else {
 
-		$referrals_table = new AffWP_Referrals_Table();
+		$referrals_table = new AffWP_Sells_Table();
 		$referrals_table->prepare_items();
 		?>
 		<div class="wrap">
 			<h1>
-				<?php _e( 'Referrals', 'affiliate-wp' ); ?>
+				<?php _e( 'Partner\'s Sells', 'affiliate-wp' ); ?>
 				<a href="<?php echo esc_url( add_query_arg( 'action', 'add_referral' ) ); ?>" class="page-title-action"><?php _e( 'Add New', 'affiliate-wp' ); ?></a>
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-reports', 'tab' => 'referrals' ) ) ); ?>" class="page-title-action"><?php _ex( 'Reports', 'referrals', 'affiliate-wp' ); ?></a>
 				<button class="page-title-action affwp-referrals-export-toggle"><?php _e( 'Generate Payout File', 'affiliate-wp' ); ?></button>

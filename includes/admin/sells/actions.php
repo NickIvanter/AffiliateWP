@@ -6,7 +6,7 @@
  * @since 1.2
  * @return void|false
  */
-function affwp_process_add_referral( $data ) {
+function affwp_process_add_sell( $data ) {
 
 	if ( ! is_admin() ) {
 		return false;
@@ -21,15 +21,15 @@ function affwp_process_add_referral( $data ) {
 	}
 
 	if ( affwp_add_referral( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_added' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_added' ) ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_add_failed' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_add_failed' ) ) );
 		exit;
 	}
 
 }
-add_action( 'affwp_add_referral', 'affwp_process_add_referral' );
+add_action( 'affwp_add_sell', 'affwp_process_add_sell' );
 
 /**
  * Process the update referral request
@@ -37,7 +37,7 @@ add_action( 'affwp_add_referral', 'affwp_process_add_referral' );
  * @since 1.2
  * @return void
  */
-function affwp_process_update_referral( $data ) {
+function affwp_process_update_sell( $data ) {
 
 	if ( ! is_admin() ) {
 		return false;
@@ -52,15 +52,15 @@ function affwp_process_update_referral( $data ) {
 	}
 
 	if ( affiliate_wp()->referrals->update_referral( $data['referral_id'], $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_updated' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_updated' ) ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_update_failed' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_update_failed' ) ) );
 		exit;
 	}
 
 }
-add_action( 'affwp_process_update_referral', 'affwp_process_update_referral' );
+add_action( 'affwp_process_update_sell', 'affwp_process_update_sell' );
 
 /**
  * Process the delete referral request
@@ -68,7 +68,7 @@ add_action( 'affwp_process_update_referral', 'affwp_process_update_referral' );
  * @since 1.7
  * @return void
  */
-function affwp_process_delete_referral( $data ) {
+function affwp_process_delete_sell( $data ) {
 
 	if ( ! is_admin() ) {
 		return false;
@@ -83,15 +83,15 @@ function affwp_process_delete_referral( $data ) {
 	}
 
 	if ( affwp_delete_referral( $data['referral_id'] ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_deleted' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_deleted' ) ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_delete_failed' ) ) );
+		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_delete_failed' ) ) );
 		exit;
 	}
 
 }
-add_action( 'affwp_process_delete_referral', 'affwp_process_delete_referral' );
+add_action( 'affwp_process_delete_sell', 'affwp_process_delete_sell' );
 
 /**
  * Process the referral payout file generation
@@ -99,7 +99,7 @@ add_action( 'affwp_process_delete_referral', 'affwp_process_delete_referral' );
  * @since 1.0
  * @return void
  */
-function affwp_generate_referral_payout_file( $data ) {
+function affwp_generate_sell_payout_file( $data ) {
 
 	$export = new Affiliate_WP_Referral_Payout_Export;
 
@@ -114,4 +114,4 @@ function affwp_generate_referral_payout_file( $data ) {
 	$export->export();
 
 }
-add_action( 'affwp_generate_referral_payout', 'affwp_generate_referral_payout_file' );
+add_action( 'affwp_generate_sell_payout', 'affwp_generate_sell_payout_file' );

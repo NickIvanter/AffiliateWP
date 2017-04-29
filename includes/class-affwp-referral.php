@@ -140,6 +140,15 @@ final class Referral extends Base_Object {
 	public $date;
 
 	/**
+	 * Flag for sell partner product vs tracked referral
+	 *
+	 * @since 2.0.6.4-custom
+	 * @access public
+	 * @var int
+	 */
+	public $sell;
+
+	/**
 	 * Token to use for generating cache keys.
 	 *
 	 * @since 1.9
@@ -186,7 +195,7 @@ final class Referral extends Base_Object {
 	 * @return mixed Sanitized field value.
 	 */
 	public static function sanitize_field( $field, $value ) {
-		if ( in_array( $field, array( 'referral_id', 'affiliate_id', 'visit_id', 'ID' ) ) ) {
+		if ( in_array( $field, array( 'referral_id', 'affiliate_id', 'visit_id', 'ID', 'sell' ) ) ) {
 			$value = (int) $value;
 		}
 		return $value;

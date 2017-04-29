@@ -14,6 +14,7 @@ class Affiliate_WP_Admin_Menu {
 		$affiliates = add_submenu_page( 'affiliate-wp', __( 'Affiliates', 'affiliate-wp' ),  __( 'Affiliates', 'affiliate-wp' ),            'manage_affiliates',        'affiliate-wp-affiliates', 'affwp_affiliates_admin'     );
 		$sellers    = add_submenu_page( 'affiliate-wp', __( 'Sellers', 'affiliate-wp' ),     __( 'Sellers', 'affiliate-wp' ),               'manage_affiliates',        'affiliate-wp-sellers',    'affwp_sellers_admin'        );
 		$referrals  = add_submenu_page( 'affiliate-wp', __( 'Referrals', 'affiliate-wp' ),   __( 'Referrals', 'affiliate-wp' ),             'manage_referrals',         'affiliate-wp-referrals',  'affwp_referrals_admin'      );
+		$sells      = add_submenu_page( 'affiliate-wp', __( 'Sells', 'affiliate-wp' ),       __( 'Sells', 'affiliate-wp' ),                 'manage_referrals',         'affiliate-wp-sells',      'affwp_sells_admin'          );
 		$payouts    = add_submenu_page( 'affiliate-wp', __( 'Payouts', 'affiliate-wp' ),     __( 'Payouts', 'affiliate-wp' ),               'manage_payouts',           'affiliate-wp-payouts',    'affwp_payouts_admin'        );
 		$visits     = add_submenu_page( 'affiliate-wp', __( 'Visits', 'affiliate-wp' ),      __( 'Visits', 'affiliate-wp' ),                'manage_visits',            'affiliate-wp-visits',     'affwp_visits_admin'         );
 		$creatives  = add_submenu_page( 'affiliate-wp', __( 'Creatives', 'affiliate-wp' ),   __( 'Creatives', 'affiliate-wp' ),             'manage_creatives',         'affiliate-wp-creatives',  'affwp_creatives_admin'      );
@@ -26,6 +27,7 @@ class Affiliate_WP_Admin_Menu {
 		add_action( 'load-' . $affiliates, 'affwp_affiliates_screen_options' );
 		add_action( 'load-' . $sellers, 'affwp_sellers_screen_options' );
 		add_action( 'load-' . $referrals, 'affwp_referrals_screen_options' );
+		add_action( 'load-' . $sells, 'affwp_sells_screen_options' );
 		add_action( 'load-' . $payouts, 'affwp_payouts_screen_options' );
 		add_action( 'load-' . $visits, 'affwp_visits_screen_options' );
 		add_action( 'load-' . $creatives, 'affwp_creatives_screen_options' );

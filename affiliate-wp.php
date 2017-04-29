@@ -374,6 +374,8 @@ final class Affiliate_WP {
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/overview.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/actions.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/referrals.php';
+			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/actions.php';
+			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/referrals.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/payouts/payouts.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/reports.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/settings/display-settings.php';

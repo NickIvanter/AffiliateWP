@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @see \AffWP\Admin\List_Table
  */
-class AffWP_Referrals_Table extends List_Table {
+class AffWP_Sells_Table extends List_Table {
 
 	/**
 	 * Default number of items to show per page
@@ -730,31 +730,36 @@ class AffWP_Referrals_Table extends List_Table {
 		$this->paid_count = affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
-				'status'       => 'paid'
+				'status'       => 'paid',
+                'sell'         => true,
 			) ) ) +
             affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
-				'status'       => 'refunded'
+				'status'       => 'refunded',
+                'sell'         => true,
 			) ) );
 
 		$this->unpaid_count = affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
-				'status'       => 'unpaid'
+				'status'       => 'unpaid',
+                'sell'         => true,
 			) )
 		);
 		$this->pending_count = affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
-				'status'       => 'pending'
+				'status'       => 'pending',
+                'sell'         => true,
 			) )
 		);
 
 		$this->rejected_count = affiliate_wp()->referrals->count(
 			array_merge( $this->query_args, array(
 				'affiliate_id' => $affiliate_id,
-				'status'       => 'rejected'
+				'status'       => 'rejected',
+                'sell'         => true,
 			) )
 		);
 
@@ -838,7 +843,8 @@ class AffWP_Referrals_Table extends List_Table {
 			'date'         => $date,
 			'search'       => $is_search,
 			'orderby'      => sanitize_text_field( $orderby ),
-			'order'        => sanitize_text_field( $order )
+			'order'        => sanitize_text_field( $order ),
+            'sell'         => true,
 		) );
 
 		$referrals = affiliate_wp()->referrals->get_referrals( $args );
@@ -859,7 +865,7 @@ class AffWP_Referrals_Table extends List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
-		$per_page = $this->get_items_per_page( 'affwp_edit_referrals_per_page', $this->per_page );
+		$per_page = $this->get_items_per_page( 'affwp_edit_sells_per_page', $this->per_page );
 
 		$this->get_column_info();
 
