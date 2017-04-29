@@ -169,7 +169,7 @@ class AffWP_Sellers_Table extends List_Table {
 			'sell_earnings'        => __( 'Paid Earnings', 'affiliate-wp' ),
 			'sell_unpaid_earnings' => __( 'Unpaid Earnings', 'affiliate-wp' ),
 			'sell_rate'     	   => __( 'Rate', 'affiliate-wp' ),
-			'unpaid'               => __( 'Unpaid Referrals', 'affiliate-wp' ),
+			'sell_unpaid'          => __( 'Unpaid Referrals', 'affiliate-wp' ),
 			'sell_referrals'       => __( 'Paid Referrals', 'affiliate-wp' ),
 			'sell_visits'          => __( 'Visits', 'affiliate-wp' ),
 			'status'               => __( 'Status', 'affiliate-wp' ),
@@ -194,16 +194,16 @@ class AffWP_Sellers_Table extends List_Table {
 	 */
 	public function get_sortable_columns() {
 		return array(
-			'name'                 => array( 'name',            false ),
-			'affiliate_id'         => array( 'affiliate_id',    false ),
-			'username'             => array( 'username',        false ),
+			'name'                 => array( 'name',                 false ),
+			'affiliate_id'         => array( 'affiliate_id',         false ),
+			'username'             => array( 'username',             false ),
 			'sell_earnings'        => array( 'sell_earnings',        false ),
 			'sell_unpaid_earnings' => array( 'sell_unpaid_earnings', false ),
 			'sell_rate'            => array( 'sell_rate',            false ),
-			'unpaid'               => array( 'unpaid',          false ),
+			'sell_unpaid'          => array( 'sell_unpaid',          false ),
 			'sell_referrals'       => array( 'sell_referrals',       false ),
 			'sell_visits'          => array( 'sell_visits',          false ),
-			'status'               => array( 'status',          false )
+			'status'               => array( 'status',               false )
 		);
 	}
 
@@ -367,7 +367,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param array            $row_actions Row actions array.
 		 * @param \AffWP\Affiliate $affiliate   Current affiliate.
 		 */
-		$row_actions = apply_filters( 'affwp_affiliate_row_actions', $row_actions, $affiliate );
+		$row_actions = apply_filters( 'affwp_sellers_row_actions', $row_actions, $affiliate );
 
 		$value .= '<div class="row-actions">' . $this->row_actions( $row_actions, true ) . '</div>';
 
@@ -429,7 +429,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string Affiliate paid earnings link.
 	 */
 	function column_sell_earnings( $affiliate ) {
-		$value = affwp_get_affiliate_earnings( $affiliate->affiliate_id, true );
+		$value = affwp_get_affiliate_sell_earnings( $affiliate->affiliate_id, true );
 
 		/**
 		 * Filters the earnings column data for the affiliates list table.
@@ -437,7 +437,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string           $value     Data shown in the Earnings column.
 		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
 		 */
-		return apply_filters( 'affwp_affiliate_table_earnings', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_earnings', $value, $affiliate );
 	}
 
 	/**
@@ -450,7 +450,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string Affiliate paid earnings link.
 	 */
 	function column_sell_unpaid_earnings( $affiliate ) {
-		$value = affwp_get_affiliate_unpaid_earnings( $affiliate, true );
+		$value = affwp_get_affiliate_sell_unpaid_earnings( $affiliate, true );
 
 		/**
 		 * Filters the Unpaid Earnings column data for the affiliates list table.
@@ -460,7 +460,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string           $value     Data shown in the Unpaid Earnings column.
 		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
 		 */
-		return apply_filters( 'affwp_affiliate_table_unpaid_earnings', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_unpaid_earnings', $value, $affiliate );
 	}
 
 	/**
@@ -473,7 +473,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string Affiliate rate.
 	 */
 	function column_sell_rate( $affiliate ) {
-		$value = affwp_get_affiliate_rate( $affiliate->affiliate_id, true );
+		$value = affwp_get_affiliate_sell_rate( $affiliate->affiliate_id, true );
 
 		/**
 		 * Filters the rate column data for the affiliates list table.
@@ -481,7 +481,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string           $value     Data shown in the Rate column.
 		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
 		 */
-		return apply_filters( 'affwp_affiliate_table_rate', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_rate', $value, $affiliate );
 	}
 
 
@@ -494,8 +494,8 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @param \AffWP\Affiliate $affiliate   The current affiliate object.
 	 * @return string The unpaid referrals link.
 	 */
-	function column_unpaid( $affiliate ) {
-		$unpaid_count = affiliate_wp()->referrals->unpaid_count( '', $affiliate->affiliate_id );
+	function column_sell_unpaid( $affiliate ) {
+		$unpaid_count = affiliate_wp()->referrals->unpaid_count( '', $affiliate->affiliate_id, '', true );
 
 		$value = affwp_admin_link( 'referrals', $unpaid_count, array( 'affiliate_id' => $affiliate->affiliate_id, 'status' => 'unpaid' ) );
 
@@ -507,7 +507,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string           $value     Data shown in the Unpaid column.
 		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
 		 */
-		return apply_filters( 'affwp_affiliate_table_unpaid', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_unpaid', $value, $affiliate );
 	}
 
 
@@ -521,7 +521,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string The affiliate referrals link.
 	 */
 	function column_sell_referrals( $affiliate ) {
-		$value = affwp_admin_link( 'referrals', $affiliate->referrals, array( 'affiliate_id' => $affiliate->affiliate_id, 'status' => 'paid' ) );
+		$value = affwp_admin_link( 'referrals', $affiliate->sell_referrals, array( 'affiliate_id' => $affiliate->affiliate_id, 'status' => 'paid' ) );
 
 		/**
 		 * Filters the referrals column data for the affiliates list table.
@@ -529,7 +529,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string $value     Data shown in the Referrals column.
 		 * @param array  $affiliate Contains all the data of the affiliate.
 		 */
-		return apply_filters( 'affwp_affiliate_table_referrals', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_referrals', $value, $affiliate );
 	}
 
 	/**
@@ -542,7 +542,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string visits link
 	 */
 	function column_sell_visits( $affiliate ) {
-		$value = affwp_admin_link( 'visits', affwp_get_affiliate_visit_count( $affiliate->affiliate_id ), array( 'affiliate' => $affiliate->affiliate_id ) );
+		$value = affwp_admin_link( 'visits', affwp_get_affiliate_sell_visit_count( $affiliate->affiliate_id ), array( 'affiliate' => $affiliate->affiliate_id ) );
 
 		/**
 		 * Filters the username visits data for the affiliates list table.
@@ -550,7 +550,7 @@ class AffWP_Sellers_Table extends List_Table {
 		 * @param string           $value     Data shown in the Visits column.
 		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
 		 */
-		return apply_filters( 'affwp_affiliate_table_visits', $value, $affiliate );
+		return apply_filters( 'affwp_affiliate_table_sell_visits', $value, $affiliate );
 	}
 
 	/**

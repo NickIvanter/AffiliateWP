@@ -776,6 +776,39 @@ function affwp_get_affiliate_earnings( $affiliate, $formatted = false ) {
 }
 
 /**
+ * Retrieves the total paid sell earnings for an affiliate.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Affiliate ID or object.
+ * @param bool                $formatted Optional. Whether to retrieve formatted earnings.
+ *                                       Default false.
+ * @return float|false Affiliate earnings, otherwise false.
+ */
+function affwp_get_affiliate_sell_earnings( $affiliate, $formatted = false ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$earnings = $affiliate->sell_earnings;
+
+	if ( empty( $earnings ) ) {
+
+		$earnings = 0;
+
+	}
+
+	if ( $formatted ) {
+
+		$earnings = affwp_currency_filter( affwp_format_amount( $earnings ) );
+
+	}
+
+	return $earnings;
+}
+
+/**
  * Retrieves the total unpaid earnings for an affiliate.
  *
  * @since 1.0
@@ -792,6 +825,33 @@ function affwp_get_affiliate_unpaid_earnings( $affiliate, $formatted = false ) {
 	}
 
 	$earnings = $affiliate->unpaid_earnings;
+
+	if ( $formatted ) {
+
+		$earnings = affwp_currency_filter( affwp_format_amount( $earnings ) );
+
+	}
+
+	return $earnings;
+}
+
+/**
+ * Retrieves the total unpaid sell earnings for an affiliate.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Affiliate ID or object.
+ * @param bool                $formatted Optional. Whether to retrieve formatted unpaid earnings.
+ *                                       Default false.
+ * @return float|false Unpaid affiliate earnings, otherwise false.
+ */
+function affwp_get_affiliate_sell_unpaid_earnings( $affiliate, $formatted = false ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$earnings = $affiliate->sell_unpaid_earnings;
 
 	if ( $formatted ) {
 
@@ -1058,6 +1118,29 @@ function affwp_get_affiliate_visit_count( $affiliate = 0 ) {
 	}
 
 	$visits = $affiliate->visits;
+
+	if ( $visits < 0 ) {
+		$visits = 0;
+	}
+
+	return absint( $visits );
+}
+
+/**
+ * Retrieves an affiliate's total sell visit count.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return int|false The new affiliate visit count, otherwise false.
+ */
+function affwp_get_affiliate_sell_visit_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$visits = $affiliate->sell_visits;
 
 	if ( $visits < 0 ) {
 		$visits = 0;

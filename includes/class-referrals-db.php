@@ -743,7 +743,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @param string $date         Optional. Date range in which to search. Accepts 'month'. Default empty.
 	 * @return int Number of referrals for the given status or 0 if the affiliate doesn't exist.
 	 */
-	public function count_by_status( $status, $affiliate_id = 0, $date = '' ) {
+	public function count_by_status( $status, $affiliate_id = 0, $date = '', $sellers = false ) {
 
 		$args = array(
 			'status'       => $status,
