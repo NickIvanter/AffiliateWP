@@ -853,6 +853,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 		products mediumtext NOT NULL,
 		payout_id bigint(20) NOT NULL,
 		date datetime NOT NULL,
+		sell tinyint NOT NULL DEFAULT 0,
 		PRIMARY KEY  (referral_id),
 		KEY affiliate_id (affiliate_id)
 		) CHARACTER SET utf8 COLLATE utf8_general_ci;";
