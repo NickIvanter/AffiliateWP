@@ -23,6 +23,7 @@ function affwp_is_admin_page() {
 	$pages = array(
 		'affiliate-wp',
 		'affiliate-wp-affiliates',
+		'affiliate-wp-sellers',
 		'affiliate-wp-referrals',
 		'affiliate-wp-payouts',
 		'affiliate-wp-visits',

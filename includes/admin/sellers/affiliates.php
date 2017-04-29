@@ -13,7 +13,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-include_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/screen-options.php';
+include_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sellers/screen-options.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sellers/class-list-table.php';
 
 function affwp_sellers_admin() {

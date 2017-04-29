@@ -3,26 +3,26 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/class-list-table.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sellers/class-list-table.php';
 
 /**
  * Add per page screen option to the Affiliates list table
  *
  * @since 1.7
  */
-function affwp_affiliates_screen_options() {
+function affwp_sellers_screen_options() {
 
 	$screen = affwp_get_current_screen();
 
-	if ( $screen !== 'affiliate-wp-affiliates' ) {
+	if ( $screen !== 'affiliate-wp-sellers' ) {
 		return;
 	}
 
 	add_screen_option(
 		'per_page',
 		array(
-			'label'   => __( 'Number of affiliates per page:', 'affiliate-wp' ),
-			'option'  => 'affwp_edit_affiliates_per_page',
+			'label'   => __( 'Number of sellers per page:', 'affiliate-wp' ),
+			'option'  => 'affwp_edit_sellers_per_page',
 			'default' => 30,
 		)
 	);
@@ -37,7 +37,7 @@ function affwp_affiliates_screen_options() {
 	if ( empty( $_REQUEST['action'] )
 		|| ( ! empty( $_REQUEST['action'] ) && 'view_affiliate' !== $_REQUEST['action'] )
 	) {
-		new AffWP_Affiliates_Table();
+		new AffWP_Sellers_Table();
 	}
 
 	/**
@@ -45,7 +45,7 @@ function affwp_affiliates_screen_options() {
 	 *
 	 * @param string $screen The current screen.
 	 */
-	do_action( 'affwp_affiliates_screen_options', $screen );
+	do_action( 'affwp_sellers_screen_options', $screen );
 
 }
 
@@ -58,13 +58,13 @@ function affwp_affiliates_screen_options() {
  * @param  mixed    $value
  * @return mixed
  */
-function affwp_affiliates_set_screen_option( $status, $option, $value ) {
+function affwp_sellers_set_screen_option( $status, $option, $value ) {
 
-	if ( 'affwp_edit_affiliates_per_page' === $option ) {
+	if ( 'affwp_edit_sellers_per_page' === $option ) {
 		return $value;
 	}
 
 	return $status;
 
 }
-add_filter( 'set-screen-option', 'affwp_affiliates_set_screen_option', 10, 3 );
+add_filter( 'set-screen-option', 'affwp_sellers_set_screen_option', 10, 3 );

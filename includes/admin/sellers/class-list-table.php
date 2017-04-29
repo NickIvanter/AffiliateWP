@@ -133,7 +133,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return array $views All the views available
 	 */
 	public function get_views() {
-		$base           = affwp_admin_url( 'affiliates' );
+		$base           = affwp_admin_url( 'sellers' );
 
 		$current        = isset( $_GET['status'] ) ? $_GET['status'] : '';
 		$total_count    = '&nbsp;<span class="count">(' . $this->total_count    . ')</span>';
@@ -664,7 +664,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->active_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'active',
-                'seller' => true,
+                'sellers' => true,
 				'search' => $search
 			) )
 		);
@@ -672,7 +672,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->inactive_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'inactive',
-                'seller' => true,
+                'sellers' => true,
 				'search' => $search
 			) )
 		);
@@ -680,7 +680,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->pending_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'pending',
-                'seller' => true,
+                'sellers' => true,
 				'search' => $search
 			) )
 		);
@@ -688,7 +688,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$this->rejected_count = affiliate_wp()->affiliates->count(
 			array_merge( $this->query_args, array(
 				'status' => 'rejected',
-                'seller' => true,
+                'sellers' => true,
 				'search' => $search
 			) )
 		);
@@ -720,7 +720,7 @@ class AffWP_Sellers_Table extends List_Table {
 			'search'  => $search,
 			'orderby' => sanitize_text_field( $orderby ),
 			'order'   => sanitize_text_field( $order ),
-            'seller'  => true,
+            'sellers'  => true,
 		) );
 
 		$affiliates   = affiliate_wp()->affiliates->get_affiliates( $args );

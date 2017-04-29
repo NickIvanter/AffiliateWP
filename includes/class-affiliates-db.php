@@ -155,6 +155,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+        file_put_contents('/tmp/aff.log', 'ARGS: ' . var_export($args, true) . "\n", FILE_APPEND);
 
 		if( ! empty( $args['date_registered'] ) ) {
 			$args['date'] = $args['date_registered'];
@@ -218,7 +219,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 		}
 
 		// affiliates for sellers
-		if ( ! empty( $args['sellers'] ) ) {
+		if ( isset( $args['sellers'] ) && $args['sellers'] ) {
             $where .= !empty( $where ) ? 'AND `is_seller` = 1' : 'WHERE `is_seller` = 1';
 		} else {
             $where .= !empty( $where ) ? 'AND `is_ref` = 1' : 'WHERE `is_ref` = 1';
