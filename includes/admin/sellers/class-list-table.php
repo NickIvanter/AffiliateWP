@@ -495,7 +495,7 @@ class AffWP_Sellers_Table extends List_Table {
 	 * @return string The unpaid referrals link.
 	 */
 	function column_sell_unpaid( $affiliate ) {
-		$unpaid_count = affiliate_wp()->referrals->unpaid_count( '', $affiliate->affiliate_id, '', true );
+		$unpaid_count = affiliate_wp()->referrals->unpaid_count( '', $affiliate->affiliate_id, true );
 
 		$value = affwp_admin_link( 'referrals', $unpaid_count, array( 'affiliate_id' => $affiliate->affiliate_id, 'status' => 'unpaid' ) );
 

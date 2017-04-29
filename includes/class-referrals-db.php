@@ -319,21 +319,22 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 		global $wpdb;
 
 		$defaults = array(
-			'number'       => 20,
-			'offset'       => 0,
-			'referral_id'  => 0,
-			'payout_id'    => 0,
-			'affiliate_id' => 0,
-			'amount'       => 0,
+			'number'         => 20,
+			'offset'         => 0,
+			'referral_id'    => 0,
+			'payout_id'      => 0,
+			'affiliate_id'   => 0,
+			'amount'         => 0,
 			'amount_compare' => '=',
-			'reference'    => '',
-			'context'      => '',
-			'campaign'     => '',
-			'status'       => '',
-			'orderby'      => 'referral_id',
-			'order'        => 'DESC',
-			'search'       => false,
-			'fields'       => '',
+			'reference'      => '',
+			'context'        => '',
+			'campaign'       => '',
+			'status'         => '',
+			'orderby'        => 'referral_id',
+			'order'          => 'DESC',
+			'search'         => false,
+			'fields'         => '',
+            'sell'           => 0,
 		);
 
 		$args  = wp_parse_args( $args, $defaults );
@@ -552,6 +553,14 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 
 		}
 
+        // Sells referrals
+        $where .= empty( $where ) ? 'AND ' : 'WHERE ';
+        if ( isset($args['sell']) && $args['sell'] ) {
+            $where .= 'sell = 1';
+        } else {
+            $where .= 'sell = 0';
+        }
+
 		$orderby = array_key_exists( $args['orderby'], $this->get_columns() ) ? $args['orderby'] : $this->primary_key;
 
 		// Non-column orderby exception;
@@ -748,7 +757,12 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 		$args = array(
 			'status'       => $status,
 			'affiliate_id' => absint( $affiliate_id ),
+            'sell'         => 0,
 		);
+
+        if ( $sellers ) {
+            $args['sell'] = 1;
+        }
 
 		if ( ! empty( $date ) ) {
 
@@ -793,8 +807,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @param int    $affiliate_id Optional. Affiliate ID. Default 0.
 	 * @return int Number of referrals for the given status or 0 if the affiliate doesn't exist.
 	*/
-	public function unpaid_count( $date = '', $affiliate_id = 0 ) {
-		return $this->count_by_status( 'unpaid', $affiliate_id, $date );
+	public function unpaid_count( $date = '', $affiliate_id = 0, $sellers = false ) {
+		return $this->count_by_status( 'unpaid', $affiliate_id, $date, $sellers );
 	}
 
 	/**
