@@ -252,7 +252,7 @@ class AffWP_Sellers_Table extends List_Table {
 		$name         = affiliate_wp()->affiliates->get_affiliate_name( $affiliate->affiliate_id );
 
 		$base_query_args = array(
-			'page'         => 'affiliate-wp-affiliates',
+			'page'         => 'affiliate-wp-sellers',
 			'affiliate_id' => $affiliate->ID
 		);
 
