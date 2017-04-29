@@ -108,7 +108,22 @@ $default_rate = affwp_abs_number_round( $default_rate );
 
 			</tr>
 
-			<tr class="form-row" id="affwp-welcome-email-row">
+			<tr class="form-row" id="affwp-seller-row">
+
+				<th scope="row">
+					<label for="is_seller"><?php _e( 'Affiliate Is A Seller', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<label class="description">
+                        <input type="checkbox" name="is_seller" id="is_seller" value="1" <?= $seller ? 'checked' : ''?>/>
+						<?php _e( 'Affiliate is a seller and can receive payouts for his products sells', 'affiliate-wp' ); ?>
+					</label>
+				</td>
+
+			</tr>
+
+            <tr class="form-row" id="affwp-welcome-email-row">
 
 				<th scope="row">
 					<label for="welcome_email"><?php _e( 'Welcome Email', 'affiliate-wp' ); ?></label>

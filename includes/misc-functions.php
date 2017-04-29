@@ -910,7 +910,7 @@ function affwp_admin_url( $type = '', $query_args = array() ) {
 	$page = 'affiliate-wp';
 
 	$whitelist = array(
-		'affiliates', 'sellers', 'creatives', 'payouts', 'referrals',
+		'affiliates', 'sellers', 'creatives', 'payouts', 'referrals', 'sells',
 		'visits', 'reports', 'settings', 'tools', 'add-ons'
 	);
 

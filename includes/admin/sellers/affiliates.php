@@ -56,8 +56,7 @@ function affwp_sellers_admin() {
 ?>
 		<div class="wrap">
 			<h1>
-				<?php _e( 'Affiliates', 'affiliate-wp' ); ?>
-				<a href="<?php echo esc_url( add_query_arg( array( 'affwp_notice' => false, 'action' => 'add_affiliate' ) ) ); ?>" class="page-title-action"><?php _e( 'Add New', 'affiliate-wp' ); ?></a>
+				<?php _e( 'Sellers', 'affiliate-wp' ); ?>
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-reports', 'tab' => 'affiliates' ) ) ); ?>" class="page-title-action"><?php _ex( 'Reports', 'affiliates', 'affiliate-wp' ); ?></a>
 			</h1>
 			<?php

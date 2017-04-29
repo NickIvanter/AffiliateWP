@@ -10,6 +10,7 @@ $email            = ! empty( $affiliate->payment_email ) ? $affiliate->payment_e
 $reason           = affwp_get_affiliate_meta( $affiliate->affiliate_id, '_rejection_reason', true );
 $promotion_method = get_user_meta( $affiliate->user_id, 'affwp_promotion_method', true );
 $notes            = affwp_get_affiliate_meta( $affiliate->affiliate_id, 'notes', true );
+$seller           = $affiliate->is_seller;
 ?>
 <div class="wrap">
 
@@ -229,6 +230,21 @@ $notes            = affwp_get_affiliate_meta( $affiliate->affiliate_id, 'notes',
 				<td>
 					<textarea name="notes" rows="5" cols="50" id="notes" class="large-text"><?php echo esc_html( $notes ); ?></textarea>
 					<p class="description"><?php _e( 'Enter any notes for this affiliate. Notes are only visible to the admin.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row" id="affwp-seller-row">
+
+				<th scope="row">
+					<label for="is_seller"><?php _e( 'Affiliate Is A Seller', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<label class="description">
+                        <input type="checkbox" name="is_seller" id="is_seller" value="1" <?= $seller ? 'checked' : ''?>/>
+						<?php _e( 'Affiliate is a seller and can receive payouts for his products sells', 'affiliate-wp' ); ?>
+					</label>
 				</td>
 
 			</tr>

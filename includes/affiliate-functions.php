@@ -1333,8 +1333,13 @@ function affwp_add_affiliate( $data = array() ) {
 		'rate'          => ! empty( $data['rate'] ) ? sanitize_text_field( $data['rate'] ) : '',
 		'rate_type'     => ! empty( $data['rate_type' ] ) ? sanitize_text_field( $data['rate_type'] ) : '',
 		'payment_email' => ! empty( $data['payment_email'] ) ? sanitize_text_field( $data['payment_email'] ) : '',
-		'notes'         => ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : ''
+		'notes'         => ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '',
+		'is_seller'     => (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0,
 	);
+
+    if ( isset( $data['is_ref'] ) ) {
+        $args['is_ref'] = $data['is_ref'] ? 1 : 0;
+    }
 
 	$affiliate_id = affiliate_wp()->affiliates->add( $args );
 
@@ -1377,6 +1382,12 @@ function affwp_update_affiliate( $data = array() ) {
 	$args['status']        = ! empty( $data['status'] ) ? sanitize_text_field( $data['status'] ) : $affiliate->status;
 	$args['user_id']       = $user_id;
 	$args['notes']         = ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '';
+
+    $args['is_seller']     = (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0;
+
+    if ( isset( $data['is_ref'] ) ) {
+        $args['is_ref'] = $data['is_ref'] ? 1 : 0;
+    }
 
 	/**
 	 * Fires immediately before data for the current affiliate is updated.

@@ -86,17 +86,25 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	*/
 	public function get_columns() {
 		return array(
-			'affiliate_id'    => '%d',
-			'user_id'         => '%d',
-			'rate'            => '%s',
-			'rate_type'       => '%s',
-			'payment_email'   => '%s',
-			'status'          => '%s',
-			'earnings'        => '%s',
-			'unpaid_earnings' => '%s',
-			'referrals'       => '%d',
-			'visits'          => '%d',
-			'date_registered' => '%s',
+			'affiliate_id'         => '%d',
+			'user_id'              => '%d',
+			'rate'                 => '%s',
+			'rate_type'            => '%s',
+			'payment_email'        => '%s',
+			'status'               => '%s',
+			'earnings'             => '%s',
+			'unpaid_earnings'      => '%s',
+			'referrals'            => '%d',
+			'visits'               => '%d',
+			'date_registered'      => '%s',
+			'is_seller'            => '%d',
+			'is_ref'               => '%d',
+			'sell_rate'            => '%s',
+			'sell_rate_type'       => '%s',
+			'sell_earnings'		   => '%s',
+			'sell_unpaid_earnings' => '%s',
+			'sell_referrals'	   => '%d',
+			'sell_visits'		   => '%d',
 		);
 	}
 
@@ -118,44 +126,43 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	 * @access public
 	 * @since  1.0
 	 * @since  1.8 The `$affiliate_id` argument was added. `$orderby` now accepts referral statuses.
-	 *             and 'username'.
+	 *			   and 'username'.
 	 *
 	 * @param array $args {
-	 *     Optional. Arguments for querying affiliates. Default empty array.
+	 *	   Optional. Arguments for querying affiliates. Default empty array.
 	 *
-	 *     @type int       $number       Number of affiliates to query for. Default 20.
-	 *     @type int       $offset       Number of affiliates to offset the query for. Default 0.
-	 *     @type int|array $exclude      Affiliate ID or array of IDs to explicitly exclude.
-	 *     @type int|array $user_id      User ID or array of user IDs that correspond to the affiliate user.
-	 *     @type int|array $affiliate_id Affiliate ID or array of affiliate IDs to retrieve.
-	 *     @type string    $status       Affiliate status. Default empty.
-	 *     @type string    $order        How to order returned affiliate results. Accepts 'ASC' or 'DESC'.
-	 *                                   Default 'DESC'.
-	 *     @type string    $orderby      Affiliates table column to order results by. Also accepts 'paid',
-	 *                                   'unpaid', 'rejected', or 'pending' referral statuses, 'name'
-	 *                                   (user display_name), or 'username' (user user_login). Default 'affiliate_id'.
-	 *     @type string    $fields       Specific fields to retrieve. Accepts 'ids' or '*' (all). Default '*'.
+	 *	   @type int	   $number		 Number of affiliates to query for. Default 20.
+	 *	   @type int	   $offset		 Number of affiliates to offset the query for. Default 0.
+	 *	   @type int|array $exclude		 Affiliate ID or array of IDs to explicitly exclude.
+	 *	   @type int|array $user_id		 User ID or array of user IDs that correspond to the affiliate user.
+	 *	   @type int|array $affiliate_id Affiliate ID or array of affiliate IDs to retrieve.
+	 *	   @type string	   $status		 Affiliate status. Default empty.
+	 *	   @type string	   $order		 How to order returned affiliate results. Accepts 'ASC' or 'DESC'.
+	 *									 Default 'DESC'.
+	 *	   @type string	   $orderby		 Affiliates table column to order results by. Also accepts 'paid',
+	 *									 'unpaid', 'rejected', or 'pending' referral statuses, 'name'
+	 *									 (user display_name), or 'username' (user user_login). Default 'affiliate_id'.
+	 *	   @type string	   $fields		 Specific fields to retrieve. Accepts 'ids' or '*' (all). Default '*'.
 	 * }
-	 * @param bool  $count Optional. Whether to return only the total number of results found. Default false.
+	 * @param bool	$count Optional. Whether to return only the total number of results found. Default false.
 	 * @return array|int Array of affiliate objects (if found), int if `$count` is true.
 	 */
 	public function get_affiliates( $args = array(), $count = false ) {
 		global $wpdb;
 
 		$defaults = array(
-			'number'       => 20,
-			'offset'       => 0,
-			'exclude'      => array(),
-			'user_id'      => 0,
+			'number'	   => 20,
+			'offset'	   => 0,
+			'exclude'	   => array(),
+			'user_id'	   => 0,
 			'affiliate_id' => 0,
-			'status'       => '',
-			'order'        => 'DESC',
-			'orderby'      => 'affiliate_id',
-			'fields'       => '',
+			'status'	   => '',
+			'order'		   => 'DESC',
+			'orderby'	   => 'affiliate_id',
+			'fields'	   => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-        file_put_contents('/tmp/aff.log', 'ARGS: ' . var_export($args, true) . "\n", FILE_APPEND);
 
 		if( ! empty( $args['date_registered'] ) ) {
 			$args['date'] = $args['date_registered'];
@@ -220,10 +227,10 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 
 		// affiliates for sellers
 		if ( isset( $args['sellers'] ) && $args['sellers'] ) {
-            $where .= !empty( $where ) ? 'AND `is_seller` = 1' : 'WHERE `is_seller` = 1';
+			$where .= !empty( $where ) ? 'AND `is_seller` = 1' : 'WHERE `is_seller` = 1';
 		} else {
-            $where .= !empty( $where ) ? 'AND `is_ref` = 1' : 'WHERE `is_ref` = 1';
-        }
+			$where .= !empty( $where ) ? 'AND `is_ref` = 1' : 'WHERE `is_ref` = 1';
+		}
 
 		if ( ! empty( $args['search'] ) ) {
 			$search_value = $args['search'];
@@ -235,9 +242,9 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 				// Searching by an affiliate's name or email
 				if ( is_email( $search_value ) ) {
 
-					$user    = get_user_by( 'email', $search_value );
+					$user	 = get_user_by( 'email', $search_value );
 					$user_id = $user ? absint( $user->ID ) : 0;
-					$search  = "`user_id` = '" . $user_id . "' OR `payment_email` = '" . esc_sql( $search_value ) . "' ";
+					$search	 = "`user_id` = '" . $user_id . "' OR `payment_email` = '" . esc_sql( $search_value ) . "' ";
 
 				} else {
 
@@ -358,7 +365,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 			case 'rejected':
 			case 'pending':
 				// If ordering by a referral status, do a sub-query to order by count.
-				$status    = esc_sql( $args['orderby'] );
+				$status	   = esc_sql( $args['orderby'] );
 				$referrals = affiliate_wp()->referrals->table_name;
 
 				$orderby  = "( SELECT COUNT(*) FROM {$referrals}";
@@ -374,7 +381,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 
 		// Overload args values for the benefit of the cache.
 		$args['orderby'] = $orderby;
-		$args['order']   = $order;
+		$args['order']	 = $order;
 
 		$fields = "*";
 
@@ -480,28 +487,30 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	 * @access public
 	 *
 	 * @param array $args {
-	 *     Optional. Array of arguments for adding a new affiliate. Default empty array.
+	 *	   Optional. Array of arguments for adding a new affiliate. Default empty array.
 	 *
-	 *     @type string $status          Affiliate status. Default 'active'.
-	 *     @type string $date_registered Date the affiliate was registered. Default is the current time.
-	 *     @type string $rate            Affiliate-specific referral rate.
-	 *     @type string $rate_type       Rate type. Accepts 'percentage' or 'flat'.
-	 *     @type string $payment_email   Affiliate payment email.
-	 *     @type int    $earnings        Affiliate earnings. Default 0.
-	 *     @type int    $referrals       Number of affiliate referrals.
-	 *     @type int    $visits          Number of visits.
-	 *     @type int    $user_id         User ID used to correspond to the affiliate.
+	 *	   @type string $status			 Affiliate status. Default 'active'.
+	 *	   @type string $date_registered Date the affiliate was registered. Default is the current time.
+	 *	   @type string $rate			 Affiliate-specific referral rate.
+	 *	   @type string $rate_type		 Rate type. Accepts 'percentage' or 'flat'.
+	 *	   @type string $payment_email	 Affiliate payment email.
+	 *	   @type int	$earnings		 Affiliate earnings. Default 0.
+	 *	   @type int	$referrals		 Number of affiliate referrals.
+	 *	   @type int	$visits			 Number of visits.
+	 *	   @type int	$user_id		 User ID used to correspond to the affiliate.
 	 * }
 	 * @return int|false Affiliate ID if successfully added, otherwise false.
 	*/
 	public function add( $data = array() ) {
 
 		$defaults = array(
-			'status'          => 'active',
+			'status'		  => 'active',
 			'date_registered' => current_time( 'mysql' ),
-			'earnings'        => 0,
-			'referrals'       => 0,
-			'visits'          => 0
+			'earnings'		  => 0,
+			'referrals'		  => 0,
+			'visits'		  => 0,
+		    'is_ref'          => 1,
+            'is_seller'       => 0,
 		);
 
 		$args = wp_parse_args( $data, $defaults );
