@@ -37,6 +37,7 @@ function affwp_payouts_admin() {
 				<?php _e( 'Payouts', 'affiliate-wp' ); ?>
 
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-referrals' ) ) ); ?>" class="page-title-action"><?php _e( 'Manage Referrals', 'affiliate-wp' ); ?></a>
+				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-sells' ) ) ); ?>" class="page-title-action"><?php _e( 'Manage Sells', 'affiliate-wp' ); ?></a>
 			</h1>
 			<?php
 			/**

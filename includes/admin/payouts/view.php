@@ -168,6 +168,23 @@ $payout = affwp_get_payout( absint( $_GET['payout_id'] ) );
 	<?php
 	$referrals->display();
 
+	$sells = new AffWP_Sells_Table( array(
+		'query_args' => array(
+			'payout_id' => $payout->ID,
+			'sell' => 1,
+		),
+		'display_args' => array(
+			'hide_table_nav'       => true,
+			'columns_to_hide'      => array( 'status' ),
+			'hide_column_controls' => true,
+		),
+	) );
+	$sells->prepare_items();
+	?>
+	<h2><?php _e( 'Sells Paid', 'affiliate-wp' ); ?></h2>
+	<?php
+	$sells->display();
+
 	/**
 	 * Fires at the end of the 'View Payout' page, just inside the closing div.
 	 *
