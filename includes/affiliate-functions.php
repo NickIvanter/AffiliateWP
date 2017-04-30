@@ -923,10 +923,6 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 	$earnings -= $amount;
 	$earnings = round( $earnings, affwp_get_decimal_count() );
 
-	if ( $earnings < 0 ) {
-		$earnings = 0;
-	}
-
 	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'earnings' => $earnings ), '', 'affiliate' ) ) {
 
 		$alltime = get_option( 'affwp_alltime_earnings' );
@@ -1005,10 +1001,6 @@ function affwp_decrease_affiliate_unpaid_earnings( $affiliate, $amount ) {
 	$unpaid_earnings = affwp_get_affiliate_unpaid_earnings( $affiliate );
 	$unpaid_earnings -= $amount;
 	$unpaid_earnings = round( $unpaid_earnings, affwp_get_decimal_count() );
-
-	if ( $unpaid_earnings < 0 ) {
-		$unpaid_earnings = 0;
-	}
 
 	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'unpaid_earnings' => $unpaid_earnings ), '', 'affiliate' ) ) {
 
