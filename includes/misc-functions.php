@@ -137,10 +137,6 @@ function affwp_sanitize_amount( $amount ) {
 	$decimals = apply_filters( 'affwp_sanitize_amount_decimals', affwp_get_decimal_count(), $amount );
 	$amount   = number_format( (double) $amount, $decimals, '.', '' );
 
-	if( $is_negative ) {
-		$amount *= -1;
-	}
-
 	/**
 	 * Filter the sanitized price before returning
 	 *
