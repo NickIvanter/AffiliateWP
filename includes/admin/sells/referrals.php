@@ -19,13 +19,13 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/class-list-table.php
 
 function affwp_sells_admin() {
 
-	if( isset( $_GET['action'] ) && 'add_referral' == $_GET['action'] ) {
+	if( isset( $_GET['action'] ) && 'add_sell' == $_GET['action'] ) {
 
-		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/new.php';
+		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/new.php';
 
-	} else if( isset( $_GET['action'] ) && 'edit_referral' == $_GET['action'] ) {
+	} else if( isset( $_GET['action'] ) && 'edit_sell' == $_GET['action'] ) {
 
-		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/referrals/edit.php';
+		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/edit.php';
 
 	} else {
 
@@ -35,7 +35,7 @@ function affwp_sells_admin() {
 		<div class="wrap">
 			<h1>
 				<?php _e( 'Partner\'s Sells', 'affiliate-wp' ); ?>
-				<a href="<?php echo esc_url( add_query_arg( 'action', 'add_referral' ) ); ?>" class="page-title-action"><?php _e( 'Add New', 'affiliate-wp' ); ?></a>
+				<a href="<?php echo esc_url( add_query_arg( 'action', 'add_sell' ) ); ?>" class="page-title-action"><?php _e( 'Add New', 'affiliate-wp' ); ?></a>
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-reports', 'tab' => 'referrals' ) ) ); ?>" class="page-title-action"><?php _ex( 'Reports', 'referrals', 'affiliate-wp' ); ?></a>
 				<button class="page-title-action affwp-referrals-export-toggle"><?php _e( 'Generate Payout File', 'affiliate-wp' ); ?></button>
 				<button class="page-title-action affwp-referrals-export-toggle" style="display:none"><?php _e( 'Close', 'affiliate-wp' ); ?></button>
@@ -84,7 +84,7 @@ function affwp_sells_admin() {
 				</form>
 
 			</div>
-			<form id="affwp-referrals-filter-form" method="get" action="<?php echo esc_url( affwp_admin_url( 'referrals' ) ); ?>">
+			<form id="affwp-referrals-filter-form" method="get" action="<?php echo esc_url( affwp_admin_url( 'sells' ) ); ?>">
 
 				<?php $referrals_table->search_box( __( 'Search', 'affiliate-wp' ), 'affwp-referrals' ); ?>
 

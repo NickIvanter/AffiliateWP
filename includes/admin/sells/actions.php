@@ -20,6 +20,7 @@ function affwp_process_add_sell( $data ) {
 		wp_die( __( 'Security check failed', 'affiliate-wp' ), array( 'response' => 403 ) );
 	}
 
+    $data['sell'] = true;
 	if ( affwp_add_referral( $data ) ) {
 		wp_safe_redirect( affwp_admin_url( 'sells', array( 'affwp_notice' => 'referral_added' ) ) );
 		exit;

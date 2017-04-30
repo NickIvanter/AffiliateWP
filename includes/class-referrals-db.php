@@ -76,20 +76,21 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	*/
 	public function get_columns() {
 		return array(
-			'referral_id' => '%d',
-			'affiliate_id'=> '%d',
-			'visit_id'    => '%d',
-			'description' => '%s',
-			'status'      => '%s',
-			'amount'      => '%s',
-			'currency'    => '%s',
-			'custom'      => '%s',
-			'context'     => '%s',
-			'campaign'    => '%s',
-			'reference'   => '%s',
-			'products'    => '%s',
-			'payout_id'   => '%d',
-			'date'        => '%s',
+			'referral_id'  => '%d',
+			'affiliate_id' => '%d',
+			'visit_id'	   => '%d',
+			'description'  => '%s',
+			'status'	   => '%s',
+			'amount'	   => '%s',
+			'currency'	   => '%s',
+			'custom'	   => '%s',
+			'context'	   => '%s',
+			'campaign'	   => '%s',
+			'reference'	   => '%s',
+			'products'	   => '%s',
+			'payout_id'	   => '%d',
+			'date'		   => '%s',
+			'sell'		   => '%d',
 		);
 	}
 
@@ -125,7 +126,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 
 		$defaults = array(
 			'status' => 'pending',
-			'amount' => 0
+			'amount' => 0,
+			'sell'   => 0,
 		);
 
 		$args = wp_parse_args( $data, $defaults );
@@ -203,6 +205,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 		$args['campaign']      = ! empty( $data['campaign'] )      ? sanitize_text_field( $data['campaign'] )    : '';
 		$args['reference']     = ! empty( $data['reference'] )     ? sanitize_text_field( $data['reference'] )   : '';
 
+		if ( isset($data['sell']) && $data['sell'] ) $args['sell'] = 1;
+
 		$update = $this->update( $referral->ID, $args, '', 'referral' );
 
 		if( $update ) {
@@ -216,12 +220,20 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 				if( $referral->amount > $args['amount'] ) {
 
 					$change = $referral->amount - $args['amount'];
-					affwp_decrease_affiliate_earnings( $referral->affiliate_id, $change );
+					if ( $referral->sell ) {
+						affwp_decrease_affiliate_sell_earnings( $referral->affiliate_id, $change );
+					} else {
+						affwp_decrease_affiliate_earnings( $referral->affiliate_id, $change );
+					}
 
 				} elseif( $referral->amount < $args['amount'] ) {
 
 					$change = $args['amount'] - $referral->amount;
-					affwp_increase_affiliate_earnings( $referral->affiliate_id, $change );
+					if ( $referral->sell ) {
+						affwp_increase_affiliate_sell_earnings( $referral->affiliate_id, $change );
+					} else {
+						affwp_increase_affiliate_earnings( $referral->affiliate_id, $change );
+					}
 
 				}
 
@@ -229,11 +241,19 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 
 				if ( $referral->amount > $args['amount'] ) {
 
-					affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount - $args['amount'] );
+					if ( $referral->sell ) {
+						affwp_decrease_affiliate_sell_unpaid_earnings( $referral->affiliate_id, $referral->amount - $args['amount'] );
+					} else {
+						affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount - $args['amount'] );
+					}
 
 				} elseif ( $referral->amount < $args['amount'] ) {
 
-					affwp_increase_affiliate_unpaid_earnings( $referral->affiliate_id, $args['amount'] - $referral->amount );
+					if ( $referral->sell ) {
+						affwp_increase_affiliate_sell_unpaid_earnings( $referral->affiliate_id, $args['amount'] - $referral->amount );
+					} else {
+						affwp_increase_affiliate_unpaid_earnings( $referral->affiliate_id, $args['amount'] - $referral->amount );
+					}
 
 				}
 			}

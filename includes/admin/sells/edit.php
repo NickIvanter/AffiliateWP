@@ -9,7 +9,7 @@ $disabled = disabled( (bool) $payout, true, false );
 ?>
 <div class="wrap">
 
-	<h2><?php _e( 'Edit Referral', 'affiliate-wp' ); ?></h2>
+	<h2><?php _e( 'Edit Sell', 'affiliate-wp' ); ?></h2>
 
 	<form method="post" id="affwp_edit_referral">
 
@@ -28,7 +28,7 @@ $disabled = disabled( (bool) $payout, true, false );
 			<tr class="form-row form-required">
 
 				<th scope="row">
-					<label for="referral_id"><?php _e( 'Referral ID', 'affiliate-wp' ); ?></label>
+					<label for="referral_id"><?php _e( 'Sell ID', 'affiliate-wp' ); ?></label>
 				</th>
 
 				<td>
@@ -285,7 +285,7 @@ $disabled = disabled( (bool) $payout, true, false );
 
 		<?php echo wp_nonce_field( 'affwp_edit_referral_nonce', 'affwp_edit_referral_nonce' ); ?>
 		<input type="hidden" name="referral_id" value="<?php echo absint( $referral->referral_id ); ?>" />
-		<input type="hidden" name="affwp_action" value="process_update_referral" />
+		<input type="hidden" name="affwp_action" value="process_update_sell" />
 
 		<?php submit_button( __( 'Update Referral', 'affiliate-wp' ) ); ?>
 

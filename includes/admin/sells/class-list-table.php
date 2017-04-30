@@ -467,7 +467,7 @@ class AffWP_Sells_Table extends List_Table {
 		$row_actions['edit'] = $this->get_row_action_link(
 			__( 'Edit', 'affiliate-wp' ),
 			array_merge( $base_query_args, array(
-				'action' => 'edit_referral'
+				'action' => 'edit_sell'
 			) ),
 			array( 'class' => 'edit' )
 		);
@@ -684,6 +684,7 @@ class AffWP_Sells_Table extends List_Table {
 						'status'       => 'unpaid',
                         'amount'       => - $referral->amount,
                         'description'  => "Refunded \"{$referral->description}\"",
+                        'sell'         => true,
 					]);
 
 					if ( $refund_id )

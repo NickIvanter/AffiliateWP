@@ -1,8 +1,8 @@
 <div class="wrap">
 
-	<h2><?php _e( 'New Referral', 'affiliate-wp' ); ?></h2>
+	<h2><?php _e( 'New Sell', 'affiliate-wp' ); ?></h2>
 
-	<form method="post" id="affwp_add_referral">
+	<form method="post" id="affwp_add_sell">
 
 		<?php
 		/**
@@ -18,7 +18,7 @@
 			<tr class="form-row form-required">
 
 				<th scope="row">
-					<label for="user_name"><?php _e( 'Affiliate', 'affiliate-wp' ); ?></label>
+					<label for="user_name"><?php _e( 'Seller Affiliate', 'affiliate-wp' ); ?></label>
 				</th>
 
 				<td>
@@ -38,7 +38,7 @@
 
 				<td>
 					<input type="text" name="amount" id="amount" />
-					<p class="description"><?php _e( 'The amount of the referral, such as 15.', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'The amount of the sell, such as 15.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -63,7 +63,7 @@
 
 				<td>
 					<input type="text" name="description" id="description" />
-					<p class="description"><?php _e( 'Enter a description for this referral.', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Enter a description for this sell.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -76,7 +76,7 @@
 
 				<td>
 					<input type="text" name="reference" id="reference" />
-					<p class="description"><?php _e( 'Enter a reference for this referral (optional). Usually this would be the transaction ID of the associated purchase.', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Enter a reference for this sell (optional). Usually this would be the transaction ID of the associated purchase.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -89,7 +89,7 @@
 
 				<td>
 					<input type="text" name="context" id="context" />
-					<p class="description"><?php _e( 'Enter a context for this referral (optional). Usually this is used to help identify the payment system that was used for the transaction.', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Enter a context for this sell (optional). Usually this is used to help identify the payment system that was used for the transaction.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -102,7 +102,7 @@
 
 				<td>
 					<input type="text" name="custom" id="custom" />
-					<p class="description"><?php _e( 'Any custom data that should be stored with the referral (optional).', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Any custom data that should be stored with the sell (optional).', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -120,7 +120,7 @@
 						<option value="pending"><?php _e( 'Pending', 'affiliate-wp' ); ?></option>
 						<option value="rejected"><?php _e( 'Rejected', 'affiliate-wp' ); ?></option>
 					</select>
-					<p class="description"><?php _e( 'Select the status of the referral.', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Select the status of the sell.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -135,9 +135,9 @@
 		?>
 
 		<?php echo wp_nonce_field( 'affwp_add_referral_nonce', 'affwp_add_referral_nonce' ); ?>
-		<input type="hidden" name="affwp_action" value="add_referral" />
+		<input type="hidden" name="affwp_action" value="add_sell" />
 
-		<?php submit_button( __( 'Add Referral', 'affiliate-wp' ) ); ?>
+		<?php submit_button( __( 'Add Sell', 'affiliate-wp' ) ); ?>
 
 	</form>
 
