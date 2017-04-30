@@ -116,26 +116,46 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
 
 			// Reverse the effect of a paid referral.
 			if ( 'refunded' !== $new_status ) {
-                affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+                if ( $referral->sell ) {
+                    affwp_decrease_affiliate_sell_earnings( $referral->affiliate_id, $referral->amount );
+                } else {
+                    affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+                }
             }
 
-			affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
+            if ( $referral->sell ) {
+                affwp_decrease_affiliate_sell_referral_count( $referral->affiliate_id );
+            } else {
+                affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
+            }
 
 		} elseif ( 'unpaid' === $old_status ) {
 
-			affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
-
+            if ( $referral->sell ) {
+                affwp_decrease_affiliate_sell_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+            } else {
+                affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+            }
 		}
 
 		// New status.
 		if( 'paid' === $new_status ) {
 
-			affwp_increase_affiliate_earnings( $referral->affiliate_id, $referral->amount );
-			affwp_increase_affiliate_referral_count( $referral->affiliate_id );
+            if ( $referral->sell ) {
+                affwp_increase_affiliate_sell_earnings( $referral->affiliate_id, $referral->amount );
+                affwp_increase_affiliate_sell_referral_count( $referral->affiliate_id );
+            } else {
+                affwp_increase_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+                affwp_increase_affiliate_referral_count( $referral->affiliate_id );
+            }
 
 		} elseif ( 'unpaid' === $new_status ) {
 
-			affwp_increase_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+            if ( $referral->sell ) {
+                affwp_increase_affiliate_sell_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+            } else {
+                affwp_increase_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+            }
 
 			if ( 'pending' === $old_status || 'rejected' === $old_status ) {
 				// Update the visit ID that spawned this referral

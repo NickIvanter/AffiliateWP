@@ -901,6 +901,44 @@ function affwp_increase_affiliate_earnings( $affiliate, $amount = '' ) {
 }
 
 /**
+ * Increases an affiliate's total paid sell earnings by the specified amount.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Affiliate ID or object.
+ * @param string|float        $amount    Optional. Amount to increase the affiliate's earnings. Default empty.
+ * @return float|false The affiliate's updated earnings, false otherwise.
+ */
+function affwp_increase_affiliate_sell_earnings( $affiliate, $amount = '' ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	if ( empty( $amount ) ) {
+		return false;
+	}
+
+	$earnings = affwp_get_affiliate_sell_earnings( $affiliate->ID );
+	$earnings += $amount;
+	$earnings = round( $earnings, affwp_get_decimal_count() );
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_earnings' => $earnings ), '', 'affiliate' ) ) {
+		$alltime = get_option( 'affwp_alltime_sell_earnings' );
+		$alltime += $amount;
+		update_option( 'affwp_alltime_sell_earnings', $alltime );
+
+		return $earnings;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
  * Decreases an affiliate's total paid earnings by the specified amount.
  *
  * @since 1.0
@@ -929,6 +967,46 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 		$alltime -= $amount;
 
 		update_option( 'affwp_alltime_earnings', $alltime );
+
+		return $earnings;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
+ * Decreases an affiliate's total paid sell earnings by the specified amount.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Affiliate ID or object.
+ * @param string|float        $amount    Optional. Amount to decrease the affiliate's earnings. Default empty.
+ * @return float|false The affiliate's updated earnings, false otherwise.
+ */
+function affwp_decrease_affiliate_sell_earnings( $affiliate, $amount = '' ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	if ( empty( $amount ) ) {
+		return false;
+	}
+
+	$earnings = affwp_get_affiliate_sell_earnings( $affiliate->ID );
+	$earnings -= $amount;
+	$earnings = round( $earnings, affwp_get_decimal_count() );
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_earnings' => $earnings ), '', 'affiliate' ) ) {
+
+		$alltime = get_option( 'affwp_alltime_sell_earnings' );
+		$alltime -= $amount;
+
+		update_option( 'affwp_alltime_sell_earnings', $alltime );
 
 		return $earnings;
 
@@ -981,6 +1059,46 @@ function affwp_increase_affiliate_unpaid_earnings( $affiliate, $amount, $replace
 }
 
 /**
+ * Increases an affiliate's unpaid sell earnings.
+ *
+ * @since 2.0
+ *
+ * @param \AffWP\Affiliate|int $affiliate Affiliate object or ID.
+ * @param float                $amount    Amount to increase unpaid earnings by.
+ * @param bool                 $replace   Optional. Whether to replace the current unpaid earnings count.
+ *                                        Default false.
+ * @return float|false New unpaid earnings value upon successful update, otherwise false.
+ */
+function affwp_increase_affiliate_sell_unpaid_earnings( $affiliate, $amount, $replace = false ) {
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	if ( empty( $amount ) ) {
+		return false;
+	}
+
+	if ( false === $replace ) {
+		$unpaid_earnings = affwp_get_affiliate_sell_unpaid_earnings( $affiliate );
+	} else {
+		$unpaid_earnings = 0;
+	}
+
+	$unpaid_earnings += $amount;
+	$unpaid_earnings = round( $unpaid_earnings, affwp_get_decimal_count() );
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_unpaid_earnings' => $unpaid_earnings ), '', 'affiliate' ) ) {
+
+		return $unpaid_earnings;
+
+	} else {
+
+		return false;
+
+	}
+}
+
+/**
  * Decreases an affiliate's unpaid earnings.
  *
  * @since 2.0
@@ -1015,6 +1133,40 @@ function affwp_decrease_affiliate_unpaid_earnings( $affiliate, $amount ) {
 }
 
 /**
+ * Decreases an affiliate's unpaid sell earnings.
+ *
+ * @since 2.0
+ *
+ * @param \AffWP\Affiliate|int $affiliate Affiliate object or ID.
+ * @param float                $amount    Amount to decrease unpaid earnings by.
+ * @return float|false New unpaid earnings value upon successful update, otherwise false.
+ */
+function affwp_decrease_affiliate_sell_unpaid_earnings( $affiliate, $amount ) {
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	if ( empty( $amount ) ) {
+		return false;
+	}
+
+	$unpaid_earnings = affwp_get_affiliate_sell_unpaid_earnings( $affiliate );
+	$unpaid_earnings -= $amount;
+	$unpaid_earnings = round( $unpaid_earnings, affwp_get_decimal_count() );
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_unpaid_earnings' => $unpaid_earnings ), '', 'affiliate' ) ) {
+
+		return $unpaid_earnings;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
  * Retrieves the number of paid referrals for an affiliate.
  *
  * @since 1.0
@@ -1030,6 +1182,24 @@ function affwp_get_affiliate_referral_count( $affiliate = 0 ) {
 	}
 
 	return $affiliate->referrals;
+}
+
+/**
+ * Retrieves the number of paid sell referrals for an affiliate.
+ *
+ * @since 1.0
+ * @since 1.9 The `$affiliate` parameter can now accept an affiliate object.
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return int|false The affiliate's referral count, false otherwise.
+ */
+function affwp_get_affiliate_sell_referral_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	return $affiliate->sell_referrals;
 }
 
 /**
@@ -1063,6 +1233,36 @@ function affwp_increase_affiliate_referral_count( $affiliate = 0 ) {
 }
 
 /**
+ * Increases an affiliate's total paid sell referrals by 1.
+ *
+ * @since 1.0
+ * @since 1.9 The `$affiliate` parameter can now accept an affiliate object.
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return float|false The updated referral count, otherwise false.
+ */
+function affwp_increase_affiliate_sell_referral_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$referrals = affwp_get_affiliate_sell_referral_count( $affiliate->ID );
+	$referrals += 1;
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_referrals' => $referrals ), '', 'affiliate' ) ) {
+
+		return $referrals;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
  * Decreases an affiliate's total paid referrals by 1.
  *
  * @since 1.0
@@ -1084,6 +1284,39 @@ function affwp_decrease_affiliate_referral_count( $affiliate = 0 ) {
 	}
 
 	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'referrals' => $referrals ), '', 'affiliate' ) ) {
+
+		return $referrals;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
+ * Decreases an affiliate's total paid referrals by 1.
+ *
+ * @since 1.0
+ * @since 1.9 The `$affiliate` parameter can now accept an affiliate object.
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return float|false The updated referral count, otherwise false.
+ */
+function affwp_decrease_affiliate_sell_referral_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$referrals = affwp_get_affiliate_sell_referral_count( $affiliate->ID );
+	$referrals -= 1;
+	if ( $referrals < 0 ) {
+		$referrals = 0;
+	}
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_referrals' => $referrals ), '', 'affiliate' ) ) {
 
 		return $referrals;
 
