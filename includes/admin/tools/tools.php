@@ -27,6 +27,7 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export.
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-affiliates.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-referrals.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-referrals-payout.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-sells.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-settings.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/import/class-import-settings.php';
 

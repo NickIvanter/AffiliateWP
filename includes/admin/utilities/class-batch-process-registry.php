@@ -117,6 +117,12 @@ class Registry extends Utils\Registry {
 			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-generate-payouts.php',
 		) );
 
+		// Generate Payout Log for sells.
+		$this->register_process( 'generate-payouts-sells', array(
+			'class' => 'AffWP\Utils\Batch_Process\Generate_Payouts_Sells',
+			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-generate-payouts-sells.php',
+		) );
+
 		// Recount all affiliate stats.
 		$this->register_process( 'recount-affiliate-stats', array(
 			'class' => 'AffWP\Utils\Batch_Process\Recount_Affiliate_Stats',

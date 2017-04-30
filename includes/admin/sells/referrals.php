@@ -57,7 +57,7 @@ function affwp_sells_admin() {
 				do_action( 'affwp_referrals_page_buttons' );
 				?>
 
-				<form id="affwp-referrals-export-form" style="display:none;" class="affwp-batch-form" data-batch_id="generate-payouts" data-nonce="<?php echo esc_attr( wp_create_nonce( 'generate-payouts_step_nonce' ) ); ?>" data-ays="<?php esc_attr_e( 'Are you sure you want to generate the payout file? All included referrals will be marked as Paid.', 'affiliate-wp' ); ?>">
+				<form id="affwp-referrals-export-form" style="display:none;" class="affwp-batch-form" data-batch_id="generate-payouts-sells" data-nonce="<?php echo esc_attr( wp_create_nonce( 'generate-payouts_step_nonce' ) ); ?>" data-ays="<?php esc_attr_e( 'Are you sure you want to generate the payout file? All included referrals will be marked as Paid.', 'affiliate-wp' ); ?>">
 					<h2><?php _e( 'Generate Payout File', 'affiliate-wp' ); ?></h2>
 					<p>
 						<span class="affwp-ajax-search-wrap">
