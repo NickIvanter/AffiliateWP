@@ -381,7 +381,8 @@ class AffWP_Sell_Visits_Table extends List_Table {
 			'orderby'         => $orderby,
 			'order'           => $order,
 			'search'          => $search,
-			'referral_status' => $status
+			'referral_status' => $status,
+			'sell'			  => true,
 		) );
 
 		$this->total_count = affiliate_wp()->visits->count( $args );

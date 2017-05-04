@@ -1480,6 +1480,48 @@ function affwp_get_affiliate_conversion_rate( $affiliate = 0 ) {
 }
 
 /**
+ * Retrieves the affiliate's sell conversion rate.
+ *
+ * @since 1.0
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return string|false The affiliate's conversion rate, otherwise false.
+ */
+function affwp_get_affiliate_sell_conversion_rate( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$rate = 0;
+
+	$referrals = affiliate_wp()->referrals->count( array(
+		'affiliate_id' => $affiliate->ID,
+		'status'       => array( 'paid', 'unpaid' ),
+        'sell'         => true,
+	) );
+
+	$visits = affwp_get_affiliate_sell_visit_count( $affiliate->ID );
+
+	if ( $visits > 0 ) {
+		$rate = $referrals / $visits;
+	}
+
+	$rate = affwp_format_rate( $rate );
+
+	/**
+	 * Filters the conversion rate.
+	 *
+	 * @since 1.0
+	 *
+	 * @param string $rate         Formatted conversion rate.
+	 * @param int    $affiliate_id Affiliate ID.
+	 */
+	return apply_filters( 'affwp_get_affiliate_conversion_rate', $rate, $affiliate->ID );
+
+}
+
+/**
  * Retrieves the affiliate's tracked campaigns.
  *
  * @since 1.7

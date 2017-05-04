@@ -73,6 +73,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			'context'      => '%s',
 			'ip'           => '%s',
 			'date'         => '%s',
+			'sell_id'      => '%s',
 		);
 	}
 
@@ -80,6 +81,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 		return array(
 			'affiliate_id' => 0,
 			'referral_id'  => 0,
+			'sell_id'	   => '',
 			'date'         => date( 'Y-m-d H:i:s' ),
 			'referrer'     => ! empty( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
 			'campaign'     => ! empty( $_REQUEST['campaign'] )    ? $_REQUEST['campaign']    : '',
@@ -141,6 +143,8 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			'order'            => 'DESC',
 			'orderby'          => 'visit_id',
 			'fields'           => '',
+			'sell_id'		   => '',
+			'sell'			   => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -336,6 +340,22 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		}
 
+		// visits for sells
+		if ( (isset( $args['sell_id']) && $args['sell_id']) || (isset( $args['sell']) && $args['sell']) ) {
+
+			if ( isset( $args['sell'] ) && $args['sell'] ) {
+				$where .= empty( $where ) ? "WHERE " : "AND ";
+				$where .= 'sell_id <> ""';
+			}
+
+			if ( isset( $args['sell_id'] ) && $args['sell_id'] ) {
+				$id = (int) $args['sell_id'];
+				$where .= empty( $where ) ? "WHERE " : "AND ";
+				$where .= "sell_id ='$id'";
+			}
+		}
+
+
 		// Build the search query
 		if( ! empty( $args['search'] ) ) {
 
@@ -434,7 +454,11 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		$visit_id = $this->insert( $data, 'visit' );
 
-		affwp_increase_affiliate_visit_count( $data['affiliate_id'] );
+		if ( isset($data['sell_id']) && $data['sell_id'] ) {
+			affwp_increase_affiliate_sell_visit_count( $data['affiliate_id'] );
+		} else {
+			affwp_increase_affiliate_visit_count( $data['affiliate_id'] );
+		}
 
 		return $visit_id;
 	}
@@ -478,8 +502,14 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 			// Handle visit counts if the affiliate was changed.
 			if ( $updated_visit->affiliate_id !== $visit->affiliate_id ) {
-				affwp_decrease_affiliate_visit_count( $visit->affiliate_id );
-				affwp_increase_affiliate_visit_count( $updated_visit->affiliate_id );
+
+				if ( isset( $visit->sell_id ) && $visit->sell_id ) {
+					affwp_decrease_affiliate_sell_visit_count( $visit->affiliate_id );
+					affwp_increase_affiliate_sell_visit_count( $updated_visit->affiliate_id );
+				} else {
+					affwp_decrease_affiliate_visit_count( $visit->affiliate_id );
+					affwp_increase_affiliate_visit_count( $updated_visit->affiliate_id );
+				}
 			}
 			return $visit->ID;
 		}
