@@ -506,6 +506,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			context varchar(50) NOT NULL,
 			ip tinytext NOT NULL,
 			date datetime NOT NULL,
+			sell_id mediumtext NOT NULL default '',
 			PRIMARY KEY  (visit_id),
 			KEY affiliate_id (affiliate_id)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci;";

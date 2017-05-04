@@ -136,7 +136,7 @@ class Affiliate_WP_Upgrades {
 		}
 
         // Upgrade for https://bestbabyclub.plan.io/issues/95
-        if ( version_compare( $this->version, '2.0.6.4-custom', '<' ) ) {
+        if ( version_compare( $this->version, '2.0.6.5-custom', '<' ) ) {
 			$this->task95_upgrade();
 		}
 
@@ -651,6 +651,12 @@ class Affiliate_WP_Upgrades {
 
 		wp_cache_set( 'last_changed', microtime(), 'referrals' );
 		$this->log( 'Upgrade: The Referrals cache has been invalidated following the 2.0.6.3-custom upgrade.' );
+
+		@affiliate_wp()->visits->create_table();
+		$this->log( 'Upgrade: The sell_id column has been added to the Visits table.' );
+
+		wp_cache_set( 'last_changed', microtime(), 'visits' );
+		$this->log( 'Upgrade: The Visits cache has been invalidated following the 2.0.6.5-custom upgrade.' );
 
 		$this->upgraded = true;
 	}

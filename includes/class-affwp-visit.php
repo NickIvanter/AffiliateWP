@@ -17,7 +17,7 @@ namespace AffWP;
  *
  * @see AffWP\Base_Object
  * @see affwp_get_visit()
- * 
+ *
  * @property-read int $ID Alias for `$visit_id`
  */
 final class Visit extends Base_Object {
@@ -102,6 +102,14 @@ final class Visit extends Base_Object {
 	 * @var string
 	 */
 	public $date;
+
+	/**
+	 * Visit sell id. References visited product.
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $sell_id;
 
 	/**
 	 * Token to use for generating cache keys.

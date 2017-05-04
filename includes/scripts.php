@@ -28,6 +28,7 @@ function affwp_is_admin_page() {
 		'affiliate-wp-sells',
 		'affiliate-wp-payouts',
 		'affiliate-wp-visits',
+		'affiliate-wp-sell-visits',
 		'affiliate-wp-creatives',
 		'affiliate-wp-reports',
 		'affiliate-wp-tools',

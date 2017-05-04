@@ -17,6 +17,7 @@ class Affiliate_WP_Admin_Menu {
 		$sells      = add_submenu_page( 'affiliate-wp', __( 'Sells', 'affiliate-wp' ),       __( 'Sells', 'affiliate-wp' ),                 'manage_referrals',         'affiliate-wp-sells',      'affwp_sells_admin'          );
 		$payouts    = add_submenu_page( 'affiliate-wp', __( 'Payouts', 'affiliate-wp' ),     __( 'Payouts', 'affiliate-wp' ),               'manage_payouts',           'affiliate-wp-payouts',    'affwp_payouts_admin'        );
 		$visits     = add_submenu_page( 'affiliate-wp', __( 'Visits', 'affiliate-wp' ),      __( 'Visits', 'affiliate-wp' ),                'manage_visits',            'affiliate-wp-visits',     'affwp_visits_admin'         );
+		$svisits    = add_submenu_page( 'affiliate-wp', __( 'Sell Visits', 'affiliate-wp' ), __( 'Sell Visits', 'affiliate-wp' ),           'manage_visits',            'affiliate-wp-sell-visits','affwp_sell_visits_admin'    );
 		$creatives  = add_submenu_page( 'affiliate-wp', __( 'Creatives', 'affiliate-wp' ),   __( 'Creatives', 'affiliate-wp' ),             'manage_creatives',         'affiliate-wp-creatives',  'affwp_creatives_admin'      );
 		$reports    = add_submenu_page( 'affiliate-wp', __( 'Reports', 'affiliate-wp' ),     __( 'Reports', 'affiliate-wp' ),               'view_affiliate_reports',   'affiliate-wp-reports',    'affwp_reports_admin'        );
 		$tools      = add_submenu_page( 'affiliate-wp', __( 'Tools', 'affiliate-wp' ),       __( 'Tools', 'affiliate-wp' ),                 'manage_affiliate_options', 'affiliate-wp-tools',      'affwp_tools_admin'          );
@@ -30,6 +31,7 @@ class Affiliate_WP_Admin_Menu {
 		add_action( 'load-' . $sells, 'affwp_sells_screen_options' );
 		add_action( 'load-' . $payouts, 'affwp_payouts_screen_options' );
 		add_action( 'load-' . $visits, 'affwp_visits_screen_options' );
+        add_action( 'load-' . $svisits, 'affwp_sell_visits_screen_options' );
 		add_action( 'load-' . $creatives, 'affwp_creatives_screen_options' );
 
 	}
