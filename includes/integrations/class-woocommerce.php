@@ -505,6 +505,12 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					'description' => __( 'This will prevent orders of this product from generating referral commissions for affiliates.', 'affiliate-wp' ),
 					'cbvalue'     => 1
 				) );
+                woocommerce_wp_text_input( array(
+                    'id'          => '_affwp_woocommerce_product_seller',
+                    'label'       => __( 'Seller user', 'affiliate-wp' ),
+                    'desc_tip'    => true,
+                    'description' => __( 'This setting will be used to create seller earnings. If there is no seller for this product then leave this field blank', 'affiliate-wp' )
+                ) );
 
 				wp_nonce_field( 'affwp_woo_product_nonce', 'affwp_woo_product_nonce' );
 ?>
@@ -578,6 +584,24 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		// Check user permission
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return $post_id;
+		}
+
+		if( isset( $_POST['_affwp_' . $this->context . '_product_seller'] ) ) {
+
+			$seller = sanitize_text_field( $_POST['_affwp_' . $this->context . '_product_seller'] );
+
+            $user = get_user_by('user_login', $seller);
+
+            if ( !empty( $user ) ) {
+                update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller', $seller );
+                update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_id', $user->ID );
+            }
+
+		} else {
+
+			delete_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller' );
+			delete_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_id' );
+
 		}
 
 		if( ! empty( $_POST['_affwp_' . $this->context . '_product_rate'] ) ) {
