@@ -228,7 +228,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
         foreach ( $items as $product ) {
 
-            if ( get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_sell__referrals_disabled', true ) ) {
+            if ( get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_sell_referrals_disabled', true ) ) {
                 continue; // Sell referrals are disabled on this product
             }
 
@@ -286,10 +286,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				continue;
 			}
 
-            $referrence = "$order_id" . '-' . $product['product_id'];
-            if ( isset($product['variation_id']) && $product['variation_id'] ) {
-                $referrence .= '-' . $product['variation_id']
-            }
+            $referrence = $this->make_sell_product_referrence( $product );
 
 			// Check for an existing referral
 			$existing = affiliate_wp()->referrals->get_by( 'reference', $referrence, $this->context );
@@ -354,6 +351,18 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
         }
     }
+
+
+    public function make_sell_product_referrence( $order_id, $product )
+    {
+        $referrence = "$order_id" . '-' . $product['product_id'];
+        if ( isset($product['variation_id']) && $product['variation_id'] ) {
+            $referrence .= '-' . $product['variation_id'];
+        }
+
+        return $referrence;
+    }
+
 
 	/**
 	 * Retrieves the product details array for the referral
@@ -481,6 +490,36 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		}
 
 		$this->complete_referral( $order_id );
+	}
+
+	/**
+	 * Marks a sell referrals as complete when payment is completed.
+	 *
+	 * @access public
+	 */
+	public function mark_sells_complete( $order_id = 0 ) {
+
+		$this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
+
+		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
+		if ( 'wc-processing' == $this->order->post_status && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+			return;
+		}
+
+        // Get sells all referrences from order
+        $items = $this->order->get_items();
+        foreach ( $items as $product ) {
+
+            if ( get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_sell_referrals_disabled', true ) ) {
+                continue; // Sell referrals are disabled on this product
+            }
+
+            if( ! empty( $product['variation_id'] ) && get_post_meta( $product['variation_id'], '_affwp_' . $this->context . '_sell_referrals_disabled', true ) ) {
+                continue; // Referrals are disabled on this variation
+            }
+
+            $this->complete_referral( $this->make_sell_product_referrence( $order_id, $product ) );
+        }
 	}
 
 	/**
