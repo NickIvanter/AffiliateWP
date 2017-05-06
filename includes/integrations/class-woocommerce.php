@@ -26,6 +26,11 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		// There should be an option to choose which of these is used
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 10 );
+
+		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_sells_complete' ), 20 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_sells_complete' ), 20 );
+
+
 		add_action( 'woocommerce_order_status_completed_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
 		add_action( 'woocommerce_order_status_on-hold_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
 		add_action( 'woocommerce_order_status_processing_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
@@ -219,7 +224,6 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		if ( !isset($this->order) ) $this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
 
-
         $cart_shipping = $this->order->get_total_shipping();
 
         $items = $this->order->get_items();
@@ -236,13 +240,15 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
                 continue; // Referrals are disabled on this variation
             }
 
+			$affiliate_id = $this->get_seller_id( $product );
+            if ( !$affiliate_id ) continue;
+
             // The order discount has to be divided across the items
             $product_total = $product['line_total'];
             $shipping      = 0;
 
             // get affiliate ID
-			$affiliate_id = $this->get_seller_id( $product );
-            $referrence = $this->make_sell_product_referrence( $product );
+            $referrence = $this->make_sell_product_referrence( $order_id, $product );
 
             if ( $cart_shipping > 0 && ! affiliate_wp()->settings->get( 'sell_exclude_shipping' ) ) {
                 $shipping       = $cart_shipping / count( $items );
@@ -276,7 +282,6 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$description = $this->get_sell_referral_description( $product );
 			$visit_id    = affiliate_wp()->tracking->get_visit_id();
 
-
 			// Customers cannot refer themselves
 			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
 
@@ -295,20 +300,22 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				return false; // Completed Referral already created for this reference
 			}
 
-			if ( $existing ) {
+            $args = array(
+                'amount'       => $amount,
+                'reference'    => $referrence,
+                'description'  => $description,
+                'campaign'     => affiliate_wp()->tracking->get_campaign(),
+                'affiliate_id' => $affiliate_id,
+                'visit_id'     => $visit_id,
+                'products'     => $this->make_sell_product_info( $product ),
+                'context'      => $this->context,
+                'sell'         => true,
+            );
+
+ 			if ( $existing ) {
 
 				// Update the previously created referral
-				affiliate_wp()->referrals->update_referral( $existing->referral_id, array(
-					'amount'       => $amount,
-					'reference'    => $order_id,
-					'description'  => $description,
-					'campaign'     => affiliate_wp()->tracking->get_campaign(),
-					'affiliate_id' => $affiliate_id,
-					'visit_id'     => $visit_id,
-					'products'     => $this->make_sell_product_info( $product ),
-					'context'      => $this->context,
-                    'sell'         => true,
-				) );
+				affiliate_wp()->referrals->update_referral( $existing->referral_id, $args );
 
 				if( $this->debug ) {
 					$this->log( sprintf( 'WooCommerce Seller referral #%d updated successfully.', $existing->referral_id ) );
@@ -317,17 +324,9 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			} else {
 
 				// Create a new referral
-				$referral_id = affiliate_wp()->referrals->add( apply_filters( 'affwp_insert_pending_referral', array(
-					'amount'       => $amount,
-					'reference'    => $referrence,
-					'description'  => $description,
-					'campaign'     => affiliate_wp()->tracking->get_campaign(),
-					'affiliate_id' => $affiliate_id,
-					'visit_id'     => $visit_id,
-					'products'     => $this->make_sell_product_info( $product ),
-					'context'      => $this->context,
-                    'sell'         => true,
-				), $amount, $referrence, $description, $affiliate_id, $visit_id, array(), $this->context ) );
+				$referral_id = affiliate_wp()->referrals->add(
+                    apply_filters( 'affwp_insert_pending_referral', $args,
+                                   $amount, $referrence, $description, $affiliate_id, $visit_id, array(), $this->context ) );
 
 				if ( $referral_id ) {
 
@@ -872,7 +871,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 			$seller = sanitize_text_field( $_POST['_affwp_' . $this->context . '_product_seller'] );
 
-            $user = get_user_by('user_login', $seller);
+            $user = get_user_by('login', $seller);
 
             if ( !empty( $user ) ) {
                 update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller', $seller );
