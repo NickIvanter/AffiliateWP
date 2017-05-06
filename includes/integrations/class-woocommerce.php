@@ -21,6 +21,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		$this->context = 'woocommerce';
 
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_referral' ), 10 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_sells' ), 20 );
 
 		// There should be an option to choose which of these is used
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
@@ -80,7 +81,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
 
 				if( $this->debug ) {
-					$this->log( 'Referral not created because affiliate\'s own account was used.' );
+					$this->log( 'Referral not created because affiliates own account was used.' );
 				}
 
 				return false;
@@ -209,6 +210,152 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	}
 
 	/**
+	 * Store a pending sells when a new order is created
+	 *
+	 * @access  public
+	 * @since   1.0
+	*/
+	public function add_pending_sells( $order_id = 0 ) {
+
+		if ( !isset($this->order) ) $this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
+
+
+        $cart_shipping = $this->order->get_total_shipping();
+
+        $items = $this->order->get_items();
+
+        // Calculate the sells amount based on product prices
+
+        foreach ( $items as $product ) {
+
+            if ( get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_sell__referrals_disabled', true ) ) {
+                continue; // Sell referrals are disabled on this product
+            }
+
+            if( ! empty( $product['variation_id'] ) && get_post_meta( $product['variation_id'], '_affwp_' . $this->context . '_sell_referrals_disabled', true ) ) {
+                continue; // Referrals are disabled on this variation
+            }
+
+            // The order discount has to be divided across the items
+            $product_total = $product['line_total'];
+            $shipping      = 0;
+
+            if ( $cart_shipping > 0 && ! affiliate_wp()->settings->get( 'sell_exclude_shipping' ) ) {
+                $shipping       = $cart_shipping / count( $items );
+                $product_total += $shipping;
+            }
+
+            if ( ! affiliate_wp()->settings->get( 'sell_exclude_tax' ) ) {
+                $product_total += $product['line_tax'];
+            }
+
+            if ( $product_total <= 0 && 'flat' !== affwp_get_affiliate_sell_rate_type( $affiliate_id ) ) {
+                continue;
+            }
+
+            $product_id_for_rate = $product['product_id'];
+            if( ! empty( $product['variation_id'] ) && $this->get_product_sell_rate( $product['variation_id'] ) ) {
+                $product_id_for_rate = $product['variation_id'];
+            }
+            $amount += $this->calculate_sell_referral_amount( $product_total, $order_id, $product_id_for_rate, $affiliate_id );
+
+
+			if ( 0 == $amount && affiliate_wp()->settings->get( 'ignore_zero_sell_referrals' ) ) {
+
+				if( $this->debug ) {
+					$this->log( 'Seller referral not created due to 0.00 amount.' );
+				}
+
+                continue;
+			}
+
+			$description = $this->get_sell_referral_description( $product );
+			$visit_id    = affiliate_wp()->tracking->get_visit_id();
+
+
+            // get affiliate ID
+			$affiliate_id = $this->get_seller_id( $product );
+
+			// Customers cannot refer themselves
+			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
+
+				if( $this->debug ) {
+					$this->log( 'Seller referral not created because affiliates own account was used.' );
+				}
+
+				continue;
+			}
+
+            $referrence = "$order_id" . '-' . $product['product_id'];
+            if ( isset($product['variation_id']) && $product['variation_id'] ) {
+                $referrence .= '-' . $product['variation_id']
+            }
+
+			// Check for an existing referral
+			$existing = affiliate_wp()->referrals->get_by( 'reference', $referrence, $this->context );
+
+			// If an existing referral exists and it is paid or unpaid exit.
+			if ( $existing && ( 'paid' == $existing->status || 'unpaid' == $existing->status ) ) {
+				return false; // Completed Referral already created for this reference
+			}
+
+			if ( $existing ) {
+
+				// Update the previously created referral
+				affiliate_wp()->referrals->update_referral( $existing->referral_id, array(
+					'amount'       => $amount,
+					'reference'    => $order_id,
+					'description'  => $description,
+					'campaign'     => affiliate_wp()->tracking->get_campaign(),
+					'affiliate_id' => $affiliate_id,
+					'visit_id'     => $visit_id,
+					'products'     => $this->make_sell_product_info( $product ),
+					'context'      => $this->context,
+                    'sell'         => true,
+				) );
+
+				if( $this->debug ) {
+					$this->log( sprintf( 'WooCommerce Seller referral #%d updated successfully.', $existing->referral_id ) );
+				}
+
+			} else {
+
+				// Create a new referral
+				$referral_id = affiliate_wp()->referrals->add( apply_filters( 'affwp_insert_pending_referral', array(
+					'amount'       => $amount,
+					'reference'    => $referrence,
+					'description'  => $description,
+					'campaign'     => affiliate_wp()->tracking->get_campaign(),
+					'affiliate_id' => $affiliate_id,
+					'visit_id'     => $visit_id,
+					'products'     => $this->make_sell_product_info( $product ),
+					'context'      => $this->context,
+                    'sell'         => true,
+				), $amount, $referrence, $description, $affiliate_id, $visit_id, array(), $this->context ) );
+
+				if ( $referral_id ) {
+
+					if( $this->debug ) {
+						$this->log( sprintf( 'Seller referral #%d created successfully.', $referral_id ) );
+					}
+
+					$amount = affwp_currency_filter( affwp_format_amount( $amount ) );
+					$name   = affiliate_wp()->affiliates->get_affiliate_name( $affiliate_id );
+
+					$this->order->add_order_note( sprintf( __( 'Seller referral #%d for %s recorded for %s', 'affiliate-wp' ), $referral_id, $amount, $name ) );
+
+				} else {
+
+					if( $this->debug ) {
+						$this->log( 'Sell referral failed to be created.' );
+					}
+
+				}
+			}
+        }
+    }
+
+	/**
 	 * Retrieves the product details array for the referral
 	 *
 	 * @access  public
@@ -267,6 +414,55 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		return $products;
 
 	}
+
+	/**
+	 * Retrieves the product details array for the referral
+	 *
+	 * @access  public
+	 * @since   1.6
+	 * @return  array
+	*/
+	public function make_sell_product_info( $product ) {
+
+		$products  = array();
+        $amount    = 0;
+
+        if( affiliate_wp()->settings->get( 'sell_exclude_tax' ) ) {
+            $amount = $product['line_total'] - $product['line_tax'];
+        } else {
+            $amount = $product['line_total'];
+        }
+
+        if( ! empty( $product['variation_id'] ) ) {
+            $product['name'] .= ' ' . sprintf( __( '(Variation ID %d)', 'affiliate-wp' ), $product['variation_id'] );
+        }
+
+        /**
+         * Filters an individual WooCommerce products line as stored in the referral record.
+         *
+         * @since 1.9.5
+         *
+         * @param array $line {
+         *     A WooCommerce product data line.
+         *
+         *     @type string $name            Product name.
+         *     @type int    $id              Product ID.
+         *     @type float  $amount          Product amount.
+         *     @type float  $referral_amount Referral amount.
+         * }
+         * @param array $product  Product data.
+         * @param int   $order_id Order ID.
+         */
+        $products[] = apply_filters( 'affwp_woocommerce_get_products_line', array(
+            'name'            => $product['name'],
+            'id'              => $product['product_id'],
+            'price'           => $amount,
+            'referral_amount' => $this->calculate_sell_referral_amount( $amount, $order_id, $product['product_id'] )
+        ), $product, $order_id );
+
+		return $products;
+	}
+
 
 	/**
 	 * Marks a referral as complete when payment is completed.
@@ -511,6 +707,18 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
                     'desc_tip'    => true,
                     'description' => __( 'This setting will be used to create seller earnings. If there is no seller for this product then leave this field blank', 'affiliate-wp' )
                 ) );
+				woocommerce_wp_text_input( array(
+					'id'          => '_affwp_woocommerce_product_seller_rate',
+					'label'       => __( 'Seller Rate', 'affiliate-wp' ),
+					'desc_tip'    => true,
+					'description' => __( 'These settings will be used to calculate seller earnings per-sale. Leave blank to use default seller rates.', 'affiliate-wp' )
+				) );
+				woocommerce_wp_checkbox( array(
+					'id'          => '_affwp_woocommerce_sell_referrals_disabled',
+					'label'       => __( 'Disable referrals', 'affiliate-wp' ),
+					'description' => __( 'This will prevent orders of this product from generating seller referral commissions for affiliates.', 'affiliate-wp' ),
+					'cbvalue'     => 1
+				) );
 
 				wp_nonce_field( 'affwp_woo_product_nonce', 'affwp_woo_product_nonce' );
 ?>
@@ -528,8 +736,11 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	*/
 	public function variation_settings( $loop, $variation_data, $variation ) {
 
-		$rate     = $this->get_product_rate( $variation->ID );
+		$rate = $this->get_product_rate( $variation->ID );
+		$seller_rate = $this->get_product_seller_rate( $variation->ID );
+
 		$disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_referrals_disabled', true );
+		$sell_disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_sell_disabled', true );
 ?>
 		<div id="affwp_product_variation_settings">
 
@@ -540,6 +751,16 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					<input type="text" size="5" name="_affwp_woocommerce_variation_rates[<?php echo $variation->ID; ?>]" value="<?php echo esc_attr( $rate ); ?>" class="wc_input_price" placeholder="<?php esc_attr_e( 'Referral rate (optional)', 'affiliate-wp' ); ?>" />
 					<label>
 						<input type="checkbox" class="checkbox" name="_affwp_woocommerce_variation_referrals_disabled[<?php echo $variation->ID; ?>]" <?php checked( $disabled, true ); ?> /> <?php _e( 'Disable referrals for this product variation', 'affiliate-wp' ); ?>
+					</label>
+				</p>
+			</div>
+			<div class="form-row form-row-full">
+				<p><?php _e( 'Configure seller rates for this product variation', 'affiliate-wp' ); ?></p>
+				<p class="form-row form-row-full options">
+					<label><?php echo __( 'Referral Seller Rate', 'affiliate-wp' ); ?></label>
+					<input type="text" size="5" name="_affwp_woocommerce_variation_seller_rates[<?php echo $variation->ID; ?>]" value="<?php echo esc_attr( $seller_rate ); ?>" class="wc_input_price" placeholder="<?php esc_attr_e( 'Seller referral rate (optional)', 'affiliate-wp' ); ?>" />
+					<label>
+						<input type="checkbox" class="checkbox" name="_affwp_woocommerce_variation_sell_disabled[<?php echo $variation->ID; ?>]" <?php checked( $sell_disabled, true ); ?> /> <?php _e( 'Disable seller referrals for this product variation', 'affiliate-wp' ); ?>
 					</label>
 				</p>
 			</div>
@@ -615,6 +836,17 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		}
 
+		if( ! empty( $_POST['_affwp_' . $this->context . '_product_seller_rate'] ) ) {
+
+			$seller_rate = sanitize_text_field( $_POST['_affwp_' . $this->context . '_product_seller_rate'] );
+			update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_rate', $seller_rate );
+
+		} else {
+
+			delete_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_rate' );
+
+		}
+
 		$this->save_variation_data( $post_id );
 
 		if( isset( $_POST['_affwp_' . $this->context . '_referrals_disabled'] ) ) {
@@ -624,6 +856,16 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		} else {
 
 			delete_post_meta( $post_id, '_affwp_' . $this->context . '_referrals_disabled' );
+
+		}
+
+		if( isset( $_POST['_affwp_' . $this->context . '_sell_referrals_disabled'] ) ) {
+
+			update_post_meta( $post_id, '_affwp_' . $this->context . '_sell_referrals_disabled', 1 );
+
+		} else {
+
+			delete_post_meta( $post_id, '_affwp_' . $this->context . '_sell_referrals_disabled' );
 
 		}
 
@@ -661,6 +903,27 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				} else {
 
 					delete_post_meta( $variation_id, '_affwp_' . $this->context . '_referrals_disabled' );
+
+				}
+
+				if( ! empty( $_POST['_affwp_woocommerce_variation_seller_rates'] ) && ! empty( $_POST['_affwp_woocommerce_variation_seller_rates'][ $variation_id ] ) ) {
+
+					$rate = sanitize_text_field( $_POST['_affwp_woocommerce_variation_rates'][ $variation_id ] );
+					update_post_meta( $variation_id, '_affwp_' . $this->context . '_product_seller_rate', $rate );
+
+				} else {
+
+					delete_post_meta( $variation_id, '_affwp_' . $this->context . '_product_seller_rate' );
+
+				}
+
+				if( ! empty( $_POST['_affwp_woocommerce_variation_sell_disabled'] ) && ! empty( $_POST['_affwp_woocommerce_variation_sell_disabled'][ $variation_id ] ) ) {
+
+					update_post_meta( $variation_id, '_affwp_' . $this->context . '_sell_referrals_disabled', 1 );
+
+				} else {
+
+					delete_post_meta( $variation_id, '_affwp_' . $this->context . '_sell_referrals_disabled' );
 
 				}
 

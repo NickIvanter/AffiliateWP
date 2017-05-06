@@ -398,6 +398,38 @@ abstract class Affiliate_WP_Base {
 	}
 
 	/**
+	 * Retrieves the sell rate and type for a specific product
+	 *
+	 * @access  public
+	 * @since   1.2
+	 * @return  float
+	*/
+	public function get_product_seller_rate( $product_id = 0, $args = array() ) {
+
+		$args = wp_parse_args( $args, array(
+			'reference'    => '',
+			'affiliate_id' => 0
+		) );
+
+		$affiliate_id = isset( $args['affiliate_id'] ) ? $args['affiliate_id'] : $this->get_affiliate_id( $args['reference'] );
+
+		$rate = get_post_meta( $product_id, '_affwp_' . $this->context . '_product_seller_rate', true );
+
+		/**
+		 * Filters the integration product rate.
+		 *
+		 * @since 1.2
+		 *
+		 * @param float  $rate         Product-level referral rate.
+		 * @param int    $product_id   Product ID.
+		 * @param array  $args         Arguments for retrieving the product rate.
+		 * @param int    $affiliate_id Affilaite ID.
+		 * @param string $context      Order context.
+		 */
+		return apply_filters( 'affwp_get_product_rate', $rate, $product_id, $args, $affiliate_id, $this->context );
+	}
+
+	/**
 	 * Retrieves the product details array for the referral
 	 *
 	 * @access  public
