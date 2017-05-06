@@ -240,6 +240,10 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             $product_total = $product['line_total'];
             $shipping      = 0;
 
+            // get affiliate ID
+			$affiliate_id = $this->get_seller_id( $product );
+            $referrence = $this->make_sell_product_referrence( $product );
+
             if ( $cart_shipping > 0 && ! affiliate_wp()->settings->get( 'sell_exclude_shipping' ) ) {
                 $shipping       = $cart_shipping / count( $items );
                 $product_total += $shipping;
@@ -254,10 +258,10 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             }
 
             $product_id_for_rate = $product['product_id'];
-            if( ! empty( $product['variation_id'] ) && $this->get_product_sell_rate( $product['variation_id'] ) ) {
+            if( ! empty( $product['variation_id'] ) && $this->get_product_sell_rate( $product['variation_id'], ['affiliate_id' => $affiliate_id] ) ) {
                 $product_id_for_rate = $product['variation_id'];
             }
-            $amount += $this->calculate_sell_referral_amount( $product_total, $order_id, $product_id_for_rate, $affiliate_id );
+            $amount += $this->calculate_sell_referral_amount( $product_total, $referrence, $product_id_for_rate, $affiliate_id );
 
 
 			if ( 0 == $amount && affiliate_wp()->settings->get( 'ignore_zero_sell_referrals' ) ) {
@@ -273,9 +277,6 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$visit_id    = affiliate_wp()->tracking->get_visit_id();
 
 
-            // get affiliate ID
-			$affiliate_id = $this->get_seller_id( $product );
-
 			// Customers cannot refer themselves
 			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
 
@@ -285,8 +286,6 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 				continue;
 			}
-
-            $referrence = $this->make_sell_product_referrence( $product );
 
 			// Check for an existing referral
 			$existing = affiliate_wp()->referrals->get_by( 'reference', $referrence, $this->context );
@@ -352,6 +351,9 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
         }
     }
 
+    public function get_seller_id( $product ) {
+        return get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_product_seller_id', true );
+    }
 
     public function make_sell_product_referrence( $order_id, $product )
     {
@@ -687,6 +689,26 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$description[] = $item['name'];
 
 		}
+
+		$description = implode( ', ', $description );
+
+		return $description;
+
+	}
+
+	/**
+	 * Retrieves the referral description
+	 *
+	 * @access  public
+	 * @since   1.1
+	*/
+	public function get_sell_referral_description( $item ) {
+
+        if( ! empty( $item['variation_id'] ) ) {
+            $item['name'] .= ' ' . sprintf( __( '(Variation ID %d)', 'affiliate-wp' ), $item['variation_id'] );
+        }
+
+        $description[] = $item['name'];
 
 		$description = implode( ', ', $description );
 

@@ -360,6 +360,32 @@ function affwp_calc_referral_amount( $amount = '', $affiliate_id = 0, $reference
 }
 
 /**
+ * Calculate the referral amount
+ *
+ * @param  string  $amount
+ * @param  int     $affiliate_id
+ * @param  int     $reference
+ * @param  string  $rate
+ * @param  int     $product_id
+ * @return float
+ */
+function affwp_calc_sell_referral_amount( $amount = '', $affiliate_id = 0, $reference = 0, $rate = '', $product_id = 0 ) {
+
+	$rate     = affwp_get_affiliate_sell_rate( $affiliate_id, false, $rate, $reference );
+	$type     = affwp_get_affiliate_sell_rate_type( $affiliate_id );
+	$decimals = affwp_get_decimal_count();
+
+	$referral_amount = ( 'percentage' === $type ) ? round( $amount * $rate, $decimals ) : $rate;
+
+	if ( $referral_amount < 0 ) {
+		$referral_amount = 0;
+	}
+
+	return (string) apply_filters( 'affwp_calc_referral_amount', $referral_amount, $affiliate_id, $amount, $reference, $product_id );
+
+}
+
+/**
  * Retrieves the number of referrals for the given affiliate.
  *
  * @since

@@ -366,6 +366,36 @@ abstract class Affiliate_WP_Base {
 	}
 
 	/**
+	 * Retrieves the sell rate and type for a specific product
+	 *
+	 * @since 1.2
+	 * @access public
+	 *
+	 * @param string $base_amount      Optional. Base amount to calculate the referral amount from.
+	 *                                 Default empty.
+	 * @param string|int $reference    Optional. Referral reference (usually the order ID). Default empty.
+	 * @param int        $product_id   Optional. Product ID. Default 0.
+	 * @param int        $affiliate_id Optional. Affiliate ID.
+	 * @return string Referral amount.
+	 */
+	public function calculate_sell_referral_amount( $base_amount = '', $reference = '', $product_id = 0, $affiliate_id = 0 ) {
+
+		// the affiliate ID can be optionally passed in to override the referral amount
+		$affiliate_id = ! empty( $affiliate_id ) ? $affiliate_id : $this->get_seller_id( $product_id );
+
+		$rate = '';
+
+		if ( ! empty( $product_id ) ) {
+			$rate = $this->get_product_sell_rate( $product_id, $args = array( 'reference' => $reference, 'affiliate_id' => $affiliate_id ) );
+		}
+
+		$amount = affwp_calc_sell_referral_amount( $base_amount, $affiliate_id, $reference, $rate, $product_id );
+
+		return $amount;
+
+	}
+
+	/**
 	 * Retrieves the rate and type for a specific product
 	 *
 	 * @access  public
@@ -404,14 +434,14 @@ abstract class Affiliate_WP_Base {
 	 * @since   1.2
 	 * @return  float
 	*/
-	public function get_product_seller_rate( $product_id = 0, $args = array() ) {
+	public function get_product_sell_rate( $product_id = 0, $args = array() ) {
 
 		$args = wp_parse_args( $args, array(
 			'reference'    => '',
 			'affiliate_id' => 0
 		) );
 
-		$affiliate_id = isset( $args['affiliate_id'] ) ? $args['affiliate_id'] : $this->get_affiliate_id( $args['reference'] );
+		$affiliate_id = isset( $args['affiliate_id'] ) ? $args['affiliate_id'] : $this->get_seller_id( $product_id );
 
 		$rate = get_post_meta( $product_id, '_affwp_' . $this->context . '_product_seller_rate', true );
 
