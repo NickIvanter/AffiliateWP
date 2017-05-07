@@ -58,6 +58,10 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		// Shop page.
 		add_action( 'pre_get_posts', array( $this, 'force_shop_page_for_referrals' ), 5 );
+
+        // Seller product page visits
+		add_action( 'wp', array( $this, 'seller_product_visited' ), 100 );
+
 	}
 
 	/**
@@ -227,6 +231,12 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
         $cart_shipping = $this->order->get_total_shipping();
 
         $items = $this->order->get_items();
+        if ( isset($_COOKIE['affwp_sell_visits']) ) {
+            $visits = @unserialize( $_COOKIE['affwp_sell_visits'] );
+        } else {
+            $visits = [];
+        }
+
 
         // Calculate the sells amount based on product prices
 
@@ -280,7 +290,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
 
 			$description = $this->get_sell_referral_description( $product );
-			$visit_id    = affiliate_wp()->tracking->get_visit_id();
+			$visit_id    = isset( $visits[$product['product_id']] ) ? $visits[$product['product_id']] : 0;
 
 			// Customers cannot refer themselves
 			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
@@ -320,6 +330,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				if( $this->debug ) {
 					$this->log( sprintf( 'WooCommerce Seller referral #%d updated successfully.', $existing->referral_id ) );
 				}
+                setcookie('affwp_sell_visits', null, 0, COOKIEPATH, COOKIE_DOMAIN);
 
 			} else {
 
@@ -338,6 +349,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					$name   = affiliate_wp()->affiliates->get_affiliate_name( $affiliate_id );
 
 					$this->order->add_order_note( sprintf( __( 'Seller referral #%d for %s recorded for %s', 'affiliate-wp' ), $referral_id, $amount, $name ) );
+                    setcookie('affwp_sell_visits', null, 0, COOKIEPATH, COOKIE_DOMAIN);
 
 				} else {
 
@@ -544,6 +556,14 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		}
 
 		$this->reject_referral( $order_id );
+
+        // Also all sellers referrals if any
+        $items = $this->order->get_items();
+        foreach ( $items as $product ) {
+
+            // Don't check any setting, just try to reject
+            $this->reject_referral( $this->make_sell_product_referrence( $order_id, $product ) );
+        }
 
 	}
 
@@ -775,7 +795,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				) );
 				woocommerce_wp_checkbox( array(
 					'id'          => '_affwp_woocommerce_sell_referrals_disabled',
-					'label'       => __( 'Disable referrals', 'affiliate-wp' ),
+					'label'       => __( 'Disable sells', 'affiliate-wp' ),
 					'description' => __( 'This will prevent orders of this product from generating seller referral commissions for affiliates.', 'affiliate-wp' ),
 					'cbvalue'     => 1
 				) );
@@ -874,15 +894,15 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             $user = get_user_by('login', $seller);
 
             if ( !empty( $user ) ) {
-                update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller', $seller );
-                update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_id', $user->ID );
+                $affiliate = affiliate_wp()->affiliates->get_by( 'user_id', $user->ID );
+                if ( $affiliate ) {
+                    update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller', $seller );
+                    update_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_id', $affiliate->affiliate_id );
+                }
             }
-
 		} else {
-
 			delete_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller' );
 			delete_post_meta( $post_id, '_affwp_' . $this->context . '_product_seller_id' );
-
 		}
 
 		if( ! empty( $_POST['_affwp_' . $this->context . '_product_rate'] ) ) {
@@ -1045,6 +1065,64 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	public function strip_referral_from_paged_urls( $link ) {
 		return affiliate_wp()->tracking->strip_referral_from_paged_urls( $link );
 	}
+
+    public function seller_product_visited()
+    {
+        global $post;
+
+        if ( !is_product() ) return;
+
+        $product_id = $post->ID;
+		$affiliate_id = get_post_meta( $product_id, '_affwp_' . $this->context . '_product_seller_id', true );
+        if ( !$affiliate_id ) return;
+
+		$is_valid = affiliate_wp()->tracking->is_valid_affiliate( $affiliate_id );
+        $referrer = isset( $_REQUEST['referrer'] ) ? $_REQUEST['referrer'] : '';
+
+		if ( $is_valid ) {
+
+			if( ! affwp_is_url_banned( $referrer ) ) {
+
+                if ( isset($_COOKIE['affwp_sell_visits']) ) {
+                    $cookie = @unserialize( $_COOKIE['affwp_sell_visits'] );
+                }
+
+                if ( !isset($cookie) || !is_array($cookie) ) $cookie = [];
+
+
+                if ( !isset( $cookie[$product_id] ) ) {
+
+                    // Store the visit in the DB
+                    $visit_id = affiliate_wp()->visits->add( array(
+                        'affiliate_id' => $affiliate_id,
+                        'ip'           => affiliate_wp()->tracking->get_ip(),
+                        'url'          => home_url( add_query_arg( NULL, NULL ) ), // Sorta hack
+                        'referrer'     => $referrer,
+                        'sell_id'      => 1,
+                    ) );
+
+                    if ( $visit_id ) {
+                        $cookie[$product_id] = $visit_id;
+                        setcookie('affwp_sell_visits', serialize( $cookie ), 0, COOKIEPATH, COOKIE_DOMAIN);
+                    }
+                }
+
+				affiliate_wp()->utils->log( sprintf( 'Sell visit #%d recorded for affiliate #%d in seller_product_visited()', $visit_id, $affiliate_id ) );
+			} else {
+				affiliate_wp()->utils->log( sprintf( '"%s" is a banned URL. A sell visit was not recorded.', $referrer ) );
+			}
+
+		} elseif ( ! $is_valid ) {
+
+			affiliate_wp()->utils->log( 'Invalid affiliate ID during seller_product_visited()' );
+
+		} else {
+
+			affiliate_wp()->utils->log( 'Affiliate ID missing during seller_product_visited()' );
+
+		}
+
+    }
 
 }
 new Affiliate_WP_WooCommerce;

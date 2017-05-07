@@ -252,6 +252,7 @@ abstract class Affiliate_WP_Base {
                 'status'       => 'unpaid',
                 'amount'       => - $referral->amount,
                 'description'  => "Refunded \"{$referral->description}\"",
+                'sell'         => $referral->sell,
             ]);
 
             if ( $refund_id )
@@ -456,7 +457,7 @@ abstract class Affiliate_WP_Base {
 		 * @param int    $affiliate_id Affilaite ID.
 		 * @param string $context      Order context.
 		 */
-		return apply_filters( 'affwp_get_product_rate', $rate, $product_id, $args, $affiliate_id, $this->context );
+		return apply_filters( 'affwp_get_product_sell_rate', $rate, $product_id, $args, $affiliate_id, $this->context );
 	}
 
 	/**

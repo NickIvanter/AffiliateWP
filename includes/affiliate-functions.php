@@ -1405,6 +1405,36 @@ function affwp_increase_affiliate_visit_count( $affiliate = 0 ) {
 }
 
 /**
+ * Increases an affiliate's total sell visit count by 1.
+ *
+ * @since 1.0
+ * @since 1.9 The `$affiliate` parameter can now accept an affiliate object.
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return int|false The new affiliate visit count, otherwise false.
+ */
+function affwp_increase_affiliate_sell_visit_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$visits = affwp_get_affiliate_sell_visit_count( $affiliate->ID );
+	$visits += 1;
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_visits' => $visits ), '', 'affiliate' ) ) {
+
+		return $visits;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
  * Decreases an affiliate's total visit count by 1.
  *
  * @since 1.0
@@ -1427,6 +1457,40 @@ function affwp_decrease_affiliate_visit_count( $affiliate = 0 ) {
 	}
 
 	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'visits' => $visits ), '', 'affiliate' ) ) {
+
+		return $visits;
+
+	} else {
+
+		return false;
+
+	}
+
+}
+
+/**
+ * Decreases an affiliate's total sell visit count by 1.
+ *
+ * @since 1.0
+ * @since 1.9 The `$affiliate` parameter can now accept an affiliate object.
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @return float|false The affiliate's updated visit count, otherwise false.
+ */
+function affwp_decrease_affiliate_sell_visit_count( $affiliate = 0 ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate ) ) {
+		return false;
+	}
+
+	$visits = affwp_get_affiliate_sell_visit_count( $affiliate->ID );
+	$visits -= 1;
+
+	if ( $visits < 0 ) {
+		$visits = 0;
+	}
+
+	if ( affiliate_wp()->affiliates->update( $affiliate->ID, array( 'sell_visits' => $visits ), '', 'affiliate' ) ) {
 
 		return $visits;
 
@@ -1595,13 +1659,15 @@ function affwp_add_affiliate( $data = array() ) {
 	$user_id = absint( $data['user_id'] );
 
 	$args = array(
-		'user_id'       => $user_id,
-		'status'        => $status,
-		'rate'          => ! empty( $data['rate'] ) ? sanitize_text_field( $data['rate'] ) : '',
-		'rate_type'     => ! empty( $data['rate_type' ] ) ? sanitize_text_field( $data['rate_type'] ) : '',
-		'payment_email' => ! empty( $data['payment_email'] ) ? sanitize_text_field( $data['payment_email'] ) : '',
-		'notes'         => ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '',
-		'is_seller'     => (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0,
+		'user_id'		 => $user_id,
+		'status'		 => $status,
+		'rate'			 => ! empty( $data['rate'] ) ? sanitize_text_field( $data['rate'] ) : '',
+		'rate_type'		 => ! empty( $data['rate_type' ] ) ? sanitize_text_field( $data['rate_type'] ) : '',
+		'payment_email'	 => ! empty( $data['payment_email'] ) ? sanitize_text_field( $data['payment_email'] ) : '',
+		'notes'			 => ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '',
+		'is_seller'		 => (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0,
+		'sell_rate'      => ! empty( $data['sell_rate'] ) ? sanitize_text_field( $data['sell_rate'] ) : '',
+		'sell_rate_type' => ! empty( $data['sell_rate_type' ] ) ? sanitize_text_field( $data['sell_rate_type'] ) : '',
 	);
 
     if ( isset( $data['is_ref'] ) ) {
@@ -1650,7 +1716,9 @@ function affwp_update_affiliate( $data = array() ) {
 	$args['user_id']       = $user_id;
 	$args['notes']         = ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '';
 
-    $args['is_seller']     = (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0;
+    $args['is_seller']      = (isset( $data['is_seller'] ) && $data['is_seller']) ? 1 : 0;
+	$args['sell_rate']      = ( isset( $data['sell_rate' ] ) && '' !== $data['sell_rate' ] ) ? sanitize_text_field( $data['sell_rate'] ) : '';
+	$args['sell_rate_type'] = ! empty( $data['sell_rate_type' ] ) ? sanitize_text_field( $data['sell_rate_type'] ) : '';
 
     if ( isset( $data['is_ref'] ) ) {
         $args['is_ref'] = $data['is_ref'] ? 1 : 0;

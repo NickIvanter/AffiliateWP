@@ -1,6 +1,8 @@
 <?php
 $default_rate = affiliate_wp()->settings->get( 'referral_rate', 20 );
 $default_rate = affwp_abs_number_round( $default_rate );
+$default_sell_rate = affiliate_wp()->settings->get( 'sell_rate', 20 );
+$default_sell_rate = affwp_abs_number_round( $default_sell_rate );
 ?>
 <div class="wrap">
 
@@ -78,6 +80,37 @@ $default_rate = affwp_abs_number_round( $default_rate );
 				<td>
 					<input class="small-text" type="number" name="rate" id="rate" step="0.01" min="0" max="999999" placeholder="<?php echo esc_attr( $default_rate ); ?>" />
 					<p class="description"><?php _e( 'The affiliate&#8217;s referral rate, such as 20 for 20%. If left blank, the site default will be used.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row">
+
+				<th scope="row">
+					<label for="sell_rate_type"><?php _e( 'Seller Rate Type', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<select name="sell_rate_type" id="sell_rate_type">
+						<option value=""><?php _e( 'Site Default', 'affiliate-wp' ); ?></option>
+						<?php foreach( affwp_get_affiliate_rate_types() as $key => $type ) : ?>
+							<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $type ); ?></option>
+						<?php endforeach; ?>
+					</select>
+					<p class="description"><?php _e( 'The affiliate&#8217;s sell rate type.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row">
+
+				<th scope="row">
+					<label for="sell_rate"><?php _e( 'Sell Rate', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<input class="small-text" type="number" name="sell_rate" id="rate" step="0.1" min="0" max="999999" placeholder="<?php echo esc_attr( $default_sell_rate ); ?>" />
+					<p class="description"><?php _e( 'The affiliate&#8217;s sell rate, such as 20 for 20%. If left blank, the site default will be used.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>

@@ -11,6 +11,11 @@ $reason           = affwp_get_affiliate_meta( $affiliate->affiliate_id, '_reject
 $promotion_method = get_user_meta( $affiliate->user_id, 'affwp_promotion_method', true );
 $notes            = affwp_get_affiliate_meta( $affiliate->affiliate_id, 'notes', true );
 $seller           = $affiliate->is_seller;
+$sell_rate_type        = ! empty( $affiliate->sell_rate_type ) ? $affiliate->sell_rate_type : '';
+$sell_rate             = isset( $affiliate->sell_rate ) ? $affiliate->sell_rate : null;
+$sell_rate             = affwp_abs_number_round( $affiliate->sell_rate );
+$default_sell_rate     = affiliate_wp()->settings->get( 'sell_rate', 20 );
+$default_sell_rate     = affwp_abs_number_round( $default_sell_rate );
 ?>
 <div class="wrap">
 
@@ -176,8 +181,39 @@ $seller           = $affiliate->is_seller;
 				</th>
 
 				<td>
-					<input class="small-text" type="number" name="rate" id="rate" step="0.01" min="0" max="999999" placeholder="<?php echo esc_attr( $default_rate ); ?>" value="<?php echo esc_attr( $rate ); ?>"/>
+					<input class="small-text" type="number" name="rate" id="rate" step="0.1" min="0" max="999999" placeholder="<?php echo esc_attr( $default_rate ); ?>" value="<?php echo esc_attr( $rate ); ?>"/>
 					<p class="description"><?php _e( 'The affiliate&#8217;s referral rate, such as 20 for 20%. If left blank, the site default will be used.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row">
+
+				<th scope="row">
+					<label for="sell_rate_type"><?php _e( 'Sell Rate Type', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<select name="sell_rate_type" id="sell_rate_type">
+						<option value=""><?php _e( 'Site Default', 'affiliate-wp' ); ?></option>
+						<?php foreach( affwp_get_affiliate_rate_types() as $key => $type ) : ?>
+							<option value="<?php echo esc_attr( $key ); ?>"<?php selected( $sell_rate_type, $key ); ?>><?php echo esc_html( $type ); ?></option>
+						<?php endforeach; ?>
+					</select>
+					<p class="description"><?php _e( 'The affiliate&#8217;s sell rate type.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row">
+
+				<th scope="row">
+					<label for="sell_rate"><?php _e( 'Sell Rate', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<input class="small-text" type="number" name="sell_rate" id="sell_rate" step="0.1" min="0" max="999999" placeholder="<?php echo esc_attr( $default_sell_rate ); ?>" value="<?php echo esc_attr( $sell_rate ); ?>"/>
+					<p class="description"><?php _e( 'The affiliate&#8217;s sell rate, such as 20 for 20%. If left blank, the site default will be used.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>

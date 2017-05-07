@@ -66,7 +66,7 @@ class Affiliate_WP_Settings {
 		 * @since  1.7
 		 * @param  array
 		 */
-		$zero_values_allowed = (array) apply_filters( 'affwp_settings_zero_values_allowed', array( 'referral_rate' ) );
+		$zero_values_allowed = (array) apply_filters( 'affwp_settings_zero_values_allowed', array( 'referral_rate', 'sell_rate' ) );
 
 		// Allow 0 values for specified keys only
 		if ( in_array( $key, $zero_values_allowed ) ) {
@@ -511,7 +511,21 @@ class Affiliate_WP_Settings {
 						'desc' => __( 'The default referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise. Referral rates can also be set for each individual affiliate.', 'affiliate-wp' ),
 						'type' => 'number',
 						'size' => 'small',
-						'step' => '0.01',
+						'step' => '0.1',
+						'std' => '20'
+					),
+					'sell_rate_type' => array(
+						'name' => __( 'Sell Rate Type', 'affiliate-wp' ),
+						'desc' => __( 'Choose a sell rate type. can be based on either a percentage or a flat rate amount.', 'affiliate-wp' ),
+						'type' => 'select',
+						'options' => affwp_get_affiliate_rate_types()
+					),
+					'sell_rate' => array(
+						'name' => __( 'Sell Rate', 'affiliate-wp' ),
+						'desc' => __( 'The default sell rate. A percentage if the Sell Rate Type is set to Percentage, a flat amount otherwise. Sell rates can also be set for each individual affiliate.', 'affiliate-wp' ),
+						'type' => 'number',
+						'size' => 'small',
+						'step' => '0.1',
 						'std' => '20'
 					),
 					'exclude_shipping' => array(
@@ -522,6 +536,16 @@ class Affiliate_WP_Settings {
 					'exclude_tax' => array(
 						'name' => __( 'Exclude Tax', 'affiliate-wp' ),
 						'desc' => __( 'Exclude taxes from referral calculations.', 'affiliate-wp' ),
+						'type' => 'checkbox'
+					),
+					'sell_exclude_shipping' => array(
+						'name' => __( 'Sells Exclude Shipping', 'affiliate-wp' ),
+						'desc' => __( 'Exclude shipping costs from sell calculations.', 'affiliate-wp' ),
+						'type' => 'checkbox'
+					),
+					'sell_exclude_tax' => array(
+						'name' => __( 'Sells Exclude Tax', 'affiliate-wp' ),
+						'desc' => __( 'Exclude taxes from sell calculations.', 'affiliate-wp' ),
 						'type' => 'checkbox'
 					),
 					'cookie_exp' => array(
