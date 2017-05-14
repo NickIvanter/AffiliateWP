@@ -134,7 +134,7 @@ class Recount_Affiliate_Stats extends Utils\Batch_Process implements Batch\With_
 
 		if ( false === $affiliate_totals ) {
 			if ( 'earnings' === $this->type ) {
-				$status = 'paid';
+				$status = ['paid', 'refunded'];
 			} elseif ( 'unpaid-earnings' === $this->type ) {
 				$status = 'unpaid';
 			} else {

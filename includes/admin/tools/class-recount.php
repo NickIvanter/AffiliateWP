@@ -87,7 +87,7 @@ class Affiliate_WP_Recount {
 			return;
 		}
 
-		$earnings = affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'paid' ) );
+		$earnings = affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => ['paid', 'refunded'] ) );
 		affiliate_wp()->affiliates->update( $affiliate_id, array( 'referrals' => $earnings ), '', 'affiliate' );
 
 	}
