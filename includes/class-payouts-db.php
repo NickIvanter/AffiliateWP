@@ -430,7 +430,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 				$minimum = absint( $amount['min'] );
 				$maximum = absint( $amount['max'] );
 
-				$where .= "`amount` BETWEEN {$minimum} AND {$maximum} ";
+				$where .= "`{$this->table_name}`.`amount` BETWEEN {$minimum} AND {$maximum} ";
 			} else {
 
 				$amount  = absint( $amount );
@@ -558,7 +558,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 		// Non-column orderby exception;
 		if ( 'amount' === $args['orderby'] ) {
-			$orderby = 'amount+0';
+			$orderby = '`{$this->table_name}`.amount+0';
 		}
 
 		// There can be only two orders.

@@ -13,7 +13,7 @@ $affiliate_id = isset( $_GET['affiliate_id'] ) ? absint( $_GET['affiliate_id'] )
 	do_action( 'affwp_view_affiliate_report_top' );
 	?>
 
-	<h3><?php _e( 'Earnings', 'affiliate-wp' ); ?></h3>
+	<h3><?php _e( 'Seller Earnings', 'affiliate-wp' ); ?></h3>
 
 	<table id="affwp_affiliate_stats" class="affwp_table">
 
@@ -43,14 +43,14 @@ $affiliate_id = isset( $_GET['affiliate_id'] ) ? absint( $_GET['affiliate_id'] )
 		<tbody>
 
 			<tr>
-				<td><?php echo affwp_get_affiliate_earnings( $affiliate_id, true ); ?></td>
-				<td><?php echo affwp_get_affiliate_unpaid_earnings( $affiliate_id, true ); ?></td>
-				<td><?php echo affwp_get_affiliate_referral_count( $affiliate_id ); ?></td>
-				<td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'unpaid' ) ); ?></td>
-				<td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'pending' ) ); ?></td>
-				<td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'rejected' ) ); ?></td>
-				<td><?php echo affwp_get_affiliate_visit_count( $affiliate_id ); ?></td>
-				<td><?php echo affwp_get_affiliate_conversion_rate( $affiliate_id ); ?></td>
+				<td><?php echo affwp_get_affiliate_sell_earnings( $affiliate_id, true ); ?></td>
+				<td><?php echo affwp_get_affiliate_sell_unpaid_earnings( $affiliate_id, true ); ?></td>
+				<td><?php echo affwp_get_affiliate_sell_referral_count( $affiliate_id ); ?></td>
+                <td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'unpaid', 'sell' => true ) ); ?></td>
+				<td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'pending', 'sell' => true ) ); ?></td>
+				<td><?php echo affiliate_wp()->referrals->count( array( 'affiliate_id' => $affiliate_id, 'status' => 'rejected', 'sell' => true ) ); ?></td>
+				<td><?php echo affwp_get_affiliate_sell_visit_count( $affiliate_id ); ?></td>
+				<td><?php echo affwp_get_affiliate_sell_conversion_rate( $affiliate_id ); ?></td>
 				<?php
 				/**
 				 * Fires at the bottom of view-affiliate-report screens table element rows.
@@ -66,14 +66,16 @@ $affiliate_id = isset( $_GET['affiliate_id'] ) ? absint( $_GET['affiliate_id'] )
 	</table>
 	<?php
 	$graph = new Affiliate_WP_Referrals_Graph;
+	$graph->sell = true;
 	$graph->set( 'x_mode', 'time' );
 	$graph->set( 'affiliate_id', $affiliate_id );
 	$graph->display();
 
 	// Recent Payouts.
 	$payouts_table = new AffWP_Payouts_Table( array(
-		'query_args' => array(
-			'affiliate_id' => $affiliate_id
+		'query_args'       => array(
+			'affiliate_id' => $affiliate_id,
+			'sell'         => true,
 		),
 		'display_args' => array(
 			'hide_bulk_options'    => true,

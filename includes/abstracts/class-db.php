@@ -169,7 +169,7 @@ abstract class Affiliate_WP_DB {
 		if ( true === $clauses['count'] ) {
 
 			$results = $wpdb->get_var(
-				"SELECT COUNT({$this->primary_key}) FROM {$this->table_name} {$clauses['where']};"
+				"SELECT COUNT({$this->table_name}.{$this->primary_key}) FROM {$this->table_name} {$clauses['join']} {$clauses['where']};"
 			);
 
 			$results = absint( $results );

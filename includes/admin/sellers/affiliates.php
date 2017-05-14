@@ -31,7 +31,7 @@ function affwp_sellers_admin() {
 
 	if ( 'view_affiliate' === $action && $affiliate ) {
 
-		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/view.php';
+		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sellers/view.php';
 
 	} elseif ( 'add_affiliate' === $action ) {
 
