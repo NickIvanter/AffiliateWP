@@ -298,6 +298,27 @@ function affwp_export_import_tab() {
 			</div><!-- .postbox -->
 
 			<div class="postbox">
+				<h3><span><?php _e( 'Export Sellers', 'affiliate-wp' ); ?></span></h3>
+				<div class="inside">
+					<p><?php _e( 'Export sellers to a CSV file.', 'affiliate-wp' ); ?></p>
+					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-sellers" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-sellers_step_nonce' ) ); ?>">
+						<p>
+							<select name="status" id="status">
+								<option value="0"><?php _e( 'All Statuses', 'affiliate-wp' ); ?></option>
+								<option value="active"><?php _e( 'Active', 'affiliate-wp' ); ?></option>
+								<option value="pending"><?php _e( 'Pending', 'affiliate-wp' ); ?></option>
+								<option value="rejected"><?php _e( 'Rejected', 'affiliate-wp' ); ?></option>
+							</select>
+						</p>
+						<p>
+							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-sellers-submit', false ); ?>
+						</p>
+					</form>
+				</div><!-- .inside -->
+			</div><!-- .postbox -->
+
+
+			<div class="postbox">
 				<h3><span><?php _e( 'Export Referrals', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Export referrals to a CSV file.', 'affiliate-wp' ); ?></p>

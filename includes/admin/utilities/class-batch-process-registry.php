@@ -95,6 +95,12 @@ class Registry extends Utils\Registry {
 			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-export-affiliates.php',
 		) );
 
+		// Export Affiliates.
+		$this->register_process( 'export-sellers', array(
+			'class' => 'AffWP\Utils\Batch_Process\Export_Sellers',
+			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-export-sellers.php',
+		) );
+
 		// Export Referrals.
 		$this->register_process( 'export-referrals', array(
 			'class' => 'AffWP\Utils\Batch_Process\Export_Referrals',

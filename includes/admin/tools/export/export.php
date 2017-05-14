@@ -38,6 +38,34 @@ function affwp_process_affiliates_export() {
 }
 add_action( 'affwp_export_affiliates', 'affwp_process_affiliates_export' );
 
+
+/**
+ * Process an affiliates export
+ *
+ * @since       1.0
+ * @return      void
+ */
+function affwp_process_sellers_export() {
+
+	if( empty( $_POST['affwp_export_sellers_nonce'] ) ) {
+		return;
+	}
+
+	if( ! wp_verify_nonce( $_POST['affwp_export_sellers_nonce'], 'affwp_export_sellers_nonce' ) ) {
+		return;
+	}
+
+	$status  = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : false;
+
+	$export = new Affiliate_WP_Sellers_Export;
+	$export->status    = $status;
+	$export->export();
+
+}
+add_action( 'affwp_export_sellers', 'affwp_process_sellers_export' );
+
+
+
 /**
  * Process a referrals export
  *
