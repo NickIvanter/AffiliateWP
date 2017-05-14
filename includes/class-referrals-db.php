@@ -650,15 +650,16 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @access  public
 	 * @since   1.0
 	*/
-	public function paid_earnings( $date = '', $affiliate_id = 0, $format = true ) {
+	public function paid_earnings( $date = '', $affiliate_id = 0, $format = true, $sell = false ) {
 
 		$args                 = array();
 		$args['status']       = [ 'paid', 'refunded' ];
 		$args['affiliate_id'] = $affiliate_id;
 		$args['number']       = '-1';
+		$args['sell']         = $sell;
 
 		if( 'alltime' == $date ) {
-			return $this->get_alltime_earnings();
+			return $this->get_alltime_earnings($sell);
 		}
 
 		if( ! empty( $date ) ) {
@@ -705,8 +706,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @access  public
 	 * @since   1.0
 	*/
-	public function get_alltime_earnings() {
-		return get_option( 'affwp_alltime_earnings', 0.00 );
+	public function get_alltime_earnings($sell = false) {
+		return get_option( $sell ? 'affwp_alltime_sell_earnings' : 'affwp_alltime_earnings', 0.00 );
 	}
 
 	/**
@@ -715,12 +716,13 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @access  public
 	 * @since   1.0
 	*/
-	public function unpaid_earnings( $date = '', $affiliate_id = 0, $format = true ) {
+	public function unpaid_earnings( $date = '', $affiliate_id = 0, $format = true, $sell = false ) {
 
 		$args                 = array();
 		$args['status']       = 'unpaid';
 		$args['affiliate_id'] = $affiliate_id;
 		$args['number']       = '-1';
+		$args['sell']         = $sell;
 
 		if( ! empty( $date ) ) {
 

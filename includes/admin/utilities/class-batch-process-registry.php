@@ -146,6 +146,12 @@ class Registry extends Utils\Registry {
 			'class' => 'AffWP\Utils\Batch_Process\Recount_Affiliate_Stats',
 			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-batch-recount-affiliate-stats.php',
 		) );
+
+		// Recount all affiliate seller stats.
+		$this->register_process( 'recount-seller-stats', array(
+			'class' => 'AffWP\Utils\Batch_Process\Recount_Seller_Stats',
+			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-batch-recount-seller-stats.php',
+		) );
 	}
 
 	/**

@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/migration.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-recount.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-recount-seller.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-rest-consumers-table.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/system-info.php';
 
@@ -165,6 +166,32 @@ function affwp_recount_tab() {
 					</form>
 				</div><!-- .inside -->
 			</div><!-- .postbox -->
+
+			<div class="postbox">
+				<h3><span><?php _e( 'Recount Seller Stats', 'affiliate-wp' ); ?></span></h3>
+				<div class="inside">
+					<p><?php _e( 'Use this tool to recount seller statistics.', 'affiliate-wp' ); ?></p>
+					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="recount-seller-stats" data-nonce="<?php echo esc_attr( wp_create_nonce( 'recount-seller-stats_step_nonce' ) ); ?>">
+						<p>
+							<span class="affwp-ajax-search-wrap">
+								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>"/>
+							</span>
+							<select name="recount_type">
+								<option value="earnings"><?php _e( 'Paid Earnings', 'affiliate-wp' ); ?></option>
+								<option value="unpaid-earnings"><?php _e( 'Unpaid Earnings', 'affiliate-wp' ); ?></option>
+								<option value="referrals"><?php _e( 'Referrals', 'affiliate-wp' ); ?></option>
+								<option value="visits"><?php _e( 'Visits', 'affiliate-wp' ); ?></option>
+							</select>
+							<div class="description"><?php _e( 'Enter the name of the affiliate or begin typing to perform a search based on the affiliate&#8217;s name.', 'affiliate-wp' ); ?></div>
+						</p>
+						<p>
+							<input type="hidden" name="affwp_action" value="recount_seller_stats"/>
+							<?php submit_button( __( 'Recount', 'affiliate-wp' ), 'secondary', 'recount-seller-stats-submit', false ); ?>
+						</p>
+					</form>
+				</div><!-- .inside -->
+			</div><!-- .postbox -->
+
 		</div><!-- .metabox-holder -->
 	</div><!-- #affwp-dashboard-widgets-wrap -->
 <?php
