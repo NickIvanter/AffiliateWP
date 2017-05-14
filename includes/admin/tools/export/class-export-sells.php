@@ -16,19 +16,14 @@ use AffWP\Utils\Exporter;
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+require_once('class-export-referrals.php');
+
 /**
  * Affiliate_WP_Export Class
  *
  * @since 1.0
  */
 class Affiliate_WP_Sells_Export extends Affiliate_WP_Referral_Export implements Exporter\CSV {
-
-	/**
-	 * Our export type. Used for export-type specific filters/actions
-	 * @var string
-	 * @since 1.0
-	 */
-	public $export_type = 'sells';
 
 	/**
 	 * Retrieves the data being exported.

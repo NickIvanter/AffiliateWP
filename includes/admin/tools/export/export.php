@@ -123,11 +123,11 @@ add_action( 'affwp_export_referrals', 'affwp_process_referrals_export' );
  */
 function affwp_process_sells_export() {
 
-	if( empty( $_POST['affwp_export_referrals_nonce'] ) ) {
+	if( empty( $_POST['affwp_export_sells_nonce'] ) ) {
 		return;
 	}
 
-	if( ! wp_verify_nonce( $_POST['affwp_export_referrals_nonce'], 'affwp_export_referrals_nonce' ) ) {
+	if( ! wp_verify_nonce( $_POST['affwp_export_sells_nonce'], 'affwp_export_sells_nonce' ) ) {
 		return;
 	}
 
