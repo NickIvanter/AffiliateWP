@@ -4,6 +4,7 @@ class Affiliate_WP_Visits_Graph extends Affiliate_WP_Graph {
 
 	public $total     = 0;
 	public $converted = 0;
+	public $sell = false;
 
 	/**
 	 * Get things started
@@ -65,7 +66,8 @@ class Affiliate_WP_Visits_Graph extends Affiliate_WP_Graph {
 			'order'        => 'ASC',
 			'date'         => $date,
 			'number'       => -1,
-			'affiliate_id' => $this->get( 'affiliate_id' )
+			'affiliate_id' => $this->get( 'affiliate_id' ),
+			'sell'		   => $this->sell,
 		) );
 
 		$visits = affiliate_wp()->visits->get_visits( $args );

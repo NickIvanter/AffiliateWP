@@ -2,6 +2,8 @@
 
 class Affiliate_WP_Registrations_Graph extends Affiliate_WP_Graph {
 
+	public $sellers = false;
+
 	/**
 	 * Retrieve referral data
 	 *
@@ -19,11 +21,12 @@ class Affiliate_WP_Registrations_Graph extends Affiliate_WP_Graph {
 		);
 
 		$affiliates = affiliate_wp()->affiliates->get_affiliates( array(
-			'orderby'  => 'date_registered',
-			'order'    => 'ASC',
-			'number'   => -1,
-			'date'     => $date,
-			'fields'   => 'date_registered',
+			'orderby' => 'date_registered',
+			'order'   => 'ASC',
+			'number'  => -1,
+			'date'    => $date,
+			'fields'  => 'date_registered',
+			'sellers' => $this->sellers,
 		) );
 
 		$affiliate_data = array();
@@ -50,14 +53,14 @@ class Affiliate_WP_Registrations_Graph extends Affiliate_WP_Graph {
 						$count = $affiliate_data[ $time ][1] += 1;
 
 						$affiliate_data[ $time ] = array( $timestamp, $count );
-					
+
 					} else {
 
 						$affiliate_data[ $time ] = array( $timestamp, 1 );
-						
+
 					}
 
-					
+
 				}
 
 

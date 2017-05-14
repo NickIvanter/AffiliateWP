@@ -2,6 +2,8 @@
 
 class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 
+	public $sell = false;
+
 	/**
 	 * Get things started
 	 *
@@ -66,7 +68,8 @@ class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 			'order'        => 'ASC',
 			'date'         => $date,
 			'number'       => -1,
-			'affiliate_id' => $this->get( 'affiliate_id' )
+			'affiliate_id' => $this->get( 'affiliate_id' ),
+			'sell'		   => $this->sell,
 		) );
 
 		$pending[] = array( strtotime( $start ) * 1000 );
@@ -115,6 +118,7 @@ class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 			foreach ( $totals as $status => $dates ) {
 				switch( $status ) {
 					case 'paid':
+					case 'refunded':
 						foreach ( $dates as $date => $total ) {
 							$paid[] = array( strtotime( $date ) * 1000, $total );
 						}

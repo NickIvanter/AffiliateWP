@@ -204,6 +204,7 @@ class Tab extends Reports\Tab {
 	 * @since  1.9
 	 */
 	public function display_trends() {
+		$this->graph->sellers = true;
 		$this->graph->set( 'show_controls', false );
 		$this->graph->set( 'x_mode',   'time' );
 		$this->graph->set( 'currency', false  );
