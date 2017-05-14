@@ -124,7 +124,7 @@ function affwp_sanitize_amount( $amount ) {
 		$is_negative = true;
 	}
 
-	$amount   = preg_replace( '/[^0-9\.]/', '', $amount );
+	$amount   = preg_replace( '/[^0-9\.-]/', '', $amount );
 
 	/**
 	 * Filter number of decimals to use for prices
