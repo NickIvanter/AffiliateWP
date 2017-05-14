@@ -16,10 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Overview Metaboxes.
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-totals.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-totals-sells.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-registrations.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-most-valuable-sellers.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-referrals.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-sells.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-referral-visits.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-sells-visits.php';
 
 /**
  * Initializes meta boxes displayed via the Overview screen.
@@ -28,10 +32,14 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-m
  */
 function affwp_init_overview_meta_boxes() {
 	new Meta_Box\Totals;
+	new Meta_Box\Totals_Sells;
 	new Meta_Box\Affiliate_Registrations;
 	new Meta_Box\Most_Valuable_Affiliates;
+	new Meta_Box\Most_Valuable_Sellers;
 	new Meta_Box\Recent_Referrals;
+	new Meta_Box\Recent_Sells;
 	new Meta_Box\Recent_Referral_Visits;
+	new Meta_Box\Recent_Sells_Visits;
 
 	/**
 	 * Fires after all core Overview meta boxes have been instantiated.

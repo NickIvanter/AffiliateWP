@@ -774,7 +774,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @param string $date         Optional. Date range in which to search. Accepts 'month'. Default empty.
 	 * @return int Number of referrals for the given status or 0 if the affiliate doesn't exist.
 	 */
-	public function count_by_status( $status, $affiliate_id = 0, $date = '', $sellers = false ) {
+	public function count_by_status( $status, $affiliate_id = 0, $date = '', $sells = false ) {
 
 		$args = array(
 			'status'       => $status,
@@ -782,7 +782,7 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
             'sell'         => 0,
 		);
 
-        if ( $sellers ) {
+        if ( $sells ) {
             $args['sell'] = 1;
         }
 
@@ -829,8 +829,8 @@ class Affiliate_WP_Referrals_DB extends Affiliate_WP_DB  {
 	 * @param int    $affiliate_id Optional. Affiliate ID. Default 0.
 	 * @return int Number of referrals for the given status or 0 if the affiliate doesn't exist.
 	*/
-	public function unpaid_count( $date = '', $affiliate_id = 0, $sellers = false ) {
-		return $this->count_by_status( 'unpaid', $affiliate_id, $date, $sellers );
+	public function unpaid_count( $date = '', $affiliate_id = 0, $sells = false ) {
+		return $this->count_by_status( 'unpaid', $affiliate_id, $date, $sells );
 	}
 
 	/**

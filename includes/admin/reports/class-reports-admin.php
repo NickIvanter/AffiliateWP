@@ -15,8 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 include AFFILIATEWP_PLUGIN_DIR . 'includes/abstracts/class-affwp-reports-tab.php';
 include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-affiliates-reports-tab.php';
+include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-sellers-reports-tab.php';
 include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-referrals-reports-tab.php';
+include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-sells-reports-tab.php';
 include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-visits-reports-tab.php';
+include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-sell-visits-reports-tab.php';
 include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/reports/tabs/class-campaigns-reports-tab.php';
 
 class Reports {
@@ -56,6 +59,13 @@ class Reports {
 				$manage_button = sprintf( $manage_button_template,
 					esc_url( affwp_admin_url( 'referrals' ) ),
 					__( 'Manage Referrals', 'affiliate-wp' )
+				);
+				break;
+
+			case 'sells':
+				$manage_button = sprintf( $manage_button_template,
+					esc_url( affwp_admin_url( 'sells' ) ),
+					__( 'Manage Sells', 'affiliate-wp' )
 				);
 				break;
 
@@ -170,8 +180,11 @@ class Reports {
 	 */
 	public function register_core_tabs() {
 		new \AffWP\Referral\Admin\Reports\Tab;
+		new \AffWP\Sells\Admin\Reports\Tab;
 		new \AffWP\Affiliate\Admin\Reports\Tab;
+		new \AffWP\Sellers\Admin\Reports\Tab;
 		new \AffWP\Visit\Admin\Reports\Tab;
+		new \AffWP\Sell_Visit\Admin\Reports\Tab;
 		new \AffWP\Campaign\Admin\Reports\Tab;
 	}
 }
