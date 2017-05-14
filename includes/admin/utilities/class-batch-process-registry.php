@@ -107,10 +107,16 @@ class Registry extends Utils\Registry {
 			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-export-referrals.php',
 		) );
 
-		// Export Payouts.
+		// Export Rererral Payouts.
 		$this->register_process( 'export-payouts', array(
 			'class' => 'AffWP\Utils\Batch_Process\Export_Payouts',
 			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-export-payouts.php',
+		) );
+
+		// Export Sells Payouts.
+		$this->register_process( 'export-payouts-sells', array(
+			'class' => 'AffWP\Utils\Batch_Process\Export_Payouts_Sells',
+			'file'  => AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-batch-export-payouts-sells.php',
 		) );
 
 		//

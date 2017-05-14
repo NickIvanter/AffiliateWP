@@ -373,7 +373,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 			$payout_ids = esc_sql( $payout_ids );
 
-			$where .= "`payout_id` IN( {$payout_ids} ) ";
+			$where .= "`{$this->table_name}`.`payout_id` IN( {$payout_ids} ) ";
 
 			unset( $payout_ids );
 		}
@@ -391,7 +391,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 			$affiliates = esc_sql( $affiliates );
 
-			$where .= "`affiliate_id` IN( {$affiliates} ) ";
+			$where .= "`{$this->table_name}`.`affiliate_id` IN( {$affiliates} ) ";
 		}
 
 		// Referral ID(s).
@@ -409,9 +409,9 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 				$payout_ids = esc_sql( implode( ',', $payout_ids ) );
 
 				if ( ! empty( $args['search'] ) ) {
-					$where .= "`payout_id` LIKE '%%" . $payout_ids . "%%' ";
+					$where .= "`{$this->table_name}`.`payout_id` LIKE '%%" . $payout_ids . "%%' ";
 				} else {
-					$where .= "`payout_id` IN( {$payout_ids} ) ";
+					$where .= "`{$this->table_name}`.`payout_id` IN( {$payout_ids} ) ";
 				}
 			}
 
@@ -444,7 +444,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 					}
 				}
 
-				$where .= "`amount` {$compare} {$amount} ";
+				$where .= "`{$this->table_name}`.`amount` {$compare} {$amount} ";
 			}
 
 		}
@@ -471,7 +471,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 			$owners = esc_sql( $owners );
 
-			$where .= "`owner` IN( {$owners} ) ";
+			$where .= "`{$this->table_name}`.`owner` IN( {$owners} ) ";
 		}
 
 		// Status.
@@ -479,13 +479,21 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 			$where .= empty( $where ) ? "WHERE " : "AND ";
 
+			// WTF!!!
 			if ( ! in_array( $args['status'], array( 'paid', 'failed' ), true ) ) {
 				$args['status'] = 'paid';
 			}
 
 			$status = esc_sql( $args['status'] );
 
-			$where .= "`status` = '" . $status . "' ";
+			$where .= "`{$this->table_name}`.`status` = '" . $status . "' ";
+		}
+
+		// Sells only. Somewhat hacky kludge
+		if( isset( $args['sell'] ) && $args['sell'] ) {
+			$join .= ' JOIN ' . affiliate_wp()->referrals->table_name . ' ON referrals = referral_id ';
+			$where .= empty( $where ) ? "WHERE " : "AND ";
+			$where .= 'referrals is not null and sell > 0';
 		}
 
 		// Date.
@@ -504,9 +512,9 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 					$start = esc_sql( date( $format, strtotime( $args['date']['start'] ) ) );
 
 					if ( ! empty( $where ) ) {
-						$where .= " AND `date` >= '{$start}'";
+						$where .= " AND `{$this->table_name}`.`date` >= '{$start}'";
 					} else {
-						$where .= " WHERE `date` >= '{$start}'";
+						$where .= " WHERE `{$this->table_name}`.`date` >= '{$start}'";
 					}
 
 				}
@@ -522,9 +530,9 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 					$end = esc_sql( date( $format, strtotime( $args['date']['end'] ) ) );
 
 					if( ! empty( $where ) ) {
-						$where .= " AND `date` <= '{$end}'";
+						$where .= " AND `{$this->table_name}`.`date` <= '{$end}'";
 					} else {
-						$where .= " WHERE `date` <= '{$end}'";
+						$where .= " WHERE `{$this->table_name}`.`date` <= '{$end}'";
 					}
 
 				}
@@ -541,12 +549,12 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 					$where .= " AND";
 				}
 
-				$where .= " $year = YEAR ( date ) AND $month = MONTH ( date ) AND $day = DAY ( date )";
+				$where .= " $year = YEAR ( `{$this->table_name}`.date ) AND $month = MONTH ( `{$this->table_name}`.date ) AND $day = DAY ( `{$this->table_name}`.date )";
 			}
 
 		}
 
-		$orderby = array_key_exists( $args['orderby'], $this->get_columns() ) ? $args['orderby'] : $this->primary_key;
+		$orderby = "`{$this->table_name}`." . (array_key_exists( $args['orderby'], $this->get_columns() ) ? $args['orderby'] : $this->primary_key);
 
 		// Non-column orderby exception;
 		if ( 'amount' === $args['orderby'] ) {

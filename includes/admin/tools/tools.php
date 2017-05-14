@@ -346,7 +346,7 @@ function affwp_export_import_tab() {
 			</div><!-- .postbox -->
 
 			<div class="postbox">
-				<h3><span><?php _e( 'Export Payouts', 'affiliate-wp' ); ?></span></h3>
+				<h3><span><?php _e( 'Export Referral Payouts', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Export payouts to a CSV file.', 'affiliate-wp' ); ?></p>
 					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-payouts" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-payouts_step_nonce' ) ); ?>">
@@ -364,6 +364,30 @@ function affwp_export_import_tab() {
 						</p>
 						<p>
 							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-payouts-submit', false ); ?>
+						</p>
+					</form>
+				</div><!-- .inside -->
+			</div><!-- .postbox -->
+
+			<div class="postbox">
+				<h3><span><?php _e( 'Export Sells Payouts', 'affiliate-wp' ); ?></span></h3>
+				<div class="inside">
+					<p><?php _e( 'Export payouts to a CSV file.', 'affiliate-wp' ); ?></p>
+					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-payouts-sells" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-payouts-sells_step_nonce' ) ); ?>">
+						<p>
+							<span class="affwp-ajax-search-wrap">
+								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
+							</span>
+							<input type="text" class="affwp-datepicker" autocomplete="off" name="start_date" placeholder="<?php _e( 'From - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
+							<input type="text" class="affwp-datepicker" autocomplete="off" name="end_date" placeholder="<?php _e( 'To - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
+							<select name="status" id="status">
+								<option value="paid"><?php _e( 'Paid', 'affiliate-wp' ); ?></option>
+								<option value="unpaid"><?php _e( 'Failed', 'affiliate-wp' ); ?></option>
+							</select>
+							<div class="description"><?php _e( 'To search for an affiliate, enter the affiliate&#8217;s login name, first name, or last name. Leave blank to export referrals for all affiliates.', 'affiliate-wp' ); ?></div>
+						</p>
+						<p>
+							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-payouts-sells-submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
