@@ -817,7 +817,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	public function variation_settings( $loop, $variation_data, $variation ) {
 
 		$rate = $this->get_product_rate( $variation->ID );
-		$seller_rate = $this->get_product_seller_rate( $variation->ID );
+		$seller_rate = $this->get_product_sell_rate( $variation->ID );
 
 		$disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_referrals_disabled', true );
 		$sell_disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_sell_disabled', true );
