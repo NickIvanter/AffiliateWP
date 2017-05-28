@@ -415,6 +415,36 @@ function affwp_count_referrals( $affiliate_id = 0, $status = array(), $date = ar
 }
 
 /**
+ * Retrieves the number of sells for the given affiliate.
+ *
+ * @since
+ *
+ * @param int|AffWP\Affiliate $affiliate Optional. Affiliate ID or object. Default is the current affiliate.
+ * @param string|array        $status    Optional. Referral status or array of statuses. Default empty array.
+ * @param array|string        $date      Optional. Array of date data with 'start' and 'end' key/value pairs,
+ *                                       or a timestamp. Default empty array.
+ * @return int Zero if the affiliate is invalid, or the number of referrals for the given arguments.
+ */
+function affwp_count_sell_referrals( $affiliate_id = 0, $status = array(), $date = array() ) {
+
+	if ( ! $affiliate = affwp_get_affiliate( $affiliate_id ) ) {
+		return 0;
+	}
+
+	$args = array(
+		'affiliate_id' => $affiliate->ID,
+		'status'       => $status,
+		'sell'		   => true,
+	);
+
+	if( ! empty( $date ) ) {
+		$args['date'] = $date;
+	}
+
+	return affiliate_wp()->referrals->count( $args );
+}
+
+/**
  * Retrieves an array of banned URLs.
  *
  * @since 2.0

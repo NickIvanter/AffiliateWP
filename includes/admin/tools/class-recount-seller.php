@@ -71,7 +71,7 @@ class Affiliate_WP_Recount_Seller {
 			return;
 		}
 
-		$earnings = affiliate_wp()->referrals->paid_earnings( '', $affiliate_id, false );
+		$earnings = affiliate_wp()->referrals->paid_earnings( '', $affiliate_id, false, true );
 		affiliate_wp()->affiliates->update( $affiliate_id, array( 'sell_earnings' => $earnings ), '', 'affiliate' );
 	}
 

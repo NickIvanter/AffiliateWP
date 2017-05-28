@@ -63,9 +63,21 @@
 			</li>
 			<?php endif; ?>
 
+			<?php if ( affwp_affiliate_area_show_tab( 'sell-stats' ) ) : ?>
+			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'sell-stats' ? ' active' : ''; ?>">
+				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'sell-stats' ) ); ?>"><?php _e( 'Sell Statistics', 'affiliate-wp' ); ?></a>
+			</li>
+			<?php endif; ?>
+
 			<?php if ( affwp_affiliate_area_show_tab( 'graphs' ) ) : ?>
 			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'graphs' ? ' active' : ''; ?>">
 				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'graphs' ) ); ?>"><?php _e( 'Graphs', 'affiliate-wp' ); ?></a>
+			</li>
+			<?php endif; ?>
+
+			<?php if ( affwp_affiliate_area_show_tab( 'sell-graphs' ) ) : ?>
+			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'sell-graphs' ? ' active' : ''; ?>">
+				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'sell-graphs' ) ); ?>"><?php _e( 'Sell Graphs', 'affiliate-wp' ); ?></a>
 			</li>
 			<?php endif; ?>
 
@@ -75,15 +87,33 @@
 			</li>
 			<?php endif; ?>
 
+			<?php if ( affwp_affiliate_area_show_tab( 'sell-referrals' ) ) : ?>
+			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'sell-referrals' ? ' active' : ''; ?>">
+				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'sell-referrals' ) ); ?>"><?php _e( 'Sells', 'affiliate-wp' ); ?></a>
+			</li>
+			<?php endif; ?>
+
 			<?php if ( affwp_affiliate_area_show_tab( 'payouts' ) ) : ?>
 			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'payouts' ? ' active' : ''; ?>">
 				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'payouts' ) ); ?>"><?php _e( 'Payouts', 'affiliate-wp' ); ?></a>
 			</li>
 			<?php endif; ?>
 
+			<?php if ( affwp_affiliate_area_show_tab( 'sell-payouts' ) ) : ?>
+			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'sell-payouts' ? ' active' : ''; ?>">
+				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'sell-payouts' ) ); ?>"><?php _e( 'Sell Payouts', 'affiliate-wp' ); ?></a>
+			</li>
+			<?php endif; ?>
+
 			<?php if ( affwp_affiliate_area_show_tab( 'visits' ) ) : ?>
 			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'visits' ? ' active' : ''; ?>">
 				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'visits' ) ); ?>"><?php _e( 'Visits', 'affiliate-wp' ); ?></a>
+			</li>
+			<?php endif; ?>
+
+			<?php if ( affwp_affiliate_area_show_tab( 'sell-visits' ) ) : ?>
+			<li class="affwp-affiliate-dashboard-tab<?php echo $active_tab == 'sell-visits' ? ' active' : ''; ?>">
+				<a href="<?php echo esc_url( affwp_get_affiliate_area_page_url( 'sell-visits' ) ); ?>"><?php _e( 'Sell Visits', 'affiliate-wp' ); ?></a>
 			</li>
 			<?php endif; ?>
 
