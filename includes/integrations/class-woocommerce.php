@@ -24,11 +24,15 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_sells' ), 20 );
 
 		// There should be an option to choose which of these is used
-		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 20 );
+		/*
+      	 * add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
+		 * add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 20 );
+		 */
 
-		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_sells_complete' ), 20 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_sells_complete' ), 20 );
+		/*
+		 * add_action( 'woocommerce_order_status_completed', array( $this, 'mark_sells_complete' ), 20 );
+		 * add_action( 'woocommerce_order_status_processing', array( $this, 'mark_sells_complete' ), 20 );
+		 */
 
 
 		add_action( 'woocommerce_order_status_completed_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
@@ -214,6 +218,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				}
 			}
 
+            $this->mark_referral_complete( $order_id );
 		}
 
 	}
@@ -237,9 +242,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             $visits = [];
         }
 
-
         // Calculate the sells amount based on product prices
-
         foreach ( $items as $product ) {
 
             if ( get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_sell_referrals_disabled', true ) ) {
@@ -371,6 +374,8 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				}
 			}
         }
+
+        $this->mark_sells_complete( $order_id );
     }
 
     public function get_seller_id( $product ) {
