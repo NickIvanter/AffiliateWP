@@ -25,7 +25,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		// There should be an option to choose which of these is used
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 20 );
 
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_sells_complete' ), 20 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_sells_complete' ), 20 );
@@ -268,6 +268,17 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             if ( ! affiliate_wp()->settings->get( 'sell_exclude_tax' ) ) {
                 $product_total += $product['line_tax'];
             }
+
+            // Decrease total price by patment system fee
+			if ( affiliate_wp()->settings->get( 'use_payment_method_decrease' ) )
+            {
+                $payment_method = $this->order->payment_method;
+                $payment_method_rate = affiliate_wp()->settings->get( 'rate_' . $payment_method );
+
+                if ( $payment_method_rate ) {
+                    $product_total -= round( $product_total * $payment_method_rate / 100, affwp_get_decimal_count() );
+                }
+			}
 
             if ( $product_total <= 0 && 'flat' !== affwp_get_affiliate_sell_rate_type( $affiliate_id ) ) {
                 continue;

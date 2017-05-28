@@ -61,6 +61,7 @@ function affwp_get_settings_tabs() {
 	$tabs['integrations'] = __( 'Integrations', 'affiliate-wp' );
 	$tabs['emails']       = __( 'Emails', 'affiliate-wp' );
 	$tabs['misc']         = __( 'Misc', 'affiliate-wp' );
+	$tabs['payment_methods'] = __( 'Payment method fees', 'affiliate-wp' );
 
 	/**
 	 * Filters the list of settings tabs.

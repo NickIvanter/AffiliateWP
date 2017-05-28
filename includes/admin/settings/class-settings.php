@@ -780,8 +780,7 @@ class Affiliate_WP_Settings {
 					),
 					'betas' => array(
 						'name' => __( 'Opt into Beta Versions', 'affiliate-wp' ),
-						'desc' => __( 'Receive update notifications for beta releases. When beta versions are available, an update notification will be shown on your Plugins page.
-', 'affiliate-wp' ),
+						'desc' => __( 'Receive update notifications for beta releases. When beta versions are available, an update notification will be shown on your Plugins page.', 'affiliate-wp' ),
 						'type' => 'checkbox'
 					),
 					'uninstall_on_delete' => array(
@@ -790,8 +789,39 @@ class Affiliate_WP_Settings {
 						'type' => 'checkbox'
 					)
 				)
-			)
+			),
+
+			/** Payment systems Settings */
+
+			/**
+			 * Filters the default "Payment methods" settings.
+			 *
+			 * @param array $settings Array of misc settings.
+			 */
+			'payment_methods' => apply_filters( 'affwp_settings_payment_systems',
+				array(
+					'use_payment_method_decrease' => array(
+						'name' => __( 'Use order payment method for seller earnings decrease', 'affiliate-wp' ),
+						'desc' => __( 'Decrease order total amount by payment method fee before calculate seller earnings', 'affiliate-wp' ),
+						'type' => 'checkbox'
+					),
+				)
+			),
 		);
+
+		$payment_gateways = new WC_Payment_Gateways();
+		$payment_methods = $payment_gateways->get_available_payment_gateways();
+
+		foreach($payment_methods as $id => $method) {
+			$settings['payment_methods']["rate_$id"] = [
+				'name' => __( 'Fee rate for', 'affiliate-wp' ) . " {$method->title}",
+				'desc' => __( 'Value in %', 'affiliate-wp' ),
+				'type' => 'number',
+				'size' => 'small',
+				'step' => '0.1',
+				'std' => '0',
+			];
+		}
 
 		/**
 		 * Filters the entire default settings array.
