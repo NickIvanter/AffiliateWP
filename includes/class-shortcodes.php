@@ -47,6 +47,8 @@ class Affiliate_WP_Shortcodes {
 		 */
 		$show_login = apply_filters( 'affwp_affiliate_area_show_login', true );
 
+		add_filter( 'affwp_affiliate_area_show_tab', ['Affiliate_WP_Shortcodes', 'show_tab_for_seller'], 10, 2 );
+
 		ob_start();
 
 		if ( is_user_logged_in() && affwp_is_affiliate() ) {
@@ -81,6 +83,23 @@ class Affiliate_WP_Shortcodes {
 
 		return ob_get_clean();
 
+	}
+
+	public static function show_tab_for_seller( $show, $tab='' )
+	{
+		$affiliate = affwp_get_affiliate();
+		if ( !$affiliate ) return $show;
+		if ( !$affiliate->is_seller &&
+			in_array( $tab, [
+				'sell-stats',
+				'sell-referral',
+				'sell-payouts',
+				'sell-graphs',
+				'sell-visits'
+			] ) )
+			return false;
+
+		return $show;
 	}
 
 	/**
