@@ -221,6 +221,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				}
 			}
 
+            $this->mark_referral_complete( $order_id );
 		}
 
 	}
