@@ -13,7 +13,6 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/sells/class-list-table.php
 function affwp_sells_screen_options() {
 
 	$screen = affwp_get_current_screen();
-    file_put_contents('/tmp/s.log', var_export($screen, true), FILE_APPEND);
 
 	if ( $screen !== 'affiliate-wp-sells' ) {
 		return;
