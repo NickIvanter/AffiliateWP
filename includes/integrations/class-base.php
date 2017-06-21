@@ -261,7 +261,7 @@ abstract class Affiliate_WP_Base {
                 'reference'    => $referral->reference,
                 'context'      => $referral->context,
                 'status'       => 'unpaid',
-                'amount'       => - $referral->amount,
+                'amount'       => - abs( $referral->amount ),
                 'description'  => "Refunded \"{$referral->description}\"",
             ]);
 
