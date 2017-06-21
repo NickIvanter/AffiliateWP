@@ -573,10 +573,14 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		$this->reject_referral( $order_id );
 
-        // Also all sellers referrals if any
-        $items = $this->order->get_items();
-        foreach ( $items as $product ) {
+        // Also all sellers referrals if an
+        $order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
+        if (!$order) return;
 
+        $items = $order->get_items();
+        if (!$items) return;
+
+        foreach ( $items as $product ) {
             // Don't check any setting, just try to reject
             $this->reject_referral( $this->make_sell_product_referrence( $order_id, $product ) );
         }
