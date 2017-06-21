@@ -291,7 +291,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             if( ! empty( $product['variation_id'] ) && $this->get_product_sell_rate( $product['variation_id'], ['affiliate_id' => $affiliate_id] ) ) {
                 $product_id_for_rate = $product['variation_id'];
             }
-            $amount += $this->calculate_sell_referral_amount( $product_total, $referrence, $product_id_for_rate, $affiliate_id );
+            $amount = $this->calculate_sell_referral_amount( $product_total, $referrence, $product_id_for_rate, $affiliate_id );
 
 
 			if ( 0 == $amount && affiliate_wp()->settings->get( 'ignore_zero_sell_referrals' ) ) {
