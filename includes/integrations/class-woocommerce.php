@@ -840,7 +840,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		$seller_rate = $this->get_product_sell_rate( $variation->ID );
 
 		$disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_referrals_disabled', true );
-		$sell_disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_sell_disabled', true );
+		$sell_disabled = get_post_meta( $variation->ID, '_affwp_woocommerce_sell_referrals_disabled', true );
 ?>
 		<div id="affwp_product_variation_settings">
 
@@ -1008,7 +1008,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 				if( ! empty( $_POST['_affwp_woocommerce_variation_seller_rates'] ) && ! empty( $_POST['_affwp_woocommerce_variation_seller_rates'][ $variation_id ] ) ) {
 
-					$rate = sanitize_text_field( $_POST['_affwp_woocommerce_variation_rates'][ $variation_id ] );
+					$rate = sanitize_text_field( $_POST['_affwp_woocommerce_variation_seller_rates'][ $variation_id ] );
 					update_post_meta( $variation_id, '_affwp_' . $this->context . '_product_seller_rate', $rate );
 
 				} else {
