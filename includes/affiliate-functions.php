@@ -401,16 +401,17 @@ function affwp_get_affiliate_sell_rate( $affiliate = 0, $formatted = false, $pro
 	$default_rate = affiliate_wp()->settings->get( 'sell_rate', 20 );
 	$default_rate = affwp_abs_number_round( $default_rate );
 
-	// Get product-specific referral rate, fallback to global rate
-	$product_rate = affwp_abs_number_round( $product_rate );
-	$product_rate = ( null !== $product_rate ) ? $product_rate : $default_rate;
-
 	// Get affiliate-specific referral rate
 	$affiliate_rate = affiliate_wp()->affiliates->get_column( 'sell_rate', $affiliate_id );
+	$affiliate_rate = affwp_abs_number_round( $affiliate_rate );
 
-	// Get rate in order of priority: Affiliate -> Product -> Global
-	$rate = affwp_abs_number_round( $affiliate_rate );
-	$rate = ( null !== $rate ) ? $rate : $product_rate;
+	$affiliate_rate = ( null !== $affiliate_rate ) ? $affiliate_rate : $default_rate;
+
+	// Get product-specific referral rate, fallback to global rate
+	$product_rate = affwp_abs_number_round( $product_rate );
+
+	// Get rate in order of priority: Product -> Affiliate -> Global
+	$rate = ( null !== $product_rate ) ? $product_rate : $affiliate_rate;
 
 	// Get the referral rate type
 	$type = affwp_get_affiliate_sell_rate_type( $affiliate_id );
