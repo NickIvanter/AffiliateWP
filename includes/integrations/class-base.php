@@ -294,6 +294,10 @@ abstract class Affiliate_WP_Base {
 		return absint( apply_filters( 'affwp_get_referring_affiliate_id', $this->affiliate_id, $reference, $this->context ) );
 	}
 
+	public function get_seller_id( $product_id ) {
+		return absint( apply_filters( 'affwp_get_referring_seller_id', $product_id, $this->context ) );
+	}
+
 	/**
 	 * Retrieves the email address of the referring affiliate
 	 *

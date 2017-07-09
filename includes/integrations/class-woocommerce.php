@@ -20,8 +20,8 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		$this->context = 'woocommerce';
 
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_referral' ), 10 );
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_sells' ), 20 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_referral' ), 50 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_sells' ), 51 );
 
 		// There should be an option to choose which of these is used
 		/*
@@ -253,7 +253,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
                 continue; // Referrals are disabled on this variation
             }
 
-			$affiliate_id = $this->get_seller_id( $product );
+			$affiliate_id = $this->get_seller_id( $product['product_id'] );
             if ( !$affiliate_id ) continue;
 
             // The order discount has to be divided across the items
@@ -378,8 +378,10 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
         $this->mark_sells_complete( $order_id );
     }
 
-    public function get_seller_id( $product ) {
-        return get_post_meta( $product['product_id'], '_affwp_' . $this->context . '_product_seller_id', true );
+    public function get_seller_id( $product_id ) {
+        return parent::get_seller_id(
+			get_post_meta( $product_id, '_affwp_' . $this->context . '_product_seller_id', true )
+		);
     }
 
     public function make_sell_product_referrence( $order_id, $product )
