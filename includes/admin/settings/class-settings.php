@@ -809,18 +809,23 @@ class Affiliate_WP_Settings {
 			),
 		);
 
-		$payment_gateways = new WC_Payment_Gateways();
-		$payment_methods = $payment_gateways->get_available_payment_gateways();
+		$enabled_integrations = affiliate_wp()->integrations->get_enabled_integrations();
 
-		foreach($payment_methods as $id => $method) {
-			$settings['payment_methods']["rate_$id"] = [
-				'name' => __( 'Fee rate for', 'affiliate-wp' ) . " {$method->title}",
-				'desc' => __( 'Value in %', 'affiliate-wp' ),
-				'type' => 'number',
-				'size' => 'small',
-				'step' => '0.1',
-				'std' => '0',
-			];
+		if ( isset( $enabled_integrations['woocommerce'] ) )
+		{
+			$payment_gateways = WC()->payment_gateways;
+			$payment_methods = $payment_gateways->get_available_payment_gateways();
+
+			foreach($payment_methods as $id => $method) {
+				$settings['payment_methods']["rate_$id"] = [
+					'name' => __( 'Fee rate for', 'affiliate-wp' ) . " {$method->title}",
+					'desc' => __( 'Value in %', 'affiliate-wp' ),
+					'type' => 'number',
+					'size' => 'small',
+					'step' => '0.1',
+					'std' => '0',
+				];
+			}
 		}
 
 		/**
