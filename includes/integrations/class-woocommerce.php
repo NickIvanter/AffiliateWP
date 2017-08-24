@@ -23,6 +23,9 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_referral' ), 50 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'add_pending_sells' ), 51 );
 
+		add_action( 'woocommerce_order_status_processing', array( $this, 'add_pending_referral' ), 50 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'add_pending_sells' ), 51 );
+
 		// There should be an option to choose which of these is used
 		/*
       	 * add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
