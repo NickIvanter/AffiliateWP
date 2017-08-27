@@ -15,7 +15,7 @@ $affiliate_id = affwp_get_affiliate_id();
 			'number'       => $per_page,
 			'offset'       => $per_page * ( $page - 1 ),
 			'affiliate_id' => $affiliate_id,
-			'status'       => array( 'paid', 'unpaid', 'rejected' ),
+			'status'       => array( 'paid', 'unpaid', 'rejected', 'pending', 'refunded' ),
 		)
 	);
 	?>
