@@ -25,11 +25,18 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'add_pending_referral' ), 50 );
 
 		add_action( 'woocommerce_order_status_processing', array( $this, 'add_pending_referral' ), 50 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'add_pending_sells' ), 51 );
+		add_action( 'woocommerce_order_status_completed', array( $this, 'add_pending_referral' ), 50 );
 
 		// There should be an option to choose which of these is used
-		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 100 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 100 );
+
+		/*
+		 * add_action( 'woocommerce_order_status_completed', array( $this, 'mark_sells_complete' ), 20 );
+		 * add_action( 'woocommerce_order_status_processing', array( $this, 'mark_sells_complete' ), 20 );
+		 */
+
+
 		add_action( 'woocommerce_order_status_completed_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
 		add_action( 'woocommerce_order_status_on-hold_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
 		add_action( 'woocommerce_order_status_processing_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
@@ -118,7 +125,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$existing = affiliate_wp()->referrals->get_by( 'reference', $order_id, $this->context );
 
 			// If an existing referral exists and it is paid or unpaid exit.
-			if ( $existing && ( 'paid' == $existing->status || 'unpaid' == $existing->status ) ) {
+			if ( $existing ) {
 				return false; // Completed Referral already created for this reference
 			}
 
@@ -189,7 +196,8 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					'affiliate_id' => $affiliate_id,
 					'visit_id'     => $visit_id,
 					'products'     => $this->get_products(),
-					'context'      => $this->context
+					'context'      => $this->context,
+					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->order_date ) ),
 				) );
 
 				$this->log( sprintf( 'WooCommerce Referral #%d updated successfully.', $existing->referral_id ) );
@@ -205,7 +213,8 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					'affiliate_id' => $affiliate_id,
 					'visit_id'     => $visit_id,
 					'products'     => $this->get_products(),
-					'context'      => $this->context
+					'context'      => $this->context,
+					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->order_date ) ),
 				), $amount, $order_id, $description, $affiliate_id, $visit_id, array(), $this->context ) );
 
 				if ( $referral_id ) {
@@ -224,7 +233,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				}
 			}
 
-            $this->mark_referral_complete( $order_id );
+            // $this->mark_referral_complete( $order_id );
 		}
 
 	}
