@@ -92,7 +92,7 @@ class Affiliate_WP_Shortcodes {
 		if ( !$affiliate->is_seller &&
 			in_array( $tab, [
 				'sell-stats',
-				'sell-referral',
+				'sell-referrals',
 				'sell-payouts',
 				'sell-graphs',
 				'sell-visits'
