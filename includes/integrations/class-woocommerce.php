@@ -114,7 +114,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
 
 			// Customers cannot refer themselves
-			if ( $this->is_affiliate_email( $billing_email, $affiliate_id ) ) {
+			if ( $this->is_affiliate_email( $this->order->get_billing_email(), $affiliate_id ) ) {
 
 				$this->log( 'Referral not created because affiliate\'s own account was used.' );
 
@@ -317,7 +317,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		}
 
 		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'wc-processing' == $this->order->get_status() && 'cod' === $payment_method ) {
+		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
 			return;
 		}
 
@@ -336,7 +336,8 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$order_id = $order_id->ID;
 		}
 
-		if( 'shop_order' != get_post_type( $order_id ) ) {
+		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
+		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
 			return;
 		}
 
