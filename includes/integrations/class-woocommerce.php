@@ -91,7 +91,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
 
 			// Customers cannot refer themselves
-			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
+			if ( $this->is_affiliate_email( $this->order->get_billing_email(), $affiliate_id ) ) {
 
 				if( $this->debug ) {
 					$this->log( 'Referral not created because affiliates own account was used.' );
@@ -275,7 +275,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
             // Decrease total price by patment system fee
 			if ( affiliate_wp()->settings->get( 'use_payment_method_decrease' ) )
             {
-                $payment_method = $this->order->payment_method;
+                $payment_method = $this->order->get_payment_method();
                 $payment_method_rate = affiliate_wp()->settings->get( 'rate_' . $payment_method );
 
                 if ( $payment_method_rate ) {
@@ -307,7 +307,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$visit_id    = isset( $visits[$product['product_id']] ) ? $visits[$product['product_id']] : 0;
 
 			// Customers cannot refer themselves
-			if ( $this->is_affiliate_email( $this->order->billing_email, $affiliate_id ) ) {
+			if ( $this->is_affiliate_email( $this->order->get_billing_email(), $affiliate_id ) ) {
 
 				if( $this->debug ) {
 					$this->log( 'Seller referral not created because affiliates own account was used.' );
@@ -516,7 +516,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		$this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
 
 		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'wc-processing' == $this->order->post_status && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
 			return;
 		}
 
@@ -533,7 +533,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		$this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
 
 		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'wc-processing' == $this->order->post_status && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
 			return;
 		}
 
