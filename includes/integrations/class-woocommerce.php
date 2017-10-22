@@ -197,7 +197,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					'visit_id'     => $visit_id,
 					'products'     => $this->get_products(),
 					'context'      => $this->context,
-					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->order_date ) ),
+					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->get_date_created() ) ),
 				) );
 
 				$this->log( sprintf( 'WooCommerce Referral #%d updated successfully.', $existing->referral_id ) );
@@ -214,7 +214,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					'visit_id'     => $visit_id,
 					'products'     => $this->get_products(),
 					'context'      => $this->context,
-					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->order_date ) ),
+					'date'		   => date_i18n( 'Y-m-d H:i:s', strtotime( $this->order->get_date_created() ) ),
 				), $amount, $order_id, $description, $affiliate_id, $visit_id, array(), $this->context ) );
 
 				if ( $referral_id ) {
