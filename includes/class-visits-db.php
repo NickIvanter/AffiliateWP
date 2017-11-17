@@ -353,6 +353,9 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 				$where .= empty( $where ) ? "WHERE " : "AND ";
 				$where .= "sell_id ='$id'";
 			}
+		} else {
+			$where .= empty( $where ) ? "WHERE " : "AND ";
+			$where .= 'sell_id = ""';
 		}
 
 
