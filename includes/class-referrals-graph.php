@@ -76,11 +76,17 @@ class Affiliate_WP_Referrals_Graph extends Affiliate_WP_Graph {
 		if( $referrals ) {
 
 			$referrals_by_status = array(
-				'paid'     => wp_list_filter( $referrals, array( 'status' => 'paid' ) ),
 				'unpaid'   => wp_list_filter( $referrals, array( 'status' => 'unpaid' ) ),
 				'rejected' => wp_list_filter( $referrals, array( 'status' => 'rejected' ) ),
 				'pending'  => wp_list_filter( $referrals, array( 'status' => 'pending' ) ),
 			);
+            foreach( $referrals as $referral )
+            {
+                if ( $referral->status == 'paid' || $referral->status == 'refunded' )
+                {
+                    $referrals_by_status[ 'paid' ][] = $referral;
+                }
+            }
 
 			$totals = array();
 

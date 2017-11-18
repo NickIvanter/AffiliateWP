@@ -254,9 +254,29 @@ abstract class Affiliate_WP_Base {
 		affiliate_wp()->utils->log( 'Referral retrieved successfully during reject_referral()' );
 
 		if ( is_object( $referral ) && 'paid' == $referral->status ) {
-			// This referral has already been paid so it cannot be rejected
-			affiliate_wp()->utils->log( sprintf( 'Referral #%d not Rejected because it is already paid', $referral->referral_id ) );
-			return false;
+            // REFUND referal with negative amount
+
+            $refund_id = affwp_add_referral([
+                'affiliate_id' => $referral->affiliate_id,
+                'reference'    => $referral->reference,
+                'context'      => $referral->context,
+                'status'       => 'unpaid',
+                'amount'       => - $referral->amount,
+                'description'  => "Refunded \"{$referral->description}\"",
+            ]);
+
+            if ( $refund_id )
+            {
+                affwp_set_referral_status( $referral->referral_id, 'refunded' );
+            }
+
+            if ( affwp_set_referral_status( $referral->referral_id, 'refunded' ) ) {
+
+                affiliate_wp()->utils->log( sprintf( 'Referral #%d set to Refunded successfully', $referral->referral_id ) );
+                return true;
+            }
+
+            return false;
 		}
 
 		if ( is_object( $referral ) && 'pending' == $referral->status ) {

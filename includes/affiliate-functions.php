@@ -731,7 +731,7 @@ function affwp_increase_affiliate_earnings( $affiliate, $amount = '' ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -769,7 +769,7 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -785,9 +785,7 @@ function affwp_decrease_affiliate_earnings( $affiliate, $amount = '' ) {
 
 		$alltime = get_option( 'affwp_alltime_earnings' );
 		$alltime -= $amount;
-		if ( $alltime < 0 ) {
-			$alltime = 0;
-		}
+
 		update_option( 'affwp_alltime_earnings', $alltime );
 
 		return $earnings;
@@ -816,7 +814,7 @@ function affwp_increase_affiliate_unpaid_earnings( $affiliate, $amount, $replace
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
@@ -854,7 +852,7 @@ function affwp_decrease_affiliate_unpaid_earnings( $affiliate, $amount ) {
 		return false;
 	}
 
-	if ( empty( $amount ) || floatval( $amount ) <= 0 ) {
+	if ( empty( $amount ) ) {
 		return false;
 	}
 
