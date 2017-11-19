@@ -317,7 +317,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		}
 
 		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+		if ( 'processing' == $this->order->get_status() && 'cod' === $payment_method ) {
 			return;
 		}
 
@@ -336,8 +336,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			$order_id = $order_id->ID;
 		}
 
-		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'processing' == $this->order->get_status() && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+		if( 'shop_order' != get_post_type( $order_id ) ) {
 			return;
 		}
 
