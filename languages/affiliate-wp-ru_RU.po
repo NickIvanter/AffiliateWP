@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
 "POT-Creation-Date: 2017-02-17 03:04:25+00:00\n"
-"PO-Revision-Date: 2016-07-21 17:44-0500\n"
-"Last-Translator: Andrew Munro, Sumobi <andrew@sumobi.com>\n"
+"PO-Revision-Date: 2017-11-17 18:00+0300\n"
+"Last-Translator: Nick Ivanter <nick.ivanter@gmail.com>\n"
 "Language-Team: AffiliateWP <support@affiliatewp.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -813,12 +813,12 @@ msgstr "Ставка"
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:65
 #: templates/dashboard-tab-stats.php:11
 msgid "Unpaid Referrals"
-msgstr "Невыплаченные рефералы"
+msgstr "Неоплаченные транзакции"
 
 #: includes/admin/affiliates/class-list-table.php:173
 #: templates/dashboard-tab-stats.php:12
 msgid "Paid Referrals"
-msgstr "Оплаченные рефералы"
+msgstr "Оплаченные транзакции"
 
 #: includes/admin/affiliates/class-list-table.php:174
 #: includes/admin/class-menu.php:17
@@ -1248,9 +1248,8 @@ msgid "Conversion rate"
 msgstr "Конверсия"
 
 #: includes/admin/affiliates/view.php:86
-#, fuzzy
 msgid "Recent Payouts"
-msgstr "Недавние рефералы"
+msgstr "Недавние выплаты"
 
 #: includes/admin/ajax-actions.php:93
 msgid "A batch process ID must be present to continue."
@@ -1309,17 +1308,17 @@ msgstr "Обзор"
 #: includes/admin/tools/tools.php:154 templates/dashboard-tab-referrals.php:7
 #: templates/dashboard.php:74
 msgid "Referrals"
-msgstr "Рефералы"
+msgstr "Транзакции"
 
 #: includes/admin/class-menu.php:16 includes/admin/payouts/payouts.php:37
 #: templates/dashboard.php:80
 msgid "Payouts"
-msgstr ""
+msgstr "Выплаты"
 
 #: includes/admin/class-menu.php:18 includes/admin/creatives/creatives.php:43
 #: templates/dashboard-tab-creatives.php:3 templates/dashboard.php:92
 msgid "Creatives"
-msgstr "Промо"
+msgstr "Промо материалы"
 
 #: includes/admin/class-menu.php:20
 msgid "Tools"
@@ -1782,9 +1781,8 @@ msgstr "Сгенерировать URL"
 #: includes/admin/payouts/view.php:103
 #: includes/admin/tools/export/class-batch-export-payouts.php:149
 #: templates/dashboard-tab-payouts.php:36
-#, fuzzy
 msgid "Payout Method"
-msgstr "Метод продвижения"
+msgstr "Способ оплаты"
 
 #: includes/admin/payouts/class-list-table.php:366
 #: includes/admin/payouts/view.php:107
@@ -1840,9 +1838,8 @@ msgid "Payout Date"
 msgstr ""
 
 #: includes/admin/payouts/view.php:167
-#, fuzzy
 msgid "Referrals Paid"
-msgstr "Рефералы"
+msgstr "Оплаченные транзакции"
 
 #: includes/admin/plugins.php:27
 msgid "General Settings"
@@ -3229,7 +3226,7 @@ msgstr ""
 #: includes/admin/tools/export/class-export-referrals-payout.php:72
 #: includes/admin/tools/export/class-export-referrals.php:64
 msgid "Email"
-msgstr "Емейл"
+msgstr "Email"
 
 #: includes/admin/tools/export/class-batch-export-affiliates.php:98
 #: includes/admin/tools/export/class-export-affiliates.php:55
@@ -3631,7 +3628,7 @@ msgstr "Целевая страница"
 #: includes/admin/visits/class-list-table.php:104
 #: templates/dashboard-tab-visits.php:30
 msgid "Referring URL"
-msgstr "Отсылающие URL"
+msgstr "Откуда переход"
 
 #: includes/admin/visits/class-list-table.php:108
 msgid "IP"
@@ -3641,7 +3638,7 @@ msgstr "IP"
 #: includes/admin/visits/visits.php:64 templates/dashboard-tab-stats.php:76
 #: templates/dashboard-tab-visits.php:31
 msgid "Converted"
-msgstr "Конвертирован"
+msgstr "Была ли конверсия"
 
 #: includes/admin/visits/class-list-table.php:258
 #: templates/dashboard-tab-visits.php:46
@@ -3650,7 +3647,7 @@ msgstr "Прямой траффик"
 
 #: includes/admin/visits/class-list-table.php:298
 msgid "No visits found."
-msgstr "Посешения не найдены."
+msgstr "Посещения не найдены."
 
 #: includes/admin/visits/contextual-help.php:39
 #, fuzzy
@@ -5162,28 +5159,29 @@ msgstr "Пожалуйста, введите пароль"
 
 #: templates/creative.php:39
 msgid "Copy and paste the following:"
-msgstr "Скопируйте и вставьте следующее:"
+msgstr "HTML для вставки на ваш сайт:"
 
 #: templates/dashboard-tab-creatives.php:54
 msgid "Sorry, there are currently no creatives available."
-msgstr "К сожалению, в настоящее время нет доступных баннеров."
+msgstr ""
+"В настоящее время доступных рекламных материалов нет. Обратитесь в службу "
+"поддержки."
 
 #: templates/dashboard-tab-graphs.php:6
 msgid "Referral Graphs"
 msgstr "Графики рефералов"
 
 #: templates/dashboard-tab-payouts.php:3
-#, fuzzy
 msgid "Referral Payouts"
-msgstr "Реферальная ставка"
+msgstr "Выплаты вам как партнёру"
 
 #: templates/dashboard-tab-payouts.php:82
 msgid "None of your referrals have been paid out yet."
-msgstr ""
+msgstr "Пока выплат не было."
 
 #: templates/dashboard-tab-referrals.php:70
 msgid "You have not made any referrals yet."
-msgstr "У Вас еще не было посещений."
+msgstr "Пока транзакций с вашей помощью не было."
 
 #: templates/dashboard-tab-settings.php:10
 msgid "Profile Settings"
@@ -5191,11 +5189,11 @@ msgstr "Настройки профиля"
 
 #: templates/dashboard-tab-settings.php:15
 msgid "Your payment email"
-msgstr "Ваш платежный емейл"
+msgstr "Ваш email для получения платежей и уведомлений от системы"
 
 #: templates/dashboard-tab-settings.php:21
 msgid "Enable New Referral Notifications"
-msgstr "Активировать оповещения о новых рефералах"
+msgstr "Активировать оповещения о новых клиентах, которых вы привлекли"
 
 #: templates/dashboard-tab-settings.php:36
 msgid "Save Profile Settings"
@@ -5207,7 +5205,7 @@ msgstr "Статистика"
 
 #: templates/dashboard-tab-stats.php:45
 msgid "Commission Rate"
-msgstr "Комиссионная ставка"
+msgstr "Ставка вознаграждения"
 
 #: templates/dashboard-tab-stats.php:75
 msgid "Unique Links"
@@ -5220,56 +5218,57 @@ msgstr "Не установлено"
 #: templates/dashboard-tab-stats.php:94
 msgid "You have no referrals or visits that included a campaign name."
 msgstr ""
-"У вас нет рефералов или переходов, которые содержат указанное название "
-"кампании."
+"Транзакций или переходов, которые содержали бы название кампании, не "
+"зафиксировано."
 
 #: templates/dashboard-tab-urls.php:6
 msgid "Referral URL Generator"
-msgstr "Генератор реферальной ссылки"
+msgstr "Генератор партнёрских ссылок"
 
 #: templates/dashboard-tab-urls.php:17
 msgid "Your affiliate ID is: <strong>%s</strong>"
-msgstr "Ваш ID номер Партнера: <strong>%s</strong>"
+msgstr "Ваш идентификатор партнёра: <strong>%s</strong>"
 
 #: templates/dashboard-tab-urls.php:19
 msgid "Your affiliate username is: <strong>%s</strong>"
-msgstr "Ваш ID номер Партнера: <strong>%s</strong>"
+msgstr "Ваш идентификатор партнёра: <strong>%s</strong>"
 
 #: templates/dashboard-tab-urls.php:22
 msgid "Your referral URL is: <strong>%s</strong>"
-msgstr "Ваша реферальная ссылка: <strong>%s</strong>"
+msgstr "Партнёрская ссылка на главную страницу сайта: <br><strong>%s</strong>"
 
 #: templates/dashboard-tab-urls.php:23
 msgid ""
 "Enter any URL from this website in the form below to generate a referral "
 "link!"
 msgstr ""
-"Введите любой URL для сайта внизу, чтобы сгенерировать реферальную ссылку!"
+"Введите адрес любой страницы сайта, чтобы сгенерировать свою уникальную "
+"партнёрскую ссылку на эту страницу:"
 
 #: templates/dashboard-tab-urls.php:27
 msgid "Page URL"
-msgstr "URL страницы"
+msgstr "Адрес страницы, которую вы хотите рекламировать"
 
 #: templates/dashboard-tab-urls.php:32
 msgid "Campaign Name (optional)"
-msgstr "имя Кампании (Опционально)"
+msgstr "Название рекламной кампании (не обязательно)"
 
 #: templates/dashboard-tab-urls.php:37
 msgid "Referral URL"
-msgstr "Реферальная ссылка"
+msgstr "Ваша партнёрская ссылка"
 
 #: templates/dashboard-tab-urls.php:39
 msgid "(now copy this referral link and share it anywhere)"
 msgstr ""
-"(теперь скопируйте эту реферальную ссылку и поделитесь с ней где хотите)"
+"(теперь скопируйте эту партнёрскую ссылку и используйте её в своей рекламе)"
 
 #: templates/dashboard-tab-urls.php:45
 msgid "Generate URL"
-msgstr "Сгенерировать URL"
+msgstr "Получить партнёрскую ссылку"
 
 #: templates/dashboard-tab-visits.php:3
 msgid "Referral URL Visits"
-msgstr "Посещения реферальной ссылки"
+msgstr "Заходы на сайт по вашим партнёрским ссылкам"
 
 #: templates/dashboard-tab-visits.php:6
 msgid ""
@@ -5283,7 +5282,7 @@ msgstr ""
 
 #: templates/dashboard-tab-visits.php:62
 msgid "You have not received any visits yet."
-msgstr "У Вас еще не было посещений"
+msgstr "Пока переходов не было."
 
 #: templates/dashboard.php:7
 msgid "Your affiliate account is pending approval"
@@ -5409,10 +5408,9 @@ msgid "Earnings"
 msgstr "Доход"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php:76
-#, fuzzy
 msgctxt "Referrals column table header"
 msgid "Referrals"
-msgstr "Рефералы"
+msgstr "Транзакции"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php:77
 #, fuzzy
@@ -5427,10 +5425,9 @@ msgid "URL"
 msgstr "Ссылка"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-recent-referral-visits.php:68
-#, fuzzy
 msgctxt "Converted column table header"
 msgid "Converted"
-msgstr "Конвертирован"
+msgstr "Была ли конверсия"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-recent-referrals.php:70
 #, fuzzy
@@ -5475,16 +5472,14 @@ msgid "Paid earnings today"
 msgstr "Выплаченный заработок сегодня"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:80
-#, fuzzy
 msgctxt "Unpaid referrals column table header"
 msgid "Unpaid referrals"
-msgstr "Невыплаченные рефералы"
+msgstr "Неоплаченные транзакции"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:81
-#, fuzzy
 msgctxt "Unpaid referrals this month column table header"
 msgid "Unpaid referrals this month"
-msgstr "Невыплаченные рефералы в этом месяцу"
+msgstr "Невыплаченные рефералы в этом месяце"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:82
 #, fuzzy
