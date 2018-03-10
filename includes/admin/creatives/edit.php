@@ -97,6 +97,19 @@ $creative = affwp_get_creative( absint( $_GET['creative_id'] ) );
 			<tr class="form-row form-required">
 
 				<th scope="row">
+					<label for="date"><?php _e( 'Created', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<input class="medium-text" type="text" name="date" id="date" value="<?php echo esc_attr( $creative->date_i18n( 'datetime' ) ); ?>" disabled="1" />
+					<p class="description"><?php _e( 'The date the creative was created. This cannot be changed.', 'affiliate-wp' ); ?></p>
+				</td>
+
+			</tr>
+
+			<tr class="form-row form-required">
+
+				<th scope="row">
 					<label for="status"><?php _e( 'Status', 'affiliate-wp' ); ?></label>
 				</th>
 

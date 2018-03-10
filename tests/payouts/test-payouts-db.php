@@ -48,6 +48,9 @@ class Tests extends UnitTestCase {
 	 * Set up fixtures once.
 	 */
 	public static function wpSetUpBeforeClass() {
+		update_option( 'gmt_offset', -5 );
+		affiliate_wp()->utils->_refresh_wp_offset();
+
 		self::$user_id = parent::affwp()->user->create();
 
 		self::$affiliate_id = parent::affwp()->affiliate->create( array(
@@ -88,9 +91,6 @@ class Tests extends UnitTestCase {
 		$this->assertFalse( $payout = $this->factory->payout->create( array(
 			'referrals'    => range( 1, 4 ),
 		) ) );
-
-		// Clean up.
-		affwp_delete_payout( $payout );
 	}
 
 	/**
@@ -101,6 +101,45 @@ class Tests extends UnitTestCase {
 
 		$this->assertSame( $referrals, affiliate_wp()->affiliates->payouts->get_column( 'referrals', self::$payouts[0] ) );
 	}
+
+	/**
+	 * @covers Affiliate_WP_Payouts_DB::add()
+	 * @group dates
+	 */
+	public function test_add_without_date_should_use_current_date_and_time() {
+		$payout_id = affiliate_wp()->affiliates->payouts->add( array(
+			'affiliate_id' => self::$affiliate_id,
+			'referrals'    => self::$referrals,
+		) );
+
+		$payout = affwp_get_payout( $payout_id );
+
+		// Explicitly dropping seconds from the date strings for comparison.
+		$expected = gmdate( 'Y-m-d H:i' );
+		$actual   = gmdate( 'Y-m-d H:i', strtotime( $payout->date ) );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * @covers Affiliate_WP_Payouts_DB::add()
+	 * @group dates
+	 */
+	public function test_add_with_date_registered_should_assume_local_time_and_remove_offset_on_add() {
+		$payout_id = affiliate_wp()->affiliates->payouts->add( array(
+			'affiliate_id' => self::$affiliate_id,
+			'referrals'    => self::$referrals,
+			'date'         => '05/04/2017',
+		) );
+
+		$payout = affwp_get_payout( $payout_id );
+
+		$expected_date = gmdate( 'Y-m-d H:i', strtotime( '05/04/2017' ) - affiliate_wp()->utils->wp_offset );
+		$actual        = gmdate( 'Y-m-d H:i', strtotime( $payout->date ) );
+
+		$this->assertSame( $expected_date, $actual );
+	}
+
 
 	/**
 	 * @covers Affiliate_WP_Payouts_DB::payout_exists()
@@ -282,10 +321,6 @@ class Tests extends UnitTestCase {
 
 		$this->assertSame( 1, count( $results ) );
 		$this->assertSame( $payout, $results[0] );
-
-		// Clean up.
-		affwp_delete_payout( $payout );
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -310,11 +345,6 @@ class Tests extends UnitTestCase {
 			in_array( $affiliate_id, $affiliates, true )
 			&& in_array( self::$affiliate_id, $affiliates, true )
 		);
-
-		// Clean up.
-		affwp_delete_payout( $payouts[0] );
-		affwp_delete_payout( $payouts[1] );
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -337,10 +367,6 @@ class Tests extends UnitTestCase {
 		$payout_referrals = affiliate_wp()->affiliates->payouts->get_referral_ids( $results[0] );
 
 		$this->assertSame( array( $referral ), $payout_referrals );
-
-		// Clean up.
-		affwp_delete_payout( $payout );
-		affwp_delete_referral( $referral );
 	}
 
 	public function test_get_payouts_with_multiple_paid_referrals_should_return_the_payouts_for_those_referrals() {
@@ -374,11 +400,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertCount( 5, $payouts );
-
-		// Clean up.
-		affwp_delete_payout( $payout );
-		affwp_delete_referral( $referrals[0] );
-		affwp_delete_referral( $referrals[1] );
 	}
 
 	/**
@@ -406,10 +427,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEqualSets( self::$payouts, $payout_ids );
-
-		// Clean up.
-		affwp_delete_payout( $failed_payouts[0] );
-		affwp_delete_payout( $failed_payouts[1] );
 	}
 
 	/**
@@ -426,10 +443,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEqualSets( $paid_payouts, $payout_ids );
-
-		// Clean up.
-		affwp_delete_payout( $paid_payouts[0] );
-		affwp_delete_payout( $paid_payouts[1] );
 	}
 
 	/**
@@ -444,10 +457,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEqualSets( self::$payouts, $payout_ids );
-
-		// Clean up.
-		affwp_delete_payout( $failed[0] );
-		affwp_delete_payout( $failed[1] );
 	}
 
 	/**
@@ -465,9 +474,6 @@ class Tests extends UnitTestCase {
 
 		$this->assertCount( 1, $payouts );
 		$this->assertSame( $payout_id, $payouts[0] );
-
-		// Clean up.
-		affwp_delete_payout( $payout_id );
 	}
 
 	/**
@@ -487,11 +493,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( $three, $payouts[0] );
-
-		// Clean up.
-		affwp_delete_payout( $one );
-		affwp_delete_payout( $three );
-		affwp_delete_payout( $five );
 	}
 
 	/**
@@ -510,9 +511,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( $five, $payouts[0] );
-
-		// Clean up.
-		affwp_delete_payout( $five );
 	}
 
 	/**
@@ -532,9 +530,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( self::$payouts, $results );
-
-		// Clean up.
-		affwp_delete_payout( $four );
 	}
 
 	/**
@@ -553,9 +548,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( $five, $payouts[0] );
-
-		// Clean up.
-		affwp_delete_payout( $five );
 	}
 
 	/**
@@ -596,9 +588,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( self::$payouts, $results );
-
-		// Clean up.
-		affwp_delete_payout( $five );
 	}
 
 	/**
@@ -620,11 +609,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEqualSets( $payouts, $results );
-
-		// Clean up.
-		foreach ( $payouts as $payout ) {
-			affwp_delete_payout( $payout );
-		}
 	}
 
 	/**
@@ -655,11 +639,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEqualSets( $combined_payouts, $results );
-
-		// Clean up.
-		foreach ( $combined_payouts as $payout ) {
-			affwp_delete_payout( $payout );
-		}
 	}
 
 	/**
@@ -758,6 +737,69 @@ class Tests extends UnitTestCase {
 	}
 
 	/**
+	 * @covers \Affiliate_WP_Payouts_DB::get_payouts()
+	 * @group dates
+	 */
+	public function test_get_payouts_with_date_no_start_end_should_retrieve_payouts_for_today() {
+		$results = affiliate_wp()->affiliates->payouts->get_payouts( array(
+			'date'   => 'today',
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( self::$payouts, $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Payouts_DB::get_payouts()
+	 * @group dates
+	 */
+	public function test_get_payouts_with_today_payouts_yesterday_date_no_start_end_should_return_empty() {
+		$results = affiliate_wp()->affiliates->payouts->get_payouts( array(
+			'date'   => 'yesterday',
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( array(), $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Payouts_DB::get_payouts()
+	 * @group dates
+	 */
+	public function test_get_payouts_date_start_should_only_retrieve_payouts_created_after_that_date() {
+		$payouts = $this->factory->payout->create_many( 3, array(
+			'date' => '2016-01-01',
+		) );
+
+		$results = affiliate_wp()->affiliates->payouts->get_payouts( array(
+			'date'   => array(
+				'start' => '2016-01-02'
+			),
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( self::$payouts, $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Payouts_DB::get_payouts()
+	 * @group dates
+	 */
+	public function test_get_payouts_date_end_should_only_retrieve_payouts_created_before_that_date() {
+		$payout = $this->factory->payout->create( array(
+			'date' => '+1 day',
+		) );
+
+		$results = affiliate_wp()->affiliates->payouts->get_payouts( array(
+			'date'   => array( 'end' => 'today' ),
+			'fields' => 'ids',
+		) );
+
+		// Should catch all but the one just created +1 day.
+		$this->assertEqualSets( self::$payouts, $results );
+	}
+
+	/**
 	 * @covers Affiliate_WP_Payouts_DB::get_affiliate_ids_by_referrals()
 	 */
 	public function test_get_affiliate_ids_by_referrals_should_reject_invalid_referrals() {
@@ -777,11 +819,6 @@ class Tests extends UnitTestCase {
 		$results   = affiliate_wp()->affiliates->payouts->get_affiliate_ids_by_referrals( $referrals );
 
 		$this->assertSame( self::$referrals, $results[ self::$affiliate_id ] );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
-		affwp_delete_referral( $pending[0] );
-		affwp_delete_referral( $pending[1] );
 	}
 
 	/**
@@ -798,11 +835,6 @@ class Tests extends UnitTestCase {
 
 		$this->assertNotSame( self::$referrals, $results[ $affiliate_id ] );
 		$this->assertSame( $unpaid, $results[ $affiliate_id ] );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
-		affwp_delete_referral( $unpaid[0] );
-		affwp_delete_referral( $unpaid[1] );
 	}
 
 	/**

@@ -5,6 +5,10 @@ use AffWP\Utils;
  * Utilities class for AffiliateWP.
  *
  * @since 2.0
+ *
+ * @property-read string $date_format The current WordPress date format.
+ * @property-read string $time_format The current WordPress time format.
+ * @property-read int    $wp_offset   The calculated WordPress gmt_offset in seconds.
  */
 class Affiliate_WP_Utilities {
 
@@ -60,6 +64,10 @@ class Affiliate_WP_Utilities {
 	 * @since  2.0
 	 */
 	public function __construct() {
+		$this->wp_offset   = get_option( 'gmt_offset', 0 ) * HOUR_IN_SECONDS;
+		$this->date_format = get_option( 'date_format', 'M j, Y' );
+		$this->time_format = get_option( 'time_format', 'g:i a' );
+
 		$this->includes();
 		$this->setup_objects();
 	}
@@ -71,6 +79,7 @@ class Affiliate_WP_Utilities {
 	 * @since  2.0
 	 */
 	public function includes() {
+		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/class-date.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/class-logging.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-upgrade-registry.php';
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/utilities/class-batch-process-registry.php';
@@ -144,4 +153,85 @@ class Affiliate_WP_Utilities {
 		return $data;
 	}
 
+	/**
+	 * Retrieves a date format string based on a given short-hand format.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param string $format Shorthand date format string. Accepts 'date', 'time', 'mysql', or
+	 *                       'datetime'. If none of the accepted values, the original value will
+	 *                       simply be returned. Default is the value of the `$date_format` property,
+	 *                       derived from the core 'date_format' option.
+	 * @return string date_format()-compatible date format string.
+	 */
+	public function get_date_format( $format ) {
+
+		if ( empty( $format ) ) {
+			$format = 'date';
+		}
+
+		if ( ! in_array( $format, array( 'date', 'time', 'datetime', 'mysql' ) ) ) {
+			return $format;
+		}
+
+		switch( $format ) {
+			case 'time':
+				$format = $this->time_format;
+				break;
+
+			case 'datetime':
+				$format = $this->date_format . ' ' . $this->time_format;
+				break;
+
+			case 'mysql':
+				$format = 'Y-m-d H:i:s';
+				break;
+
+			case 'date':
+			default:
+				$format = $this->date_format;
+				break;
+		}
+
+		return $format;
+	}
+
+	/**
+	 * Retrieves a date instance for the WP timezone (and offset) based on the given date string.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param string $date_string Optional. Date string. Default 'now'.
+	 * @param string $timezone    Optional. Timezone to generate the Carbon instance for.
+	 *                            Default is the timezone set in WordPress settings.
+	 * @return \AffWP\Utils\Date Date instance.
+	 */
+	public function date( $date_string = 'now' ) {
+
+		$timezone = affwp_get_timezone();
+
+		/*
+		 * Create the DateTime object with the "local" WordPress timezone.
+		 *
+		 * Note that supplying the timezone during DateTime instantiation doesn't actually
+		 * convert the UNIX timestamp, it just lays the groundwork for deriving the offset.
+		 */
+		$date = new Utils\Date( $date_string, new DateTimezone( $timezone ) );
+
+		return $date;
+	}
+
+	/**
+	 * Refreshes the wp_offset property for the benefit of PHPUnit.
+	 *
+	 * @since 2.1.9
+	 */
+	public function _refresh_wp_offset() {
+		if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+			_doing_it_wrong( 'This method is only intended for use in phpunit tests', '2.1.9' );
+		} else {
+			$this->wp_offset = get_option( 'gmt_offset', 0 ) * HOUR_IN_SECONDS;
+		}
+
+	}
 }

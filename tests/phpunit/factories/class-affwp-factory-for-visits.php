@@ -13,6 +13,16 @@ class Visit extends \WP_UnitTest_Factory_For_Thing {
 		return parent::create_many( $count, $args, $generation_definitions );
 	}
 
+	public function delete( $visit ) {
+		affwp_delete_visit( $visit );
+	}
+
+	public function delete_many( $visits ) {
+		foreach ( $visits as $visit_id ) {
+			$this->delete( $visit_id );
+		}
+	}
+
 	function create_object( $args ) {
 		$affiliate = new Affiliate();
 

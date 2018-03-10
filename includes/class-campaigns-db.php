@@ -67,7 +67,7 @@ class Affiliate_WP_Campaigns_DB extends Affiliate_WP_DB {
 	 *     @type string       $fields           Specific fields to retrieve. Accepts 'ids' or '*' (all). Default '*'.
 	 * }
 	 * @param bool  $count Optional. Whether to return only the total number of results found. Default false.
-	 * @return array|int Array of results or integer if `$count` is true.
+	 * @return array|int Array of campaign objects or field(s) (if found) or integer if `$count` is true.
 	 */
 	public function get_campaigns( $args = array(), $count = false ) {
 		global $wpdb;

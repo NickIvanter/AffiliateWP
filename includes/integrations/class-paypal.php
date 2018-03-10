@@ -40,9 +40,17 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 
 			$('form').on('submit', function(e) {
 
-				var action = $(this).prop( 'action' );
+				// Use attr() to grab the action since the attribute is likely set in the DOM regardless.
+				var action = $(this).attr( 'action' );
 
-				if( 'undefined' == action || -1 == action.indexOf( 'paypal.com/cgi-bin/webscr' ) ) {
+				// Bail if there's no action attribute on the form tag.
+				if ( 'undefined' === typeof action ) {
+					return;
+				}
+
+				paypalMatch = new RegExp( 'paypal\.com\/cgi-bin\/webscr' );
+
+				if ( ! action.match( paypalMatch ) ) {
 					return;
 				}
 

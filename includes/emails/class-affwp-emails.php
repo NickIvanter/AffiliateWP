@@ -419,7 +419,7 @@ class Affiliate_WP_Emails {
 		$email_tags = array(
 			array(
 				'tag'         => 'name',
-				'description' => __( 'The full name of the affiliate', 'affiliate-wp' ),
+				'description' => __( 'The display name of the affiliate, as set on the affiliate\'s user profile.', 'affiliate-wp' ),
 				'function'    => 'affwp_email_tag_name'
 			),
 			array(

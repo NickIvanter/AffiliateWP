@@ -148,7 +148,7 @@ $disabled = disabled( (bool) $payout, true, false );
 				</th>
 
 				<td>
-					<input type="text" name="date" id="date" value="<?php echo esc_attr( date_i18n( get_option( 'date_format' ), strtotime( $referral->date ) ) ); ?>" disabled="disabled" />
+					<input type="text" name="date" id="date" value="<?php echo esc_attr( $referral->date_i18n( 'datetime' ) ); ?>" disabled="disabled" />
 				</td>
 
 			</tr>
@@ -182,8 +182,8 @@ $disabled = disabled( (bool) $payout, true, false );
 							<?php
 							/* translators: 1: Visit date */
 							printf( _x( 'Date: %1$s (%2$s)', 'visit', 'affiliate-wp' ),
-								date_i18n( get_option( 'date_format' ), strtotime( $visit->date ) ),
-								date_i18n( get_option( 'time_format' ), strtotime( $visit->date ) )
+								$visit->date_i18n( 'date' ),
+								$visit->date_i18n( 'time' )
 							);
 							?>
 						</p>

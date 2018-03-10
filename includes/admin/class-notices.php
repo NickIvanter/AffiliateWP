@@ -225,6 +225,20 @@ class Affiliate_WP_Admin_Notices {
 
 					break;
 
+				case 'referral_add_failed' :
+
+					$message = __( 'Referral wasn&#8217;t created, please try again.', 'affiliate-wp' );
+					$class   = 'error';
+
+					break;
+
+				case 'referral_add_invalid_affiliate' :
+
+					$message = __( 'Referral not created because affiliate is invalid', 'affiliate-wp' );
+					$class   = 'error';
+
+					break;
+
 				case 'referral_updated' :
 
 					$message = __( 'Referral updated successfully', 'affiliate-wp' );
@@ -253,6 +267,18 @@ class Affiliate_WP_Admin_Notices {
 				case 'payout_created' :
 
 					$message = sprintf( __( 'A payout has been created.', 'affiliate-wp' ) );
+
+					break;
+
+				case 'payout_deleted' :
+
+					$message = sprintf( __( 'Payout deleted successfully.', 'affiliate-wp' ) );
+
+					break;
+
+				case 'payout_delete_failed' :
+
+					$message = sprintf( __( 'Payout deletion failed, please try again.', 'affiliate-wp' ) );
 
 					break;
 
@@ -301,7 +327,7 @@ class Affiliate_WP_Admin_Notices {
 					$class = 'error';
 					$message = sprintf(
 						__( 'Your license key expired on %s. Please <a href="%s" target="_blank">renew your license key</a>.', 'affiliate-wp' ),
-						date_i18n( get_option( 'date_format' ), strtotime( $license->expires, current_time( 'timestamp' ) ) ),
+						affwp_date_i18n( strtotime( $license->expires, current_time( 'timestamp' ) ) ),
 						'https://affiliatewp.com/checkout/?edd_license_key=' . $value . '&utm_campaign=admin&utm_source=licenses&utm_medium=expired'
 					);
 

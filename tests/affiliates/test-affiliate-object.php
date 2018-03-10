@@ -99,4 +99,15 @@ class Tests extends UnitTestCase {
 
 		$this->assertSame( 'double', gettype( $earnings ) );
 	}
+
+	/**
+	 * @covers \AffWP\Affiliate::$date
+	 * @group dates
+	 */
+	public function test_date_property_should_return_value_of_date_registered() {
+		$affiliate = affwp_get_affiliate( self::$affiliate_id );
+
+		$this->assertSame( $affiliate->date, $affiliate->date_registered );
+	}
+
 }

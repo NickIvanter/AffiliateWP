@@ -10,7 +10,7 @@
 	affwp_enqueue_style( 'dashicons', 'visits' );
 
 	$per_page = 30;
-	$page     = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$page     = affwp_get_current_page_number();
 	$pages    = absint( ceil( affwp_get_affiliate_visit_count( affwp_get_affiliate_id() ) / $per_page ) );
 	$visits   = affiliate_wp()->visits->get_visits(
 		array(
@@ -49,7 +49,7 @@
 							</span>
 						</td>
 						<td data-th="<?php _e( 'Date', 'affiliate-wp' ); ?>">
-							<?php echo esc_html( date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $visit->date ) ) ); ?>
+							<?php echo esc_html( $visit->date_i18n( 'datetime' ) ); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>

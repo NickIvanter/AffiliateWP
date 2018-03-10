@@ -338,6 +338,10 @@ table.affiliates #unpaid {
 	position: relative;
 }
 
+.widefat .column-referral {
+	width: 110px;
+}
+
 /* Add-ons */
 
 #affwp-add-ons h2 {
@@ -436,6 +440,16 @@ form .spinner {
 }
 .admin-color-sunrise .affwp-batch-progress div {
 	background: #dd823b;
+}
+.wc-order-preview-affwp-referral {
+    padding: 1em 1.5em;
+    text-align: left;
+    border-top: 1px solid #eee;
+    width: 100%;
+    margin: 0;
+}
+.wc-order-preview-affwp-referral strong {
+	display: block;
 }
 
 /* Media Queries */

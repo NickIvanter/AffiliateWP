@@ -42,9 +42,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( $user_id, $result );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -64,9 +61,6 @@ class Tests extends UnitTestCase {
 		$user = get_user_by( 'id', $user_id );
 
 		$this->assertSame( $website, $user->user_url );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 }

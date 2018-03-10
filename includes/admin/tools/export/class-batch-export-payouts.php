@@ -238,7 +238,7 @@ class Export_Payouts extends Batch\Export\CSV implements Batch\With_PreFetch {
 					'owner'         => $owner,
 					'payout_method' => $payout->payout_method,
 					'status'        => $payout->status,
-					'date'          => date_i18n( $date_format, strtotime( $payout->date ) ),
+					'date'          => $payout->date_i18n(),
 				), $payout );
 
 				// Add slashing.

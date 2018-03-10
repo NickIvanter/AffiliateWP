@@ -220,7 +220,7 @@ class Export_Visits extends Batch\Export\CSV implements Batch\With_PreFetch {
 					'url'             => $visit->url,
 					'referrer'        => $visit->referrer,
 					'context'         => $visit->context,
-					'date'            => date_i18n( $date_format, strtotime( $visit->date ) ),
+					'date'            => $visit->date_i18n(),
 				), $visit );
 
 				// Add slashing.

@@ -1203,7 +1203,7 @@ function affwp_add_affiliate( $data = array() ) {
 		'payment_email'   => ! empty( $data['payment_email'] ) ? sanitize_text_field( $data['payment_email'] ) : '',
 		'notes'           => ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '',
 		'website_url'     => ! empty( $data['website_url'] ) ? sanitize_text_field( $data['website_url'] ) : '',
-		'date_registered' => ! empty( $data['date_registered'] ) ? sanitize_text_field( $data['date_registered'] ) : '',
+		'date_registered' => ! empty( $data['date_registered'] ) ? $data['date_registered'] : '',
 	);
 
 	$affiliate_id = affiliate_wp()->affiliates->add( $args );
@@ -1247,6 +1247,12 @@ function affwp_update_affiliate( $data = array() ) {
 	$args['status']        = ! empty( $data['status'] ) ? sanitize_text_field( $data['status'] ) : $affiliate->status;
 	$args['user_id']       = $user_id;
 	$args['notes']         = ! empty( $data['notes' ] ) ? wp_kses_post( $data['notes'] ) : '';
+
+	if ( ! empty( $data['date_registered'] ) && $data['date_registered'] !== $affiliate->date_registered ) {
+		$timestamp = strtotime( $data['date_registered'] ) - affiliate_wp()->utils->wp_offset;
+
+		$args['date_registered'] = gmdate( 'Y-m-d H:i:s', $timestamp );
+	}
 
 	/**
 	 * Fires immediately before data for the current affiliate is updated.

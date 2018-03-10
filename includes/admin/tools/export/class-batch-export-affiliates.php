@@ -159,7 +159,7 @@ class Export_Affiliates extends Batch\Export\CSV implements Batch\With_PreFetch 
 					'visits'          => $affiliate->visits,
 					'conversion_rate' => affwp_get_affiliate_conversion_rate( $affiliate->ID ),
 					'status'          => $affiliate->status,
-					'date_registered' => $affiliate->date_registered,
+					'date_registered' => $affiliate->date_i18n( 'datetime' ),
 				);
 
 			}

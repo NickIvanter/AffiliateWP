@@ -288,6 +288,32 @@ class Tests extends UnitTestCase {
 	/**
 	 * @covers \Affiliate_WP_Admin_Notices::show_notices()
 	 */
+	public function test_show_notices_referral_add_failed() {
+		$this->_set_request_vars( array(
+			'affwp_notice' => 'referral_add_failed'
+		) );
+
+		$expected = '<div class="error"><p>Referral wasn&#8217;t created, please try again.</p></div>';
+
+		$this->assertContains( $expected, self::$notices->show_notices() );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Admin_Notices::show_notices()
+	 */
+	public function test_show_notices_referral_add_invalid_affiliate() {
+		$this->_set_request_vars( array(
+			'affwp_notice' => 'referral_add_invalid_affiliate'
+		) );
+
+		$expected = '<div class="error"><p>Referral not created because affiliate is invalid</p></div>';
+
+		$this->assertContains( $expected, self::$notices->show_notices() );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Admin_Notices::show_notices()
+	 */
 	public function test_show_notices_referral_updated() {
 		$this->_set_request_vars( array(
 			'affwp_notice' => 'referral_updated'

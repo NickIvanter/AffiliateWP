@@ -79,10 +79,6 @@ class Tests extends UnitTestCase {
 
 		$this->assertEquals( true, $creative1 );
 		$this->assertEquals( true, $creative2 );
-
-		// Clean up.
-		affwp_delete_creative( $creative1 );
-		affwp_delete_creative( $creative2 );
 	}
 
 	/**
@@ -98,9 +94,6 @@ class Tests extends UnitTestCase {
 		$created = affwp_get_creative( $creative_id );
 
 		$this->assertSame( 'Foo Bar Baz', $created->text );
-
-		// Clean up.
-		affwp_delete_creative( $creative_id );
 	}
 
 	/**

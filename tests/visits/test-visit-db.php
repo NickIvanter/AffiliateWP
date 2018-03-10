@@ -32,6 +32,9 @@ class Tests extends UnitTestCase {
 	 * Set up fixtures once.
 	 */
 	public static function wpSetUpBeforeClass() {
+		update_option( 'gmt_offset', -5 );
+		affiliate_wp()->utils->_refresh_wp_offset();
+
 		self::$affiliates = parent::affwp()->affiliate->create_many( 4 );
 
 		for ( $i = 0; $i <= 3; $i++ ) {
@@ -265,6 +268,75 @@ class Tests extends UnitTestCase {
 		$this->assertEqualSets( $visits, $results );
 	}
 
+	public function test_gmt_option_for_tests_is_not_utc_0() {
+		$gmt_offset = get_option( 'gmt_offset', 0 );
+
+		$this->assertNotSame( 0, $gmt_offset );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::get_visits()
+	 * @group dates
+	 */
+	public function test_get_visits_with_date_no_start_end_should_retrieve_visits_for_today() {
+		$results = affiliate_wp()->visits->get_visits( array(
+			'date'   => 'today',
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( self::$visits, $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::get_visits()
+	 * @group dates
+	 */
+	public function test_get_visits_with_today_visits_yesterday_date_no_start_end_should_return_empty() {
+		$results = affiliate_wp()->visits->get_visits( array(
+			'date'   => 'yesterday',
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( array(), $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::get_visits()
+	 * @group dates
+	 */
+	public function test_get_visits_date_start_should_only_retrieve_visits_created_after_that_date() {
+		$visits = $this->factory->visit->create_many( 3, array(
+			'date' => '2016-01-01',
+		) );
+
+		$results = affiliate_wp()->visits->get_visits( array(
+			'date'   => array(
+				'start' => '2016-01-02'
+			),
+			'fields' => 'ids',
+		) );
+
+		$this->assertEqualSets( self::$visits, $results );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::get_visits()
+	 * @group dates
+	 */
+	public function test_get_visits_date_end_should_only_retrieve_visits_created_before_that_date() {
+		$visit = $this->factory->visit->create( array(
+			'date' => '+1 day',
+		) );
+
+		$results = affiliate_wp()->visits->get_visits( array(
+			'date'   => array( 'end' => 'today' ),
+			'fields' => 'ids',
+		) );
+
+		// Should catch all but the one just created +1 day.
+		$this->assertEqualSets( self::$visits, $results );
+	}
+
 	/**
 	 * @covers \Affiliate_WP_Visits_DB::get_visits()
 	 */
@@ -287,9 +359,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( 'affwp-test', $visit->context );
-
-		// Clean up.
-		affiliate_wp()->visits->delete( $visit->ID );
 	}
 
 	/**
@@ -304,9 +373,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( substr( $context, 0, 50 ), $visit->context );
-
-		// Clean up.
-		affiliate_wp()->visits->delete( $visit->ID );
 	}
 
 	/**
@@ -319,43 +385,106 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEmpty( $visit->context );
-
-		// Clean up.
-		affiliate_wp()->visits->delete( $visit->ID );
 	}
 
 	/**
-	 * @covers \Affiliate_WP_Visits_DB::update()
+	 * @covers \Affiliate_WP_Visits_DB::add()
+	 * @group dates
 	 */
-	public function test_update_with_context_under_50_chars_should_add_with_complete_sanitized_context() {
-		affiliate_wp()->visits->update( self::$visits[0], array(
+	public function test_add_without_date_registered_should_use_current_date_and_time() {
+		$visit_id = affiliate_wp()->visits->add( array(
+			'affiliate_id' => self::$affiliates[0],
+		) );
+
+		$visit = affwp_get_visit( $visit_id );
+
+		// Explicitly dropping seconds from the date strings for comparison.
+		$expected = gmdate( 'Y-m-d H:i' );
+		$actual   = gmdate( 'Y-m-d H:i', strtotime( $visit->date ) );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::add()
+	 * @group dates
+	 */
+	public function test_add_with_date_registered_should_assume_local_time_and_remove_offset_on_add() {
+		$visit_id = affiliate_wp()->visits->add( array(
+			'affiliate_id' => self::$affiliates[0],
+			'date'         => '05/04/2017',
+		) );
+
+		$visit = affwp_get_visit( $visit_id );
+
+		$expected_date = gmdate( 'Y-m-d H:i', strtotime( '05/04/2017' ) - affiliate_wp()->utils->wp_offset );
+		$actual        = gmdate( 'Y-m-d H:i', strtotime( $visit->date ) );
+
+		$this->assertSame( $expected_date, $actual );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::update_visit()
+	 */
+	public function test_update_visit_with_context_under_50_chars_should_add_with_complete_sanitized_context() {
+		affiliate_wp()->visits->update_visit( self::$visits[0], array(
 			'context' => 'affwp-test'
-		), '', 'visit' );
+		) );
 
 		$result = affwp_get_visit( self::$visits[0] );
 
 		$this->assertSame( 'affwp-test', $result->context );
 
 		// Clean up.
-		affiliate_wp()->visits->update( self::$visits[0], array( 'context' => 'foo-0' ), '', 'visit' );
+		affiliate_wp()->visits->update_visit( self::$visits[0], array( 'context' => 'foo-0' ) );
 	}
 
 	/**
-	 * @covers \Affiliate_WP_Visits_DB::update()
+	 * @covers \Affiliate_WP_Visits_DB::update_visit()
 	 */
-	public function test_update_with_context_over_50_chars_should_add_with_first_50_chars_of_sanitized_context() {
+	public function test_update_visit_with_context_over_50_chars_should_add_with_first_50_chars_of_sanitized_context() {
 		$context = rand_str( 55 );
 
-		affiliate_wp()->visits->update( self::$visits[0], array(
+		affiliate_wp()->visits->update_visit( self::$visits[0], array(
 			'context' => $context
-		), '', 'visit' );
+		) );
 
 		$result = affwp_get_visit( self::$visits[0] );
 
 		$this->assertSame( substr( $context, 0, 50 ), $result->context );
 
 		// Clean up.
-		affiliate_wp()->visits->update( self::$visits[0], array( 'context' => 'foo-0' ), '', 'visit' );
+		affiliate_wp()->visits->update_visit( self::$visits[0], array( 'context' => 'foo-0' ) );
 	}
 
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::update_visit()
+	 * @group dates
+	 */
+	public function test_update_visit_with_invalid_date_string_should_not_update_date() {
+		$visit = $this->factory->visit->create_and_get();
+
+		affiliate_wp()->visits->update_visit( $visit->ID, array(
+			'date' => 1
+		) );
+
+		$this->assertNotSame( 1, $visit->date );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Visits_DB::update_visit()
+	 * @group dates
+	 */
+	public function test_update_visit_with_valid_date_should_be_updated() {
+		$visit = $this->factory->visit->create_and_get();
+
+		affiliate_wp()->visits->update_visit( $visit->ID, array(
+			'date' => '01/01/2001'
+		) );
+
+		$updated_visit = affwp_get_visit( $visit );
+		$updated_date  = gmdate( 'Y-m-d H:i:s', strtotime( '01/01/2001' ) - affiliate_wp()->utils->wp_offset );
+
+		$this->assertSame( $updated_date, $updated_visit->date );
+	}
 }

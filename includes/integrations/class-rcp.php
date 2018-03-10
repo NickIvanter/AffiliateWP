@@ -39,6 +39,8 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 	*/
 	public function add_pending_referral( $post_data, $user_id, $price ) {
 
+		global $rcp_levels_db;
+
 		$affiliate_discount = false;
 
 		$member           = new RCP_Member( $user_id );
@@ -56,8 +58,6 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 		}
 
 		if( function_exists( 'rcp_get_registration' ) ) {
-
-			global $rcp_levels_db;
 
 			$subscription_id = rcp_get_registration()->get_subscription();
 
@@ -104,12 +104,12 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 
 				$referral_id = affiliate_wp()->referrals->add( apply_filters( 'affwp_insert_pending_referral', array(
 					'amount'       => $amount,
-					'reference'    => $subscription_key,
+					'reference'    => $key,
 					'description'  => $subscription,
 					'affiliate_id' => $this->affiliate_id,
 					'context'      => $this->context,
 					'campaign'     => affiliate_wp()->tracking->get_campaign(),
-				), $amount, $subscription_key, $subscription, $this->affiliate_id, $visit_id, array(), $this->context ) );
+				), $amount, $key, $subscription, $this->affiliate_id, $visit_id, array(), $this->context ) );
 
 			}
 
@@ -126,7 +126,13 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 				return; // Customers cannot refer themselves
 			}
 
-			$total = $this->calculate_referral_amount( $price, $key, $subscription_id );
+			$subscription_level = $rcp_levels_db->get_level( $subscription_id );
+
+			if ( ! empty( $subscription_level->trial_duration ) && ! $member->has_trialed() ) {
+				$total = 0;
+			} else {
+				$total = $this->calculate_referral_amount( $price, $key, $subscription_id );
+			}
 
 			$this->insert_pending_referral( $total, $key, $subscription );
 

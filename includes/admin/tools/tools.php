@@ -149,7 +149,7 @@ function affwp_recount_tab() {
 					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="recount-affiliate-stats" data-nonce="<?php echo esc_attr( wp_create_nonce( 'recount-affiliate-stats_step_nonce' ) ); ?>">
 						<p>
 							<span class="affwp-ajax-search-wrap">
-								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php esc_html_e( 'Affiliate name', 'affiliate-wp' ); ?>"/>
+								<input type="text" name="user_name" id="user_name" class="affwp-user-search" data-affwp-status="any" autocomplete="off" placeholder="<?php esc_html_e( 'Affiliate name', 'affiliate-wp' ); ?>"/>
 							</span>
 							<select name="recount_type">
 								<option value="earnings"><?php esc_html_e( 'Paid Earnings', 'affiliate-wp' ); ?></option>

@@ -71,11 +71,8 @@ class Tests extends UnitTestCase {
 		$options = self::$settings->get_all();
 		$actual  = get_option( 'affwp_settings', array() );
 
-
-		$this->markTestSkipped( 'Need to figure out why this periodically fails' );
-
-//		$this->assertSame( $options['affiliates_page'], $affiliates_area );
-//		$this->assertSame( $actual['affiliates_page'], $affiliates_area );
+		$this->assertSame( $options['affiliates_page'], $affiliates_area );
+		$this->assertSame( $actual['affiliates_page'], $affiliates_area );
 	}
 
 	/**

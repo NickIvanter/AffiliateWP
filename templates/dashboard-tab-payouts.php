@@ -6,7 +6,7 @@
 	$affiliate_id = affwp_get_affiliate_id();
 
 	$per_page = 30;
-	$page     = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$page     = affwp_get_current_page_number();
 	$count    = affiliate_wp()->affiliates->payouts->count( array( 'affiliate_id' => $affiliate_id ) );
 	$pages    = absint( ceil( $count / $per_page ) );
 	$payouts  = affiliate_wp()->affiliates->payouts->get_payouts(
@@ -53,7 +53,7 @@
 				<?php foreach ( $payouts as $payout ) : ?>
 					<tr>
 						<td data-th="<?php _e( 'Date', 'affiliate-wp' ); ?>">
-							<?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $payout->date ) ) ); ?>
+							<?php echo esc_html( $payout->date_i18n( 'datetime' ) ); ?>
 						</td>
 						<td data-th="<?php _e( 'Amount', 'affiliate-wp' ); ?>">
 							<?php echo affwp_currency_filter( affwp_format_amount( $payout->amount ) ); ?>

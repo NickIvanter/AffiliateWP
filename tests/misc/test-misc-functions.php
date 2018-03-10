@@ -98,6 +98,21 @@ class Tests extends UnitTestCase {
 	/**
 	 * @covers ::affwp_get_decimal_count()
 	 */
+	public function test_get_decimal_count_btc_should_be_8() {
+		add_filter( 'affwp_currency', function() {
+			return 'BTC';
+		} );
+
+		$count = affwp_get_decimal_count();
+
+		$this->assertEquals( 8, $count );
+
+		remove_all_filters( 'affwp_currency' );
+	}
+
+	/**
+	 * @covers ::affwp_get_decimal_count()
+	 */
 	public function test_filtered_get_decimal_count_should_return_filtered() {
 		add_filter( 'affwp_decimal_count', function() {
 			return 3;

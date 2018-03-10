@@ -121,10 +121,17 @@ function affwp_notify_on_approval( $affiliate_id = 0, $status = '', $old_status 
 	}
 
 	// $args is setup for backwards compatibility with < 1.6
-	$args         = array( 'affiliate_id' => $affiliate_id );
-	$subject      = apply_filters( 'affwp_application_accepted_subject', $subject, $args );
-	$message      = apply_filters( 'affwp_application_accepted_email', $message, $args );
-	$user_id      = affwp_get_affiliate_user_id( $affiliate_id );
+	$args        = array( 'affiliate_id' => $affiliate_id );
+	$subject     = apply_filters( 'affwp_application_accepted_subject', $subject, $args );
+	$message     = apply_filters( 'affwp_application_accepted_email', $message, $args );
+	$user_id     = affwp_get_affiliate_user_id( $affiliate_id );
+	$key         = get_password_reset_key( get_user_by( 'id', $user_id ) );
+	$user_login  = affwp_get_affiliate_username( $affiliate_id );
+	
+	if ( ! is_wp_error( $key ) && ! empty( $_POST['user_email'] ) ) {
+		$message .= "\r\n\r\n" . __( 'To set your password, visit the following address:', 'affiliate-wp' ) . "\r\n\r\n";
+		$message .= network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . "\r\n";
+	}
 
 	/**
 	 * Filters whether to notify an affiliate upon approval of their application.

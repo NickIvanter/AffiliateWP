@@ -127,4 +127,20 @@ final class Consumer extends \AffWP\Base_Object {
 		return $value;
 	}
 
+	/**
+	 * Overrides the parent date() and date_i18n() methods to ensure no errors are thrown
+	 * when accessing a non-existent date property.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param string $name      Method name.
+	 * @param array  $arguments Method arguments.
+	 * @return string Empty string.
+	 */
+	public function __call( $name, $arguments ) {
+		if ( in_array( $name, array( 'date', 'date_i18n' ) ) ) {
+			return '';
+		}
+	}
+
 }

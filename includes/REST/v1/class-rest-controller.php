@@ -389,4 +389,38 @@ abstract class Controller {
 		return $schema;
 	}
 
+	/**
+	 * Converts a given parameter value to an object in the expected format.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param array|string $value     String or array value.
+	 * @param array        $whitelist Optional. Whitelist by which to compare `$value`. Default empty array.
+	 * @param string       $default   Optional. Default value to use. Default empty.
+	 * @return \stdClass Parameter as an object.
+	 */
+	protected function convert_param_to_object( $value, $whitelist = array(), $default = '' ) {
+		if ( is_object( $value ) && isset( $value->raw ) ) {
+			return $value;
+		}
+
+		if ( is_array( $value ) && isset( $value['raw'] ) ) {
+			return (object) $value;
+		}
+
+		$object = new \stdClass;
+
+		if ( empty( $value ) || ( ! empty( $whitelist ) && ! in_array( $value, $whitelist, true ) ) ) {
+			$object->raw = $default;
+		} else {
+			$object->raw = $value;
+		}
+
+		if ( ! empty( $default ) ) {
+			$object->inherited = $default;
+		}
+
+		return $object;
+	}
+
 }

@@ -21,6 +21,7 @@ namespace AffWP;
  * @property-read int      $ID   Alias for `$affiliate_id`.
  * @property      stdClass $user User object.
  * @property      array    $meta Meta array.
+ * @property-read string   $date Alias for `$date_registered`.
  */
 final class Affiliate extends Base_Object {
 
@@ -174,6 +175,10 @@ final class Affiliate extends Base_Object {
 	public function __get( $key ) {
 		if ( 'user' === $key ) {
 			return $this->get_user();
+		}
+
+		if ( 'date' === $key ) {
+			return $this->date_registered;
 		}
 
 		return parent::__get( $key );

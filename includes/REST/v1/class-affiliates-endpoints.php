@@ -302,9 +302,10 @@ class Endpoints extends Controller {
 					'type'        => 'integer',
 				),
 				'rate'            => array(
-					'description' => __( 'The affiliate rate.', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
+					'description'       => __( 'The affiliate rate.', 'affiliate-wp' ),
+					'type'              => 'object',
+					'sanitize_callback' => array( $this, 'sanitize_rate' ),
+					'properties'        => array(
 						'raw'       => array(
 							'description' => __( 'The affiliate rate, as it exists in the database', 'affiliate-wp' ),
 							'type'        => 'string',
@@ -316,9 +317,10 @@ class Endpoints extends Controller {
 					),
 				),
 				'rate_type'       => array(
-					'description' => __( 'The affiliate rate type', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
+					'description'       => __( 'The affiliate rate type', 'affiliate-wp' ),
+					'type'              => 'object',
+					'sanitize_callback' => array( $this, 'sanitize_rate_type' ),
+					'properties'        => array(
 						'raw'       => array(
 							'description' => __( 'The affiliate rate type, as it exists in the database', 'affiliate-wp' ),
 							'type'        => 'string',
@@ -335,9 +337,10 @@ class Endpoints extends Controller {
 					'readonly'    => true,
 				),
 				'payment_email'   => array(
-					'description' => __( 'The affiliate payment email address.', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
+					'description'       => __( 'The affiliate payment email address.', 'affiliate-wp' ),
+					'type'              => 'object',
+					'sanitize_callback' => array( $this, 'sanitize_payment_email' ),
+					'properties'        => array(
 						'raw'       => array(
 							'description' => __( 'The affiliate payment email address, as it exists in the database', 'affiliate-wp' ),
 							'type'        => 'string',
@@ -376,6 +379,46 @@ class Endpoints extends Controller {
 		);
 
 		return $this->add_additional_fields_schema( $schema );
+	}
+
+	/**
+	 * Sanitizes a string-based rate type into an object if necessary.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param string|array|\stdClass $rate_type Rate type string, array, or object.
+	 * @return \stdClass Rate type object.
+	 */
+	public function sanitize_rate_type( $rate_type ) {
+		$default = affiliate_wp()->settings->get( 'rate_type', 'percentage' );
+
+		return $this->convert_param_to_object( $rate_type, array( 'flat', 'percentage' ), $default );
+	}
+
+	/**
+	 * Sanitizes a rate into an object if necessary.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param int|array|\stdClass $rate Rate value, array, or object.
+	 * @return \stdClass Rate object.
+	 */
+	public function sanitize_rate( $rate ) {
+		$default = affiliate_wp()->settings->get( 'referral_rate', 20 );
+
+		return $this->convert_param_to_object( $rate, array(), $default );
+	}
+
+	/**
+	 * Sanitizes a string-based payment email into an object if necessary.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param string|array|\stdClass $payment_email Payment email string, array, or object.
+	 * @return \stdClass Payment email object.
+	 */
+	public function sanitize_payment_email( $payment_email ) {
+		return $this->convert_param_to_object( $payment_email );
 	}
 
 }

@@ -37,7 +37,7 @@ class Database extends \Affiliate_WP_DB {
 	public function __construct() {
 		global $wpdb;
 
-		// Global table.
+		// Site-level table.
 		$this->table_name  = $wpdb->prefix . 'affiliate_wp_rest_consumers';
 
 		$this->primary_key = 'consumer_id';
@@ -110,7 +110,7 @@ class Database extends \Affiliate_WP_DB {
 	 *                                     array of fields. Default '*' (all).
 	 * }
 	 * @param bool  $count Optional. Whether to return only the total number of results found. Default false.
-	 * @return array|int Array of consumer objects (if found) or integer if `$count` is true.
+	 * @return array|int Array of consumer objects or field(s) (if found) or integer if `$count` is true.
 	 */
 	public function get_consumers( $args = array(), $count = false ) {
 		global $wpdb;

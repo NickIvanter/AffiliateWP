@@ -341,7 +341,7 @@ jQuery(document).ready( function($) {
 	function affwp_track_visit( affiliate_id, url_campaign ) {
 
 		// Set the cookie and expire it after 24 hours
-		$.cookie( 'affwp_ref', affiliate_id, { expires: AFFWP.expiration, path: '/' } );
+		affwp_set_cookie( 'affwp_ref', affiliate_id );
 
 		// Fire an ajax request to log the hit
 		$.ajax({
@@ -355,8 +355,8 @@ jQuery(document).ready( function($) {
 			},
 			url: affwp_scripts.ajaxurl,
 			success: function (response) {
-				$.cookie( 'affwp_ref_visit_id', response, { expires: AFFWP.expiration, path: '/' } );
-				$.cookie( 'affwp_campaign', url_campaign, { expires: AFFWP.expiration, path: '/' } );
+				affwp_set_cookie( 'affwp_ref_visit_id', response );
+				affwp_set_cookie( 'affwp_campaign', url_campaign );
 			}
 
 		}).fail(function (response) {
@@ -365,6 +365,29 @@ jQuery(document).ready( function($) {
 			}
 		});
 
+	}
+
+	/**
+	 * Set a cookie, with optional domain if set. Note that providing *any* domain will
+	 * set the cookie domain with a leading dot, indicating it should be sent to sub-domains.
+	 *
+	 * example: host.tld
+	 *
+	 * - $.cookie( 'some_cookie', ...) = cookie domain: host.tld
+	 * - $.cookie ('some_cookie', ... domain: 'host.tld' ) = .host.tld
+	 *
+	 * @since 2.1.10
+	 *
+	 * @param {string} name cookie name, e.g. affwp_ref
+	 * @param {string} value cookie value
+	 */
+	function affwp_set_cookie( name, value ) {
+
+		if ( 'cookie_domain' in AFFWP ) {
+			$.cookie( name, value, { expires: AFFWP.expiration, path: '/', domain: AFFWP.cookie_domain } );
+		} else {
+			$.cookie( name, value, { expires: AFFWP.expiration, path: '/' } );
+		}
 	}
 
 	/**

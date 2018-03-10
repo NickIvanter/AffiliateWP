@@ -53,6 +53,8 @@ class Tests extends UnitTestCase {
 	 * Set up fixtures once.
 	 */
 	public static function wpSetUpBeforeClass() {
+		update_option( 'gmt_offset', -5 );
+		affiliate_wp()->utils->_refresh_wp_offset();
 
 		self::$users = parent::affwp()->user->create_many( 3 );
 
@@ -211,9 +213,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( '', affwp_get_affiliate_name( $affiliate_id ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -265,8 +264,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( '', affwp_get_affiliate_first_name( $affiliate ) );
-		// Clean up.
-		affwp_delete_affiliate( $affiliate );
 	}
 
 	/**
@@ -316,8 +313,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( '', affwp_get_affiliate_last_name( $affiliate ) );
-		// Clean up.
-		affwp_delete_affiliate( $affiliate );
 	}
 
 	/**
@@ -1239,11 +1234,6 @@ class Tests extends UnitTestCase {
 		}
 
 		$this->assertSame( 3000.0, affwp_get_affiliate_unpaid_earnings( self::$affiliates[0] ) );
-
-		// Clean up.
-		foreach ( $referrals as $referral ) {
-			affwp_delete_referral( $referral );
-		}
 	}
 
 	/**
@@ -1268,11 +1258,6 @@ class Tests extends UnitTestCase {
 
 		$affiliate = affwp_get_affiliate( self::$affiliates[0] );
 		$this->assertSame( 4000.0, affwp_get_affiliate_unpaid_earnings( $affiliate ) );
-
-		// Clean up.
-		foreach ( $referrals as $referral ) {
-			affwp_delete_referral( $referral );
-		}
 	}
 
 	/**
@@ -1289,11 +1274,6 @@ class Tests extends UnitTestCase {
 		}
 
 		$this->assertSame( '&#36;150.00', affwp_get_affiliate_unpaid_earnings( self::$affiliates[0], $formatted = true ) );
-
-		// Clean up.
-		foreach ( $referrals as $referral ) {
-			affwp_delete_referral( $referral );
-		}
 	}
 
 	/**
@@ -1593,9 +1573,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( 'pending', affwp_get_affiliate_status( $affiliate ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate );
 	}
 
 	/**
@@ -1616,9 +1593,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( 'These are test notes', affwp_get_affiliate_meta( $affiliate_id, 'notes', true ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -1630,86 +1604,37 @@ class Tests extends UnitTestCase {
 
 	/**
 	 * @covers ::affwp_add_affiliate()
+	 * @group dates
 	 */
-	public function test_add_affiliate_with_no_date_registered_should_use_current_time() {
+	public function test_add_affiliate_with_no_date_registered_should_use_current_date_and_time_with_no_gmt_offset() {
 		$affiliate_id = affwp_add_affiliate( array(
 			'user_id' => $this->factory->user->create()
 		) );
 
-		$expected = $this->get_current_time_for_comparison();
-		$actual   = $this->get_affiliate_date_for_comparison( $affiliate_id );
+		$affiliate = affwp_get_affiliate( $affiliate_id );
+
+		$expected = gmdate( 'Y-m-d H:i' );
+		$actual   = gmdate( 'Y-m-d H:i', strtotime( $affiliate->date ) );
 
 		$this->assertSame( $expected, $actual );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
 	 * @covers ::affwp_add_affiliate()
+	 * @group dates
 	 */
-	public function test_add_affiliate_with_no_date_registered_should_use_current_time_with_gmt_offset() {
-		// Set up.
-		$original_gmt_offset = get_option( 'gmt_offset', '0' );
-		update_option( 'gmt_offset', '-5' );
-
-		$affiliate_id = affwp_add_affiliate( array(
-			'user_id' => $this->factory->user->create()
-		) );
-
-		// Explicitly dropping seconds from the date strings for comparison.
-		$expected = $this->get_current_time_for_comparison();
-		$actual   = $this->get_affiliate_date_for_comparison( $affiliate_id );
-
-		$this->assertSame( $expected, $actual );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
-		update_option( 'gmt_offset', $original_gmt_offset );
-	}
-
-	/**
-	 * @covers ::affwp_add_affiliate()
-	 */
-	public function test_add_affiliate_with_date_registered_should_use_supplied_date() {
+	public function test_add_affiliate_with_date_registered_should_assume_local_time_and_remove_offset_on_add() {
 		$affiliate_id = affwp_add_affiliate( array(
 			'user_id'         => $this->factory->user->create(),
 			'date_registered' => '05/04/2017',
 		) );
 
-		// Explicitly dropping seconds from the date string for comparison.
-		$expected_date = gmdate( 'Y-m-d H:i', strtotime( '05/04/2017' ) );
+		$affiliate = affwp_get_affiliate( $affiliate_id );
 
-		$this->assertSame( $expected_date, $this->get_affiliate_date_for_comparison( $affiliate_id ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
-	}
-
-	/**
-	 * @covers ::affwp_add_affiliate()
-	 */
-	public function test_add_affiliate_with_date_registered_should_use_supplied_date_and_not_use_gmt_offset() {
-		// Set up.
-		$original_gmt_offset = get_option( 'gmt_offset', '0' );
-		update_option( 'gmt_offset', '-5' );
-
-		$affiliate_id = affwp_add_affiliate( array(
-			'user_id'         => $this->factory->user->create(),
-			'date_registered' => '05/04/2017',
-		) );
-
-		// Explicitly dropping seconds from the date strings for comparison.
-		$date_with_offset = gmdate( 'Y-m-d H:i', ( strtotime( '05/04/2017' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) );
-		$expected_date    = gmdate( 'Y-m-d H:i', strtotime( '05/04/2017' ) );
-		$actual           = $this->get_affiliate_date_for_comparison( $affiliate_id );
+		$expected_date = gmdate( 'Y-m-d H:i', strtotime( '05/04/2017' ) - affiliate_wp()->utils->wp_offset );
+		$actual        = gmdate( 'Y-m-d H:i', strtotime( $affiliate->date ) );
 
 		$this->assertSame( $expected_date, $actual );
-		$this->assertNotEquals( $date_with_offset, $actual );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
-		update_option( 'gmt_offset', $original_gmt_offset );
 	}
 
 	/**
@@ -1723,9 +1648,6 @@ class Tests extends UnitTestCase {
 		$user_data = get_user_by( 'id', $user_id );
 
 		$this->assertSame( '', $user_data->user_url );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -1742,9 +1664,6 @@ class Tests extends UnitTestCase {
 		$user_data = get_user_by( 'id', $user_id );
 
 		$this->assertSame( $website_url, $user_data->user_url );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -1767,9 +1686,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertTrue( $updated );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -1785,9 +1701,47 @@ class Tests extends UnitTestCase {
 
 		$this->assertTrue( $updated );
 		$this->assertSame( 'These are test notes', affwp_get_affiliate_meta( $affiliate_id, 'notes', true ) );
+	}
+
+	/**
+	 * @covers ::affwp_update_affiliate()
+	 * @group dates
+	 */
+	public function test_update_affiliate_same_date_should_register_no_change() {
+		$original_date = affwp_get_affiliate( self::$affiliates[0] )->date_registered;
+
+		affwp_update_affiliate( self::$affiliates[0], array(
+			'date_registered' => $original_date
+		) );
+
+		$affiliate = affwp_get_affiliate( self::$affiliates[0] );
+
+		$this->assertSame( $original_date, $affiliate->date_registered );
+	}
+
+	/**
+	 * @covers ::affwp_update_affiliate()
+	 * @group dates
+	 */
+	public function test_update_affiliate_new_date_should_save_it_minus_wp_offset() {
+		$original_date = affwp_get_affiliate( self::$affiliates[0] )->date_registered;
+
+		affwp_update_affiliate( array(
+			'affiliate_id'    => self::$affiliates[0],
+			'date_registered' => '01/01/2001'
+		) );
+
+		$affiliate = affwp_get_affiliate( self::$affiliates[0] );
+		$expected = gmdate( 'Y-m-d H:i:s', strtotime( '01/01/2001' ) - affiliate_wp()->utils->wp_offset );
+
+		$this->assertSame( $expected, $affiliate->date_registered );
 
 		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
+		affwp_update_affiliate( array(
+			'affiliate_id'    => self::$affiliates[0],
+			// Add the offset here as it will be removed.
+			'date_registered' => gmdate( 'Y-m-d H:i:s', strtotime( $original_date ) + affiliate_wp()->utils->wp_offset )
+		) );
 	}
 
 	/**
@@ -1835,9 +1789,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEquals( 1, get_user_meta( $user_id, 'affwp_referral_notifications', true ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -1858,9 +1809,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertEmpty( get_user_meta( $user_id, 'affwp_referral_notifications', true ) );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**
@@ -2008,15 +1956,6 @@ class Tests extends UnitTestCase {
 		$results = affwp_get_affiliate_payouts( self::$affiliates[0] );
 
 		$this->assertEqualSets( $payouts, $results );
-
-		// Clean up.
-		foreach ( $referrals as $referral ) {
-			affwp_delete_referral( $referral );
-		}
-
-		foreach ( $payouts as $payout ) {
-			affwp_delete_payout( $payout );
-		}
 	}
 
 	/**
@@ -2048,15 +1987,6 @@ class Tests extends UnitTestCase {
 		$results = affwp_get_affiliate_payouts( $affiliate );
 
 		$this->assertEqualSets( $payouts, $results );
-
-		// Clean up.
-		foreach ( $referrals as $referral ) {
-			affwp_delete_referral( $referral );
-		}
-
-		foreach ( $payouts as $payout ) {
-			affwp_delete_payout( $payout );
-		}
 	}
 
 	/**

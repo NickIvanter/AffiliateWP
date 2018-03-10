@@ -36,6 +36,16 @@ class Referral extends \WP_UnitTest_Factory_For_Thing {
 		return affiliate_wp()->referrals->update( $referral_id, $fields, '', 'referral' );
 	}
 
+	public function delete( $referral ) {
+		affwp_delete_referral( $referral );
+	}
+
+	public function delete_many( $referrals ) {
+		foreach ( $referrals as $referral ) {
+			$this->delete( $referral );
+		}
+	}
+
 	/**
 	 * Stub out copy of parent method for IDE type hinting purposes.
 	 *

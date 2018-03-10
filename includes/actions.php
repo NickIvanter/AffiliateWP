@@ -59,6 +59,10 @@ function affwp_remove_query_args( $query_args ) {
 
 	$query_args[] = 'affwp_notice';
 
+	if ( isset( $_GET['register_affiliate'] ) ) {
+		$query_args[] = 'register_affiliate';
+	}
+	
 	return $query_args;
 }
 add_filter( 'removable_query_args', 'affwp_remove_query_args' );
@@ -93,3 +97,41 @@ function affwp_process_add_affiliate_website( $affiliate_id, $args ) {
 
 }
 add_action( 'affwp_insert_affiliate', 'affwp_process_add_affiliate_website', 11, 2 );
+
+/**
+ * Denotes the Affiliate Area Page as such in the pages list table.
+ *
+ * @since 2.1.11
+ *
+ * @param array   $post_states An array of post display states.
+ * @param WP_Post $post        The current post object.
+ */
+function affwp_display_post_states( $post_states, $post ) {
+
+	if ( affwp_get_affiliate_area_page_id() === $post->ID ) {
+		$post_states['affwp_page_for_affiliate_area'] = __( 'Affiliate Area Page', 'affiliate-wp' );
+	}
+
+	return $post_states;
+
+}
+add_filter( 'display_post_states', 'affwp_display_post_states', 10, 2 );
+
+/**
+ * Sets the decimal places to 8 when Bitcoin is selected as the currency.
+ *
+ * @since 2.1.11
+ *
+ * @param int 	$decimal_places Decimal Places.
+ * @return int 	Number of decimal places
+ */
+function affwp_btc_decimal_count( $decimal_places ) {
+
+	if ( 'BTC' == affwp_get_currency() ) {
+		return 8;
+	}
+
+	return $decimal_places;
+
+}
+add_filter( 'affwp_decimal_count', 'affwp_btc_decimal_count' );

@@ -232,9 +232,10 @@ class AffWP_Affiliates_Table extends List_Table {
 		 *
 		 *     `affwp_affiliate_table_referrals`
 		 *
-		 * @param string $value The column data.
+		 * @param string           $value     The column data.
+		 * @param \AffWP\Affiliate $affiliate The current affiliate object
 		 */
-		return apply_filters( 'affwp_affiliate_table_' . $column_name, $value );
+		return apply_filters( 'affwp_affiliate_table_' . $column_name, $value, $affiliate );
 	}
 
 	/**
@@ -374,6 +375,12 @@ class AffWP_Affiliates_Table extends List_Table {
 
 		$value .= '<div class="row-actions">' . $this->row_actions( $row_actions, true ) . '</div>';
 
+		/**
+		 * Filters the name column data for the affiliates list table.
+		 *
+		 * @param string           $value     Data shown in the Name column.
+		 * @param \AffWP\Affiliate $affiliate The current affiliate object.
+		 */
 		return apply_filters( 'affwp_affiliate_table_name', $value, $affiliate );
 	}
 

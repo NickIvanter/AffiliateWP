@@ -50,7 +50,7 @@
 				</th>
 
 				<td>
-					<input type="text" name="date" id="date" class="affwp-datepicker" autocomplete="off" placeholder="<?php echo esc_attr( date_i18n( 'm/d/y', strtotime( 'today' ) ) ); ?>"/>
+					<input type="text" name="date" id="date" class="affwp-datepicker" autocomplete="off" placeholder="<?php echo esc_attr( affwp_date_i18n( strtotime( 'today' ), 'm/d/y' ) ); ?>"/>
 				</td>
 
 			</tr>

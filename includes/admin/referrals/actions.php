@@ -12,6 +12,8 @@ function affwp_process_add_referral( $data ) {
 		return false;
 	}
 
+	$errors = array();
+
 	if ( ! current_user_can( 'manage_referrals' ) ) {
 		wp_die( __( 'You do not have permission to manage referrals', 'affiliate-wp' ), __( 'Error', 'affiliate-wp' ), array( 'response' => 403 ) );
 	}
@@ -20,12 +22,32 @@ function affwp_process_add_referral( $data ) {
 		wp_die( __( 'Security check failed', 'affiliate-wp' ), array( 'response' => 403 ) );
 	}
 
-	if ( affwp_add_referral( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_added' ) ) );
-		exit;
+	if( ! affiliate_wp()->affiliates->affiliate_exists( $data['user_name'] ) ) {
+		$errors[ 'invalid_affiliate'] = __( 'Referral not created because affiliate is invalid.', 'affiliate-wp' );
+	}
+
+	if ( empty( $errors ) ) {
+
+		if ( affwp_add_referral( $data ) ) {
+			wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_added' ) ) );
+			exit;
+		} else {
+			wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_add_failed' ) ) );
+			exit;
+		}
+
 	} else {
+
+		if ( isset( $errors[ 'invalid_affiliate'] ) ) {
+
+			wp_safe_redirect( affwp_admin_url( 'referrals', array( 'action' => 'add_referral', 'affwp_notice' => 'referral_add_invalid_affiliate' ) ) );
+			exit;
+
+		}
+
 		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_add_failed' ) ) );
 		exit;
+
 	}
 
 }
@@ -92,6 +114,37 @@ function affwp_process_delete_referral( $data ) {
 
 }
 add_action( 'affwp_process_delete_referral', 'affwp_process_delete_referral' );
+
+/**
+ * Process the delete payout request
+ *
+ * @since 2.1.12
+ * @return void
+ */
+function affwp_process_delete_payout( $data ) {
+
+	if ( ! is_admin() ) {
+		return false;
+	}
+
+	if ( ! current_user_can( 'manage_payouts' ) ) {
+		wp_die( __( 'You do not have permission to manage payouts', 'affiliate-wp' ), array( 'response' => 403 ) );
+	}
+
+	if ( ! wp_verify_nonce( $data['_wpnonce'], 'affwp_delete_payout_nonce' ) ) {
+		wp_die( __( 'Security check failed', 'affiliate-wp' ), array( 'response' => 403 ) );
+	}
+
+	if ( affwp_delete_payout( $data['payout_id'] ) ) {
+		wp_safe_redirect( affwp_admin_url( 'payouts', array( 'affwp_notice' => 'payout_deleted' ) ) );
+		exit;
+	} else {
+		wp_safe_redirect( affwp_admin_url( 'payouts', array( 'affwp_notice' => 'payout_delete_failed' ) ) );
+		exit;
+	}
+
+}
+add_action( 'affwp_process_delete_payout', 'affwp_process_delete_payout' );
 
 /**
  * Process the referral payout file generation

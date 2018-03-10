@@ -147,6 +147,11 @@ class AffWP_Visits_Table extends List_Table {
 	 */
 	function column_default( $visit, $column_name ) {
 		switch( $column_name ) {
+
+			case 'date':
+				$value = $visit->date_i18n( 'datetime' );
+				break;
+
 			default:
 				$value = isset( $visit->$column_name ) ? $visit->$column_name : '';
 				break;

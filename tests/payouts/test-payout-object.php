@@ -31,8 +31,5 @@ class Tests extends UnitTestCase {
 		$payout = Payout::get_instance( $payout_id );
 
 		$this->assertInstanceOf( 'AffWP\Affiliate\Payout', $payout );
-
-		// Clean up.
-		affwp_delete_payout( $payout_id );
 	}
 }

@@ -83,9 +83,6 @@ class Tests extends UnitTestCase {
 		$result = affiliate_wp()->tracking->get_affiliate_id_from_login( urlencode( $username ) );
 
 		$this->assertSame( $affiliate_id, $result );
-
-		// Clean up.
-		affwp_delete_affiliate( $affiliate_id );
 	}
 
 	/**

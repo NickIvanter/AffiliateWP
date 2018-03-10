@@ -20,6 +20,7 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-m
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-most-valuable.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-referrals.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-recent-referral-visits.php';
+require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/overview/metaboxes/class-metabox-overview-highest-converting-urls.php';
 
 /**
  * Initializes meta boxes displayed via the Overview screen.
@@ -32,6 +33,7 @@ function affwp_init_overview_meta_boxes() {
 	new Meta_Box\Most_Valuable_Affiliates;
 	new Meta_Box\Recent_Referrals;
 	new Meta_Box\Recent_Referral_Visits;
+	new Meta_Box\Highest_Converting_URLs;
 
 	/**
 	 * Fires after all core Overview meta boxes have been instantiated.

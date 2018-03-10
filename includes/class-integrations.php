@@ -17,7 +17,7 @@ class Affiliate_WP_Integrations {
 			'formidablepro'  => 'Formidable Pro',
 			'give'           => 'Give',
 			'gravityforms'   => 'Gravity Forms',
-			'exchange'       => 'iThemes Exchange',
+			'exchange'       => 'ExchangeWP (iThemes Exchange)',
 			'jigoshop'       => 'Jigoshop',
 			'lifterlms'      => 'LifterLMS',
 			'marketpress'    => 'MarketPress',

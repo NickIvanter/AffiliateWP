@@ -112,9 +112,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertTrue( is_numeric( $payout ) );
-
-		// Clean up.
-		affwp_delete_payout( $payout );
 	}
 
 	/**
@@ -182,9 +179,6 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( 'Failed', affwp_get_payout_status_label( $payout_id ) );
-
-		// Clean up.
-		affwp_delete_payout( $payout_id );
 	}
 
 	/**
@@ -196,8 +190,5 @@ class Tests extends UnitTestCase {
 		) );
 
 		$this->assertSame( 'Paid', affwp_get_payout_status_label( $payout_id ) );
-
-		// Clean up.
-		affwp_delete_payout( $payout_id );
 	}
 }

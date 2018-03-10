@@ -95,7 +95,7 @@ class Affiliate_WP_Creatives_DB extends Affiliate_WP_DB {
 	*/
 	public function get_column_defaults() {
 		return array(
-			'date' => date( 'Y-m-d H:i:s' ),
+			'date' => gmdate( 'Y-m-d H:i:s' ),
 		);
 	}
 
@@ -120,6 +120,7 @@ class Affiliate_WP_Creatives_DB extends Affiliate_WP_DB {
 	 *                                     array of fields. Default '*' (all).
 	 * }
 	 * @param bool $count Whether to retrieve only the total number of results found. Default false.
+	 * @return array|int Array of creative objects or field(s) (if found), int if `$count` is true.
 	 */
 	public function get_creatives( $args = array(), $count = false ) {
 		global $wpdb;
@@ -168,6 +169,11 @@ class Affiliate_WP_Creatives_DB extends Affiliate_WP_DB {
 			} else {
 				$where .= "`status` = '" . $status . "' ";
 			}
+		}
+
+		// Creatives for a date or date range.
+		if( ! empty( $args['date'] ) ) {
+			$where = $this->prepare_date_query( $where, $args['date'] );
 		}
 
 		// There can be only two orders.
@@ -242,12 +248,19 @@ class Affiliate_WP_Creatives_DB extends Affiliate_WP_DB {
 
 		$defaults = array(
 			'status' => 'active',
-			'date'   => current_time( 'mysql' ),
 			'url'	 => '',
 			'image'  => '',
 		);
 
 		$args = wp_parse_args( $data, $defaults );
+
+		if ( empty( $args['date'] ) ) {
+			unset( $args['date'] );
+		} else {
+			$time = strtotime( $args['date'] );
+
+			$args['date'] = gmdate( 'Y-m-d H:i:s', $time - affiliate_wp()->utils->wp_offset );
+		}
 
 		$add = $this->insert( $args, 'creative' );
 

@@ -244,11 +244,27 @@ class Generate_Payouts extends Batch\Export\CSV implements Batch\With_PreFetch {
 		if ( array_key_exists( $affiliate_id, $payouts ) ) {
 			$current_payout = $payouts[ $affiliate_id ];
 
-			$data[] = array(
+			/**
+			 * Filters the data retrieved for a single generated payout during batch processing.
+			 *
+			 * @since 2.0.2
+			 *
+			 * @param array $data {
+			 *     Payout data.
+			 *
+			 *     @type string $email    Affiliate payment email.
+			 *     @type float  $amount   Payout amount.
+			 *     @type string $currency Payout currency.
+			 * }
+			 * @param int   $affiliate_id Current affiliate ID.
+			 * @param array $payouts      Compiled payouts and referrals data where the keys are affiliate
+			 *                            IDs and values arrays of referral data.
+			 */
+			$data[] = apply_filters( 'affwp_batch_generate_payouts_get_data', array(
 				'email'    => affwp_get_affiliate_payment_email( $affiliate_id ),
-				'amount'   => $payouts[ $affiliate_id ]['amount'],
+				'amount'   => affwp_format_amount( $payouts[ $affiliate_id ]['amount'] ),
 				'currency' => $payouts[ $affiliate_id ]['currency'],
-			);
+			), $affiliate_id, $payouts );
 
 			affwp_add_payout( array(
 				'affiliate_id'  => $affiliate_id,
@@ -257,23 +273,7 @@ class Generate_Payouts extends Batch\Export\CSV implements Batch\With_PreFetch {
 			) );
 		}
 
-		/**
-		 * Filters the data retrieved for a single generated payout during batch processing.
-		 *
-		 * @since 2.0.2
-		 *
-		 * @param array $data {
-		 *     Payout data.
-		 *
-		 *     @type string $email    Affiliate payment email.
-		 *     @type float  $amount   Payout amount.
-		 *     @type string $currency Payout currency.
-		 * }
-		 * @param int   $affiliate_id Current affiliate ID.
-		 * @param array $payouts      Compiled payouts and referrals data where the keys are affiliate
-		 *                            IDs and values arrays of referral data.
-		 */
-		return apply_filters( 'affwp_batch_generate_payouts_get_data', $data, $affiliate_id, $payouts );
+		return $data;
 	}
 
 	/**

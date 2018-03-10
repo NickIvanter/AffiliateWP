@@ -8,6 +8,8 @@
  */
 function affwp_process_add_affiliate( $data ) {
 
+	$errors = array();
+
 	if ( empty( $data['user_id'] ) && empty( $data['user_name'] ) ) {
 		return false;
 	}
@@ -20,15 +22,43 @@ function affwp_process_add_affiliate( $data ) {
 		wp_die( __( 'You do not have permission to manage affiliates', 'affiliate-wp' ), __( 'Error', 'affiliate-wp' ), array( 'response' => 403 ) );
 	}
 
-	$affiliate_id = affwp_add_affiliate( $data );
+	if ( ! username_exists( $data['user_name'] ) && mb_strlen( $data['user_name'] ) < 4 || mb_strlen( $data['user_name'] ) > 60 ) {
+		$errors[ 'invalid_username'] = __( 'Invalid user login name. Must be between 4 and 60 characters.', 'affiliate-wp' );
+	}
 
-	if ( $affiliate_id ) {
+	if ( ! username_exists( $data['user_name'] ) && ! is_email( $data['user_email' ] ) ) {
+		$errors[ 'invalid_email'] = __( 'Invalid user email', 'affiliate-wp' );
+	}
 
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added' ) ) );
-		exit;
+	if ( ! empty( $data['payment_email'] ) && ! is_email( $data['payment_email' ] ) ) {
+		$errors[ 'invalid_payment_email'] = __( 'Invalid payment email', 'affiliate-wp' );
+	}
+
+	if ( empty( $errors ) ) {
+
+		$affiliate_id = affwp_add_affiliate( $data );
+
+		if ( $affiliate_id ) {
+			wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added' ) ) );
+			exit;
+		} else {
+			wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added_failed' ) ) );
+			exit;
+		}
+
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added_failed' ) ) );
-		exit;
+
+		if( isset( $errors ) ) {
+
+			echo '<div class="error">';
+				foreach( $errors as $error ) {
+					echo '<p>' . $error . '</p>';
+				}
+			echo '</div>';
+
+		}
+
+		return false;
 	}
 
 }

@@ -43,10 +43,20 @@ class Payout extends \WP_UnitTest_Factory_For_Thing {
 		return affiliate_wp()->affiliates->payouts->update( $payout_id, $fields, '', 'payout' );
 	}
 
+	public function delete( $payout ) {
+		affwp_delete_payout( $payout );
+	}
+
+	public function delete_many( $payouts ) {
+		foreach ( $payouts as $payout ) {
+			$this->delete( $payout );
+		}
+	}
+
 	/**
 	 * Stub out copy of parent method for IDE type hinting purposes.
 	 *
-	 * @param $referral_id
+	 * @param $payout_id
 	 *
 	 * @return \AffWP\Affiliate\Payout|false
 	 */

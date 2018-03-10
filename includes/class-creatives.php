@@ -75,7 +75,7 @@ class Affiliate_WP_Creatives {
 	 * @return string
 	 */
 	public function affiliate_creatives( $args = array() ) {
-		
+
 		$defaults = array(
 			'preview' => 'yes',
 			'status'  => 'active'
@@ -95,7 +95,7 @@ class Affiliate_WP_Creatives {
 				$text  = $creative->text;
 				$desc  = ! empty( $creative->description ) ? $creative->description : '';
 
-				echo $this->html( $creative->creative_id, $url, $image, '', $args['preview'], $text, $desc );	
+				echo $this->html( $creative->creative_id, $url, $image, '', $args['preview'], $text, $desc );
 			}
 		}
 
@@ -120,11 +120,11 @@ class Affiliate_WP_Creatives {
 	 * @return string
 	 */
 	public function html( $id = '', $url, $image_link, $image_attributes, $preview, $text, $desc = '' ) {
-		
+
 		global $affwp_creative_atts;
 
 		$id_class = $id ? ' creative-' . $id : '';
-		
+
 		$affwp_creative_atts = array(
 			'id'               => $id,
 			'url'              => $url,
@@ -137,11 +137,11 @@ class Affiliate_WP_Creatives {
 		);
 
 		ob_start();
-		
+
 		affiliate_wp()->templates->get_template_part( 'creative' );
-		
+
 		$html = ob_get_clean();
 		return apply_filters( 'affwp_affiliate_creative_html', $html, $url, $image_link, $image_attributes, $preview, $text );
 	}
-	
+
 }

@@ -212,7 +212,7 @@ class Recount_Affiliate_Stats extends Utils\Batch_Process implements Batch\With_
 				'fields'       => 'affiliate_id'
 			) );
 
-			$visits = array_map( 'absint', array_count_values( $visits ) );
+			$visits = array_map( 'absint', $visits );
 
 			$affiliate_totals = array_count_values( $visits );
 		}

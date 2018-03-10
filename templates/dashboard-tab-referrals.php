@@ -8,7 +8,7 @@ $affiliate_id = affwp_get_affiliate_id();
 
 	<?php
 	$per_page  = 30;
-	$page      = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$page      = affwp_get_current_page_number();
 	$pages     = absint( ceil( affwp_count_referrals( $affiliate_id ) / $per_page ) );
 	$referrals = affiliate_wp()->referrals->get_referrals(
 		array(
@@ -55,7 +55,7 @@ $affiliate_id = affwp_get_affiliate_id();
 						<td class="referral-amount" data-th="<?php _e( 'Amount', 'affiliate-wp' ); ?>"><?php echo affwp_currency_filter( affwp_format_amount( $referral->amount ) ); ?></td>
 						<td class="referral-description" data-th="<?php _e( 'Description', 'affiliate-wp' ); ?>"><?php echo wp_kses_post( nl2br( $referral->description ) ); ?></td>
 						<td class="referral-status <?php echo $referral->status; ?>" data-th="<?php _e( 'Status', 'affiliate-wp' ); ?>"><?php echo affwp_get_referral_status_label( $referral ); ?></td>
-						<td class="referral-date" data-th="<?php _e( 'Date', 'affiliate-wp' ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $referral->date ) ); ?></td>
+						<td class="referral-date" data-th="<?php _e( 'Date', 'affiliate-wp' ); ?>"><?php echo esc_html( $referral->date_i18n( 'datetime' ) ); ?></td>
 						<?php
 						/**
 						 * Fires within the table data of the dashboard referrals template.

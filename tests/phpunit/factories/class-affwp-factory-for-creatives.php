@@ -19,6 +19,16 @@ class Creative extends \WP_UnitTest_Factory_For_Thing {
 		return affiliate_wp()->creatives->update( $creative_id, $fields, '', 'creative' );
 	}
 
+	public function delete( $creative ) {
+		affwp_delete_creative( $creative );
+	}
+
+	public function delete_many( $creatives ) {
+		foreach ( $creatives as $creative ) {
+			$this->delete( $creative );
+		}
+	}
+
 	function get_object_by_id( $creative_id ) {
 		return affwp_get_creative( $creative_id );
 	}

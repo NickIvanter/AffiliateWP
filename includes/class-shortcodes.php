@@ -186,6 +186,10 @@ class Affiliate_WP_Shortcodes {
 	 */
 	public function conversion_script( $atts, $content = null ) {
 
+		if ( is_admin() ) {
+			return;
+		}
+
 		$atts = shortcode_atts(
 			array(
 				'amount'      => '',

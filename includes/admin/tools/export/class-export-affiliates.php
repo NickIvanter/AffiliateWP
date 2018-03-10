@@ -98,7 +98,7 @@ class Affiliate_WP_Affiliate_Export extends Affiliate_WP_Export implements Expor
 					'visits'          => $affiliate->visits,
 					'conversion_rate' => affwp_get_affiliate_conversion_rate( $affiliate->affiliate_id ),
 					'status'          => $affiliate->status,
-					'date_registered' => $affiliate->date_registered,
+					'date_registered' => $affiliate->date_i18n( 'datetime' ),
 				);
 
 			}

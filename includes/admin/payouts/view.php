@@ -133,7 +133,7 @@ $payout = affwp_get_payout( absint( $_GET['payout_id'] ) );
 			</th>
 
 			<td>
-				<?php echo date_i18n( get_option( 'date_format' ) . ' (' . get_option( 'time_format' ) . ')', strtotime( $payout->date ) ); ?>
+				<?php echo $payout->date_i18n( 'datetime' ); ?>
 			</td>
 
 		</tr>

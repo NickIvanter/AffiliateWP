@@ -80,11 +80,11 @@ class UnitTestCase extends \WP_UnitTestCase {
 	 * @access public
 	 * @since  2.1
 	 *
-	 * @param bool $gmt Optional. Whether to use GMT timezone. Default false.
+	 * @param string $time Time to build the Date object for for comparison.
 	 * @return string Current time expressed as a string.
 	 */
-	public function get_current_time_for_comparison( $gmt = false ) {
-		return ( $gmt ) ? gmdate( 'Y-m-d H:i' ) : gmdate( 'Y-m-d H:i', ( time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) );
+	public function get_current_time_for_comparison( $time = 'now' ) {
+		return affiliate_wp()->utils->date( $time )->format( 'Y-m-d H:i' );
 	}
 
 	/**
@@ -104,9 +104,7 @@ class UnitTestCase extends \WP_UnitTestCase {
 		$date_registered = '';
 
 		if ( $affiliate = affwp_get_affiliate( $affiliate ) ) {
-			$original = strtotime( $affiliate->date_registered );
-
-			$date_registered = gmdate( 'Y-m-d H:i', $original );
+			$date_registered = $affiliate->date( 'Y-m-d H:i' );
 		}
 
 		return $date_registered;

@@ -34,6 +34,16 @@ class Affiliate extends \WP_UnitTest_Factory_For_Thing {
 		return affiliate_wp()->affiliates->update( $affiliate_id, $fields, '', 'affiliate' );
 	}
 
+	public function delete( $affiliate ) {
+		affwp_delete_affiliate( $affiliate );
+	}
+
+	public function delete_many( $affiliates ) {
+		foreach ( $affiliates as $affiliate ) {
+			$this->delete( $affiliate );
+		}
+	}
+
 	/**
 	 * Stub out copy of parent method for IDE type hinting purposes.
 	 *

@@ -317,4 +317,53 @@ abstract class Base_Object {
 		return $value;
 	}
 
+	/**
+	 * Retrieves the (maybe formatted) date for the current object if set.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param true|string $date_format Optional. How to format the object date. Accepts 'date', 'time',
+	 *                                 or 'datetime' shorthand formats. Also accepts 'object', 'timestamp',
+	 *                                 'wp_timestamp', or any other valid date_format() string.
+	 *                                 Default empty string.
+	 * @return mixed Formatted object date, timestamp, or Date object.
+	 *               If `$format` is empty, the un-formatted `$date` value
+	 *               will be returned. If `$format` is 'object', a Date object
+	 *               will be retrieved for further manipulation.
+	 */
+	public function date( $format = '' ) {
+
+		if ( empty( $format ) ) {
+
+			$date = $this->date;
+
+		} else {
+
+			$date = affiliate_wp()->utils->date( $this->date )->format( $format );
+
+		}
+
+		return $date;
+	}
+
+	/**
+	 * Retrieves a localized version of the formatted date for the current object if set.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param true|string $date_format Optional. How to format the object date. Accepts 'date', 'time',
+	 *                                 or 'datetime' shorthand formats. Also accepts 'object', 'timestamp',
+	 *                                 'wp_timestamp', or any other valid date_format() string.
+	 *                                 Default 'date', which represents the value of the 'date_format' option.
+	 * @return mixed Localized, formatted object date, timestamp, or Date object.
+	 *               If `$format` is empty, the un-formatted `$date` value
+	 *               will be returned. If `$format` is 'object', a Date object
+	 *               will be retrieved for further manipulation.
+	 */
+	public function date_i18n( $format = 'date' ) {
+		$timestamp = affiliate_wp()->utils->date( $this->date )->getWPTimestamp();
+
+		return affwp_date_i18n( $timestamp, $format );
+	}
+
 }

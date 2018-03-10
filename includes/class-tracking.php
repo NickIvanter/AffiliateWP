@@ -112,6 +112,10 @@ class Affiliate_WP_Tracking {
 		AFFWP.expiration = <?php echo $this->get_expiration_time(); ?>;
 		AFFWP.debug = <?php echo absint( $this->debug ); ?>;
 
+<?php if ( $cookie_domain = $this->get_cookie_domain() ) : ?>
+		AFFWP.cookie_domain = '<?php echo esc_js( $cookie_domain ); ?>';
+<?php endif; ?>
+
 <?php if( 1 !== (int) get_option( 'affwp_js_works' ) )  : ?>
 		jQuery(document).ready(function($) {
 			// Check if JS is working properly. If it is, we update an update in the DB
@@ -246,7 +250,7 @@ class Affiliate_WP_Tracking {
 	public function js_debug_data() {
 
 		$integrations  = affiliate_wp()->integrations->get_enabled_integrations();
-		$affwp_version =  defined( 'AFFILIATEWP_VERSION' ) ? AFFILIATEWP_VERSION : 'undefined';
+		$affwp_version = defined( 'AFFILIATEWP_VERSION' ) ? AFFILIATEWP_VERSION : 'undefined';
 		$currency      = affwp_get_currency();
 
 
@@ -476,6 +480,7 @@ class Affiliate_WP_Tracking {
 		$affiliate_id = absint( $affiliate_id );
 		$is_valid     = $this->is_valid_affiliate( $affiliate_id );
 		$visit_id     = $this->get_visit_id();
+		$campaign     = $this->get_campaign();
 		$referrer     = ! empty( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( $_SERVER['HTTP_REFERER'] ) : '';
 
 		/** This filter is documented in includes/class-tracking.php. */
@@ -484,7 +489,7 @@ class Affiliate_WP_Tracking {
 			affiliate_wp()->utils->log( 'Visit creation skipped during fallback_track_visit() via the affwp_tracking_skip_track_visit hook.' );
 
 		} elseif ( $is_valid && ( ! $visit_id || affiliate_wp()->settings->get( 'referral_credit_last' ) ) ) {
-			
+
 			if ( ( ! empty( $referrer ) && ! affwp_is_url_banned( $referrer ) ) || empty( $referrer ) ) {
 
 				if( $this->get_affiliate_id() === $affiliate_id && affiliate_wp()->settings->get( 'referral_credit_last' ) ) {
@@ -499,11 +504,13 @@ class Affiliate_WP_Tracking {
 					'affiliate_id' => $affiliate_id,
 					'ip'           => $this->get_ip(),
 					'url'          => $this->get_current_page_url(),
-					'campaign'     => $this->get_campaign(),
+					'campaign'     => $campaign,
 					'referrer'     => $referrer,
 				) );
 
 				$this->set_visit_id( $visit_id );
+
+				$this->set_campaign( $campaign );
 			}
 
 		} elseif( ! $is_valid ) {
@@ -542,8 +549,9 @@ class Affiliate_WP_Tracking {
 			if ( false !== strpos( $path, $this->get_referral_var() . '/' ) ) {
 
 				$pieces = explode( '/', str_replace( '?', '/', $path ) );
-				$pieces = array_map( 'sanitize_key', $pieces );
 				$key    = array_search( $this->get_referral_var(), $pieces );
+
+				$pieces[ $key + 1 ] = strtolower( sanitize_user( $pieces[ $key + 1 ] ) );
 
 				if ( $key ) {
 
@@ -664,7 +672,7 @@ class Affiliate_WP_Tracking {
 	 * @since 1.0
 	 */
 	public function set_visit_id( $visit_id = 0 ) {
-		setcookie( 'affwp_ref_visit_id', $visit_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, COOKIE_DOMAIN );
+		setcookie( 'affwp_ref_visit_id', $visit_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
 	}
 
 	/**
@@ -747,7 +755,45 @@ class Affiliate_WP_Tracking {
 	 * @since 1.0
 	 */
 	public function set_affiliate_id( $affiliate_id = 0 ) {
-		setcookie( 'affwp_ref', $affiliate_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, COOKIE_DOMAIN );
+		setcookie( 'affwp_ref', $affiliate_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
+	}
+
+	/**
+	 * Set the campaign
+	 *
+	 * @since 2.1.15
+	 */
+	public function set_campaign( $campaign = '' ) {
+		setcookie( 'affwp_campaign', $campaign, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
+	}
+
+	/**
+	 * Get the cookie domain.
+	 *
+	 * @since 2.1.10
+	 * @return bool|string false if a cookie domain isn't set, string hostname (host.tld) otherwise
+	 */
+	public function get_cookie_domain() {
+
+		// COOKIE_DOMAIN is false by default
+		$cookie_domain = COOKIE_DOMAIN;
+
+		$share_cookies = affiliate_wp()->settings->get( 'cookie_sharing', false );
+
+		// providing a domain to jQuery.cookie or PHP's setcookie results prefixes the cookie domain
+		// with a dot, indicating it should be shared with sub-domains
+		if ( ! $cookie_domain && $share_cookies ) {
+			$cookie_domain = parse_url( get_home_url(), PHP_URL_HOST );
+		}
+
+		/**
+		 * Filters the tracking cookie domain.
+		 *
+		 * @since 2.1.10
+		 *
+		 * @param string $cookie_domain cookie domain
+		 */
+		return apply_filters( 'affwp_tracking_cookie_domain', $cookie_domain );
 	}
 
 	/**

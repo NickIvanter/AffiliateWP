@@ -138,7 +138,7 @@ class Affiliate_WP_Referral_Export extends Affiliate_WP_Export implements Export
 					'reference'     => $referral->reference,
 					'context'       => $referral->context,
 					'status'        => $referral->status,
-					'date'          => $referral->date
+					'date'          => $referral->date_i18n( 'datetime' ),
 				), $referral );
 
 				// Add slashing.

@@ -36,7 +36,8 @@ function affwp_add_creative( $data = array() ) {
 		'url'         => ! empty( $data['url'] ) ? esc_url_raw( $data['url'] ) : get_site_url(),
 		'text'        => ! empty( $data['text'] ) ? sanitize_text_field( $data['text'] ) : get_bloginfo( 'name' ),
 		'image'       => ! empty( $data['image'] ) ? esc_url( $data['image'] ) : '',
-		'status'      => ! empty( $data['status'] ) ? sanitize_text_field( $data['status'] ) : '',	
+		'status'      => ! empty( $data['status'] ) ? sanitize_text_field( $data['status'] ) : '',
+		'date'        => ! empty( $data['date'] ) ? $data['date'] : '',
 	);
 
 	if ( $creative_id = affiliate_wp()->creatives->add( $args ) ) {

@@ -80,7 +80,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 		return array(
 			'affiliate_id' => 0,
 			'referral_id'  => 0,
-			'date'         => date( 'Y-m-d H:i:s' ),
+			'date'         => gmdate( 'Y-m-d H:i:s' ),
 			'referrer'     => ! empty( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
 			'campaign'     => ! empty( $_REQUEST['campaign'] )    ? $_REQUEST['campaign']    : '',
 			'context'      => ! empty( $_REQUEST['context'] )     ? $_REQUEST['context']     : ''
@@ -124,7 +124,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 	 *                                          array of fields. Default '*' (all).
 	 * }
 	 * @param   bool  $count  Return only the total number of results found (optional)
-	 * @return \AffWP\Visit[]|int|stdClass[]
+	 * @return array|int Array of visit objects or field(s) (if found), int if `$count` is true.
 	*/
 	public function get_visits( $args = array(), $count = false ) {
 		global $wpdb;
@@ -304,38 +304,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		// Visits for a date or date range
 		if( ! empty( $args['date'] ) ) {
-
-			if( is_array( $args['date'] ) ) {
-
-				if( ! empty( $args['date']['start'] ) ) {
-
-					$where .= empty( $where ) ? "WHERE " : "AND ";
-
-					$start = esc_sql( date( 'Y-m-d H:i:s', strtotime( $args['date']['start'] ) ) );
-
-					$where .= "`date` >= '{$start}' ";
-				}
-
-				if( ! empty( $args['date']['end'] ) ) {
-
-					$where .= empty( $where ) ? "WHERE " : "AND ";
-
-					$end = esc_sql( date( 'Y-m-d H:i:s', strtotime( $args['date']['end'] ) ) );
-
-					$where .= "`date` <= '{$end}' ";
-				}
-
-			} else {
-
-				$year  = date( 'Y', strtotime( $args['date'] ) );
-				$month = date( 'm', strtotime( $args['date'] ) );
-				$day   = date( 'd', strtotime( $args['date'] ) );
-
-				$where .= empty( $where ) ? "WHERE " : "AND ";
-
-				$where .= "$year = YEAR ( date ) AND $month = MONTH ( date ) AND $day = DAY ( date ) ";
-			}
-
+			$where = $this->prepare_date_query( $where, $args['date'] );
 		}
 
 		// Build the search query
@@ -438,9 +407,17 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			$data['context'] = sanitize_key( substr( $data['context'], 0, 50 ) );
 		}
 
+		if ( ! empty( $data['date'] ) ) {
+			$time = strtotime( $data['date'] );
+
+			$data['date'] = gmdate( 'Y-m-d H:i:s', $time - affiliate_wp()->utils->wp_offset );
+		}
+
 		$visit_id = $this->insert( $data, 'visit' );
 
-		affwp_increase_affiliate_visit_count( $data['affiliate_id'] );
+		if ( $visit_id ) {
+			affwp_increase_affiliate_visit_count( $data['affiliate_id'] );
+		}
 
 		return $visit_id;
 	}
@@ -479,6 +456,12 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 				$data['affiliate_id'] = $visit->affiliate_id;
 			}
 		}
+
+		if ( ! empty( $data['date' ] ) && $data['date'] !== $visit->date ) {
+			$timestamp    = strtotime( $data['date'] ) - affiliate_wp()->utils->wp_offset;
+			$data['date'] = gmdate( 'Y-m-d H:i:s', $timestamp );
+		}
+
 		if ( $this->update( $visit->ID, $data, '', 'visit' ) ) {
 			$updated_visit = affwp_get_visit( $visit->ID );
 

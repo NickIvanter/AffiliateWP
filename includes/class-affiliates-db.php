@@ -108,7 +108,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	*/
 	public function get_column_defaults() {
 		return array(
-			'user_id'  => get_current_user_id()
+			'user_id'         => get_current_user_id(),
+			'date_registered' => gmdate( 'Y-m-d H:i:s' ),
 		);
 	}
 
@@ -138,7 +139,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	 *                                      array of fields. Default '*' (all).
 	 * }
 	 * @param bool  $count Optional. Whether to return only the total number of results found. Default false.
-	 * @return array|int Array of affiliate objects (if found), int if `$count` is true.
+	 * @return array|int Array of affiliate objects or field(s) (if found), int if `$count` is true.
 	 */
 	public function get_affiliates( $args = array(), $count = false ) {
 		global $wpdb;
@@ -256,37 +257,7 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 
 		// Affiliates registered on a date or date range
 		if( ! empty( $args['date'] ) ) {
-
-			if( is_array( $args['date'] ) ) {
-
-				$start = date( 'Y-m-d H:i:s', strtotime( $args['date']['start'] ) );
-				$end   = date( 'Y-m-d H:i:s', strtotime( $args['date']['end'] ) );
-
-				if( empty( $where ) ) {
-
-					$where .= " WHERE `date_registered` >= '{$start}' AND `date_registered` <= '{$end}'";
-
-				} else {
-
-					$where .= " AND `date_registered` >= '{$start}' AND `date_registered` <= '{$end}'";
-
-				}
-
-			} else {
-
-				$year  = date( 'Y', strtotime( $args['date'] ) );
-				$month = date( 'm', strtotime( $args['date'] ) );
-				$day   = date( 'd', strtotime( $args['date'] ) );
-
-				if( empty( $where ) ) {
-					$where .= " WHERE";
-				} else {
-					$where .= " AND";
-				}
-
-				$where .= " $year = YEAR ( date_registered ) AND $month = MONTH ( date_registered ) AND $day = DAY ( date_registered )";
-			}
-
+			$where = $this->prepare_date_query( $where, $args['date'], 'date_registered' );
 		}
 
 		if ( 'DESC' === strtoupper( $args['order'] ) ) {
@@ -491,14 +462,15 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 			return false;
 		}
 
-		$current_date = current_time( 'mysql' );
+		if ( isset( $args['date_registered'] ) ) {
 
-		if ( empty( $args['date_registered'] ) ) {
-			$args['date_registered'] = $current_date;
-		} elseif ( $args['date_registered'] !== $current_date ) {
-			$time = strtotime( $args['date_registered'] );
+			if ( empty( $args['date_registered'] ) ) {
+				unset( $args['date_registered'] );
+			} else {
+				$time = strtotime( $args['date_registered'] );
 
-			$args['date_registered'] = gmdate( 'Y-m-d H:i:s', $time );
+				$args['date_registered'] = gmdate( 'Y-m-d H:i:s', $time - affiliate_wp()->utils->wp_offset );
+			}
 		}
 
 		if ( ! empty( $data['website_url'] ) ) {

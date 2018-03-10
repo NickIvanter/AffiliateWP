@@ -27,6 +27,9 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		add_action( 'woocommerce_order_status_processing', array( $this, 'add_pending_referral' ), 50 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'add_pending_referral' ), 50 );
 
+		// Add an order note if a contained referral is updated.
+		add_action( 'affwp_updated_referral', array( $this, 'updated_referral_note' ), 10, 3 );
+
 		// There should be an option to choose which of these is used
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 100 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 100 );
@@ -70,6 +73,14 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'my_account_affiliate_area_link' ), 100 );
 		add_filter( 'woocommerce_get_endpoint_url',   array( $this, 'my_account_endpoint_url' ), 100, 2 );
 		add_filter( 'woocommerce_get_settings_account', array( $this, 'account_settings' ) );
+
+		// Filter Orders list table to add a referral column
+		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_column' ) );
+		add_action( 'manage_posts_custom_column', array( $this, 'render_orders_referral_column' ), 10, 2 );
+
+		// Filter Order preview to display referral
+		add_filter( 'woocommerce_admin_order_preview_get_order_details', array( $this, 'order_preview_get_referral' ), 10, 2 );
+		add_action( 'woocommerce_admin_order_preview_end', array( $this, 'render_order_preview_referral' ) );
 	}
 
 	/**
@@ -81,19 +92,6 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	public function add_pending_referral( $order_id = 0 ) {
 
 		$this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
-
-		if( function_exists( 'doing_action' ) ) {
-
-			if( doing_action( 'woocommerce_checkout_update_order_meta' ) && did_action( 'woocommerce_checkout_order_processed' ) ) {
-
-				// woocommerce_checkout_order_processed does not fire during Apple Pay processing. If it has fired, this is not an Applee Pay purchase and we need to bail
-				if ( 'stripe' === ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $this->order->payment_method : $this->order->get_payment_method() ) ) {
-					return;
-				}
-
-			}
-
-		}
 
 		// Check if an affiliate coupon was used
 		$coupon_affiliate_id = $this->get_coupon_affiliate_id();
@@ -221,10 +219,16 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 					$this->log( sprintf( 'Referral #%d created successfully.', $referral_id ) );
 
-					$amount = affwp_currency_filter( affwp_format_amount( $amount ) );
-					$name   = affiliate_wp()->affiliates->get_affiliate_name( $affiliate_id );
+					$amount         = affwp_currency_filter( affwp_format_amount( $amount ) );
+					$name           = affiliate_wp()->affiliates->get_affiliate_name( $affiliate_id );
+					$referral_link  = affwp_admin_link( 'referrals', esc_html( '#' . $referral_id ), array( 'action' => 'edit_referral', 'referral_id' => $referral_id ) );
 
-					$this->order->add_order_note( sprintf( __( 'Referral #%d for %s recorded for %s', 'affiliate-wp' ), $referral_id, $amount, $name ) );
+					/* translators: 1: Referral link, 2: Amount, 3: Affiliate Name */
+					$this->order->add_order_note( sprintf( __( 'Referral %1$s for %2$s recorded for %3$s', 'affiliate-wp' ),
+						$referral_link,
+						$amount,
+						$name
+					) );
 
 				} else {
 
@@ -234,6 +238,40 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
 
             // $this->mark_referral_complete( $order_id );
+		}
+
+	}
+
+	/**
+	 * Adds a note to an order if an associated referral's amount is updated.
+	 *
+	 * @since 2.1.9
+	 *
+	 * @param \AffWP\Referral $updated_referral Updated referral object.
+	 * @param \AffWP\Referral $referral         Old referral object.
+	 * @param bool            $update           Whether the referral was successfully updated.
+	 */
+	public function updated_referral_note( $updated_referral, $referral, $updated ) {
+
+		if ( $updated && 'woocommerce' === $updated_referral->context && ! empty( $updated_referral->reference ) ) {
+
+			$order = wc_get_order( $updated_referral->reference );
+
+			if ( false !== $order && $updated_referral->amount != $referral->amount ) {
+
+				$amount        = affwp_currency_filter( affwp_format_amount( $updated_referral->amount ) );
+				$name          = affiliate_wp()->affiliates->get_affiliate_name( $updated_referral->affiliate_id );
+				$referral_link = affwp_admin_link( 'referrals', esc_html( '#' . $updated_referral->ID ), array( 'action' => 'edit_referral', 'referral_id' => $updated_referral->ID ) );
+
+				/* translators: 1: Referral link, 2: Amount, 3: Affiliate Name */
+				$order->add_order_note( sprintf( __( 'Referral %1$s updated. Amount %2$s recorded for %3$s', 'affiliate-wp' ),
+					$referral_link,
+					$amount,
+					$name
+				) );
+
+			}
+
 		}
 
 	}
@@ -374,7 +412,10 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		}
 
-		$url = get_edit_post_link( $reference );
+		$url   = get_edit_post_link( $reference );
+		$order = wc_get_order( $reference );
+
+		$reference = is_a( $order, 'WC_Order' ) ? $order->get_order_number() : $reference;
 
 		return '<a href="' . esc_url( $url ) . '">' . $reference . '</a>';
 	}
@@ -900,6 +941,92 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 		return $settings;
 	}
 
+	/**
+	 * Register "Affiliate Referral" column in the Orders list table.
+	 *
+	 * @access public
+	 * @since  2.1.11
+	 *
+	 * @param array  $columns Table columns.
+	 * @return array $columns Modified columns.
+	 */
+	public function add_orders_column( $columns ) {
+		$columns['referral'] = __( 'Affiliate Referral', 'affiliate-wp' );
+		return $columns;
+	}
+
+	/**
+	 * Render the "Affiliate Referral" column in the Orders list table for orders that have a referral associated with them.
+	 *
+	 * @access public
+	 * @since  2.1.11
+	 *
+	 * @param string $column_name Name of column being rendered.
+	 * @return void.
+	 */
+	public function render_orders_referral_column( $column_name, $order_id ) {
+
+		if ( get_post_type( $order_id ) == 'shop_order' && 'referral' === $column_name ) {
+
+			$referral = affiliate_wp()->referrals->get_by( 'reference', $order_id, $this->context );
+
+			if( $referral ) {
+				echo '<a href="' . affwp_admin_url( 'referrals', array( 'referral_id' => $referral->referral_id, 'action' => 'edit_referral' ) ) . '">#' . $referral->referral_id . '</a>';
+			} else {
+				echo '<span aria-hidden="true">&mdash;</span>';
+			}
+
+		}
+
+	}
+
+	/**
+	 * Add "Affiliate Referral" to the Order preview screen.
+	 *
+	 * @access public
+	 * @since  2.1.16
+	 *
+	 * @param array $order_details Order details to send to the preview screen.
+	 * @param WC_Order $order Order object.
+	 * @return array $order_details Modified order details.
+	 */
+	public function order_preview_get_referral( $order_details, $order ) {
+
+		$order_id = method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id;
+
+		$referral = affiliate_wp()->referrals->get_by( 'reference', $order_id, $this->context );
+
+		if( $referral ) {
+
+			$referral_html = '<div class="wc-order-preview-affwp-referral">';
+			$referral_html .= '<strong>'. __( 'Affiliate Referral', 'affiliate_wp' ) . '</strong>';
+			$referral_html .= '<a href="' . affwp_admin_url( 'referrals', array( 'referral_id' => $referral->referral_id, 'action' => 'edit_referral' ) ) . '">#' . $referral->referral_id . '</a>';
+			$referral_html .= '</div>';
+
+			$order_details['referral'] = $referral_html;
+
+		}
+
+		return $order_details;
+
+	}
+
+	/**
+	 * Render the "Affiliate Referral" section in the order preview screen.
+	 *
+	 * @access public
+	 * @since  2.1.16
+	 *
+	 */
+	public function render_order_preview_referral() {
+
+?>
+		<# if ( data.referral ) { #>
+			{{{ data.referral }}}
+		<# } #>
+<?php
+
+	}
 }
 
 if ( class_exists( 'WooCommerce' ) ) {

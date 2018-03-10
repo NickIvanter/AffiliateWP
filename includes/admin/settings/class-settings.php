@@ -131,8 +131,13 @@ class Affiliate_WP_Settings {
 		if ( ! empty( $options ) ) {
 			$all_options = array_merge( $all_options, $options );
 		}
-		return update_option( 'affwp_settings', $all_options );
-	}
+
+		$updated = update_option( 'affwp_settings', $all_options );
+
+		// Refresh the options array available in memory (prevents unexpected race conditions).
+		$this->options = get_option( 'affwp_settings', array() );
+
+		return $updated;	}
 
 	/**
 	 * Get all settings
@@ -543,6 +548,11 @@ class Affiliate_WP_Settings {
 						'type' => 'number',
 						'size' => 'small',
 						'std' => '1'
+					),
+					'cookie_sharing' => array(
+						'name' => __( 'Cookie Sharing', 'affiliate-wp' ),
+						'desc' => __( 'Share tracking cookies with sub-domains. When enabled, tracking cookies created on domain.com will also be available on sub.domain.com.', 'affiliate-wp' ),
+						'type' => 'checkbox',
 					),
 					'currency_settings' => array(
 						'name' => '<strong>' . __( 'Currency Settings', 'affiliate-wp' ) . '</strong>',

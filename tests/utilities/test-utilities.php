@@ -72,6 +72,32 @@ class Tests extends UnitTestCase {
 	}
 
 	/**
+	 * @covers \Affiliate_WP_Utilities::$wp_offset
+	 * @group dates
+	 */
+	public function test_wp_offset_should_equal_value_of_offset_in_seconds() {
+		$expected = get_option( 'gmt_offset', '' ) * HOUR_IN_SECONDS;
+
+		$this->assertSame( $expected, self::$utils->wp_offset );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::$date_format
+	 * @group dates
+	 */
+	public function test_date_format_should_equal_value_of_date_format_option() {
+		$this->assertSame( get_option( 'date_format', '' ), self::$utils->date_format );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::$time_format
+	 * @group dates
+	 */
+	public function test_time_format_should_equal_value_of_time_format_option() {
+		$this->assertSame( get_option( 'time_format', '' ), self::$utils->time_format );
+	}
+
+	/**
 	 * @covers \Affiliate_WP_Utilities::process_request_data()
 	 */
 	public function test_process_request_data_should_return_data_unchanged_if_old_key_empty() {
@@ -136,6 +162,103 @@ class Tests extends UnitTestCase {
 		$result = self::$utils->process_request_data( $data, '_affwp_affiliate_user_name' );
 
 		$this->assertArrayHasKey( 'user_id', $result );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_empty_format_should_default_to_date_format() {
+		$this->assertSame( get_option( 'date_format', '' ), self::$utils->get_date_format( '' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_date_should_return_date_format_value() {
+		$this->assertSame( get_option( 'date_format', '' ), self::$utils->get_date_format( 'date' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_time_should_return_time_format_value() {
+		$this->assertSame( get_option( 'time_format', '' ), self::$utils->get_date_format( 'time' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_datetime_should_return_date_and_time_format_values() {
+		$expected = get_option( 'date_format', '' ) . ' ' . get_option( 'time_format', '' );
+
+		$this->assertSame( $expected, self::$utils->get_date_format( 'datetime' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_mysql_should_return_mysql_format() {
+		$this->assertSame( 'Y-m-d H:i:s', self::$utils->get_date_format( 'mysql' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::get_date_format()
+	 * @group dates
+	 */
+	public function test_get_date_format_non_shorthand_format_should_return_that_format() {
+		$this->assertSame( 'm/d/Y', self::$utils->get_date_format( 'm/d/Y' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::date()
+	 * @group dates
+	 */
+	public function test_date_should_return_a_Date_object() {
+		$this->assertInstanceOf( 'AffWP\Utils\Date', self::$utils->date() );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::date()
+	 * @group dates
+	 */
+	public function test_date_should_return_a_DateTime_object() {
+		$this->assertInstanceOf( 'DateTime', self::$utils->date() );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::date()
+	 * @group dates
+	 */
+	public function test_date_should_be_converted_to_WordPress_time() {
+		$date = self::$utils->date( '2003-01-02 10:09:08' );
+		$expected = gmdate( 'Y-m-d H:i:s', strtotime( '2003-01-02 10:09:08' ) + self::$utils->wp_offset );
+
+		$this->assertSame( $expected, $date->format( 'mysql' ) );
+	}
+
+	/**
+	 * @covers \Affiliate_WP_Utilities::_refresh_wp_offset()
+	 * @group dates
+	 */
+	public function test_refresh_wp_offset_should_refresh_the_offset_value_on_gmt_offset_update() {
+		$original_offset = self::$utils->wp_offset / HOUR_IN_SECONDS;
+
+		$new_offset = -7 * HOUR_IN_SECONDS;
+
+		update_option( 'gmt_offset', -7 );
+
+		self::$utils->_refresh_wp_offset();
+
+		$this->assertSame( $new_offset, self::$utils->wp_offset );
+
+		// Clean up.
+		update_option( 'gmt_offset', $original_offset );
+		self::$utils->_refresh_wp_offset();
 	}
 
 }

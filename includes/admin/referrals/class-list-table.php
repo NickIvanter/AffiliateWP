@@ -206,8 +206,8 @@ class AffWP_Referrals_Table extends List_Table {
 	 * @access public
 	 * @since 1.0
 	 *
-	 * @param array $item Contains all the data of the affiliate
-	 * @param string $column_name The name of the column
+	 * @param \AffWP\Referral $referral    Contains all the data of the affiliate
+	 * @param string          $column_name The name of the column
 	 *
 	 * @return string Column Name
 	 */
@@ -215,7 +215,7 @@ class AffWP_Referrals_Table extends List_Table {
 		switch( $column_name ) {
 
 			case 'date' :
-				$value = date_i18n( get_option( 'date_format' ), strtotime( $referral->date ) );
+				$value = $referral->date_i18n();
 				break;
 
 			case 'description' :

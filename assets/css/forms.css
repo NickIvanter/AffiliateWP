@@ -63,6 +63,11 @@ table.affwp-table th {
 	cursor: pointer;
 }
 
+.affwp-form label + input,
+.affwp-form label + textarea {
+	width: 100%;
+}
+
 .affwp-wrap {
 	margin-bottom: 20px;
 }
@@ -175,7 +180,7 @@ p.affwp-error {
 	color: #ef6c5e;
 }
 
-#affwp-affiliate-dashboard-creatives pre {
+.affwp-creative pre {
 	background-color: transparent;
 	background-color: rgba( 0, 0, 0, 0.01 );
 	border: 1px solid #eaeaea;
@@ -189,8 +194,8 @@ p.affwp-error {
 	word-wrap: break-word;
 }
 
-#affwp-affiliate-dashboard-creatives pre,
-#affwp-affiliate-dashboard-creatives code {
+.affwp-creative pre,
+.affwp-creative code {
 	-webkit-hyphens: none;
 	-moz-hyphens: none;
 	-ms-hyphens: none;

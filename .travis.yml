@@ -12,17 +12,15 @@ php:
 env:
     - WP_VERSION=latest WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
-    - WP_VERSION=4.8 WP_MULTISITE=0
-    - WP_VERSION=4.7 WP_MULTISITE=0
-    - WP_VERSION=4.6 WP_MULTISITE=0
-    - WP_VERSION=4.5 WP_MULTISITE=0
+    - WP_VERSION=4.8.3 WP_MULTISITE=0
+    - WP_VERSION=4.7.7 WP_MULTISITE=0
+    - WP_VERSION=4.6.8 WP_MULTISITE=0
+    - WP_VERSION=4.5.11 WP_MULTISITE=0
 
 matrix:
   include:
     - php: 7.1
       env: WP_VERSION=trunk
-    - php: 5.3
-      dist: precise
 
 before_script:
   - |
@@ -33,7 +31,7 @@ before_script:
           echo "Using PHPUnit 6.x"
           composer global require "phpunit/phpunit:^6"
           ;;
-        5.6|5.5|5.4|5.3)
+        5.6|5.5|5.4)
           echo "Using PHPUnit 4.x"
           composer global require "phpunit/phpunit:^4"
           ;;

@@ -172,10 +172,13 @@ class Tab extends Reports\Tab {
 				'comparison_data' => $this->get_date_comparison_label(),
 			) );
 
-			$this->register_tile( 'unpaid_referrals', array(
-				'label'   => __( 'Unpaid Referrals', 'affiliate-wp' ),
-				'type'    => 'number',
-				'data'    => affiliate_wp()->referrals->unpaid_count( $this->date_query ),
+			$this->register_tile( 'paid_unpaid_referrals', array(
+				'label'           => __( 'Paid / Unpaid Referrals', 'affiliate-wp' ),
+				'type'            => 'split-number',
+				'data'            => array(
+					'first_value'  => affiliate_wp()->referrals->paid_count( $this->date_query ),
+					'second_value' => affiliate_wp()->referrals->unpaid_count( $this->date_query ),
+				),
 				'comparison_data' => $this->get_date_comparison_label(),
 			) );
 
