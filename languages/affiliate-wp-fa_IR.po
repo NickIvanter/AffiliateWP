@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
 "POT-Creation-Date: 2017-11-01 22:56:22+00:00\n"
-"PO-Revision-Date: 2017-06-01 00:30-0600\n"
+"PO-Revision-Date: 2018-01-25 13:33+1300\n"
 "Last-Translator: Chris Christoff <chriscct7@gmail.com>\n"
 "Language-Team: Mojtaba Taheri <moj.taheri@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -26,8 +26,8 @@ msgstr "حقه می‌زنید. آره؟"
 #: affiliate-wp.php:295
 msgid ""
 "Your version of PHP is below the minimum version of PHP required by "
-"AffiliateWP. Please contact your host and request that your version be "
-"upgraded to 5.3 or later."
+"AffiliateWP. Please contact your host and request that your version be upgraded "
+"to 5.3 or later."
 msgstr ""
 
 #: includes/REST/class-rest.php:62 includes/admin/ajax-actions.php:237
@@ -45,23 +45,18 @@ msgstr ""
 #: includes/admin/affiliates/actions.php:124
 #: includes/admin/affiliates/actions.php:155
 #: includes/admin/affiliates/actions.php:159
-#: includes/admin/class-addon-updater.php:283
-#: includes/admin/class-notices.php:564
-#: includes/admin/creatives/actions.php:16
-#: includes/admin/creatives/actions.php:44
-#: includes/admin/creatives/actions.php:48
-#: includes/admin/creatives/actions.php:52
-#: includes/admin/creatives/actions.php:80
-#: includes/admin/referrals/actions.php:16
+#: includes/admin/class-addon-updater.php:283 includes/admin/class-notices.php:564
+#: includes/admin/creatives/actions.php:16 includes/admin/creatives/actions.php:44
+#: includes/admin/creatives/actions.php:48 includes/admin/creatives/actions.php:52
+#: includes/admin/creatives/actions.php:80 includes/admin/referrals/actions.php:16
 #: includes/admin/tools/export/class-batch-export.php:199
 #: includes/admin/tools/export/class-export-settings.php:91
 #: includes/admin/tools/export/class-export.php:227
 #: includes/admin/tools/import/class-batch-import-affiliates.php:111
 #: includes/admin/tools/import/class-batch-import-referrals.php:103
 #: includes/admin/tools/import/import.php:24
-#: includes/admin/tools/import/import.php:30
-#: includes/admin/tools/tools.php:668 includes/admin/tools/tools.php:676
-#: includes/admin/tools/tools.php:686
+#: includes/admin/tools/import/import.php:30 includes/admin/tools/tools.php:668
+#: includes/admin/tools/tools.php:676 includes/admin/tools/tools.php:686
 msgid "Error"
 msgstr "خطا"
 
@@ -151,8 +146,8 @@ msgstr "نوع نرخ ارجاع همکار فروش"
 #: includes/REST/v1/class-affiliates-endpoints.php:333
 msgid "The affiliate account email. Synced with the associated user account."
 msgstr ""
-"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن "
-"انجام شود."
+"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن انجام "
+"شود."
 
 #: includes/REST/v1/class-affiliates-endpoints.php:338
 msgid "The affiliate payment email address."
@@ -164,8 +159,7 @@ msgstr ""
 
 #: includes/REST/v1/class-affiliates-endpoints.php:346
 msgid ""
-"The affiliate payment email address, as inherited from the user email "
-"address."
+"The affiliate payment email address, as inherited from the user email address."
 msgstr ""
 
 #: includes/REST/v1/class-affiliates-endpoints.php:352
@@ -258,8 +252,8 @@ msgstr ""
 
 #: includes/REST/v1/class-payouts-endpoints.php:208
 msgid ""
-"Comparison operator used with 'amount'. Accepts '>', '<', '>=', '<=', '=', "
-"or '!='."
+"Comparison operator used with 'amount'. Accepts '>', '<', '>=', '<=', '=', or '!"
+"='."
 msgstr ""
 
 #: includes/REST/v1/class-payouts-endpoints.php:215
@@ -384,8 +378,7 @@ msgid "Custom referral data."
 msgstr "ارجاعی یافت نشد."
 
 #: includes/REST/v1/class-referrals-endpoints.php:302
-msgid ""
-"Context under which the referral was generated (usually the ontegration)."
+msgid "Context under which the referral was generated (usually the ontegration)."
 msgstr ""
 
 #: includes/REST/v1/class-referrals-endpoints.php:306
@@ -516,53 +509,43 @@ msgstr ""
 msgid "No data for the current date range."
 msgstr ""
 
-#: includes/abstracts/class-affwp-reports-tab.php:433
-#: includes/class-graph.php:361
+#: includes/abstracts/class-affwp-reports-tab.php:433 includes/class-graph.php:361
 msgid "Today"
 msgstr "امروز"
 
-#: includes/abstracts/class-affwp-reports-tab.php:434
-#: includes/class-graph.php:362
+#: includes/abstracts/class-affwp-reports-tab.php:434 includes/class-graph.php:362
 msgid "Yesterday"
 msgstr "دیروز"
 
-#: includes/abstracts/class-affwp-reports-tab.php:435
-#: includes/class-graph.php:363
+#: includes/abstracts/class-affwp-reports-tab.php:435 includes/class-graph.php:363
 msgid "This Week"
 msgstr "این هفته"
 
-#: includes/abstracts/class-affwp-reports-tab.php:436
-#: includes/class-graph.php:364
+#: includes/abstracts/class-affwp-reports-tab.php:436 includes/class-graph.php:364
 msgid "Last Week"
 msgstr "هفته‌ی گذشته"
 
-#: includes/abstracts/class-affwp-reports-tab.php:437
-#: includes/class-graph.php:365
+#: includes/abstracts/class-affwp-reports-tab.php:437 includes/class-graph.php:365
 msgid "This Month"
 msgstr "این ماه"
 
-#: includes/abstracts/class-affwp-reports-tab.php:438
-#: includes/class-graph.php:366
+#: includes/abstracts/class-affwp-reports-tab.php:438 includes/class-graph.php:366
 msgid "Last Month"
 msgstr "ماه گذشته"
 
-#: includes/abstracts/class-affwp-reports-tab.php:439
-#: includes/class-graph.php:367
+#: includes/abstracts/class-affwp-reports-tab.php:439 includes/class-graph.php:367
 msgid "This Quarter"
 msgstr "این فصل"
 
-#: includes/abstracts/class-affwp-reports-tab.php:440
-#: includes/class-graph.php:368
+#: includes/abstracts/class-affwp-reports-tab.php:440 includes/class-graph.php:368
 msgid "Last Quarter"
 msgstr "فصل گذشته"
 
-#: includes/abstracts/class-affwp-reports-tab.php:441
-#: includes/class-graph.php:369
+#: includes/abstracts/class-affwp-reports-tab.php:441 includes/class-graph.php:369
 msgid "This Year"
 msgstr "امسال"
 
-#: includes/abstracts/class-affwp-reports-tab.php:442
-#: includes/class-graph.php:370
+#: includes/abstracts/class-affwp-reports-tab.php:442 includes/class-graph.php:370
 msgid "Last Year"
 msgstr "پارسال"
 
@@ -573,10 +556,9 @@ msgstr ""
 
 #: includes/abstracts/class-affwp-reports-tab.php:499
 #: includes/admin/referrals/class-list-table.php:568
-#: includes/admin/referrals/referrals.php:64
-#: includes/admin/tools/tools.php:152 includes/admin/tools/tools.php:308
-#: includes/admin/tools/tools.php:335 includes/admin/tools/tools.php:359
-#: includes/admin/visits/visits.php:55
+#: includes/admin/referrals/referrals.php:64 includes/admin/tools/tools.php:152
+#: includes/admin/tools/tools.php:308 includes/admin/tools/tools.php:335
+#: includes/admin/tools/tools.php:359 includes/admin/visits/visits.php:55
 msgid "Affiliate name"
 msgstr "نام همکار فروش"
 
@@ -587,8 +569,8 @@ msgstr ""
 
 #: includes/admin/AFFWP_Plugin_Updater.php:209
 msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
-"or %5$supdate now%6$s."
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s or "
+"%5$supdate now%6$s."
 msgstr ""
 
 #: includes/admin/AFFWP_Plugin_Updater.php:399
@@ -606,14 +588,14 @@ msgstr ""
 
 #: includes/admin/add-ons.php:38
 msgid ""
-"These add-ons <em><strong>add functionality</strong></em> to your "
-"AffiliateWP-powered site."
+"These add-ons <em><strong>add functionality</strong></em> to your AffiliateWP-"
+"powered site."
 msgstr ""
 
 #: includes/admin/add-ons.php:45
 msgid ""
-"Pro add-ons are only available with a Professional or Ultimate license. If "
-"you already have one of these licenses, simply <a href=\"%s\">log in to your "
+"Pro add-ons are only available with a Professional or Ultimate license. If you "
+"already have one of these licenses, simply <a href=\"%s\">log in to your "
 "account</a> to download any of these add-ons."
 msgstr ""
 
@@ -644,12 +626,9 @@ msgid "You do not have permission to delete affiliate accounts"
 msgstr "شما اجازه‌ی برون‌بری داده ندارید."
 
 #: includes/admin/affiliates/actions.php:73
-#: includes/admin/affiliates/actions.php:159
-#: includes/admin/class-notices.php:564
-#: includes/admin/creatives/actions.php:48
-#: includes/admin/referrals/actions.php:20
-#: includes/admin/referrals/actions.php:51
-#: includes/admin/referrals/actions.php:82
+#: includes/admin/affiliates/actions.php:159 includes/admin/class-notices.php:564
+#: includes/admin/creatives/actions.php:48 includes/admin/referrals/actions.php:20
+#: includes/admin/referrals/actions.php:51 includes/admin/referrals/actions.php:82
 msgid "Security check failed"
 msgstr ""
 
@@ -657,8 +636,8 @@ msgstr ""
 msgid "No affiliate IDs specified for deletion"
 msgstr ""
 
-#: includes/admin/affiliates/affiliates.php:59
-#: includes/admin/class-menu.php:11 includes/admin/class-menu.php:14
+#: includes/admin/affiliates/affiliates.php:59 includes/admin/class-menu.php:11
+#: includes/admin/class-menu.php:14
 #: includes/admin/reports/tabs/class-affiliates-reports-tab.php:23
 msgid "Affiliates"
 msgstr "همکاران فروش"
@@ -670,8 +649,7 @@ msgid "Add New"
 msgstr "افزودن تازه"
 
 #: includes/admin/affiliates/affiliates.php:74
-#: includes/admin/payouts/payouts.php:52
-#: includes/admin/referrals/referrals.php:89
+#: includes/admin/payouts/payouts.php:52 includes/admin/referrals/referrals.php:89
 #: includes/admin/visits/visits.php:53
 msgid "Search"
 msgstr "جستجو"
@@ -737,16 +715,15 @@ msgid "Affiliate ID"
 msgstr "شناسه همکار فروش"
 
 #: includes/admin/affiliates/class-list-table.php:168
-#: includes/admin/affiliates/edit.php:91
-#: includes/admin/affiliates/review.php:41
+#: includes/admin/affiliates/edit.php:91 includes/admin/affiliates/review.php:41
 #: includes/admin/settings/class-settings.php:501
 #: includes/admin/tools/class-rest-consumers-table.php:200
 #: includes/admin/tools/export/class-batch-export-affiliates.php:97
 #: includes/admin/tools/export/class-batch-export-referrals.php:147
 #: includes/admin/tools/export/class-export-affiliates.php:53
 #: includes/admin/tools/export/class-export-referrals.php:67
-#: includes/misc-functions.php:1085 templates/login.php:25
-#: templates/login.php:26 templates/register.php:69 templates/register.php:70
+#: includes/misc-functions.php:1085 templates/login.php:25 templates/login.php:26
+#: templates/register.php:69 templates/register.php:70
 #: tests/misc/test-misc-functions.php:370
 msgid "Username"
 msgstr "نام کاربری"
@@ -810,11 +787,9 @@ msgstr "بازدیدها"
 #: includes/admin/tools/export/class-export-affiliates.php:60
 #: includes/admin/tools/export/class-export-referrals.php:74
 #: includes/misc-functions.php:1095 includes/misc-functions.php:1137
-#: templates/dashboard-tab-payouts.php:37
-#: templates/dashboard-tab-payouts.php:64
+#: templates/dashboard-tab-payouts.php:37 templates/dashboard-tab-payouts.php:64
 #: templates/dashboard-tab-referrals.php:38
-#: templates/dashboard-tab-referrals.php:57
-#: tests/misc/test-misc-functions.php:380
+#: templates/dashboard-tab-referrals.php:57 tests/misc/test-misc-functions.php:380
 #: tests/misc/test-misc-functions.php:416
 msgid "Status"
 msgstr "وضیعت"
@@ -920,12 +895,11 @@ msgstr "نام همکار فروش"
 #: includes/admin/affiliates/edit.php:40
 msgid ""
 "The affiliate&#8217;s first and/or last name. Will be empty if no name is "
-"specified. This can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user "
-"edit screen</a>."
+"specified. This can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user edit "
+"screen</a>."
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:42
-#: includes/admin/affiliates/edit.php:147
+#: includes/admin/affiliates/edit.php:42 includes/admin/affiliates/edit.php:147
 msgid "A link to the user edit screen for this user."
 msgstr ""
 
@@ -968,8 +942,8 @@ msgstr "نام همکار فروش"
 
 #: includes/admin/affiliates/edit.php:131
 msgid ""
-"The status assigned to the affiliate&#8217;s account. Updating the status "
-"could trigger account related events, such as email notifications."
+"The status assigned to the affiliate&#8217;s account. Updating the status could "
+"trigger account related events, such as email notifications."
 msgstr ""
 
 #: includes/admin/affiliates/edit.php:139 includes/misc-functions.php:1096
@@ -979,9 +953,8 @@ msgstr "ایجاد URL"
 
 #: includes/admin/affiliates/edit.php:145
 msgid ""
-"The affiliate&#8217;s website. Will be empty if no website is specified. "
-"This can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user edit screen</"
-"a>."
+"The affiliate&#8217;s website. Will be empty if no website is specified. This "
+"can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user edit screen</a>."
 msgstr ""
 
 #: includes/admin/affiliates/edit.php:156 includes/admin/affiliates/new.php:82
@@ -997,27 +970,24 @@ msgstr "پیش‌فرض سایت"
 msgid "The affiliate&#8217;s referral rate type."
 msgstr "نوع نرخ ارجاع همکار فروش"
 
-#: includes/admin/affiliates/edit.php:174
-#: includes/admin/affiliates/new.php:100
+#: includes/admin/affiliates/edit.php:174 includes/admin/affiliates/new.php:100
 #: includes/admin/settings/class-settings.php:523
 #: includes/integrations/class-edd.php:624
 #: includes/integrations/class-memberpress.php:177
-#: includes/integrations/class-pmp.php:351
-#: includes/integrations/class-pms.php:49
+#: includes/integrations/class-pmp.php:351 includes/integrations/class-pms.php:49
 #: includes/integrations/class-woocommerce.php:560
 #: includes/integrations/class-zippycourses.php:76
 #: includes/integrations/extras/class-exchange-feature.php:31
 msgid "Referral Rate"
 msgstr "نرخ ارجاع"
 
-#: includes/admin/affiliates/edit.php:179
-#: includes/admin/affiliates/new.php:105
+#: includes/admin/affiliates/edit.php:179 includes/admin/affiliates/new.php:105
 msgid ""
 "The affiliate&#8217;s referral rate, such as 20 for 20%. If left blank, the "
 "site default will be used."
 msgstr ""
-"نرخ ارجاع، مانند 20 برای 20٪. اگر خالی بگذارید، مقدار پیش‌فرض سایت استفاده "
-"خواهد شد."
+"نرخ ارجاع، مانند 20 برای 20٪. اگر خالی بگذارید، مقدار پیش‌فرض سایت استفاده خواهد "
+"شد."
 
 #: includes/admin/affiliates/edit.php:187 templates/register.php:74
 msgid "Account Email"
@@ -1031,8 +1001,7 @@ msgstr ""
 "رایانامه‌ی حساب همکار فروش. به‌روزرسانی باعث تغییر رایانامه‌ی نمایش داده شده در "
 "نمایه‌ی کاربر خواهد شد."
 
-#: includes/admin/affiliates/edit.php:200
-#: includes/admin/affiliates/new.php:113
+#: includes/admin/affiliates/edit.php:200 includes/admin/affiliates/new.php:113
 #: includes/admin/settings/class-settings.php:830
 #: includes/admin/tools/export/class-batch-export-affiliates.php:96
 #: includes/admin/tools/export/class-batch-export-referrals.php:146
@@ -1044,8 +1013,7 @@ msgstr ""
 msgid "Payment Email"
 msgstr "رایانامه‌ی پرداخت"
 
-#: includes/admin/affiliates/edit.php:205
-#: includes/admin/affiliates/new.php:118
+#: includes/admin/affiliates/edit.php:205 includes/admin/affiliates/new.php:118
 msgid ""
 "Affiliate&#8217;s payment email for systems such as PayPal, Moneybookers, or "
 "others. Leave blank to use the affiliate&#8217;s user email."
@@ -1061,19 +1029,15 @@ msgstr ""
 msgid "Promotion methods entered by the affiliate during registration."
 msgstr "مدیران سایت از ثبت‌نام همکاران فروش تازه آگاه شوند؟"
 
-#: includes/admin/affiliates/edit.php:226
-#: includes/admin/affiliates/new.php:126
+#: includes/admin/affiliates/edit.php:226 includes/admin/affiliates/new.php:126
 msgid "Affiliate Notes"
 msgstr "نام همکار فروش"
 
-#: includes/admin/affiliates/edit.php:231
-#: includes/admin/affiliates/new.php:131
-msgid ""
-"Enter any notes for this affiliate. Notes are only visible to the admin."
+#: includes/admin/affiliates/edit.php:231 includes/admin/affiliates/new.php:131
+msgid "Enter any notes for this affiliate. Notes are only visible to the admin."
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:240
-#: includes/admin/affiliates/review.php:93
+#: includes/admin/affiliates/edit.php:240 includes/admin/affiliates/review.php:93
 msgid "Rejection Reason"
 msgstr ""
 
@@ -1089,12 +1053,12 @@ msgstr "همکار فروش جدید"
 #, fuzzy
 msgid ""
 "Use this form to create a new affiliate account. Each affiliate is tied "
-"directly to a user account, so if the user account for the affiliate does "
-"not yet exist, <a href=\"%s\" target=\"_blank\">create one</a>."
+"directly to a user account, so if the user account for the affiliate does not "
+"yet exist, <a href=\"%s\" target=\"_blank\">create one</a>."
 msgstr ""
-"از این برگه برای ثبت همکار فروش جدید استفاده کنید. هر همکار فروش به طور "
-"مستقیم به یک حساب کاربری گره خورده است، بنابراین اگر حساب کاربری برای همکار "
-"فروش هنوز وجود خارجی ندارد، <a href=\"%s\" target=\"_blank\">یکی بسازید</a>."
+"از این برگه برای ثبت همکار فروش جدید استفاده کنید. هر همکار فروش به طور مستقیم "
+"به یک حساب کاربری گره خورده است، بنابراین اگر حساب کاربری برای همکار فروش هنوز "
+"وجود خارجی ندارد، <a href=\"%s\" target=\"_blank\">یکی بسازید</a>."
 
 #: includes/admin/affiliates/new.php:25
 #, fuzzy
@@ -1103,11 +1067,11 @@ msgstr "نام کاربری"
 
 #: includes/admin/affiliates/new.php:32
 msgid ""
-"Begin typing the name of the affiliate to perform a search for their "
-"associated user account."
+"Begin typing the name of the affiliate to perform a search for their associated "
+"user account."
 msgstr ""
-"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن "
-"انجام شود."
+"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن انجام "
+"شود."
 
 #: includes/admin/affiliates/new.php:40
 #, fuzzy
@@ -1158,8 +1122,7 @@ msgstr ""
 msgid "Email Address"
 msgstr "رایانامه"
 
-#: includes/admin/affiliates/review.php:66
-#: includes/admin/class-upgrades.php:611
+#: includes/admin/affiliates/review.php:66 includes/admin/class-upgrades.php:611
 #: includes/admin/settings/class-settings.php:829 includes/install.php:46
 #: templates/register.php:84 templates/register.php:85
 msgid "Website URL"
@@ -1195,8 +1158,8 @@ msgstr ""
 
 #: includes/admin/ajax-actions.php:111
 msgid ""
-"You do not have permission to initiate this request. Contact an "
-"administrator for more information."
+"You do not have permission to initiate this request. Contact an administrator "
+"for more information."
 msgstr ""
 
 #: includes/admin/ajax-actions.php:118 includes/admin/ajax-actions.php:284
@@ -1208,8 +1171,7 @@ msgid "An invalid file path is registered for the %1$s batch process handler."
 msgstr ""
 
 #: includes/admin/ajax-actions.php:135 includes/admin/ajax-actions.php:301
-msgid ""
-"%1$s is an invalid handler for the %2$s batch process. Please try again."
+msgid "%1$s is an invalid handler for the %2$s batch process. Please try again."
 msgstr ""
 
 #: includes/admin/ajax-actions.php:241
@@ -1231,15 +1193,15 @@ msgstr "شما اجازه‌ی برون‌بری داده ندارید."
 
 #: includes/admin/class-addon-updater.php:189
 msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+"There is a new version of %1$s available. <a target=\"_blank\" class=\"thickbox"
+"\" href=\"%2$s\">View version %3$s details</a>."
 msgstr ""
 
 #: includes/admin/class-addon-updater.php:196
 msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
-"\">update now</a>."
+"There is a new version of %1$s available. <a target=\"_blank\" class=\"thickbox"
+"\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s\">update now</"
+"a>."
 msgstr ""
 
 #: includes/admin/class-menu.php:13 includes/admin/overview/overview.php:54
@@ -1269,8 +1231,7 @@ msgid "Payouts"
 msgstr ""
 
 #: includes/admin/class-menu.php:18 includes/admin/creatives/creatives.php:43
-#: includes/affiliate-functions.php:1543
-#: templates/dashboard-tab-creatives.php:3
+#: includes/affiliate-functions.php:1543 templates/dashboard-tab-creatives.php:3
 #: tests/affiliates/test-affiliate-functions.php:2178
 msgid "Creatives"
 msgstr ""
@@ -1413,8 +1374,8 @@ msgstr "تنظیمات به‌درستی درون‌ریزی شد"
 
 #: includes/admin/class-notices.php:303
 msgid ""
-"Your license key expired on %s. Please <a href=\"%s\" target=\"_blank"
-"\">renew your license key</a>."
+"Your license key expired on %s. Please <a href=\"%s\" target=\"_blank\">renew "
+"your license key</a>."
 msgstr "با <a href=\"%s\" target=\"_blank\">شرایط استفاده</a> ما موافقت کنید"
 
 #: includes/admin/class-notices.php:315
@@ -1442,8 +1403,8 @@ msgstr ""
 
 #: includes/admin/class-notices.php:357
 msgid ""
-"Your license key has reached its activation limit. <a href=\"%s\">View "
-"possible upgrades</a> now."
+"Your license key has reached its activation limit. <a href=\"%s\">View possible "
+"upgrades</a> now."
 msgstr ""
 
 #: includes/admin/class-notices.php:366
@@ -1473,21 +1434,21 @@ msgstr ""
 
 #: includes/admin/class-notices.php:453 tests/admin/test-notices.php:579
 msgid ""
-"There are currently no AffiliateWP <a href=\"%s\">integrations</a> enabled. "
-"If you are using AffiliateWP without any integrations, you may disregard "
-"this message."
+"There are currently no AffiliateWP <a href=\"%s\">integrations</a> enabled. If "
+"you are using AffiliateWP without any integrations, you may disregard this "
+"message."
 msgstr ""
 
 #: includes/admin/class-notices.php:503
 msgid ""
-"Your license key for AffiliateWP has expired. Please renew your license to "
-"re-enable automatic updates."
+"Your license key for AffiliateWP has expired. Please renew your license to re-"
+"enable automatic updates."
 msgstr ""
 
 #: includes/admin/class-notices.php:512
 msgid ""
-"Please <a href=\"%s\">enter and activate</a> your license key for "
-"AffiliateWP to enable automatic updates."
+"Please <a href=\"%s\">enter and activate</a> your license key for AffiliateWP "
+"to enable automatic updates."
 msgstr ""
 
 #: includes/admin/class-upgrades.php:610
@@ -1497,8 +1458,7 @@ msgstr ""
 msgid "Your Name"
 msgstr "نام شما"
 
-#: includes/admin/creatives/actions.php:16
-#: includes/admin/creatives/actions.php:80
+#: includes/admin/creatives/actions.php:16 includes/admin/creatives/actions.php:80
 msgid "You do not have permission to manage creatives"
 msgstr "شما اجازه‌ی برون‌بری داده ندارید."
 
@@ -1541,8 +1501,7 @@ msgstr "ویرایش"
 msgid "No creatives found."
 msgstr "ارجاعی یافت نشد."
 
-#: includes/admin/creatives/delete.php:10
-#: includes/admin/creatives/delete.php:47
+#: includes/admin/creatives/delete.php:10 includes/admin/creatives/delete.php:47
 msgid "Delete Creative"
 msgstr ""
 
@@ -1565,15 +1524,14 @@ msgstr ""
 #: includes/admin/tools/export/class-export-referrals.php:70
 #: includes/integrations/extras/class-ninja-forms-action-add-referral.php:77
 #: includes/misc-functions.php:1133 templates/dashboard-tab-referrals.php:37
-#: templates/dashboard-tab-referrals.php:56
-#: tests/misc/test-misc-functions.php:412
+#: templates/dashboard-tab-referrals.php:56 tests/misc/test-misc-functions.php:412
 msgid "Description"
 msgstr "توضیحات"
 
 #: includes/admin/creatives/edit.php:41 includes/admin/creatives/new.php:39
 msgid ""
-"An optional description for this creative. This is visible to affiliates and "
-"is displayed below the creative."
+"An optional description for this creative. This is visible to affiliates and is "
+"displayed below the creative."
 msgstr ""
 
 #: includes/admin/creatives/edit.php:54 includes/admin/creatives/new.php:52
@@ -1619,15 +1577,15 @@ msgstr ""
 
 #: includes/admin/creatives/new.php:65
 msgid ""
-"Text for this creative. To make this a text-only creative, do not add an "
-"image below."
+"Text for this creative. To make this a text-only creative, do not add an image "
+"below."
 msgstr ""
 
 #: includes/admin/creatives/new.php:79
 msgid ""
-"Select an image if you would like an image banner. You can also enter an "
-"image URL if your image is hosted elsewhere. Leave blank if you wish to "
-"create a text-only creative."
+"Select an image if you would like an image banner. You can also enter an image "
+"URL if your image is hosted elsewhere. Leave blank if you wish to create a text-"
+"only creative."
 msgstr ""
 
 #: includes/admin/creatives/new.php:114
@@ -1723,8 +1681,7 @@ msgstr "ایجاد URL"
 #: includes/admin/payouts/class-list-table.php:153
 #: includes/admin/payouts/view.php:103
 #: includes/admin/tools/export/class-batch-export-payouts.php:149
-#: templates/dashboard-tab-payouts.php:36
-#: templates/dashboard-tab-payouts.php:61
+#: templates/dashboard-tab-payouts.php:36 templates/dashboard-tab-payouts.php:61
 msgid "Payout Method"
 msgstr ""
 
@@ -1768,8 +1725,7 @@ msgstr ""
 #: includes/admin/tools/export/class-export-referrals.php:68
 #: includes/integrations/class-lifterlms.php:644
 #: includes/integrations/class-lifterlms.php:671
-#: templates/dashboard-tab-payouts.php:35
-#: templates/dashboard-tab-payouts.php:58
+#: templates/dashboard-tab-payouts.php:35 templates/dashboard-tab-payouts.php:58
 #: templates/dashboard-tab-referrals.php:36
 #: templates/dashboard-tab-referrals.php:55
 msgid "Amount"
@@ -1791,8 +1747,7 @@ msgstr "تنظیمات عمومی"
 msgid "Changelog"
 msgstr ""
 
-#: includes/admin/referrals/actions.php:16
-#: includes/admin/referrals/actions.php:47
+#: includes/admin/referrals/actions.php:16 includes/admin/referrals/actions.php:47
 #: includes/admin/referrals/actions.php:78
 msgid "You do not have permission to manage referrals"
 msgstr "شما اجازه‌ی برون‌بری داده ندارید."
@@ -1808,10 +1763,9 @@ msgstr "پرداخت نشده"
 #: includes/admin/tools/export/class-batch-export-referrals.php:152
 #: includes/admin/tools/export/class-export-referrals.php:72
 #: includes/integrations/class-lifterlms.php:654
-#: includes/integrations/class-lifterlms.php:679
-#: includes/misc-functions.php:1135 templates/dashboard-tab-referrals.php:35
-#: templates/dashboard-tab-referrals.php:54
-#: tests/misc/test-misc-functions.php:414
+#: includes/integrations/class-lifterlms.php:679 includes/misc-functions.php:1135
+#: templates/dashboard-tab-referrals.php:35
+#: templates/dashboard-tab-referrals.php:54 tests/misc/test-misc-functions.php:414
 msgid "Reference"
 msgstr "مرجع"
 
@@ -1820,13 +1774,11 @@ msgstr "مرجع"
 #: includes/admin/tools/export/class-batch-export-referrals.php:155
 #: includes/admin/tools/export/class-export-referrals.php:75
 #: includes/admin/tools/export/class-export.php:85
-#: includes/admin/visits/class-list-table.php:110
-#: includes/misc-functions.php:1138 templates/dashboard-tab-payouts.php:34
-#: templates/dashboard-tab-payouts.php:55
+#: includes/admin/visits/class-list-table.php:110 includes/misc-functions.php:1138
+#: templates/dashboard-tab-payouts.php:34 templates/dashboard-tab-payouts.php:55
 #: templates/dashboard-tab-referrals.php:39
-#: templates/dashboard-tab-referrals.php:58
-#: templates/dashboard-tab-visits.php:30 templates/dashboard-tab-visits.php:51
-#: tests/misc/test-misc-functions.php:417
+#: templates/dashboard-tab-referrals.php:58 templates/dashboard-tab-visits.php:30
+#: templates/dashboard-tab-visits.php:51 tests/misc/test-misc-functions.php:417
 msgid "Date"
 msgstr "تاریخ"
 
@@ -1853,18 +1805,16 @@ msgid "Apply"
 msgstr "اجرا"
 
 #: includes/admin/referrals/class-list-table.php:574
-#: includes/admin/referrals/referrals.php:67
-#: includes/admin/tools/tools.php:310 includes/admin/tools/tools.php:337
-#: includes/admin/tools/tools.php:361 includes/admin/visits/visits.php:58
-#: includes/class-graph.php:419
+#: includes/admin/referrals/referrals.php:67 includes/admin/tools/tools.php:310
+#: includes/admin/tools/tools.php:337 includes/admin/tools/tools.php:361
+#: includes/admin/visits/visits.php:58 includes/class-graph.php:419
 msgid "From - mm/dd/yyyy"
 msgstr "از - م‌م/رر/س‌س‌س‌س"
 
 #: includes/admin/referrals/class-list-table.php:575
-#: includes/admin/referrals/referrals.php:68
-#: includes/admin/tools/tools.php:311 includes/admin/tools/tools.php:338
-#: includes/admin/tools/tools.php:362 includes/admin/visits/visits.php:59
-#: includes/class-graph.php:421
+#: includes/admin/referrals/referrals.php:68 includes/admin/tools/tools.php:311
+#: includes/admin/tools/tools.php:338 includes/admin/tools/tools.php:362
+#: includes/admin/visits/visits.php:59 includes/class-graph.php:421
 msgid "To - mm/dd/yyyy"
 msgstr "تا - م‌م/رر/س‌س‌س‌س"
 
@@ -1889,11 +1839,11 @@ msgstr "این برگه دسترسی به تاریخچه‌ی ارجاع‌ها�
 
 #: includes/admin/referrals/contextual-help.php:40
 msgid ""
-"<strong>Reference</strong>: this refers to the order number (or similar) "
-"that created this referral."
+"<strong>Reference</strong>: this refers to the order number (or similar) that "
+"created this referral."
 msgstr ""
-"<strong>مرجع</strong>: این اشاره به شماره سفارش (یا مشابه آن) دارد که این "
-"ارجاع را ساخته است."
+"<strong>مرجع</strong>: این اشاره به شماره سفارش (یا مشابه آن) دارد که این ارجاع "
+"را ساخته است."
 
 #: includes/admin/referrals/contextual-help.php:41
 msgid "Referral statuses:"
@@ -1901,16 +1851,14 @@ msgstr "وضعیت‌های ارجاع:"
 
 #: includes/admin/referrals/contextual-help.php:43
 msgid ""
-"<strong>Paid</strong> - this is a referral that has been paid to the "
-"affiliate"
+"<strong>Paid</strong> - this is a referral that has been paid to the affiliate"
 msgstr ""
-"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده "
-"است"
+"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده است"
 
 #: includes/admin/referrals/contextual-help.php:44
 msgid ""
-"<strong>Unpaid</strong> - this is a referral that has been accepted but not "
-"yet paid to the affiliate"
+"<strong>Unpaid</strong> - this is a referral that has been accepted but not yet "
+"paid to the affiliate"
 msgstr ""
 "<storng>پرداخت نشده</strong> - این یک ارجاع است که پذیرفته شده اما هنوز به "
 "همکار فروش پرداخت نشده است"
@@ -1922,11 +1870,11 @@ msgstr "<strong>در انتظار</strong> - این یک ارجاع است که 
 
 #: includes/admin/referrals/contextual-help.php:46
 msgid ""
-"<strong>Rejected</strong> - this is a referral that has been rejected and "
-"will not be paid to the affiliate"
+"<strong>Rejected</strong> - this is a referral that has been rejected and will "
+"not be paid to the affiliate"
 msgstr ""
-"<strong>رد شده</strong> - این یک ارجاع است که رد شده است و به همکار فروش "
-"پرداخت نخواهد شد."
+"<strong>رد شده</strong> - این یک ارجاع است که رد شده است و به همکار فروش پرداخت "
+"نخواهد شد."
 
 #: includes/admin/referrals/contextual-help.php:52
 msgid "Searching Referrals"
@@ -1954,8 +1902,7 @@ msgid ""
 "You can enter the affiliate&#8217;s ID number prefixed by &#8220;affiliate:"
 "&#8221;"
 msgstr ""
-"شما می‌توانید شماره شناسه همکار فروش را که با پیشوند «affiliate:‎» آمده وارد "
-"کنی"
+"شما می‌توانید شماره شناسه همکار فروش را که با پیشوند «affiliate:‎» آمده وارد کنی"
 
 #: includes/admin/referrals/contextual-help.php:60
 #: includes/admin/visits/contextual-help.php:61
@@ -1965,8 +1912,8 @@ msgstr "شما می‌توانید متن ارجاع را که با پیشوند
 #: includes/admin/referrals/contextual-help.php:61
 #, fuzzy
 msgid ""
-"You can enter a word or phrase in the referral&#8217;s description prefixed "
-"by &#8220;desc:&#8221;"
+"You can enter a word or phrase in the referral&#8217;s description prefixed by "
+"&#8220;desc:&#8221;"
 msgstr "شما می‌توانید مرجع ارجاع را که با پیشوند «ref:‎» آمده وارد کنید"
 
 #: includes/admin/referrals/contextual-help.php:67
@@ -1975,18 +1922,17 @@ msgstr "برون‌بری ارجاع‌ها"
 
 #: includes/admin/referrals/contextual-help.php:69
 msgid ""
-"Referrals can be exported directly to a CSV file in order to make it easier "
-"for your own accounting needs and for you to payout your affiliates&#8217;s "
+"Referrals can be exported directly to a CSV file in order to make it easier for "
+"your own accounting needs and for you to payout your affiliates&#8217;s "
 "earnings."
 msgstr ""
-"برای آسان‌تر کردن نیازهای حسابداری شما و برای تهسیل پرداخت‌ها برای شما، "
-"ارجاع‌ها را می توان به طور مستقیم به یک فایل CSV برون‌بری کرد."
+"برای آسان‌تر کردن نیازهای حسابداری شما و برای تهسیل پرداخت‌ها برای شما، ارجاع‌ها "
+"را می توان به طور مستقیم به یک فایل CSV برون‌بری کرد."
 
 #: includes/admin/referrals/contextual-help.php:70
 msgid ""
-"The CSV file generated is structured properly for PayPal&#8217;s Mass "
-"Payment system so you can easily payout all of your affiliates at once via "
-"PayPal."
+"The CSV file generated is structured properly for PayPal&#8217;s Mass Payment "
+"system so you can easily payout all of your affiliates at once via PayPal."
 msgstr ""
 "ساختار فایل CSV ایجاد شده با سیستم پرداخت گروهی پی‌پال سازگاری دارد و شما "
 "می‌توانید پرداخت‌های تمامی همکاران فروش خود را یکجا انجام دهید."
@@ -2012,8 +1958,8 @@ msgstr ""
 
 #: includes/admin/referrals/edit.php:67
 msgid ""
-"The name and ID of the affiliate who generated this referral. This "
-"association cannot be changed."
+"The name and ID of the affiliate who generated this referral. This association "
+"cannot be changed."
 msgstr "شناسه کاربری همکار فروش. این را نمی‌توان تغییر داد."
 
 #: includes/admin/referrals/edit.php:75
@@ -2067,8 +2013,8 @@ msgid ""
 "Enter a reference for this referral (optional). Usually this would be the "
 "transaction ID of the associated purchase."
 msgstr ""
-"یک مرجع برای این ارجاع وارد کنید (اختیاری). معمولا این شناسه‌ی انتقال مربوط "
-"به خرید مربوطه است."
+"یک مرجع برای این ارجاع وارد کنید (اختیاری). معمولا این شناسه‌ی انتقال مربوط به "
+"خرید مربوطه است."
 
 #: includes/admin/referrals/edit.php:229 includes/admin/referrals/new.php:87
 #: includes/admin/tools/export/class-batch-export-referrals.php:153
@@ -2083,8 +2029,8 @@ msgid ""
 "Context for this referral (optional). Usually this is used to identify the "
 "payment system or integration that was used for the transaction."
 msgstr ""
-"زمینه برای این ارجاع وارد کنید (اختیاری). معمولا این برای کمک به شناسایی "
-"سیستم پرداختی که برای معامله استفاده شده، به کار می‌رود."
+"زمینه برای این ارجاع وارد کنید (اختیاری). معمولا این برای کمک به شناسایی سیستم "
+"پرداختی که برای معامله استفاده شده، به کار می‌رود."
 
 #: includes/admin/referrals/edit.php:242 includes/admin/referrals/new.php:100
 #: includes/admin/reports/tabs/class-campaigns-reports-tab.php:147
@@ -2118,14 +2064,13 @@ msgid "New Referral"
 msgstr "ارجاع تازه"
 
 #: includes/admin/referrals/new.php:14
-msgid ""
-"Use this screen to manually create a new referral record for an affiliate."
+msgid "Use this screen to manually create a new referral record for an affiliate."
 msgstr "از این برگه برای ایجاد دستی یه ارجاع برای یک همکار فروش استفاده کنید."
 
 #: includes/admin/referrals/new.php:28
 msgid ""
-"Enter the name of the affiliate or enter a partial name or email to perform "
-"a search."
+"Enter the name of the affiliate or enter a partial name or email to perform a "
+"search."
 msgstr "نام همکار فروش یا تکه‌ای از نام یا ایمیل را برای انجام جستجو وارد کنید."
 
 #: includes/admin/referrals/new.php:92
@@ -2133,8 +2078,8 @@ msgid ""
 "Enter a context for this referral (optional). Usually this is used to help "
 "identify the payment system that was used for the transaction."
 msgstr ""
-"زمینه برای این ارجاع وارد کنید (اختیاری). معمولا این برای کمک به شناسایی "
-"سیستم پرداختی که برای معامله استفاده شده، به کار می‌رود."
+"زمینه برای این ارجاع وارد کنید (اختیاری). معمولا این برای کمک به شناسایی سیستم "
+"پرداختی که برای معامله استفاده شده، به کار می‌رود."
 
 #: includes/admin/referrals/new.php:105
 msgid "Any custom data that should be stored with the referral (optional)."
@@ -2156,8 +2101,8 @@ msgstr "بستن"
 
 #: includes/admin/referrals/referrals.php:60
 msgid ""
-"Are you sure you want to generate the payout file? All included referrals "
-"will be marked as Paid."
+"Are you sure you want to generate the payout file? All included referrals will "
+"be marked as Paid."
 msgstr ""
 "آیا مطمئن هستید که می خواهید فایل پرداخت تولید کنید؟ همه‌ی ارجاعات به عنوان "
 "پرداخت شده نشان خواهند خورد."
@@ -2179,11 +2124,11 @@ msgstr ""
 #: includes/admin/referrals/referrals.php:72
 msgid ""
 "To generate a payout for a specific affiliate, enter the affiliate&#8217;s "
-"login name, first name, or last name. Leave blank to generate a payout for "
-"any affiliates."
+"login name, first name, or last name. Leave blank to generate a payout for any "
+"affiliates."
 msgstr ""
-"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را "
-"وارد کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
+"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را وارد "
+"کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
 
 #: includes/admin/referrals/referrals.php:81
 msgid "Generate CSV File"
@@ -2439,8 +2384,8 @@ msgstr "ترافیک مستقیم"
 
 #: includes/admin/settings/class-settings.php:427
 msgid ""
-"Show pretty affiliate referral URLs to affiliates. For example: <strong>%s "
-"or %s</strong>"
+"Show pretty affiliate referral URLs to affiliates. For example: <strong>%s or "
+"%s</strong>"
 msgstr "متغیر URL برای URLهای ارجاعی. برای مثال: <strong>%s</strong>."
 
 #: includes/admin/settings/class-settings.php:437
@@ -2462,8 +2407,8 @@ msgid ""
 "Please enter your license key. An active license key is needed for automatic "
 "plugin updates and <a href=\"%s\" target=\"_blank\">support</a>."
 msgstr ""
-"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s"
-"\" target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
+"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s\" "
+"target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
 
 #: includes/admin/settings/class-settings.php:460
 msgid "Pages"
@@ -2528,8 +2473,8 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:518
 msgid ""
-"Choose a referral rate type. Referrals can be based on either a percentage "
-"or a flat rate amount."
+"Choose a referral rate type. Referrals can be based on either a percentage or a "
+"flat rate amount."
 msgstr "آیا ارجاع‌ها بیاد مبتنی بر نرخ ثابت باشد یا درصدی؟"
 
 #: includes/admin/settings/class-settings.php:524
@@ -2539,8 +2484,7 @@ msgid ""
 "individual affiliate."
 msgstr ""
 "نرخ ارجاع پیش‌فرض. یک مقدار درصدی اگر نرخ ارجاع درصدی است، و یک مقدار ثابت در "
-"غیر این صورت. همچنین می‌تواند برای هر کدام از همکاران فروش نرخ مجزا در نظر "
-"گرفت."
+"غیر این صورت. همچنین می‌تواند برای هر کدام از همکاران فروش نرخ مجزا در نظر گرفت."
 
 #: includes/admin/settings/class-settings.php:531
 msgid "Exclude Shipping"
@@ -2588,8 +2532,8 @@ msgid ""
 "Choose your currency. Note that some payment gateways have currency "
 "restrictions."
 msgstr ""
-"ارز خود را انتخاب کنید. توجه داشته باشید که برخی از دروازه پرداخت محدودیت "
-"ارز دارند."
+"ارز خود را انتخاب کنید. توجه داشته باشید که برخی از دروازه پرداخت محدودیت ارز "
+"دارند."
 
 #: includes/admin/settings/class-settings.php:559
 msgid "Currency Symbol Position"
@@ -2657,10 +2601,10 @@ msgstr "یکپارچگی"
 
 #: includes/admin/settings/class-settings.php:610
 msgid ""
-"Choose the integrations to enable. If you are not using any of these, you "
-"may use the <strong>[affiliate_conversion_script]</strong> shortcode to "
-"track and create referrals. Refer to the <a href=\"%s\" target=\"_blank"
-"\">documentation</a> for help using this."
+"Choose the integrations to enable. If you are not using any of these, you may "
+"use the <strong>[affiliate_conversion_script]</strong> shortcode to track and "
+"create referrals. Refer to the <a href=\"%s\" target=\"_blank\">documentation</"
+"a> for help using this."
 msgstr ""
 "برای فعال‌سازی، یکپارچی را انتخاب کنید. اگر هیچ کدام از این‌ها را استفاده "
 "نمی‌کنید، ممکن است بخواهید از کد کوتاه <strong>[affiliate_conversion_script]</"
@@ -2727,8 +2671,7 @@ msgid ""
 "affiliates register."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:662
-#: includes/emails/actions.php:41
+#: includes/admin/settings/class-settings.php:662 includes/emails/actions.php:41
 msgid "New Affiliate Registration"
 msgstr "نام‌نویسی همکار فروش جدید"
 
@@ -2756,12 +2699,11 @@ msgstr "درخواست همکاری فروش پذیرفته شد"
 
 #: includes/admin/settings/class-settings.php:672
 msgid ""
-"Enter the subject line for accepted application emails sent to affiliates "
-"when their account is approved."
+"Enter the subject line for accepted application emails sent to affiliates when "
+"their account is approved."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:674
-#: includes/emails/actions.php:114
+#: includes/admin/settings/class-settings.php:674 includes/emails/actions.php:114
 msgid "Affiliate Application Accepted"
 msgstr "درخواست همکاری فروش پذیرفته شد"
 
@@ -2780,8 +2722,7 @@ msgstr ""
 msgid "Congratulations {name}!"
 msgstr "تبریک %s!"
 
-#: includes/admin/settings/class-settings.php:680
-#: includes/emails/actions.php:119
+#: includes/admin/settings/class-settings.php:680 includes/emails/actions.php:119
 msgid "Your affiliate application on %s has been accepted!"
 msgstr "درخواست همکاری فروش شما در %s پذیرفته شده است!"
 
@@ -2799,8 +2740,7 @@ msgid ""
 "referrals."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:686
-#: includes/emails/actions.php:247
+#: includes/admin/settings/class-settings.php:686 includes/emails/actions.php:247
 msgid "Referral Awarded!"
 msgstr "ارجاع پاداش گرفت!"
 
@@ -2810,8 +2750,8 @@ msgstr "ارجاع تازه"
 
 #: includes/admin/settings/class-settings.php:690
 msgid ""
-"Enter the email to send on new referrals. HTML is accepted. Available "
-"template tags:"
+"Enter the email to send on new referrals. HTML is accepted. Available template "
+"tags:"
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:692
@@ -2827,8 +2767,8 @@ msgid ""
 "Log into your affiliate area to view your earnings or disable these "
 "notifications:"
 msgstr ""
-"برای دیدن درآمد خود یا غیرفعال کردن این آگاه‌سازی‌ها، وارد ناحیه‌ی همکاری فروش "
-"خود شوید: %s"
+"برای دیدن درآمد خود یا غیرفعال کردن این آگاه‌سازی‌ها، وارد ناحیه‌ی همکاری فروش خود "
+"شوید: %s"
 
 #: includes/admin/settings/class-settings.php:695
 #, fuzzy
@@ -2847,12 +2787,11 @@ msgstr "ارجاع تازه"
 
 #: includes/admin/settings/class-settings.php:701
 msgid ""
-"Enter the subject line for the email sent to site the site administrator "
-"when affiliates earn referrals."
+"Enter the subject line for the email sent to site the site administrator when "
+"affiliates earn referrals."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:703
-#: includes/emails/actions.php:306
+#: includes/admin/settings/class-settings.php:703 includes/emails/actions.php:306
 #, fuzzy
 msgid "Referral Earned!"
 msgstr "ارجاع پاداش گرفت!"
@@ -2864,8 +2803,8 @@ msgstr "ارجاع تازه"
 
 #: includes/admin/settings/class-settings.php:707
 msgid ""
-"Enter the email to send to site administrators when new referrals are "
-"earned. HTML is accepted. Available template tags:"
+"Enter the email to send to site administrators when new referrals are earned. "
+"HTML is accepted. Available template tags:"
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:709
@@ -2887,8 +2826,8 @@ msgstr "نیازمند تأیید"
 
 #: includes/admin/settings/class-settings.php:729
 msgid ""
-"Require that Pending affiliate accounts must be approved before they can "
-"begin earning referrals."
+"Require that Pending affiliate accounts must be approved before they can begin "
+"earning referrals."
 msgstr ""
 "آیا پیش از این که همکاران فروش بتوانند ارجاع کسب کنند، باید مدیران آن‌ها را "
 "تأیید کنند؟"
@@ -2924,8 +2863,7 @@ msgid "Enable reCAPTCHA"
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:749
-msgid ""
-"Prevent bots from registering affiliate accounts using Google reCAPTCHA."
+msgid "Prevent bots from registering affiliate accounts using Google reCAPTCHA."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:753
@@ -2942,8 +2880,8 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:759
 msgid ""
-"This is used for communication between your site and Google reCAPTCHA. Be "
-"sure to keep it a secret."
+"This is used for communication between your site and Google reCAPTCHA. Be sure "
+"to keep it a secret."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:763
@@ -2952,8 +2890,8 @@ msgstr "در زمان استرداد، ارجاع‌های پرداخت‌نشد
 
 #: includes/admin/settings/class-settings.php:764
 msgid ""
-"Automatically reject Unpaid referrals when the originating purchase is "
-"refunded or revoked."
+"Automatically reject Unpaid referrals when the originating purchase is refunded "
+"or revoked."
 msgstr ""
 "آیا ارجاع‌های پرداخت نشده به طور خودکار در هنگام استرداد یا لغو خرید اصلی، رد "
 "شوند؟"
@@ -2977,15 +2915,15 @@ msgstr "نرخ ارجاع"
 #: includes/admin/settings/class-settings.php:774
 msgid ""
 "Ignore referrals with a zero amount. This can be useful for multi-price "
-"products that start at zero, or if a discount was used which resulted in a "
-"zero amount. NOTE: If this setting is enabled and a visit results in a zero "
+"products that start at zero, or if a discount was used which resulted in a zero "
+"amount. NOTE: If this setting is enabled and a visit results in a zero "
 "referral, the visit will be considered not converted."
 msgstr ""
-"اگر می‌خواهید AffiliateWP به طور کامل ارجاع‌ها برای مقدار کل صفر را نادیده "
-"بگیرد، این جعبه را علامت بزنید. این کار می‌تواند برای محصولات چندقیمته‌ای که "
-"قیمت‌شان از صفر شروع می‌شود، و یا اگر تخفیفی استفاده شده که منجر به مقدار صفر "
-"شده، مفید باشد. لطفا توجه داشته باشید: اگر این گزینه فعال شود و بازدید منجر "
-"به یک ارجاع صفر شود، آن بازدید تبدیل نشده در نظر گرفته خواهد شد."
+"اگر می‌خواهید AffiliateWP به طور کامل ارجاع‌ها برای مقدار کل صفر را نادیده بگیرد، "
+"این جعبه را علامت بزنید. این کار می‌تواند برای محصولات چندقیمته‌ای که قیمت‌شان از "
+"صفر شروع می‌شود، و یا اگر تخفیفی استفاده شده که منجر به مقدار صفر شده، مفید "
+"باشد. لطفا توجه داشته باشید: اگر این گزینه فعال شود و بازدید منجر به یک ارجاع "
+"صفر شود، آن بازدید تبدیل نشده در نظر گرفته خواهد شد."
 
 #: includes/admin/settings/class-settings.php:778
 msgid "Enable Debug Mode"
@@ -2993,8 +2931,8 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:779
 msgid ""
-"Enable debug mode. This will turn on error logging for the referral process "
-"to help identify issues."
+"Enable debug mode. This will turn on error logging for the referral process to "
+"help identify issues."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:783
@@ -3003,9 +2941,8 @@ msgstr "بازدیدهای URL ارجاع"
 
 #: includes/admin/settings/class-settings.php:784
 msgid ""
-"URLs placed here will be blocked from generating referrals. Enter one URL "
-"per line. NOTE: This will only apply to new visits after the URL has been "
-"saved."
+"URLs placed here will be blocked from generating referrals. Enter one URL per "
+"line. NOTE: This will only apply to new visits after the URL has been saved."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:788
@@ -3033,8 +2970,8 @@ msgstr "مدیریت ثبت‌نام‌ها"
 #: includes/admin/settings/class-settings.php:825
 msgid ""
 "Select which fields should be required for affiliate registration. The "
-"<strong>Username</strong>, <strong>Account Email</strong> and "
-"<strong>Password</strong> form fields are always required."
+"<strong>Username</strong>, <strong>Account Email</strong> and <strong>Password</"
+"strong> form fields are always required."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:831 templates/register.php:89
@@ -3049,8 +2986,7 @@ msgstr "درخواست همکاری فروش پذیرفته شد"
 msgid "Enter the subject line for pending affiliate application emails."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:862
-#: includes/emails/actions.php:165
+#: includes/admin/settings/class-settings.php:862 includes/emails/actions.php:165
 msgid "Your Affiliate Application Is Being Reviewed"
 msgstr "درخواست همکاری فروش شما در %s پذیرفته شده است!"
 
@@ -3068,16 +3004,14 @@ msgstr ""
 msgid "Hi {name}!"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:868
-#: includes/emails/actions.php:170
+#: includes/admin/settings/class-settings.php:868 includes/emails/actions.php:170
 msgid "Thanks for your recent affiliate registration on {site_name}."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:868
-#: includes/emails/actions.php:171
+#: includes/admin/settings/class-settings.php:868 includes/emails/actions.php:171
 msgid ""
-"We&#8217;re currently reviewing your affiliate application and will be in "
-"touch soon!"
+"We&#8217;re currently reviewing your affiliate application and will be in touch "
+"soon!"
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:871
@@ -3088,8 +3022,7 @@ msgstr "درخواست همکاری فروش پذیرفته شد"
 msgid "Enter the subject line for rejected affiliate application emails."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:874
-#: includes/emails/actions.php:204
+#: includes/admin/settings/class-settings.php:874 includes/emails/actions.php:204
 msgid "Your Affiliate Application Has Been Rejected"
 msgstr "درخواست همکاری فروش شما در %s پذیرفته شده است!"
 
@@ -3107,21 +3040,19 @@ msgstr ""
 msgid "Hi {name},"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:880
-#: includes/emails/actions.php:209
+#: includes/admin/settings/class-settings.php:880 includes/emails/actions.php:209
 msgid ""
-"We regret to inform you that your recent affiliate registration on "
-"{site_name} was rejected."
+"We regret to inform you that your recent affiliate registration on {site_name} "
+"was rejected."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:1050
 msgid ""
-"Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</"
-"code> set in <code>wp-config.php</code>.<br />It cannot be modified from "
-"this screen."
+"Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</code> "
+"set in <code>wp-config.php</code>.<br />It cannot be modified from this screen."
 msgstr ""
-"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s"
-"\" target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
+"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s\" "
+"target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
 
 #: includes/admin/settings/class-settings.php:1052
 msgid "Deactivate your license key to make changes to this setting."
@@ -3141,22 +3072,20 @@ msgstr "تجدید مجوز شما"
 
 #: includes/admin/settings/class-settings.php:1068
 msgid ""
-"Your license has expired, renew today to continue getting updates and "
-"support!"
+"Your license has expired, renew today to continue getting updates and support!"
 msgstr ""
-"مجوز شما منقضی شده است، برای ادامه‌ی دریافت به‌روزرسانی و پشتیبانی، همین امروز "
-"آن را تجدید کنید!"
+"مجوز شما منقضی شده است، برای ادامه‌ی دریافت به‌روزرسانی و پشتیبانی، همین امروز آن "
+"را تجدید کنید!"
 
 #: includes/admin/settings/class-settings.php:1070
 msgid "Activate License"
 msgstr "فعال کردن مجوز"
 
 #: includes/admin/settings/class-settings.php:1169
-msgid ""
-"The callback function used for the <strong>%s</strong> setting is missing."
+msgid "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
-"تابع پاسخ به تماس مورد استفاده برای تنظیمات <STRONG> %s </strong> از دست "
-"رفته است."
+"تابع پاسخ به تماس مورد استفاده برای تنظیمات <STRONG> %s </strong> از دست رفته "
+"است."
 
 #: includes/admin/settings/class-settings.php:1244
 msgid "Upload File"
@@ -3164,13 +3093,13 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:1262
 msgid ""
-"Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</"
-"code> set in <code>wp-config.php</code>.<br />It cannot be modified from "
-"this screen.<br />An active license key is needed for automatic plugin "
-"updates and <a href=\"%s\" target=\"_blank\">support</a>."
+"Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</code> "
+"set in <code>wp-config.php</code>.<br />It cannot be modified from this screen."
+"<br />An active license key is needed for automatic plugin updates and <a href="
+"\"%s\" target=\"_blank\">support</a>."
 msgstr ""
-"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s"
-"\" target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
+"لطفا کلید مجوز خود را وارد کنید. برای به روز رسانی خودکار افزونه <a href=\"%s\" "
+"target=\"_blank\">پشتیبانی</a> نیاز به مجوز است."
 
 #: includes/admin/settings/class-settings.php:1282
 msgid ""
@@ -3459,9 +3388,9 @@ msgid ""
 "The upgrade process is running, please be patient. This could take several "
 "minutes to complete while affiliate records are upgraded in batches of 100."
 msgstr ""
-"فرآیند ارتقادهی در حال اجرا است، لطفا شکیبا باشید. این کار ممکن است چند "
-"دقیقه طول بکشد، در حالی که رکوردهای همکاران فروش در بسته‌های ۱۰۰ تایی در حال "
-"ارتقادهی هستند."
+"فرآیند ارتقادهی در حال اجرا است، لطفا شکیبا باشید. این کار ممکن است چند دقیقه "
+"طول بکشد، در حالی که رکوردهای همکاران فروش در بسته‌های ۱۰۰ تایی در حال ارتقادهی "
+"هستند."
 
 #: includes/admin/tools/migration.php:20
 msgid "Step %d running"
@@ -3500,8 +3429,8 @@ msgid ""
 "Enter the name of the affiliate or begin typing to perform a search based on "
 "the affiliate&#8217;s name."
 msgstr ""
-"نام همکار فروش را وارد کنید یا برای جستجوی بر اساس نام همکار فروش، آغاز به "
-"تایپ کردن کنید."
+"نام همکار فروش را وارد کنید یا برای جستجوی بر اساس نام همکار فروش، آغاز به تایپ "
+"کردن کنید."
 
 #: includes/admin/tools/tools.php:164
 msgid "Recount"
@@ -3521,11 +3450,11 @@ msgstr "بازشماری"
 
 #: includes/admin/tools/tools.php:210
 msgid ""
-"Use this tool to create affiliate accounts for each of your existing "
-"WordPress user accounts that belong to the selected roles below."
+"Use this tool to create affiliate accounts for each of your existing WordPress "
+"user accounts that belong to the selected roles below."
 msgstr ""
-"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن "
-"انجام شود."
+"آغاز به تایپ نام همکار فروش کنید، تا جستجو برای حساب کاربری مرتبط با آن انجام "
+"شود."
 
 #: includes/admin/tools/tools.php:211
 msgid ""
@@ -3556,21 +3485,20 @@ msgstr ""
 
 #: includes/admin/tools/tools.php:239
 msgid ""
-"Use this tool to migrate existing affiliate / referral data from Affiliates "
-"Pro to AffiliateWP."
+"Use this tool to migrate existing affiliate / referral data from Affiliates Pro "
+"to AffiliateWP."
 msgstr ""
 "از این ابزار برای کوچ دادن داده‌های همکار فروش / ارجاع از Affiliates Pro به "
 "AffiliateWP استفاده کنید."
 
 #: includes/admin/tools/tools.php:240
 msgid ""
-"<strong>NOTE:</strong> This tool should only ever be used on a fresh "
-"install. If you have already collected affiliate or referral data, do not "
-"use this tool."
+"<strong>NOTE:</strong> This tool should only ever be used on a fresh install. "
+"If you have already collected affiliate or referral data, do not use this tool."
 msgstr ""
-"<strong> توجه: </strong> این ابزار تنها روی یک نصب جدید باید استفاده شود. "
-"اگر پیش از این داده‌های همکار فروش یا ارجاع جمع‌آوری کرده‌اید، از این ابزار "
-"استفاده نکنید."
+"<strong> توجه: </strong> این ابزار تنها روی یک نصب جدید باید استفاده شود. اگر "
+"پیش از این داده‌های همکار فروش یا ارجاع جمع‌آوری کرده‌اید، از این ابزار استفاده "
+"نکنید."
 
 #: includes/admin/tools/tools.php:246
 msgid "Migrate Data from Affiliates Pro"
@@ -3616,11 +3544,11 @@ msgstr "برون‌بری ارجاع‌ها به یک پرونده CSV."
 
 #: includes/admin/tools/tools.php:319
 msgid ""
-"To search for an affiliate, enter the affiliate&#8217;s login name, first "
-"name, or last name. Leave blank to export referrals for all affiliates."
+"To search for an affiliate, enter the affiliate&#8217;s login name, first name, "
+"or last name. Leave blank to export referrals for all affiliates."
 msgstr ""
-"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را "
-"وارد کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
+"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را وارد "
+"کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
 
 #: includes/admin/tools/tools.php:329
 msgid "Export Payouts"
@@ -3633,11 +3561,11 @@ msgstr "برون‌بری ارجاع‌ها به یک پرونده CSV."
 #: includes/admin/tools/tools.php:343
 #, fuzzy
 msgid ""
-"To search for an affiliate, enter the affiliate&#8217;s login name, first "
-"name, or last name. Leave blank to export payouts for all affiliates."
+"To search for an affiliate, enter the affiliate&#8217;s login name, first name, "
+"or last name. Leave blank to export payouts for all affiliates."
 msgstr ""
-"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را "
-"وارد کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
+"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را وارد "
+"کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
 
 #: includes/admin/tools/tools.php:353
 #, fuzzy
@@ -3656,11 +3584,11 @@ msgstr "تبدیل شده"
 #: includes/admin/tools/tools.php:368
 #, fuzzy
 msgid ""
-"To search for an affiliate, enter the affiliate&#8217;s login name, first "
-"name, or last name. Leave blank to export visits for all affiliates."
+"To search for an affiliate, enter the affiliate&#8217;s login name, first name, "
+"or last name. Leave blank to export visits for all affiliates."
 msgstr ""
-"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را "
-"وارد کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
+"برای جستجوی یک همکار فروش، نام ورود به سیستم، نام، و یا نام خانوادگی او را وارد "
+"کنید. برای برون‌بری ارجاع‌های همه‌ی همکاران فروش، خالی بگذارید."
 
 #: includes/admin/tools/tools.php:378
 msgid "Export Settings"
@@ -3668,11 +3596,11 @@ msgstr "تنظیمات برون‌بری"
 
 #: includes/admin/tools/tools.php:380
 msgid ""
-"Export the AffiliateWP settings for this site as a .json file. This allows "
-"you to easily import the configuration into another site."
+"Export the AffiliateWP settings for this site as a .json file. This allows you "
+"to easily import the configuration into another site."
 msgstr ""
-"تنظیمات AffiliateWP برای این سایت را به شکل یک فایل  ‎.json برون‌بری کنید. این "
-"به شما امکان می‌دهد که تنظیمات را به سادگی وارد یک سایت دیگر کنید."
+"تنظیمات AffiliateWP برای این سایت را به شکل یک فایل  ‎.json برون‌بری کنید. این به "
+"شما امکان می‌دهد که تنظیمات را به سادگی وارد یک سایت دیگر کنید."
 
 #: includes/admin/tools/tools.php:392
 msgid "Import Settings"
@@ -3680,11 +3608,11 @@ msgstr "درون‌ریزی تنظیمات"
 
 #: includes/admin/tools/tools.php:394
 msgid ""
-"Import the AffiliateWP settings from a .json file. This file can be obtained "
-"by exporting the settings on another site using the form above."
+"Import the AffiliateWP settings from a .json file. This file can be obtained by "
+"exporting the settings on another site using the form above."
 msgstr ""
-"تنظیمات  AffiliateWP را از یک فایل  ‎.json درون‌ریزی کنید. این فایل را "
-"می‌توانید با برون‌بری تنظیمات از یک سایت دیگر توسط فرم بالا به دست آورید."
+"تنظیمات  AffiliateWP را از یک فایل  ‎.json درون‌ریزی کنید. این فایل را می‌توانید "
+"با برون‌بری تنظیمات از یک سایت دیگر توسط فرم بالا به دست آورید."
 
 #: includes/admin/tools/tools.php:402
 msgid "Import"
@@ -3706,10 +3634,10 @@ msgstr "درون‌ریزی"
 
 #: includes/admin/tools/tools.php:428
 msgid ""
-"Each column loaded from the CSV may be mapped to an affiliate field. Select "
-"the column that should be mapped to each field below. Any columns not needed "
-"can be ignored. See <a href=\"%s\" target=\"_blank\">this guide</a> for "
-"assistance with importing affiliate records."
+"Each column loaded from the CSV may be mapped to an affiliate field. Select the "
+"column that should be mapped to each field below. Any columns not needed can be "
+"ignored. See <a href=\"%s\" target=\"_blank\">this guide</a> for assistance "
+"with importing affiliate records."
 msgstr ""
 
 #: includes/admin/tools/tools.php:437
@@ -3741,11 +3669,11 @@ msgstr ""
 
 #: includes/admin/tools/tools.php:475
 msgid ""
-"Each column loaded from the CSV may be mapped to a referral field. Select "
-"the column that should be mapped to each field below. Any columns not needed "
-"can be ignored. Any affiliates that don&#8217;t exist will be created. See "
-"<a href=\"%s\" target=\"_blank\">this guide</a> for assistance with "
-"importing referral records."
+"Each column loaded from the CSV may be mapped to a referral field. Select the "
+"column that should be mapped to each field below. Any columns not needed can be "
+"ignored. Any affiliates that don&#8217;t exist will be created. See <a href=\"%s"
+"\" target=\"_blank\">this guide</a> for assistance with importing referral "
+"records."
 msgstr ""
 
 #: includes/admin/tools/tools.php:484
@@ -3755,8 +3683,7 @@ msgstr "ارجاع‌ها"
 
 #: includes/admin/tools/tools.php:520
 msgid ""
-"To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
-"(Mac)."
+"To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
 msgstr ""
 
 #: includes/admin/tools/tools.php:573
@@ -3880,43 +3807,40 @@ msgstr "این برگه دسترسی به تاریخچه‌ی ارجاع‌ها�
 
 #: includes/admin/visits/contextual-help.php:40
 msgid ""
-"<strong>Landing Page</strong>: this is the page on your site that the "
-"visitor first landed on. It is the URL that the affiliate link pointed to."
+"<strong>Landing Page</strong>: this is the page on your site that the visitor "
+"first landed on. It is the URL that the affiliate link pointed to."
 msgstr ""
 
 #: includes/admin/visits/contextual-help.php:41
 msgid ""
-"<strong>Referring URL</strong>: this is the source URL of the affiliate "
-"link. It is the web page that the visitor found a link to your site on."
+"<strong>Referring URL</strong>: this is the source URL of the affiliate link. "
+"It is the web page that the visitor found a link to your site on."
 msgstr ""
 
 #: includes/admin/visits/contextual-help.php:42
 msgid ""
-"<strong>Affiliate</strong>: this the affiliate that the visit was attributed "
-"to."
+"<strong>Affiliate</strong>: this the affiliate that the visit was attributed to."
 msgstr ""
 
 #: includes/admin/visits/contextual-help.php:43
 msgid ""
-"<strong>Referral ID</strong>: this is the ID of the referral that was "
-"created from this visit, if any."
+"<strong>Referral ID</strong>: this is the ID of the referral that was created "
+"from this visit, if any."
 msgstr ""
-"<strong>مرجع</strong>: این اشاره به شماره سفارش (یا مشابه آن) دارد که این "
-"ارجاع را ساخته است."
+"<strong>مرجع</strong>: این اشاره به شماره سفارش (یا مشابه آن) دارد که این ارجاع "
+"را ساخته است."
 
 #: includes/admin/visits/contextual-help.php:44
 msgid ""
-"<strong>Context</strong>: this is the context of how the visit was "
-"generated, if set."
+"<strong>Context</strong>: this is the context of how the visit was generated, "
+"if set."
 msgstr ""
-"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده "
-"است"
+"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده است"
 
 #: includes/admin/visits/contextual-help.php:45
 msgid "<strong>IP</strong>: this is the IP address of the visitor."
 msgstr ""
-"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده "
-"است"
+"<strong> پرداخت شده </strong> - این یک ارجاع است که به همکار فروش پرداخت شده است"
 
 #: includes/admin/visits/contextual-help.php:46
 msgid ""
@@ -3938,8 +3862,8 @@ msgstr ""
 
 #: includes/admin/visits/contextual-help.php:56
 msgid ""
-"You can enter a complete URL to find all visits that landed on or came from "
-"a specific URL"
+"You can enter a complete URL to find all visits that landed on or came from a "
+"specific URL"
 msgstr ""
 
 #: includes/admin/visits/contextual-help.php:57
@@ -3950,8 +3874,7 @@ msgstr ""
 
 #: includes/admin/visits/contextual-help.php:58
 msgid ""
-"You can enter the referral&#8217;s ID number prefixed by &#8220;referral:"
-"&#8221;"
+"You can enter the referral&#8217;s ID number prefixed by &#8220;referral:&#8221;"
 msgstr "شما می‌توانید مرجع ارجاع را که با پیشوند «ref:‎» آمده وارد کنید"
 
 #: includes/admin/visits/contextual-help.php:59
@@ -4111,8 +4034,8 @@ msgstr ""
 
 #: includes/cli/class-affiliate-sub-commands.php:144
 msgid ""
-"A user with the ID or username \"%s\" does not exist. See wp help user "
-"create for registering new users."
+"A user with the ID or username \"%s\" does not exist. See wp help user create "
+"for registering new users."
 msgstr ""
 
 #: includes/cli/class-affiliate-sub-commands.php:150
@@ -4146,8 +4069,8 @@ msgstr "حساب همکاری فروش شما فعال نیست"
 
 #: includes/cli/class-affiliate-sub-commands.php:288
 msgid ""
-"Are you sure you want to delete this affiliate, all its data and its "
-"associated user account?"
+"Are you sure you want to delete this affiliate, all its data and its associated "
+"user account?"
 msgstr ""
 
 #: includes/cli/class-affiliate-sub-commands.php:290
@@ -4318,8 +4241,7 @@ msgstr ""
 
 #: includes/cli/class-payout-sub-commands.php:181
 msgid ""
-"No affiliates matched the minimum earnings amount in order to generate a "
-"payout."
+"No affiliates matched the minimum earnings amount in order to generate a payout."
 msgstr ""
 
 #: includes/cli/class-payout-sub-commands.php:189
@@ -4336,8 +4258,7 @@ msgid "A valid payout ID must be supplied to update a payout"
 msgstr ""
 
 #: includes/cli/class-payout-sub-commands.php:287
-msgid ""
-"Referral #%d is already associated with payout #%d and has been skipped."
+msgid "Referral #%d is already associated with payout #%d and has been skipped."
 msgstr ""
 
 #: includes/cli/class-payout-sub-commands.php:293
@@ -4365,8 +4286,8 @@ msgstr "شناسه کاربری همکار فروش. این را نمی‌توا
 
 #: includes/cli/class-payout-sub-commands.php:323
 msgid ""
-"No fields were specified for updating. For more information, see wp help "
-"affwp payout update."
+"No fields were specified for updating. For more information, see wp help affwp "
+"payout update."
 msgstr ""
 
 #: includes/cli/class-payout-sub-commands.php:327
@@ -4400,8 +4321,7 @@ msgstr ""
 
 #: includes/cli/class-referral-sub-commands.php:120
 #: includes/cli/class-visit-sub-commands.php:124
-msgid ""
-"A valid affiliate username or ID must be specified as the first argument."
+msgid "A valid affiliate username or ID must be specified as the first argument."
 msgstr ""
 
 #: includes/cli/class-referral-sub-commands.php:124
@@ -4554,8 +4474,8 @@ msgid ""
 "log into your affiliate area to view your earnings or disable these "
 "notifications: %s"
 msgstr ""
-"برای دیدن درآمد خود یا غیرفعال کردن این آگاه‌سازی‌ها، وارد ناحیه‌ی همکاری فروش "
-"خود شوید: %s"
+"برای دیدن درآمد خود یا غیرفعال کردن این آگاه‌سازی‌ها، وارد ناحیه‌ی همکاری فروش خود "
+"شوید: %s"
 
 #: includes/emails/class-affwp-emails.php:198
 msgid "Default Template"
@@ -4567,8 +4487,7 @@ msgstr ""
 
 #: includes/emails/class-affwp-emails.php:295
 msgid ""
-"You cannot send emails with AffWP_Emails until init/admin_init has been "
-"reached"
+"You cannot send emails with AffWP_Emails until init/admin_init has been reached"
 msgstr ""
 
 #: includes/emails/class-affwp-emails.php:422
@@ -4641,9 +4560,9 @@ msgstr "جمع کل"
 
 #: includes/integrations/class-caldera-forms.php:75
 msgid ""
-"This total will be used to calculate the referral amount. For example, if "
-"the referral rate is 10% and the total here is $100, the referral will be "
-"created at $10."
+"This total will be used to calculate the referral amount. For example, if the "
+"referral rate is 10% and the total here is $100, the referral will be created "
+"at $10."
 msgstr ""
 
 #: includes/integrations/class-caldera-forms.php:245
@@ -4668,8 +4587,8 @@ msgstr "نوع نرخ ارجاع همکار فروش"
 #: includes/integrations/class-contactform7.php:130
 msgid ""
 "Check this box to enable referrals on all Contact Form 7 forms.<ul><li>%3$s "
-"Once enabled, referrals will be generated for all valid Contact Form 7 forms."
-"</li><li>%2$s <a href=\"%1$s\" target=\"_blank\">Documentation for this "
+"Once enabled, referrals will be generated for all valid Contact Form 7 forms.</"
+"li><li>%2$s <a href=\"%1$s\" target=\"_blank\">Documentation for this "
 "integration</a></li></ul>"
 msgstr ""
 
@@ -4693,10 +4612,8 @@ msgstr ""
 msgid "Referral #%d for %s recorded for %s"
 msgstr "ارجاع # %d برای %s ثبت‌شده برای %s"
 
-#: includes/integrations/class-edd.php:479
-#: includes/integrations/class-pmp.php:255
-#: includes/integrations/class-pms.php:105
-#: includes/integrations/class-rcp.php:232
+#: includes/integrations/class-edd.php:479 includes/integrations/class-pmp.php:255
+#: includes/integrations/class-pms.php:105 includes/integrations/class-rcp.php:232
 #: includes/integrations/class-woocommerce.php:377
 msgid "Affiliate Discount?"
 msgstr "تخفیف همکاران فروش؟"
@@ -4704,16 +4621,15 @@ msgstr "تخفیف همکاران فروش؟"
 #: includes/integrations/class-edd.php:485
 #: includes/integrations/class-jigoshop.php:173
 #: includes/integrations/class-memberpress.php:283
-#: includes/integrations/class-pmp.php:261
-#: includes/integrations/class-pms.php:107
+#: includes/integrations/class-pmp.php:261 includes/integrations/class-pms.php:107
 #: includes/integrations/class-rcp.php:238
 #: includes/integrations/class-woocommerce.php:382
 msgid ""
-"If you would like to connect this discount to an affiliate, enter the name "
-"of the affiliate it belongs to."
+"If you would like to connect this discount to an affiliate, enter the name of "
+"the affiliate it belongs to."
 msgstr ""
-"اگر می‌خواهید این تخفیف را به یک همکار فروش مرتبط کنید، نام همکار فروش مربوطه "
-"را وارد کنید."
+"اگر می‌خواهید این تخفیف را به یک همکار فروش مرتبط کنید، نام همکار فروش مربوطه را "
+"وارد کنید."
 
 #: includes/integrations/class-edd.php:569
 msgid "Adjust EDD Commissions"
@@ -4732,8 +4648,8 @@ msgstr "ارجاع‌های تازه"
 
 #: includes/integrations/class-edd.php:591
 msgid ""
-"Should AffiliateWP prevent referral commissions from being recorded on "
-"renewal purchases with EDD Software Licensing?"
+"Should AffiliateWP prevent referral commissions from being recorded on renewal "
+"purchases with EDD Software Licensing?"
 msgstr ""
 
 #: includes/integrations/class-edd.php:596
@@ -4742,8 +4658,8 @@ msgstr "مجموع ارجاع‌های در انتظار"
 
 #: includes/integrations/class-edd.php:597
 msgid ""
-"Should AffiliateWP prevent referral commissions from being recorded on "
-"license upgrade purchases with EDD Software Licensing?"
+"Should AffiliateWP prevent referral commissions from being recorded on license "
+"upgrade purchases with EDD Software Licensing?"
 msgstr ""
 
 #: includes/integrations/class-edd.php:618
@@ -4770,11 +4686,11 @@ msgstr "تخفیف همکاران فروش؟"
 
 #: includes/integrations/class-exchange.php:305
 msgid ""
-"If you would like to connect this coupon to an affiliate, enter the name of "
-"the affiliate it belongs to."
+"If you would like to connect this coupon to an affiliate, enter the name of the "
+"affiliate it belongs to."
 msgstr ""
-"اگر می‌خواهید این تخفیف را به یک همکار فروش مرتبط کنید، نام همکار فروش مربوطه "
-"را وارد کنید."
+"اگر می‌خواهید این تخفیف را به یک همکار فروش مرتبط کنید، نام همکار فروش مربوطه را "
+"وارد کنید."
 
 #: includes/integrations/class-formidablepro.php:71
 msgid " AffiliateWP"
@@ -4811,16 +4727,15 @@ msgstr "نوع نرخ ارجاع همکار فروش"
 
 #: includes/integrations/class-give.php:248
 #: includes/integrations/class-memberpress.php:155
-#: includes/integrations/class-rcp.php:341
-#: includes/integrations/class-rcp.php:372
+#: includes/integrations/class-rcp.php:341 includes/integrations/class-rcp.php:372
 #: includes/integrations/class-woocommerce.php:525
 msgid "Affiliate Rate"
 msgstr "نام همکار فروش"
 
 #: includes/integrations/class-give.php:249
 msgid ""
-"This setting will be used to calculate affiliate earnings per-donation. "
-"Leave blank to use default affiliate rates."
+"This setting will be used to calculate affiliate earnings per-donation. Leave "
+"blank to use default affiliate rates."
 msgstr ""
 
 #: includes/integrations/class-gravityforms.php:161
@@ -4908,8 +4823,7 @@ msgid "Referral Details"
 msgstr "تنظیمات ارجاع"
 
 #: includes/integrations/class-lifterlms.php:721
-#: includes/integrations/class-pmp.php:360
-#: includes/integrations/class-rcp.php:382
+#: includes/integrations/class-pmp.php:360 includes/integrations/class-rcp.php:382
 msgid "Disable Referrals"
 msgstr "مجموع ارجاع‌های در انتظار"
 
@@ -4959,11 +4873,11 @@ msgstr "برو به تنظیمات AffiliateWP"
 #: includes/integrations/class-pmp.php:355
 msgid ""
 "The membership-level referral rate, such as 20 for 20%%. Affiliate-level "
-"referral rates will override this value. If left blank, the site default "
-"value of %s will be used."
+"referral rates will override this value. If left blank, the site default value "
+"of %s will be used."
 msgstr ""
-"نرخ ارجاع، مانند 20 برای 20٪. اگر خالی بگذارید، مقدار پیش‌فرض سایت استفاده "
-"خواهد شد."
+"نرخ ارجاع، مانند 20 برای 20٪. اگر خالی بگذارید، مقدار پیش‌فرض سایت استفاده خواهد "
+"شد."
 
 #: includes/integrations/class-pmp.php:362
 msgid "Check to disable per-membership referrals."
@@ -4976,11 +4890,10 @@ msgid ""
 "referral rate."
 msgstr ""
 
-#: includes/integrations/class-rcp.php:345
-#: includes/integrations/class-rcp.php:376
+#: includes/integrations/class-rcp.php:345 includes/integrations/class-rcp.php:376
 msgid ""
-"This rate will be used to calculate affiliate earnings when members "
-"subscribe to this level. Leave blank to use the site default referral rate."
+"This rate will be used to calculate affiliate earnings when members subscribe "
+"to this level. Leave blank to use the site default referral rate."
 msgstr ""
 
 #: includes/integrations/class-rcp.php:387
@@ -5009,8 +4922,8 @@ msgstr "مجموع ارجاع‌های در انتظار"
 
 #: includes/integrations/class-woocommerce.php:532
 msgid ""
-"This will prevent orders of this product from generating referral "
-"commissions for affiliates."
+"This will prevent orders of this product from generating referral commissions "
+"for affiliates."
 msgstr ""
 
 #: includes/integrations/class-woocommerce.php:558
@@ -5330,8 +5243,8 @@ msgstr ""
 
 #: includes/scripts.php:122
 msgid ""
-"We are sorry but your browser is not compatible with this kind of file "
-"upload. Please upgrade your browser."
+"We are sorry but your browser is not compatible with this kind of file upload. "
+"Please upgrade your browser."
 msgstr ""
 
 #: includes/scripts.php:123
@@ -5340,8 +5253,8 @@ msgstr ""
 
 #: includes/scripts.php:135
 msgid ""
-"The user you entered does not exist. Enter an email below to create a new "
-"user and affiliate at the same time."
+"The user you entered does not exist. Enter an email below to create a new user "
+"and affiliate at the same time."
 msgstr ""
 
 #: includes/scripts.php:136
@@ -5420,7 +5333,7 @@ msgstr "شناسه‌ی همکاری فروش شما: <strong>%d</strong>"
 
 #: templates/dashboard-tab-urls.php:21
 msgid "Your affiliate username is: <strong>%s</strong>"
-msgstr "شناسه‌ی همکاری فروش شما: <strong>%d</strong>"
+msgstr "شناسه‌ی همکاری فروش شما: <strong>%s</strong>"
 
 #: templates/dashboard-tab-urls.php:24
 msgid "Your referral URL is: <strong>%s</strong>"
@@ -5432,8 +5345,7 @@ msgstr "مولد URL ارجاع"
 
 #: templates/dashboard-tab-urls.php:39
 msgid ""
-"Enter any URL from this website in the form below to generate a referral "
-"link!"
+"Enter any URL from this website in the form below to generate a referral link!"
 msgstr "یک آدرس در این وب‌سایت وارد کنید تا یک پیوند ارجاعی برای آن ایجاد شود!"
 
 #: templates/dashboard-tab-urls.php:43
@@ -5515,8 +5427,8 @@ msgstr "گذرواژه را فراموش کرده‌اید؟"
 
 #: templates/no-access.php:2
 msgid ""
-"To see the Affiliate Area, log in as an existing affiliate, or add your "
-"account as an affiliate."
+"To see the Affiliate Area, log in as an existing affiliate, or add your account "
+"as an affiliate."
 msgstr ""
 
 #: templates/no-access.php:4
@@ -5852,11 +5764,11 @@ msgstr "ترافیک مستقیم"
 #~ msgstr "نادیده گرفتن ارجاع‌های صفر"
 
 #~ msgid ""
-#~ "Check this box if you would like AffiliateWP to completely remove all of "
-#~ "its data when the plugin is deleted."
+#~ "Check this box if you would like AffiliateWP to completely remove all of its "
+#~ "data when the plugin is deleted."
 #~ msgstr ""
-#~ "اگر می‌خواهید هنگام پاک کردن افزونه‌ی AffiliateWP تمام داده‌های آن به طور "
-#~ "کامل حذف شود، این جعبه را علامت بزنید."
+#~ "اگر می‌خواهید هنگام پاک کردن افزونه‌ی AffiliateWP تمام داده‌های آن به طور کامل "
+#~ "حذف شود، این جعبه را علامت بزنید."
 
 #~ msgid "Login"
 #~ msgstr "ورود"
@@ -5945,8 +5857,8 @@ msgstr "ترافیک مستقیم"
 #~ "Use the tips below to get started using AffiliateWP. You will be up and "
 #~ "running in no time!"
 #~ msgstr ""
-#~ "برای آغاز به کار با AffiliateWP از نکات زیر بهره بگیرید. در زمان کوتاهی "
-#~ "راه خواهید افتاد!"
+#~ "برای آغاز به کار با AffiliateWP از نکات زیر بهره بگیرید. در زمان کوتاهی راه "
+#~ "خواهید افتاد!"
 
 #~ msgid "Overview of Affiliates and Referrals"
 #~ msgstr "چشم‌انداز همکاران فروش و ارجاع‌ها"
@@ -5963,117 +5875,111 @@ msgstr "ترافیک مستقیم"
 
 #, fuzzy
 #~ msgid ""
-#~ "It also provides a quick summary of your affiliates&#8217; referral "
-#~ "earnings."
+#~ "It also provides a quick summary of your affiliates&#8217; referral earnings."
 #~ msgstr ""
-#~ "همچنین یک خلاصه‌ی سریع از درآمدهای ارجاعی همکاران فروش را به شما نمایش "
-#~ "می‌دهد."
+#~ "همچنین یک خلاصه‌ی سریع از درآمدهای ارجاعی همکاران فروش را به شما نمایش می‌دهد."
 
 #, fuzzy
 #~ msgid ""
-#~ "If you allow affiliate registrations, you can also easily accept or "
-#~ "reject affiliate&#8217;s applications directly from the Overview page"
+#~ "If you allow affiliate registrations, you can also easily accept or reject "
+#~ "affiliate&#8217;s applications directly from the Overview page"
 #~ msgstr ""
-#~ "اگر شما اجازه‌ی ثبت‌نام برای همکاری در فروش را داده باشید، می‌توانید "
-#~ "درخواست‌ها را به آسانی از برگه‌ی چشم‌انداز رد یا قبول کنید."
+#~ "اگر شما اجازه‌ی ثبت‌نام برای همکاری در فروش را داده باشید، می‌توانید درخواست‌ها "
+#~ "را به آسانی از برگه‌ی چشم‌انداز رد یا قبول کنید."
 
 #~ msgid "Affiliates &rarr; Add New"
 #~ msgstr "همکاران فروش → افزودن تازه"
 
 #~ msgid ""
-#~ "From the main Affiliates page, site admins can easily add new affiliates "
-#~ "to AffiliateWP. Simply enter the username, set a rate, and click Add "
-#~ "Affiliate!"
+#~ "From the main Affiliates page, site admins can easily add new affiliates to "
+#~ "AffiliateWP. Simply enter the username, set a rate, and click Add Affiliate!"
 #~ msgstr ""
 #~ "از برگه‌ی اصلی همکاران فروش، مدیران سایت به راحتی می توانند به AffiliateWP "
-#~ "همکاران فروش جدید اضافه کنند. به راحتی نام کاربری را وارد کنید، نرخی "
-#~ "تعیین کنید و افزودن همکار فروش را کلیک کنید!"
+#~ "همکاران فروش جدید اضافه کنند. به راحتی نام کاربری را وارد کنید، نرخی تعیین "
+#~ "کنید و افزودن همکار فروش را کلیک کنید!"
 
 #~ msgid ""
-#~ "When enabled, affiliates can register themselves via the Affiliate Area. "
-#~ "If they already have a user account on your site, they can register by "
-#~ "simply agreeing to the terms of use. If they need to create an entirely "
-#~ "new account, they have that option as well!"
+#~ "When enabled, affiliates can register themselves via the Affiliate Area. If "
+#~ "they already have a user account on your site, they can register by simply "
+#~ "agreeing to the terms of use. If they need to create an entirely new "
+#~ "account, they have that option as well!"
 #~ msgstr ""
-#~ "هنگامی که فعال باشد، همکاران فروش می توانند خود را از طریق ناحیه‌ی همکاری "
-#~ "در فروش نام‌نویسی کنند. اگر آنها از پیش یک حساب کاربری را در سایت شما "
-#~ "داشته باشند، می توانند به سادگی با موافقت با شرایط استفاده نام‌نویسی کنند. "
-#~ "در صورتی که نیاز به ایجاد یک حساب کاربری کاملا جدید داشته باشند، این "
-#~ "گزینه نیز در اختیار آن‌هاست!"
+#~ "هنگامی که فعال باشد، همکاران فروش می توانند خود را از طریق ناحیه‌ی همکاری در "
+#~ "فروش نام‌نویسی کنند. اگر آنها از پیش یک حساب کاربری را در سایت شما داشته "
+#~ "باشند، می توانند به سادگی با موافقت با شرایط استفاده نام‌نویسی کنند. در صورتی "
+#~ "که نیاز به ایجاد یک حساب کاربری کاملا جدید داشته باشند، این گزینه نیز در "
+#~ "اختیار آن‌هاست!"
 
 #~ msgid ""
 #~ "Affiliate registrations can be moderated and require that a site admin "
 #~ "approve each registration before the affiliate is permitted to begin "
 #~ "tracking referrals."
 #~ msgstr ""
-#~ "ثبت‌نام کاربران قابل مدیریت است و می‌توان آغاز به کار همکاران فروش را منوط "
-#~ "به تأیید تک‌تک ثبت‌نام‌ها از سوی مدیر سایت کرد."
+#~ "ثبت‌نام کاربران قابل مدیریت است و می‌توان آغاز به کار همکاران فروش را منوط به "
+#~ "تأیید تک‌تک ثبت‌نام‌ها از سوی مدیر سایت کرد."
 
 #~ msgid ""
 #~ "Each time an affiliate registers, site admins can log into the site and "
 #~ "approve or reject the application."
 #~ msgstr ""
-#~ "هر زمان که یک همکار در فروش ثبت‌نام می‌کند، مدیران سایت می‌توانند وارد شوند "
-#~ "و درخواست‌ها را بپذیرند یا رد کنند."
+#~ "هر زمان که یک همکار در فروش ثبت‌نام می‌کند، مدیران سایت می‌توانند وارد شوند و "
+#~ "درخواست‌ها را بپذیرند یا رد کنند."
 
 #~ msgid "A Dashboard For Your Affiliates"
 #~ msgstr "پیش‌خوانی برای همکاران فروش شما"
 
 #, fuzzy
 #~ msgid ""
-#~ "The Affiliate Area, shown on any page containing the <em>[affiliate_area]"
-#~ "</em> shortcode, gives your affiliates access to their performance "
-#~ "reports."
+#~ "The Affiliate Area, shown on any page containing the <em>[affiliate_area]</"
+#~ "em> shortcode, gives your affiliates access to their performance reports."
 #~ msgstr ""
 #~ "ناحیه‌ی همکاری در فروش که در هر برگه‌ای که محتوی کد کوتاه <em> با "
-#~ "[affiliate_area] </em> باشد نمایش داده می‌شود، گزارش عملکرد همکاران فروش "
-#~ "شما را در اختیار آن‌ها قرار می‌دهد."
+#~ "[affiliate_area] </em> باشد نمایش داده می‌شود، گزارش عملکرد همکاران فروش شما "
+#~ "را در اختیار آن‌ها قرار می‌دهد."
 
 #~ msgid ""
 #~ "Affiliates can easily see how much they have earned, how much is awaiting "
 #~ "payment, and even how their referral URLs have done over time."
 #~ msgstr ""
-#~ "همکاران فروش به راحتی می توانند ببینند که درآمدشان چقدر بوده، چقدر از "
-#~ "درآمد در انتظار پرداخت است، و حتی عملکرد آدرس‌های ارجاعی آن‌ها در طول زمان "
-#~ "چگونه بوده است."
+#~ "همکاران فروش به راحتی می توانند ببینند که درآمدشان چقدر بوده، چقدر از درآمد "
+#~ "در انتظار پرداخت است، و حتی عملکرد آدرس‌های ارجاعی آن‌ها در طول زمان چگونه "
+#~ "بوده است."
 
 #~ msgid ""
 #~ "A log of the referral links that have been clicked and where they were "
-#~ "clicked on from, and whether the link converted into a successful "
-#~ "referral, is also available to affiliates."
+#~ "clicked on from, and whether the link converted into a successful referral, "
+#~ "is also available to affiliates."
 #~ msgstr ""
-#~ "سیاهه‌ی پیوندهای ارجاعی که کلیک‌شده‌اند و این که در کجا این کلیک انجام شده، "
-#~ "و این که این کلیک به ارجاع موفق تبدیل شده یا نه نیز برای همکاران فروش در "
-#~ "دسترس است."
+#~ "سیاهه‌ی پیوندهای ارجاعی که کلیک‌شده‌اند و این که در کجا این کلیک انجام شده، و "
+#~ "این که این کلیک به ارجاع موفق تبدیل شده یا نه نیز برای همکاران فروش در دسترس "
+#~ "است."
 
 #~ msgid "Quick Terminology"
 #~ msgstr "واژه‌شناسی سریع"
 
 #~ msgid ""
-#~ "These are your best friends. They are the users that are actively "
-#~ "promoting your products and services through referral URLs. When they "
-#~ "create a customer for you, they get paid back in the form of a commission."
+#~ "These are your best friends. They are the users that are actively promoting "
+#~ "your products and services through referral URLs. When they create a "
+#~ "customer for you, they get paid back in the form of a commission."
 #~ msgstr ""
-#~ "این‌ها بهترین دوستان شما هستند. کاربرانی هستند که به شکلی فعال کالاها و "
-#~ "خدمات شما را از طریق پیوندهای ارجاعی تبلیغ کرده‌اند. زمانی که آنان برای "
-#~ "شما مشتری می‌آورند، به شکل کمیسیون درآمد کسب می‌کنند."
+#~ "این‌ها بهترین دوستان شما هستند. کاربرانی هستند که به شکلی فعال کالاها و خدمات "
+#~ "شما را از طریق پیوندهای ارجاعی تبلیغ کرده‌اند. زمانی که آنان برای شما مشتری "
+#~ "می‌آورند، به شکل کمیسیون درآمد کسب می‌کنند."
 
 #~ msgid ""
-#~ "These are the commission records created anytime an affiliate "
-#~ "successfully sends a potential customer to your site and that customer "
-#~ "makes a purchase."
+#~ "These are the commission records created anytime an affiliate successfully "
+#~ "sends a potential customer to your site and that customer makes a purchase."
 #~ msgstr ""
-#~ "این‌ها گزارش‌های کمیسیونی است که هر زمان که یک همکار فروش یک مشتری بالقوه "
-#~ "برای شما می‌فرستد، و در زمانی که آن مشتری خریدی انجام می‌دهد، ایجاد می شوند."
+#~ "این‌ها گزارش‌های کمیسیونی است که هر زمان که یک همکار فروش یک مشتری بالقوه برای "
+#~ "شما می‌فرستد، و در زمانی که آن مشتری خریدی انجام می‌دهد، ایجاد می شوند."
 
 #~ msgid ""
 #~ "These are unique hits on the referral URLs shared out by your affiliates. "
-#~ "Each time a potential customer clicks on a referral URL, a visit is "
-#~ "recorded."
+#~ "Each time a potential customer clicks on a referral URL, a visit is recorded."
 #~ msgstr ""
 #~ "این‌ها بازدیدهای منحصربه‌فرد URLهای ارجاعی است که با همکاران فروش شما به "
-#~ "اشتراک گذاشته شده. هر زمان که یک مشتری بالقوه روی یک URL ارجاعی کلیک کند، "
-#~ "یک بازدید ثبت می‌شود."
+#~ "اشتراک گذاشته شده. هر زمان که یک مشتری بالقوه روی یک URL ارجاعی کلیک کند، یک "
+#~ "بازدید ثبت می‌شود."
 
 #~ msgid "Need Help?"
 #~ msgstr "نیاز به کمک دارید؟"
@@ -6088,20 +5994,20 @@ msgstr "ترافیک مستقیم"
 #~ "support\">support</a> page to open a ticket."
 #~ msgstr ""
 #~ "ما تماش تلاش خود را برای ارائه‌ی بهترین پشتیبانی انجام می‌دهیم. اگر شما به "
-#~ "مشکل برخوردید یا پرسشی داشتید، صفحه‌ی <a href=\"http://affiliatewp.com/"
-#~ "support\">پشتیبانی</a> ما را باز کنید و یک تیکت بزنید."
+#~ "مشکل برخوردید یا پرسشی داشتید، صفحه‌ی <a href=\"http://affiliatewp.com/support"
+#~ "\">پشتیبانی</a> ما را باز کنید و یک تیکت بزنید."
 
 #~ msgid "Thank you for updating to the latest version!"
 #~ msgstr "از شما برای به‌روزرسانی به آخرین نسخه سپاس‌گزاریم!"
 
 #~ msgid ""
 #~ "AffiliateWP is created by developers from around the world that aim to "
-#~ "provide the #1 affiliate platform for WordPress. Here are just some of "
-#~ "the faces that have helped build AffiliateWP:"
+#~ "provide the #1 affiliate platform for WordPress. Here are just some of the "
+#~ "faces that have helped build AffiliateWP:"
 #~ msgstr ""
-#~ "AffiliateWP توسط توسعه‌دهندگانی از سراسر جهان با هدف ارائه بهترین سکوی "
-#~ "همکاری در فروش برای وردپرس ساخته شده است. تنها برخی از چهره های است که در "
-#~ "ساخت AffiliateWP کمک کرده اند عبارتند از:"
+#~ "AffiliateWP توسط توسعه‌دهندگانی از سراسر جهان با هدف ارائه بهترین سکوی همکاری "
+#~ "در فروش برای وردپرس ساخته شده است. تنها برخی از چهره های است که در ساخت "
+#~ "AffiliateWP کمک کرده اند عبارتند از:"
 
 #~ msgid "View %s"
 #~ msgstr "نمایش %s"
@@ -6131,8 +6037,7 @@ msgstr "ترافیک مستقیم"
 
 #, fuzzy
 #~ msgid ""
-#~ "The affiliate's username is now included in the exported affiliate .csv "
-#~ "file."
+#~ "The affiliate's username is now included in the exported affiliate .csv file."
 #~ msgstr "ناحیه‌ی همکاری در فروش تنها برای همکاران ثبت‌نام کرده در دسترس است."
 
 #, fuzzy
@@ -6161,27 +6066,26 @@ msgstr "ترافیک مستقیم"
 #~ msgstr "پیگیری کد کوپن"
 
 #~ msgid ""
-#~ "Affiliate coupon tracking has been one of the most requested features, "
-#~ "and one we are thrilled to introduce with version 1.1."
+#~ "Affiliate coupon tracking has been one of the most requested features, and "
+#~ "one we are thrilled to introduce with version 1.1."
 #~ msgstr ""
-#~ "ردیابی کوپن همکار فروش یکی از درخواست‌شده‌ترین قابلیت‌ها بود، و ما خوشحالیم "
-#~ "که آن را در نسخه ۱.۱ معرفی می‌کنیم."
+#~ "ردیابی کوپن همکار فروش یکی از درخواست‌شده‌ترین قابلیت‌ها بود، و ما خوشحالیم که "
+#~ "آن را در نسخه ۱.۱ معرفی می‌کنیم."
 
 #~ msgid ""
 #~ "This allows you to connect a coupon code to a specific affiliate so the "
 #~ "affiliate is credited a referral anytime the coupon is redeemed."
 #~ msgstr ""
-#~ "این به شما امکان می‌دهد که یک کد کوپن را به یک همکار فروش معین مرتبط کنید، "
-#~ "به گونه‌ای که همکار فروش در هنگام بازخرید کوپن، اعتبار ارجاع دریافت می‌کند."
+#~ "این به شما امکان می‌دهد که یک کد کوپن را به یک همکار فروش معین مرتبط کنید، به "
+#~ "گونه‌ای که همکار فروش در هنگام بازخرید کوپن، اعتبار ارجاع دریافت می‌کند."
 
 #~ msgid ""
 #~ "For version 1.1, we have included coupon code tracking support for Easy "
-#~ "Digital Downloads, WooCommerce, and Restrict Content Pro. More "
-#~ "integrations will get added soon."
+#~ "Digital Downloads, WooCommerce, and Restrict Content Pro. More integrations "
+#~ "will get added soon."
 #~ msgstr ""
 #~ "برای نسخه 1.1، پیگیری کد کوپن برای Easy Digital Downloads، WooCommerce، و "
-#~ "Restrict Content Pro افزوده شد است. یکپارچگی بیشتر  به زودی افزوده خواهد "
-#~ "شد."
+#~ "Restrict Content Pro افزوده شد است. یکپارچگی بیشتر  به زودی افزوده خواهد شد."
 
 #~ msgid "Minimum Earnings for Affiliate Payout"
 #~ msgstr "حداقل درآمد برای پرداخت به همکاران فروش"
@@ -6191,53 +6095,53 @@ msgstr "ترافیک مستقیم"
 #~ "affiliates need to have earned before their referrals are included in the "
 #~ "payout."
 #~ msgstr ""
-#~ "با گزینه‌ی حداقل میزان، شما می توانید مقدار کمینه‌ای برای درآمد همکاران "
-#~ "فروش تعیین کنید که برای مقادیر کمتر از آن، درآمدها در مطالبات لحاظ نشود."
+#~ "با گزینه‌ی حداقل میزان، شما می توانید مقدار کمینه‌ای برای درآمد همکاران فروش "
+#~ "تعیین کنید که برای مقادیر کمتر از آن، درآمدها در مطالبات لحاظ نشود."
 
 #~ msgid ""
-#~ "This is great for sites that want to keep the affiliate system locked "
-#~ "down to serious affiliates."
+#~ "This is great for sites that want to keep the affiliate system locked down "
+#~ "to serious affiliates."
 #~ msgstr ""
 #~ "این امکان برای سایت‌هایی که می‌خواهند سامانه‌ی همکاری در فروش را تنها به روز "
 #~ "همکاران فروش جدی باز بگذارند، بسیار عالی است."
 
 #~ msgid ""
-#~ "A new section has been added to the Reports page that lets you see "
-#~ "affiliate registrations over time."
+#~ "A new section has been added to the Reports page that lets you see affiliate "
+#~ "registrations over time."
 #~ msgstr ""
-#~ "یک بخش جدید به برگه‌ی گزارش افزوده شده که به شما امکان دیدن نام‌نویسی "
-#~ "همکاران فروش در طول زمان را می‌دهد."
+#~ "یک بخش جدید به برگه‌ی گزارش افزوده شده که به شما امکان دیدن نام‌نویسی همکاران "
+#~ "فروش در طول زمان را می‌دهد."
 
 #~ msgid ""
 #~ "We have introduced a new option to automatically register new WordPress "
 #~ "users as affiliates when their user accounts are created."
 #~ msgstr ""
-#~ "ما گزینه‌ی تازه‌ای برای ثبت خودکار کاربران جدید وردپرس به عنوان همکار فروش، "
-#~ "در زمان ایجاد حساب کاربری آن‌ها اضافه کرده‌ایم."
+#~ "ما گزینه‌ی تازه‌ای برای ثبت خودکار کاربران جدید وردپرس به عنوان همکار فروش، در "
+#~ "زمان ایجاد حساب کاربری آن‌ها اضافه کرده‌ایم."
 
 #~ msgid ""
-#~ "The Overview page now has a new widget that shows your top 5 most "
-#~ "valuable affiliates, based on earnings."
+#~ "The Overview page now has a new widget that shows your top 5 most valuable "
+#~ "affiliates, based on earnings."
 #~ msgstr ""
-#~ "اکنون برگه‌ی چشم‌انداز ابزارکی جدید دارد که باارزش‌ترین ۵ همکار فروش شما را "
-#~ "بر اساس درآمدها نشان می‌دهد."
+#~ "اکنون برگه‌ی چشم‌انداز ابزارکی جدید دارد که باارزش‌ترین ۵ همکار فروش شما را بر "
+#~ "اساس درآمدها نشان می‌دهد."
 
 #~ msgid "Shortcode to Affiliate-only Content"
 #~ msgstr "کد کوتاه برای محتوای منحصر به همکاران فروش"
 
 #~ msgid ""
-#~ "We have added a new shortcode that lets you show specific content to "
-#~ "logged-in affiliates only."
+#~ "We have added a new shortcode that lets you show specific content to logged-"
+#~ "in affiliates only."
 #~ msgstr ""
-#~ "ما کد کوتاه تازه‌ای افزوده‌ایم که به شما اجازه می دهد نشان می دهد محتوای "
-#~ "خاصی را تنها برای همکاران فروش وارد شده نمایش دهید."
+#~ "ما کد کوتاه تازه‌ای افزوده‌ایم که به شما اجازه می دهد نشان می دهد محتوای خاصی "
+#~ "را تنها برای همکاران فروش وارد شده نمایش دهید."
 
 #~ msgid "Custom Cookie Expiration Option"
 #~ msgstr "گزینه‌ی انقضای سفارشی کوکی"
 
 #~ msgid ""
-#~ "The expiration time for the affiliate tracking cookies can now be set "
-#~ "from the Settings page."
+#~ "The expiration time for the affiliate tracking cookies can now be set from "
+#~ "the Settings page."
 #~ msgstr ""
 #~ "زمان انقضا برای کوکی‌های ردیابی همکاران فروش هم اکنون می تواند از برگه "
 #~ "تنظیمات تعیین شود."
@@ -6249,8 +6153,8 @@ msgstr "ترافیک مستقیم"
 #~ "Numerous new action and filter hooks have been added to make AffiliateWP "
 #~ "even more developer friendly."
 #~ msgstr ""
-#~ "قلاب‌های کار و صافی بشتری افزودهشده است تا AffiliateWP بیشتر از این مورد "
-#~ "پسند توسعه‌دهندگان باشد."
+#~ "قلاب‌های کار و صافی بشتری افزودهشده است تا AffiliateWP بیشتر از این مورد پسند "
+#~ "توسعه‌دهندگان باشد."
 
 #~ msgid "Affiliates Pro"
 #~ msgstr "Affiliates Pro"
@@ -6271,8 +6175,7 @@ msgstr "ترافیک مستقیم"
 #~ msgstr "رایانامه‌ی پرداخت (در صورت تفاوت)"
 
 #~ msgid ""
-#~ "The affiliate's referral rate. If left blank, the site default will be "
-#~ "used."
+#~ "The affiliate's referral rate. If left blank, the site default will be used."
 #~ msgstr ""
-#~ "نرخ ارجاع همکار فروش. اگر خالی بگذارید، از مقدار پیش فرض سایت استفاده "
-#~ "خواهد شد."
+#~ "نرخ ارجاع همکار فروش. اگر خالی بگذارید، از مقدار پیش فرض سایت استفاده خواهد "
+#~ "شد."

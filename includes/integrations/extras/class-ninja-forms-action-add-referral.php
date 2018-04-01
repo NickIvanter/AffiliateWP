@@ -223,12 +223,19 @@ final class Affiliate_WP_Ninja_Forms_Add_Referral extends NF_Abstracts_Action {
      *                                   title if no custom description is defined.
      */
     private function get_description( $action_settings, $data ) {
+
         $description = '';
-        if( isset( $action_settings[ 'affiliatewp_description' ] ) ) {
+
+        $products    = $this->get_products( $data );
+
+        if( ! empty( $products ) ) {
+            $description = $products;
+        }elseif( ! empty( $action_settings[ 'affiliatewp_description' ] ) ) {
             $description = $action_settings[ 'affiliatewp_description' ];
-        } elseif( isset( $data[ 'settings' ][ 'title' ] ) ) {
+        } elseif( ! empty( $data[ 'settings' ][ 'title' ] ) ) {
             $description = $data[ 'settings' ][ 'title' ];
         }
+
         return $description;
     }
 
@@ -247,5 +254,38 @@ final class Affiliate_WP_Ninja_Forms_Add_Referral extends NF_Abstracts_Action {
             $email = $action_settings[ 'affiliatewp_email' ];
         }
         return $email;
+    }
+
+    /**
+     * Get the referral products.
+     *
+     * @since  2.1.16
+     *
+     * @param  mixed   $data             Form data.
+     *
+     * @return string  $products         The form products if the form has one or more product
+     *                                   fields.
+     */
+    private function get_products( $data ) {
+        $products = '';
+
+        if( ! empty( $data['extra']['product_fields'] ) ) {
+
+            $product_labels = array();
+
+            foreach( $data['fields'] as $field ) {
+
+                if( 'product' == $field[ 'type' ] ) {
+                    $product_labels[] = $field['label'];
+                    continue;
+                }
+
+            }
+
+            $products = implode( ', ', $product_labels );
+
+        }
+
+        return $products;
     }
 }

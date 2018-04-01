@@ -395,8 +395,9 @@ class AffWP_Referrals_Table extends List_Table {
 					'action' => 'mark_as_unpaid'
 				) ),
 				array(
-					'nonce' => 'referral-nonce',
-					'class' => 'mark-as-unpaid'
+					'base_uri' => affwp_admin_url( 'referrals' ),
+					'nonce'    => 'referral-nonce',
+					'class'    => 'mark-as-unpaid'
 				)
 			);
 
@@ -423,8 +424,9 @@ class AffWP_Referrals_Table extends List_Table {
 						'action' => 'mark_as_paid'
 					) ),
 					array(
-						'nonce' => 'referral-nonce',
-						'class' => 'mark-as-paid'
+						'base_uri' => affwp_admin_url( 'referrals' ),
+						'nonce'    => 'referral-nonce',
+						'class'    => 'mark-as-paid'
 					)
 				);
 
@@ -439,8 +441,9 @@ class AffWP_Referrals_Table extends List_Table {
 						'action' => 'accept'
 					) ),
 					array(
-						'nonce' => 'referral-nonce',
-						'class' => 'accept'
+						'base_uri' => affwp_admin_url( 'referrals' ),
+						'nonce'    => 'referral-nonce',
+						'class'    => 'accept'
 					)
 				);
 
@@ -455,8 +458,9 @@ class AffWP_Referrals_Table extends List_Table {
 						'action' => 'reject'
 					) ),
 					array(
-						'nonce' => 'referral-nonce',
-						'class' => 'reject'
+						'base_uri' => affwp_admin_url( 'referrals' ),
+						'nonce'    => 'referral-nonce',
+						'class'    => 'reject'
 					)
 				);
 			}
@@ -469,7 +473,10 @@ class AffWP_Referrals_Table extends List_Table {
 			array_merge( $base_query_args, array(
 				'action' => 'edit_referral'
 			) ),
-			array( 'class' => 'edit' )
+			array(
+				'base_uri' => affwp_admin_url( 'referrals' ),
+				'class'    => 'edit'
+			)
 		);
 
 		// Delete.
@@ -479,8 +486,9 @@ class AffWP_Referrals_Table extends List_Table {
 				'affwp_action' => 'process_delete_referral'
 			) ),
 			array(
-				'nonce' => 'affwp_delete_referral_nonce',
-				'class' => 'delete'
+				'base_uri' => affwp_admin_url( 'referrals' ),
+				'nonce'    => 'affwp_delete_referral_nonce',
+				'class'    => 'delete'
 			)
 		);
 		$row_actions['delete'] = '<span class="trash">' . $row_actions['delete'] . '</span>';

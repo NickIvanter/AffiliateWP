@@ -673,6 +673,16 @@ class Affiliate_WP_Tracking {
 	 */
 	public function set_visit_id( $visit_id = 0 ) {
 		setcookie( 'affwp_ref_visit_id', $visit_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
+
+		/**
+		 * Fires immediately after the affwp_ref_visit_id cookie is set
+		 *
+		 * @since 2.1.17
+		 *
+		 * @param int                    $visit_id Visit ID.
+		 * @param \Affiliate_WP_Tracking $this     Tracking class instance.
+		 */
+		do_action( 'affwp_tracking_set_visit_id', $visit_id, $this );
 	}
 
 	/**
@@ -756,6 +766,16 @@ class Affiliate_WP_Tracking {
 	 */
 	public function set_affiliate_id( $affiliate_id = 0 ) {
 		setcookie( 'affwp_ref', $affiliate_id, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
+
+		/**
+		 * Fires immediately after the affwp_ref cookie is set
+		 *
+		 * @since 2.1.17
+		 *
+		 * @param int                    $affiliate_id Affiliate ID.
+		 * @param \Affiliate_WP_Tracking $this         Tracking class instance.
+		 */
+		do_action( 'affwp_tracking_set_affiliate_id', $affiliate_id, $this );
 	}
 
 	/**
@@ -765,6 +785,16 @@ class Affiliate_WP_Tracking {
 	 */
 	public function set_campaign( $campaign = '' ) {
 		setcookie( 'affwp_campaign', $campaign, strtotime( '+' . $this->get_expiration_time() . ' days' ), COOKIEPATH, $this->get_cookie_domain() );
+
+		/**
+		 * Fires immediately after the affwp_campaign cookie is set
+		 *
+		 * @since 2.1.17
+		 *
+		 * @param string                 $campaign Campaign.
+		 * @param \Affiliate_WP_Tracking $this     Tracking class instance.
+		 */
+		do_action( 'affwp_tracking_set_campaign', $campaign, $this );
 	}
 
 	/**

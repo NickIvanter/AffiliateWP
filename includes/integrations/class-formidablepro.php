@@ -159,15 +159,24 @@ class Affiliate_WP_Formidable_Pro extends Affiliate_WP_Base {
 	 * @param int $form_id
 	 */
 	public function add_pending_referral( $entry_id, $form_id ) {
-		global $frm_entry_meta, $frm_form;
 
 		if ( $this->was_referred() ) {
 
-			$form            = $frm_form->getOne( $form_id );
-			$description     = $frm_entry_meta->get_entry_meta_by_field( $entry_id, $form->options['affiliatewp']['referral_description_field'] );
-			$purchase_amount = floatval( $frm_entry_meta->get_entry_meta_by_field( $entry_id, $form->options['affiliatewp']['purchase_amount_field'] ) );
+			$form = FrmForm::getOne( $form_id );
 
-			$referral_total = $this->calculate_referral_amount( $purchase_amount, $entry_id );
+			$field_referral_description = $form->options['affiliatewp']['referral_description_field'];
+			$field_purchase_amount      = $form->options['affiliatewp']['purchase_amount_field'];
+
+			// Return if the "Referral description" and "Purchase Amount" options were not configured in the form settings.
+			if ( empty( $field_referral_description ) || empty( $field_purchase_amount ) ) {
+				return;
+			}
+
+			$description     = FrmEntryMeta::get_entry_meta_by_field( $entry_id, $field_referral_description );
+			$description     = ! empty( $description ) ? $description : '';
+			$purchase_amount = floatval( FrmEntryMeta::get_entry_meta_by_field( $entry_id, $field_purchase_amount ) );
+
+			$referral_total  = $this->calculate_referral_amount( $purchase_amount, $entry_id );
 
 			$this->insert_pending_referral( $referral_total, $entry_id, $description );
 
@@ -190,8 +199,6 @@ class Affiliate_WP_Formidable_Pro extends Affiliate_WP_Base {
 	 */
 	public function mark_referral_complete( $entry_id, $form_id ) {
 
-		global $frm_entry_meta;
-
 		$this->complete_referral( $entry_id );
 
 		$referral = affiliate_wp()->referrals->get_by( 'reference', $entry_id, $this->context );
@@ -199,7 +206,7 @@ class Affiliate_WP_Formidable_Pro extends Affiliate_WP_Base {
 		$name     = affiliate_wp()->affiliates->get_affiliate_name( $referral->affiliate_id );
 		$note     = sprintf( __( 'AffiliateWP: Referral #%d for %s recorded for %s', 'affiliate-wp' ), $referral->referral_id, $amount, $name );
 
-		$frm_entry_meta->add_entry_meta( $entry_id, 0, '', array( 'comment' => $note, 'user_id' => 0 ) );
+		FrmEntryMeta::add_entry_meta( $entry_id, 0, '', array( 'comment' => $note, 'user_id' => 0 ) );
 
 	}
 
@@ -215,8 +222,6 @@ class Affiliate_WP_Formidable_Pro extends Affiliate_WP_Base {
 	 */
 	public function revoke_referral_on_refund( $entry_id, $form_id ) {
 
-		global $frm_entry_meta;
-
 		$this->reject_referral( $entry_id );
 
 		$referral = affiliate_wp()->referrals->get_by( 'reference', $entry_id, $this->context );
@@ -224,7 +229,7 @@ class Affiliate_WP_Formidable_Pro extends Affiliate_WP_Base {
 		$name     = affiliate_wp()->affiliates->get_affiliate_name( $referral->affiliate_id );
 		$note     = sprintf( __( 'AffiliateWP: Referral #%d for %s for %s rejected', 'affiliate-wp' ), $referral->referral_id, $amount, $name );
 
-		$frm_entry_meta->add_entry_meta( $entry_id, 0, '', array( 'comment' => $note, 'user_id' => 0 ) );
+		FrmEntryMeta::add_entry_meta( $entry_id, 0, '', array( 'comment' => $note, 'user_id' => 0 ) );
 
 	}
 

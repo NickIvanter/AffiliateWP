@@ -15,6 +15,8 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 		add_action( 'rcp_form_processing', array( $this, 'add_pending_referral' ), 10, 3 );
 		add_action( 'rcp_insert_payment', array( $this, 'mark_referral_complete' ), 10, 3 );
 		add_action( 'rcp_delete_payment', array( $this, 'revoke_referral_on_delete' ), 10 );
+		add_action( 'rcp_update_payment_status_refunded', array( $this, 'revoke_referral_refunded_payment' ), 10 );
+		add_action( 'rcp_update_payment_status_abandoned', array( $this, 'revoke_referral_abandoned_payment' ), 10 );
 
 		add_filter( 'affwp_referral_reference_column', array( $this, 'reference_link' ), 10, 2 );
 
@@ -184,10 +186,7 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 			return;
 		}
 
-		$payments = new RCP_Payments;
-		$payment  = $payments->get_payment( $payment_id );
-		$this->reject_referral( $payment->subscription_key );
-
+		$this->revoke_referral( $payment_id );
 	}
 
 	/**
@@ -433,6 +432,46 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 
 		}
 
+	}
+
+
+	/**
+	 * Revokes a referral when the associated payment is refunded.
+	 *
+	 * @since 2.1.16
+	 *
+	 * @param int $payment_id The payment ID.
+	 */
+	public function revoke_referral_refunded_payment( $payment_id ) {
+
+		if( ! affiliate_wp()->settings->get( 'revoke_on_refund' ) ) {
+			return;
+		}
+
+		$this->revoke_referral( $payment_id );
+	}
+
+	/**
+	 * Revokes a referral when the payment is abandoned.
+	 *
+	 * @since 2.1.16
+	 *
+	 * @param int $payment_id The payment ID.
+	 */
+	public function revoke_referral_abandoned_payment( $payment_id ) {
+		$this->revoke_referral( $payment_id );
+	}
+
+	/**
+	 * Revokes the referral for the specified payment.
+	 *
+	 * @since 2.1.16
+	 * @param int $payment_id The payment ID.
+	 */
+	private function revoke_referral( $payment_id ) {
+		$payments = new RCP_Payments;
+		$payment  = $payments->get_payment( $payment_id );
+		$this->reject_referral( $payment->subscription_key );
 	}
 
 }

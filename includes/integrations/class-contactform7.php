@@ -368,7 +368,7 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 	 *
 	 * @since 2.0
 	 *
-	 * @param object $contact_form  CF7 form submission object.
+	 * @param object $contactform   CF7 form submission object.
 	 * @param object $result        Submitted CF7 form submission data.
 	 */
 	public function add_pending_referral( $contactform, $result ) {
@@ -418,11 +418,11 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 			 *
 			 * @param string $description   Item description or CF7 form title
 			 * @param string $form_id       CF7 form id
-			 * @param object $contact_form  CF7 form submission object.
+			 * @param object $contactform   CF7 form submission object.
 			 * @param object $result        Submitted CF7 form submission data.
 			 *
 			 */
-			$description = apply_filters( 'affwp_cf7_referral_description', $description, $form_id, $contact_form, $result );
+			$description = apply_filters( 'affwp_cf7_referral_description', $description, $form_id, $contactform, $result );
 
 			$reference       = $form_id . '-' . date_i18n( 'U' );
 			$affiliate_id    = $this->get_affiliate_id( $reference );
@@ -468,6 +468,13 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 		$form_id         = ! empty( $_GET['form_id'] )     ? absint( $_GET['form_id'] )         : false;
 		$referral_id     = ! empty( $_GET['referral_id'] ) ? absint( $_GET['referral_id'] )     : false;
 		$txn_id          = ! empty( $_GET['tx'] )          ? sanitize_text_field( $_GET['tx'] ) : false;
+
+		$paypal          = get_post_meta( $form_id, '_cf7pp_enable', true );
+
+		// Bail if PayPal add-on is not enabled.
+		if ( ! $paypal ) {
+			return false;
+		}
 
 		if ( ! $form_id || ! $referral_id ) {
 			$this->log( 'CF7 integration: The form ID or referral ID could not be determined.' );
@@ -518,6 +525,13 @@ class Affiliate_WP_Contact_Form_7 extends Affiliate_WP_Base {
 		$current_page_id = $this->get_current_page_id();
 		$form_id         = ! empty( $_GET['form_id'] )     ? absint( $_GET['form_id'] )     : false;
 		$referral_id     = ! empty( $_GET['referral_id'] ) ? absint( $_GET['referral_id'] ) : false;
+
+		$paypal          = get_post_meta( $form_id, '_cf7pp_enable', true );
+
+		// Bail if PayPal add-on is not enabled.
+		if ( ! $paypal ) {
+			return false;
+		}
 
 		if ( ! $form_id || ! $referral_id ) {
 			$this->log( 'CF7 integration: The form ID or referral ID could not be determined.' );

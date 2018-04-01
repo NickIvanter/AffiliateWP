@@ -5,9 +5,10 @@
  * Description: Affiliate Plugin for WordPress
  * Author: AffiliateWP, LLC
  * Author URI: https://affiliatewp.com
- * Version: 2.1.15
+ * Version: 2.1.16
  * Text Domain: affiliate-wp
  * Domain Path: languages
+ * GitHub Plugin URI: affiliatewp/affiliatewp
  *
  * AffiliateWP is distributed under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -24,7 +25,7 @@
  * @package AffiliateWP
  * @category Core
  * @author Pippin Williamson
- * @version 2.1.15
+ * @version 2.1.16
  */
 
 // Exit if accessed directly
@@ -56,7 +57,7 @@ final class Affiliate_WP {
 	 * @since  1.0
 	 * @var    string
 	 */
-	private $version = '2.1.15';
+	private $version = '2.1.16';
 
 	/**
 	 * The affiliates DB instance variable.
