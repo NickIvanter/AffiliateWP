@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
 "POT-Creation-Date: 2017-11-01 22:56:22+00:00\n"
-"PO-Revision-Date: 2017-06-01 00:31-0600\n"
+"PO-Revision-Date: 2018-03-26 16:29+0200\n"
 "Last-Translator: FX Bénard <fx@fxbenard.com>\n"
 "Language-Team: AffiliateWP <support@affiliatewp.com>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -50,8 +50,7 @@ msgstr ""
 #: includes/admin/affiliates/actions.php:155
 #: includes/admin/affiliates/actions.php:159
 #: includes/admin/class-addon-updater.php:283
-#: includes/admin/class-notices.php:564
-#: includes/admin/creatives/actions.php:16
+#: includes/admin/class-notices.php:564 includes/admin/creatives/actions.php:16
 #: includes/admin/creatives/actions.php:44
 #: includes/admin/creatives/actions.php:48
 #: includes/admin/creatives/actions.php:52
@@ -63,9 +62,8 @@ msgstr ""
 #: includes/admin/tools/import/class-batch-import-affiliates.php:111
 #: includes/admin/tools/import/class-batch-import-referrals.php:103
 #: includes/admin/tools/import/import.php:24
-#: includes/admin/tools/import/import.php:30
-#: includes/admin/tools/tools.php:668 includes/admin/tools/tools.php:676
-#: includes/admin/tools/tools.php:686
+#: includes/admin/tools/import/import.php:30 includes/admin/tools/tools.php:668
+#: includes/admin/tools/tools.php:676 includes/admin/tools/tools.php:686
 msgid "Error"
 msgstr "Erreur"
 
@@ -577,10 +575,9 @@ msgstr ""
 
 #: includes/abstracts/class-affwp-reports-tab.php:499
 #: includes/admin/referrals/class-list-table.php:568
-#: includes/admin/referrals/referrals.php:64
-#: includes/admin/tools/tools.php:152 includes/admin/tools/tools.php:308
-#: includes/admin/tools/tools.php:335 includes/admin/tools/tools.php:359
-#: includes/admin/visits/visits.php:55
+#: includes/admin/referrals/referrals.php:64 includes/admin/tools/tools.php:152
+#: includes/admin/tools/tools.php:308 includes/admin/tools/tools.php:335
+#: includes/admin/tools/tools.php:359 includes/admin/visits/visits.php:55
 msgid "Affiliate name"
 msgstr "Nom de l’affilié"
 
@@ -666,8 +663,7 @@ msgstr "Vous n’avez pas la permission pour supprimer les comptes d’affiliati
 
 #: includes/admin/affiliates/actions.php:73
 #: includes/admin/affiliates/actions.php:159
-#: includes/admin/class-notices.php:564
-#: includes/admin/creatives/actions.php:48
+#: includes/admin/class-notices.php:564 includes/admin/creatives/actions.php:48
 #: includes/admin/referrals/actions.php:20
 #: includes/admin/referrals/actions.php:51
 #: includes/admin/referrals/actions.php:82
@@ -678,8 +674,8 @@ msgstr "Échec du test de sécurité"
 msgid "No affiliate IDs specified for deletion"
 msgstr "Aucun ID Affilié spécifié pour la suppression"
 
-#: includes/admin/affiliates/affiliates.php:59
-#: includes/admin/class-menu.php:11 includes/admin/class-menu.php:14
+#: includes/admin/affiliates/affiliates.php:59 includes/admin/class-menu.php:11
+#: includes/admin/class-menu.php:14
 #: includes/admin/reports/tabs/class-affiliates-reports-tab.php:23
 msgid "Affiliates"
 msgstr "Affiliations"
@@ -952,8 +948,7 @@ msgstr ""
 "peut être modifié sur la<a href=\"%1$s\" alt=\"%2$s\">page de modification "
 "de l’utilisateur</a>."
 
-#: includes/admin/affiliates/edit.php:42
-#: includes/admin/affiliates/edit.php:147
+#: includes/admin/affiliates/edit.php:42 includes/admin/affiliates/edit.php:147
 msgid "A link to the user edit screen for this user."
 msgstr "Un lien vers la page de modification de cet utilisateur."
 
@@ -1028,8 +1023,7 @@ msgstr "Site par défaut"
 msgid "The affiliate&#8217;s referral rate type."
 msgstr "Le type du taux de parrainage de l’affilié. "
 
-#: includes/admin/affiliates/edit.php:174
-#: includes/admin/affiliates/new.php:100
+#: includes/admin/affiliates/edit.php:174 includes/admin/affiliates/new.php:100
 #: includes/admin/settings/class-settings.php:523
 #: includes/integrations/class-edd.php:624
 #: includes/integrations/class-memberpress.php:177
@@ -1041,8 +1035,7 @@ msgstr "Le type du taux de parrainage de l’affilié. "
 msgid "Referral Rate"
 msgstr "Taux de parrainage"
 
-#: includes/admin/affiliates/edit.php:179
-#: includes/admin/affiliates/new.php:105
+#: includes/admin/affiliates/edit.php:179 includes/admin/affiliates/new.php:105
 msgid ""
 "The affiliate&#8217;s referral rate, such as 20 for 20%. If left blank, the "
 "site default will be used."
@@ -1062,8 +1055,7 @@ msgstr ""
 "L’e-mail du compte de l’affilié. Mettre à jour modifiera l’adresse e-mail "
 "affichée sur la page du profil de l’utilisateur."
 
-#: includes/admin/affiliates/edit.php:200
-#: includes/admin/affiliates/new.php:113
+#: includes/admin/affiliates/edit.php:200 includes/admin/affiliates/new.php:113
 #: includes/admin/settings/class-settings.php:830
 #: includes/admin/tools/export/class-batch-export-affiliates.php:96
 #: includes/admin/tools/export/class-batch-export-referrals.php:146
@@ -1075,8 +1067,7 @@ msgstr ""
 msgid "Payment Email"
 msgstr "Adresse de messagerie de paiement"
 
-#: includes/admin/affiliates/edit.php:205
-#: includes/admin/affiliates/new.php:118
+#: includes/admin/affiliates/edit.php:205 includes/admin/affiliates/new.php:118
 msgid ""
 "Affiliate&#8217;s payment email for systems such as PayPal, Moneybookers, or "
 "others. Leave blank to use the affiliate&#8217;s user email."
@@ -1093,13 +1084,11 @@ msgstr "Méthode de promotion"
 msgid "Promotion methods entered by the affiliate during registration."
 msgstr "La méthode promotionnelle utilisée par l’affilié"
 
-#: includes/admin/affiliates/edit.php:226
-#: includes/admin/affiliates/new.php:126
+#: includes/admin/affiliates/edit.php:226 includes/admin/affiliates/new.php:126
 msgid "Affiliate Notes"
 msgstr "Taux d’affiliation :"
 
-#: includes/admin/affiliates/edit.php:231
-#: includes/admin/affiliates/new.php:131
+#: includes/admin/affiliates/edit.php:231 includes/admin/affiliates/new.php:131
 msgid ""
 "Enter any notes for this affiliate. Notes are only visible to the admin."
 msgstr ""
@@ -1912,18 +1901,16 @@ msgid "Apply"
 msgstr "Appliquer"
 
 #: includes/admin/referrals/class-list-table.php:574
-#: includes/admin/referrals/referrals.php:67
-#: includes/admin/tools/tools.php:310 includes/admin/tools/tools.php:337
-#: includes/admin/tools/tools.php:361 includes/admin/visits/visits.php:58
-#: includes/class-graph.php:419
+#: includes/admin/referrals/referrals.php:67 includes/admin/tools/tools.php:310
+#: includes/admin/tools/tools.php:337 includes/admin/tools/tools.php:361
+#: includes/admin/visits/visits.php:58 includes/class-graph.php:419
 msgid "From - mm/dd/yyyy"
 msgstr "Du - jj/mm/aaaa"
 
 #: includes/admin/referrals/class-list-table.php:575
-#: includes/admin/referrals/referrals.php:68
-#: includes/admin/tools/tools.php:311 includes/admin/tools/tools.php:338
-#: includes/admin/tools/tools.php:362 includes/admin/visits/visits.php:59
-#: includes/class-graph.php:421
+#: includes/admin/referrals/referrals.php:68 includes/admin/tools/tools.php:311
+#: includes/admin/tools/tools.php:338 includes/admin/tools/tools.php:362
+#: includes/admin/visits/visits.php:59 includes/class-graph.php:421
 msgid "To - mm/dd/yyyy"
 msgstr "Au - jj/mm/aaaa"
 
@@ -2752,7 +2739,7 @@ msgstr "Désactiver tous les e-mails"
 
 #: includes/admin/settings/class-settings.php:627
 msgid "Disable all email notifications."
-msgstr "Activer les notifications de nouveau parrainage"
+msgstr "Cochez pour désactiver les notifications de nouveau parrainage"
 
 #: includes/admin/settings/class-settings.php:631
 msgid "Logo"
@@ -6334,9 +6321,9 @@ msgstr "Traffic direct"
 #~ msgstr "Un Tableau de bord pour vos affiliés"
 
 #~ msgid ""
-#~ "The Affiliate Area, shown on any page containing the <em>[affiliate_area]"
-#~ "</em> shortcode, gives your affiliates access to their performance "
-#~ "reports."
+#~ "The Affiliate Area, shown on any page containing the "
+#~ "<em>[affiliate_area]</em> shortcode, gives your affiliates access to "
+#~ "their performance reports."
 #~ msgstr ""
 #~ "La zone d’affilition, affichée sur n’importe quelle page contenant le "
 #~ "code court <em>[affiliate_area]</em>, donne aux affiliés accès à leurs "
