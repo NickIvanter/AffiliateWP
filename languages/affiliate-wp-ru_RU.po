@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
 "POT-Creation-Date: 2017-02-17 03:04:25+00:00\n"
-"PO-Revision-Date: 2017-11-17 18:00+0300\n"
+"PO-Revision-Date: 2017-11-20 14:36+0300\n"
 "Last-Translator: Nick Ivanter <nick.ivanter@gmail.com>\n"
 "Language-Team: AffiliateWP <support@affiliatewp.com>\n"
 "Language: ru\n"
@@ -1828,7 +1828,7 @@ msgstr "Невыплачено"
 #: includes/integrations/class-lifterlms.php:677
 #: includes/integrations/class-lifterlms.php:702
 msgid "Reference"
-msgstr "Отсылка"
+msgstr "Номер"
 
 #: includes/admin/referrals/class-list-table.php:172
 #: includes/admin/referrals/edit.php:147 includes/admin/referrals/new.php:49
