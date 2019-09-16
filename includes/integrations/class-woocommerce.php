@@ -491,7 +491,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	*/
 	private function get_coupon_affiliate_id() {
 
-		$coupons = $this->order->get_used_coupons();
+		$coupons = $this->order->get_coupon_codes();
 
 		if ( empty( $coupons ) ) {
 			return false;
